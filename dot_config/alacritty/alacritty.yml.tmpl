@@ -17,11 +17,19 @@ window:
 
   dynamic_padding: false
 
+{{ if eq .chezmoi.os "linux" -}}
+  decorations: none
+{{ else if eq .chezmoi.os "darwin" -}}
   decorations: buttonless
-  # Values for `decorations` (macOS only):
+{{ end -}}
+  # Values for `decorations`
+  #   - full: Borders and title bar
+  #   - none: Neither borders nor title bar
+  # (macOS only):
   #   - transparent: Title bar, transparent background and title bar buttons
   #   - buttonless: Title bar, transparent background, but no title bar buttons
 
+{{ if eq .chezmoi.os "darwin" -}}
   startup_mode: Fullscreen
   # Values for `startup_mode`:
   #   - Windowed
@@ -29,8 +37,15 @@ window:
   #   - Fullscreen
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
+{{ end -}}
 
   title: Alacritty
+
+{{ if eq .chezmoi.os "linux" -}}
+  class:
+    instance: Alacritty
+    general: Alacritty
+{{ end -}}
 
 scrolling:
   history: 10000
@@ -119,6 +134,90 @@ schemes:
       magenta: "#FFEE99"
       cyan: "#95E6CB"
       white: "#FFFFFF"
+
+  doom-one: &doom-one
+    primary:
+      background: "#282c34"
+      foreground: "#bbc2cf"
+    cursor:
+      text: CellBackground
+      cursor: "#528bff"
+    selection:
+      text: CellForeground
+      background: "#3e4451"
+    normal:
+      black: "#1c1f24"
+      red: "#ff6c6b"
+      green: "#98be65"
+      yellow: "#da8548"
+      blue: "#51afef"
+      magenta: "#c678dd"
+      cyan: "#5699af"
+      white: "#202328"
+    bright:
+      black: "#5b6268"
+      red: "#da8548"
+      green: "#4db5bd"
+      yellow: "#ecbe7b"
+      blue: "#3071db" # This is 2257a0 in Doom Emacs but I lightened it.
+      magenta: "#a9a1e1"
+      cyan: "#46d9ff"
+      white: "#dfdfdf"
+
+  dracula: &dracula
+    colors:
+      primary:
+        background: "#282a36"
+        foreground: "#f8f8f2"
+      cursor:
+        text: CellBackground
+        cursor: CellForeground
+      vi_mode_cursor:
+        text: CellBackground
+        cursor: CellForeground
+      search:
+        matches:
+          foreground: "#44475a"
+          background: "#50fa7b"
+        focused_match:
+          foreground: "#44475a"
+          background: "#ffb86c"
+        bar:
+          background: "#282a36"
+          foreground: "#f8f8f2"
+      line_indicator:
+        foreground: None
+        background: None
+      selection:
+        text: CellForeground
+        background: "#44475a"
+      normal:
+        black: "#000000"
+        red: "#ff5555"
+        green: "#50fa7b"
+        yellow: "#f1fa8c"
+        blue: "#bd93f9"
+        magenta: "#ff79c6"
+        cyan: "#8be9fd"
+        white: "#bfbfbf"
+      bright:
+        black: "#4d4d4d"
+        red: "#ff6e67"
+        green: "#5af78e"
+        yellow: "#f4f99d"
+        blue: "#caa9fa"
+        magenta: "#ff92d0"
+        cyan: "#9aedfe"
+        white: "#e6e6e6"
+      dim:
+        black: "#14151b"
+        red: "#ff2222"
+        green: "#1ef956"
+        yellow: "#ebf85b"
+        blue: "#4d5b86"
+        magenta: "#ff46b0"
+        cyan: "#59dffc"
+        white: "#e6e6d1"
 
   campbell: &campbell
     primary:
@@ -220,7 +319,7 @@ bell:
   color: "#ffffff"
   command: None
 
-background_opacity: 1.0
+background_opacity: 0.8
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -256,6 +355,11 @@ mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
 key_bindings:
+{{ if eq .chezmoi.os "linux" -}}
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: Insert, mods: Shift, action: PasteSelection }
+{{ end -}}
   - { key: Paste, action: Paste }
   - { key: Copy, action: Copy }
   - { key: L, mods: Control, action: ClearLogNotice }
@@ -266,8 +370,6 @@ key_bindings:
   - { key: End, mods: Shift, mode: ~Alt, action: ScrollToBottom }
 
   #Vi Mode
-  - { key: U, mods: Command, mode: Vi|~Search, action: ScrollToBottom }
-  - { key: U, mods: Command, mode: ~Search, action: ToggleViMode }
   - { key: Escape, mode: Vi|~Search, action: ClearSelection }
   - { key: I, mode: Vi|~Search, action: ScrollToBottom }
   - { key: I, mode: Vi|~Search, action: ToggleViMode }
@@ -327,7 +429,12 @@ key_bindings:
   - { key: Return, mode: Search|~Vi, action: SearchFocusNext }
   - { key: Return, mods: Shift, mode: Search|~Vi, action: SearchFocusPrevious }
 
+{{ if eq .chezmoi.os "darwin" -}}
   #macOS only
+  #Vi Mode
+  - { key: U, mods: Command, mode: Vi|~Search, action: ScrollToBottom }
+  - { key: U, mods: Command, mode: ~Search, action: ToggleViMode }
+
   - { key: N, mods: Command, action: SpawnNewInstance }
   - { key: K, mods: Command, mode: ~Vi|~Search, chars: "\x0c" }
   - { key: K, mods: Command, mode: ~Vi|~Search, action: ClearHistory }
@@ -350,6 +457,7 @@ key_bindings:
   - { key: F, mods: Command|Control, action: ToggleFullscreen }
   - { key: F, mods: Command, mode: ~Search, action: SearchForward }
   - { key: B, mods: Command, mode: ~Search, action: SearchBackward }
+{{ end -}}
 
 debug:
   render_timer: false
