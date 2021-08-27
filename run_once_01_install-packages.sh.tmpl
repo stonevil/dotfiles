@@ -2,10 +2,10 @@
 
 {{ if eq .chezmoi.os "linux" -}}
 if command -v pacman >/dev/null; then
-	sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu && sudo pacman --noconfirm -Syu $(paste -s -d ' ' Pacfile) || exit 1
+	sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu && sudo pacman --noconfirm -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile) || exit 1
 fi
 if command -v apk >/dev/null; then
-	apk update && apk upgrade && apk --update add $(paste -s -d ' ' Apkfile) || exit 1
+	apk update && apk upgrade && apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile) || exit 1
 fi
 
 {{ else if eq .chezmoi.os "darwin" -}}

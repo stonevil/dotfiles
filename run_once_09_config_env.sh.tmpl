@@ -2,7 +2,6 @@
 
 {{ if eq .chezmoi.os "linux" -}}
 usermod -s /bin/zsh "$(id -u -n)"
-{{ end -}}
 
 {{ else if eq .chezmoi.os "darwin" -}}
 chsh -s /bin/zsh
