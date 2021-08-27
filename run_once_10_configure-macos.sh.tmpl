@@ -64,7 +64,7 @@ defaults write com.apple.dock wvous-tl-modifier -int 0
 defaults write com.apple.finder CreateDesktop -bool false
 
 # Finder: disable window animations and Get Info animations
-defaults write com.apple.finder DisableAllAnimations -bool true
+#defaults write com.apple.finder DisableAllAnimations -bool true
 
 # Finder: set Documents as the default location for new Finder windows
 defaults write com.apple.finder NewWindowTarget -string "PfDo"
@@ -86,13 +86,13 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 
 # Finder: show path bar
-defaults write com.apple.finder ShowPathbar -bool true
+#defaults write com.apple.finder ShowPathbar -bool true
 
 # Finder: allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # Finder: display full POSIX path as Finder window title
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool false
+#defaults write com.apple.finder _FXShowPosixPathInTitle -bool false
 
 # Finder: when performing a search, search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
@@ -175,8 +175,8 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 
 # Mail: disable send and reply animations
-defaults write com.apple.mail DisableReplyAnimations -bool true
-defaults write com.apple.mail DisableSendAnimations -bool true
+#defaults write com.apple.mail DisableReplyAnimations -bool true
+#defaults write com.apple.mail DisableSendAnimations -bool true
 
 # Mail: copy email addresses as `Foo Bar <foo@example.com>` instead of `foo@example.com` in Mail.app
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool true
@@ -199,9 +199,9 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool true
 
 # Messages: enable smart quotes
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool true
+#defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool true
 # Messages: enable dash quotes
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticDashSubstitutionEnabled" -bool true
+#defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticDashSubstitutionEnabled" -bool true
 
 # Messages: enable data and link detectors
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticDataDetectionEnabled" -bool true
@@ -229,7 +229,7 @@ defaults write com.apple.systemuiserver menuExtras -array \
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 # macOS: set highlight color to Red
-defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.733333 0.721569 Red"
+#defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.733333 0.721569 Red"
 
 # Finder: set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
@@ -265,10 +265,10 @@ defaults write com.apple.CrashReporter UseUNC -int 1
 defaults write com.apple.helpviewer DevMode -bool true
 
 # macOS: enable smart quotes
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool true
+#defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool true
 
 # macOS: enable smart dashes
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool true
+#defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool true
 
 # Safari: press Tab to highlight each item on a web page
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
@@ -317,14 +317,14 @@ defaults write com.apple.Safari AlwaysRestoreSessionAtLaunch -int 1
 
 # macOS: require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+defaults write com.apple.screensaver askForPasswordDelay -int 5
 
 # macOS: setup screensaver
 defaults -currentHost write com.apple.screensaver showClock -int 1
 defaults -currentHost write com.apple.screensaver idleTime -int 600
 
-# macOS: save screenshots to the desktop
-defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+# macOS: save screenshots to the Downloads
+defaults write com.apple.screencapture location -string "${HOME}/Downloads"
 
 # macOS: save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
