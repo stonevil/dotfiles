@@ -6,6 +6,7 @@ curl -L git.io/antigen > "$HOME"/.antigen.zsh
 if command -v pacman >/dev/null; then
 	if grep -q docker /proc/1/cgroup; then
 		patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && curl -LO "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${patched_glibc}" && bsdtar -C / -xvf "${patched_glibc}" || echo "Everything is fine."
+		pacman -Sy --noconfirm sudo
 	fi
 	sudo pacman -Sy --noconfirm zsh git gopass
 fi
