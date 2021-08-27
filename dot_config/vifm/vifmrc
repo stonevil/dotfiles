@@ -1,5 +1,6 @@
 " vim: filetype=vifm :
 
+
 " ------------------------------------------------------------------------------
 
 set vicmd=nvim
@@ -24,10 +25,9 @@ set vimhelp
 " press Enter, l or Right Arrow, set this.
 set norunexec
 
-colorscheme gruvbox zenburn_1 Default-256 Default
+colorscheme gruvbox zenburn_1
 
-" Format for displaying time in file list. For example:
-" TIME_STAMP_FORMAT=%m/%d-%H:%M
+" Format for displaying time in file list. For example: TIME_STAMP_FORMAT=%m/%d-%H:%M
 set timefmt=%m/%d\ %H:%M
 
 " Show list of matches on tab completion in command-line mode
@@ -64,6 +64,7 @@ set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 " :mark mark /full/directory/path [filename]
 mark b ~/bin/
 mark h ~/
+
 
 " ------------------------------------------------------------------------------
 
@@ -117,7 +118,7 @@ command! reload :write | restart full
 " You can also add %CLEAR if you want to clear screen before running FUSE
 " program.
 
-" Pdf
+" PDF
 filetype {*.pdf},<application/pdf>
        \ {Open in Preview}
        \ open -a Preview.app,
@@ -128,7 +129,7 @@ fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
 " PostScript
 filetype {*.ps,*.eps,*.ps.gz},<application/postscript> open -a Preview.app
 
-" Djvu
+" DJvu
 filetype {*.djvu},<image/vnd.djvu> open -a MacDjView.app
 
 " Audio
@@ -282,6 +283,7 @@ fileviewer {*.docx},
 set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
     \phistory,fhistory,dirstack,registers,bookmarks,bmarks
 
+
 " ------------------------------------------------------------------------------
 
 " Examples of configuring both panels
@@ -293,6 +295,7 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " Filter-out build and temporary files
 "
 " filter! {*.lo,*.o,*.d,*.class,*.pyc,*.pyo,.*~}
+
 
 " ------------------------------------------------------------------------------
 
