@@ -1,3 +1,4 @@
+brew "chezmoi"
 tap "cjbassi/gotop"
 tap "clementtsang/bottom"
 tap "esolitos/ipa"
