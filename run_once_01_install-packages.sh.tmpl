@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+{{ if eq .chezmoi.os "linux" -}}
+if command -v pacman >/dev/null; then
+	sudo pacman -Sy --noconfirm zsh git gopass
+fi
+usermod -s /bin/zsh "$(id -u -n)"
+
+{{ else if eq .chezmoi.os "darwin" -}}
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "git"
+EOF
+{{ end -}}
