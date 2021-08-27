@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # vim:ft=sh :
 
+# TODO
+# 1. Rewrite and sync with gitconfig
+
 # Git
 if command -v git >/dev/null; then
 	alias gad='git add'

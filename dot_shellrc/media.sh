@@ -4,3 +4,7 @@
 ydl() {
 	youtube-dl -f mp4 --audio-format "best" "$@"
 }
+
+ymdl() {
+	youtube-dl -x --audio-format m4a --embed-thumbnail "$@"
+}
