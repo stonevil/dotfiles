@@ -5,7 +5,7 @@ cd "$HOME" || exit 1
 curl -L git.io/antigen > "$HOME"/.antigen.zsh
 
 {{ if eq .chezmoi.os "linux" -}}
-usermod -s /bin/zsh "$(id -u -n)"
+sudo usermod -s /bin/zsh "$(id -u -n)"
 
 {{ else if eq .chezmoi.os "darwin" -}}
 chsh -s /bin/zsh
