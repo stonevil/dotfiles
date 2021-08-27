@@ -1,73 +1,87 @@
-# /etc/inputrc: initialization file for readline
-#
-# For more information on how this file works, please see the
-# INITIALIZATION FILE section of the readline(3) man page
-#
-# Quick dirty little note:
-#  To get the key sequence for binding, you can abuse bash.
-#  While running bash, hit CTRL+V, and then type the key sequence.
-#  So, typing 'ALT + left arrow' in Konsole gets you back:
-#    ^[[1;3D
-#  The readline entry to make this skip back a word will then be:
-#    "\e[1;3D" backward-word
-#
+# Initialization file for readline
 
-# do not bell on tab-completion
-#set bell-style none
+# TODO
+# 1. Extensive test
+# 2. Cleanup
 
-# enable vi editing mode
-set editing-mode vi
-set keymap vi-insert
-set visible-stats on
-set show-all-if-ambiguous on
+# Do not bell on tab-completion
+set bell-style none
 
+# 8 bit
 set meta-flag on
 set input-meta on
-set convert-meta off
 set output-meta on
 
-# Completed names which are symbolic links to
-# directories have a slash appended.
+# To allow the use of 8bit-characters like the german umlauts
+set convert-meta off
+
+# Enable vi editing mode
+set editing-mode vi
+
+# Keymaps for when we're in insert
+set keymap vi-insert
+# Keymaps for when we're in command mode
+set keymap vi-command
+
+# Mode indicator in prompt
+set show-mode-in-prompt on
+
+# Disabling control echo
+set echo-control-characters off
+
+# Different cursor shapes for each mode
+$if term=linux
+	set vi-ins-mode-string \1\e[?0c\2
+	set vi-cmd-mode-string \1\e[?8c\2
+$else
+	set vi-ins-mode-string \1\e[6 q\2
+	set vi-cmd-mode-string \1\e[2 q\2
+$endif
+
+# Color files by types. Note that this may cause completion text blink in some terminals (e.g. xterm).
+set colored-stats on
+# Append char to indicate type
+set visible-stats on
+# Mark symlinked directories
+set mark-symlinked-directories on
+# Color the common prefix
+set colored-completion-prefix on
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix on
+
+# Show all completions as soon as I press TAB, even if there's more than one
+set show-all-if-ambiguous on
+# Shift-TAB cycles completions backward
+"\e[Z": menu-complete-backward
+# On menu-complete, first display the common prefix, then cycle through the options when hitting TAB
+set menu-complete-display-prefix on
+
+# Ignore case
+set completion-ignore-case on
+
+# Completed names which are symbolic links to directories have a slash appended.
 set mark-symlinked-directories on
 
-$if mode=emacs
+# Insert the arguments from the last command
+"p": "i !!*\r"
+# Needed because binding 'p' in command mode above wipes its insert mode function, too. This fixes that, and will insert 'p' when you type 'p'.
+"p": self-insert
 
-# for linux console and RH/Debian xterm
-"\e[1~": beginning-of-line
-"\e[4~": end-of-line
-#"\e[5~": beginning-of-history
-#"\e[6~": end-of-history
-"\e[5~": history-search-backward
-"\e[6~": history-search-forward
-"\e[3~": delete-char
-"\e[2~": quoted-insert
+# Edit options before rerunning previous command, eg: ls a b c -> ls -al a b c
+"\C-o": "\e-0eli "
 
-# gnome-terminal (escape + arrow key)
-"\e[5C": forward-word
-"\e[5D": backward-word
-# konsole / xterm / rxvt (escape + arrow key)
-"\e\e[C": forward-word
-"\e\e[D": backward-word
-# konsole (alt + arrow key)
-"\e[1;3C": forward-word
-"\e[1;3D": backward-word
-# aterm / eterm (control + arrow key)
-"\eOc": forward-word
-"\eOd": backward-word
+# Cycle thru completions.
+"\C-a": menu-complete
 
-$if term=rxvt
-"\e[8~": end-of-line
-$endif
+# Glob patterns without executing, eg: 'rm *x'
+"\C-e": glob-expand-word
 
-# for non RH/Debian xterm, can't hurt for RH/Debian xterm
-"\eOH": beginning-of-line
-"\eOF": end-of-line
+# Vim style history search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
 
-# for freebsd console
-"\e[H": beginning-of-line
-"\e[F": end-of-line
-$endif
+#"\e[C": forward-char
+#"\e[D": backward-char
 
-# fix Home and End for German users
-"\e[7~": beginning-of-line
-"\e[8~": end-of-line
+# Two escapes clear command line. (Use C-c or \eC\eC instead)
+"\e\e": "\e0\C-ki"
