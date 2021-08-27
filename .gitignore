@@ -1,0 +1,17 @@
+# Vim artifacts
+.session.vim
+.undodir
+
+# Brew artifacts
+Brewfile.lock.json
+package-lock.json
+
+# Node.js artifacts
+node_modules
+yarn.lock
+
+# Ctags/tags artifacts
+tags
+
+# Local binary
+bin/
