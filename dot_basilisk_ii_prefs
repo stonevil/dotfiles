@@ -1,0 +1,30 @@
+extfs Put an OS X path here to share it with Basilisk
+ether slirp
+udptunnel false
+udpport 6066
+rom Put the path to your ROM file here
+bootdrive 0
+bootdriver 0
+ramsize 67108864
+frameskip 0
+modelid 5
+cpu 3
+fpu false
+nocdrom false
+nosound false
+noclipconversion false
+nogui false
+jit true
+jitfpu false
+jitdebug false
+jitcachesize 8192
+jitlazyflush true
+jitinline true
+keyboardtype 5
+keycodes false
+mousewheelmode 1
+mousewheellines 3
+dsp /dev/dsp
+mixer /dev/mixer
+ignoresegv false
+idlewait true

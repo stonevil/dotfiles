@@ -1,0 +1,23 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env sh
+
+curl -L git.io/antigen > "$HOME"/.antigen.zsh
+sudo pacman -S zsh
+usermod -s /bin/zsh "$(id -u -n)"
+{{ end -}}
+
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env sh
+
+curl -L git.io/antigen > "$HOME"/.antigen.zsh
+if [ -d "$HOME"/.homebrew ]; then
+	rm -Rf "$HOME"/.homebrew
+fi
+git clone https://github.com/Homebrew/brew.git "$HOME"/.homebrew
+export PATH="$HOME"/.homebrew/bin:$PATH
+brew update && brew upgrade && brew upgrade --cask
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "git"
+EOF
+{{ end -}}
