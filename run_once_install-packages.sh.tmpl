@@ -1,15 +1,17 @@
-{{- if eq .chezmoi.os "linux" -}}
 #!/usr/bin/env sh
 
 curl -L git.io/antigen > "$HOME"/.antigen.zsh
-sudo pacman -S zsh
+
+{{ if eq .chezmoi.os "linux" -}}
+if command -v pacman >/dev/null; then
+	if grep -q docker /proc/1/cgroup; then
+		patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && curl -LO "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${patched_glibc}" && bsdtar -C / -xvf "${patched_glibc}" || echo "Everything is fine."
+	fi
+	sudo pacman -Sy --noconfirm zsh git gopass
+fi
 usermod -s /bin/zsh "$(id -u -n)"
-{{ end -}}
 
-{{- if (eq .chezmoi.os "darwin") -}}
-#!/usr/bin/env sh
-
-curl -L git.io/antigen > "$HOME"/.antigen.zsh
+{{ else if eq .chezmoi.os "darwin" -}}
 if [ -d "$HOME"/.homebrew ]; then
 	rm -Rf "$HOME"/.homebrew
 fi
