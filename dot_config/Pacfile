@@ -1,6 +1,13 @@
 chezmoi
 zsh
 git
+tmux
+bat
+fzf
 gopass
 python
 python-pip
+go
+base-devel
+vagrant
+virtualbox
