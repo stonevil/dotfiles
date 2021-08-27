@@ -1,0 +1,7 @@
+Jinja2==2.10
+ansible
+docker
+neovim
+ranger-fm
+yamllint
+youtube-dl
