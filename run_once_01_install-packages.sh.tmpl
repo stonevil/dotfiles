@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+cd "$HOME" || exit 1
+
 {{ if eq .chezmoi.os "linux" -}}
 if command -v pacman >/dev/null; then
 	sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu && sudo pacman --noconfirm -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile) || exit 1
@@ -15,8 +17,8 @@ fi
 {{ end -}}
 
 if command -v pip3 >/dev/null; then
-	pip3 install --upgrade pip || exit 1
-	pip3 install --upgrade --force-reinstall -r "$HOME"/.config/Pipfile || exit 1
+	pip3 install --user --upgrade pip || exit 1
+	pip3 install --user --upgrade --force-reinstall -r "$HOME"/.config/Pipfile || exit 1
 fi
 
 if command -v kubectl-krew >/dev/null; then

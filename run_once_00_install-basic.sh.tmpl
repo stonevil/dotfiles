@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
-curl -L git.io/antigen > "$HOME"/.antigen.zsh
+cd "$HOME" || exit 1
 
 {{ if eq .chezmoi.os "linux" -}}
 if command -v pacman >/dev/null; then
 	if grep -q docker /proc/1/cgroup; then
-		patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && curl -LO "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${patched_glibc}" && bsdtar -C / -xvf "${patched_glibc}" && rm -f "${patched_glibc}" || echo "Everything is fine."
-		pacman -Sy --noconfirm sudo
+		patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && curl -LO "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${patched_glibc}" && sudo bsdtar -C / -xvf "${patched_glibc}" && rm -f "${patched_glibc}" || echo "Everything is fine."
+		sudo pacman -Sy --noconfirm sudo
 	fi
 fi
 
