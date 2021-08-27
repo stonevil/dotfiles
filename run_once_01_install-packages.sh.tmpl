@@ -5,6 +5,8 @@ cd "$HOME" || exit 1
 {{ if eq .chezmoi.os "linux" -}}
 if command -v pacman >/dev/null; then
 	sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu && sudo pacman --noconfirm -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile) || exit 1
+	cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg --noconfirm -csi && cd /tmp && rm -rf /tmp/yay && yay -Y --gendb && yay -Syu --devel && yay -Y --devel --save || exit 1
+	yay --noconfirm -Syu $(paste -s -d ' ' "$HOME"/.config/Yayfile) || exit 1
 fi
 if command -v apk >/dev/null; then
 	apk update && apk upgrade && apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile) || exit 1
