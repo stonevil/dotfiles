@@ -2,12 +2,34 @@
 
 {{ if eq .chezmoi.os "linux" -}}
 if command -v pacman >/dev/null; then
-	sudo pacman -Sy --noconfirm zsh git gopass
+	sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu && sudo pacman --noconfirm -Syu $(paste -s -d ' ' Pacfile) || exit 1
 fi
-usermod -s /bin/zsh "$(id -u -n)"
+if command -v apk >/dev/null; then
+	apk update && apk upgrade && apk --update add $(paste -s -d ' ' Apkfile) || exit 1
+fi
 
 {{ else if eq .chezmoi.os "darwin" -}}
-brew bundle --no-lock --file=/dev/stdin <<EOF
-brew "git"
-EOF
+	export PATH="$HOME"/.homebrew/bin:$PATH
+	brew bundle --no-lock --file="$HOME/.config/Brewfile" || exit 1
+	brew cleanup --quiet --prune=30
 {{ end -}}
+
+if command -v pip3 >/dev/null; then
+	pip3 install --upgrade pip || exit 1
+	pip3 install --upgrade --force-reinstall -r "$HOME"/.config/Pipfile || exit 1
+fi
+
+if command -v kubectl-krew >/dev/null; then
+	kubectl-krew install <"$HOME"/.config/Krewfile
+fi
+
+if command -v gem >/dev/null; then
+	xargs <"$HOME"/.config/Gemsfile gem install
+fi
+
+if command -v go >/dev/null; then
+	source "$HOME"/.shellrc/golang
+	while IFS= read -r line; do
+		go get -u "$line"
+	done <"$HOME"/.config/Gofile
+fi
