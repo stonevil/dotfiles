@@ -1,10 +1,5 @@
 {
   "dependencies": {
-    "bash-language-server": {
-      "version": "1.7.0",
-      "from": "bash-language-server",
-      "resolved": "https://registry.npmjs.org/bash-language-server/-/bash-language-server-1.7.0.tgz"
-    },
     "neovim": {
       "version": "4.9.0",
       "from": "neovim",
