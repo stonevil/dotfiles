@@ -9,7 +9,6 @@ fzf
 htop
 dos2unix
 tmux
-gopass
 base-devel
 python
 python-pip
@@ -41,4 +40,3 @@ parallel
 mkcert
 eslint
 gnutls
-ccache

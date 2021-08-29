@@ -6,6 +6,8 @@ virtualbox-guest-iso
 virtualbox-ext-vnc
 virtualbox-guest-utils
 minikube
+ccache
+gopass
 neomutt
 picocom
 minicom

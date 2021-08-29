@@ -1,9 +1,6 @@
 hadolint-bin
 krew-bin
-gotags
-usql
 imgcat
-golangci-lint
 kubeval-bin
 zplug
 stern
