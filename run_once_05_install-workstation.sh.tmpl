@@ -3,14 +3,14 @@
 cd "$HOME" || exit 1
 
 {{ if eq .chezmoi.os "linux" -}}
-if [[ ! grep -q docker /proc/1/cgroup ]]; then
-	if [[ command -v pacman >/dev/null && -f "$HOME"/.config/Pacfile.workstation ]]; then
+if ! grep -q docker /proc/1/cgroup; then
+	if command -v pacman >/dev/null && [[ -f "$HOME"/.config/Pacfile.workstation ]]; then
 		sudo pacman --noconfirm -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile.workstation) || exit 1
-		if [[ command -v yay >/dev/null && -f "$HOME"/.config/Yayfile.workstation ]]; then
+		if command -v yay >/dev/null && [[ -f "$HOME"/.config/Yayfile.workstation ]]; then
 			yay --noconfirm -Syu $(paste -s -d ' ' "$HOME"/.config/Yayfile.workstation) || exit 1
 		fi
 	fi
-	if [[ command -v apk >/dev/null && -f "$HOME"/.config/Apkfile.workstation ]]; then
+	if command -v apk >/dev/null && [[ -f "$HOME"/.config/Apkfile.workstation ]]; then
 		sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile.workstation) || exit 1
 	fi
 fi
