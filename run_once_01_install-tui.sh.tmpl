@@ -33,7 +33,7 @@ if command -v gem >/dev/null; then
 fi
 
 if command -v go >/dev/null; then
-	source "$HOME"/.shellrc/golang
+	source "$HOME"/.shellrc/golang.sh
 	while IFS= read -r line; do
 		go get -u "$line"
 	done <"$HOME"/.config/Gofile
