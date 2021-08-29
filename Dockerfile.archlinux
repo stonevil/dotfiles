@@ -29,7 +29,7 @@ VOLUME ["/chezmoi"]
 RUN	${SOFTWARE_DOWNLOAD_CMD} "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${PATCHED_GLIBC_VERSION}" | bsdtar -xvf - -C / && \
 	${UPGRADE_CMD} && \
 	${INSTALL_CMD} sudo && \
-	SOFTWARE_DOWNLOAD_CMD https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCH} -O /usr/bin/gosu && chmod 755 /usr/bin/gosu && \
+	${SOFTWARE_DOWNLOAD_CMD} https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCH} -O /usr/bin/gosu && chmod 755 /usr/bin/gosu && \
 	echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
 	groupadd -g 1026 ${USERNAME} && \
 	useradd -u 1026 -g ${USERNAME} -G wheel -m -s /bin/sh ${USERNAME} && \
