@@ -1,0 +1,42 @@
+# vim:ft=Dockerfile :
+FROM archlinux:latest
+
+# Define basic CLI
+ENV SOFTWARE_DOWNLOAD_TIMEOUT=${SOFTWARE_DOWNLOAD_TIMEOUT:-300}
+ENV SOFTWARE_DOWNLOAD_RETRIES=${SOFTWARE_DOWNLOAD_RETRIES:-5}
+ENV SOFTWARE_DOWNLOAD_RETRIES_DELAY=${SOFTWARE_DOWNLOAD_RETRIES_DELAY:-10}
+ENV SOFTWARE_DOWNLOAD_CMD="curl --connect-timeout ${SOFTWARE_DOWNLOAD_TIMEOUT} --retry ${SOFTWARE_DOWNLOAD_RETRIES} --retry-delay ${SOFTWARE_DOWNLOAD_RETRIES_DELAY} --silent --insecure --location"
+ENV UPGRADE_CMD="pacman --noconfirm -Syy"
+ENV INSTALL_CMD="pacman --noconfirm -Syu"
+ENV REMOVE_CMD="pacman --noconfirm -Rcns"
+ENV CACHE_RM="rm -rf /tmp/*.tar*"
+
+ENV NOTVISIBLE "in users profile"
+
+ARG USERNAME=${USERNAME:-vagrant}
+ARG USERPWD=${USERPWD:-vagrant}
+
+ARG ENV_NAME=${ENV_NAME:-vagrant}
+
+ARG PATCHED_GLIBC=${PATCHED_GLIBC:-glibc-linux4-2.33-4-x86_64.pkg.tar.zst}
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+VOLUME ["/chezmoi"]
+
+RUN	${SOFTWARE_DOWNLOAD_CMD} "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${PATCHED_GLIBC}" | bsdtar -xvf - -C / && \
+	${UPGRADE_CMD} && \
+	${INSTALL_CMD} sudo && \
+	echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
+	groupadd -g 1026 ${USERNAME} && \
+	useradd -u 1026 -g ${USERNAME} -G wheel -m -s /bin/sh ${USERNAME} && \
+	echo "${USERNAME}:${USERPWD}" | /usr/sbin/chpasswd && \
+	echo "${USERNAME} ALL=(ALL) ALL" >> /etc/sudoers && \
+	chown -Rf ${USERNAME}:${USERNAME} /home/${USERNAME} && \
+	chmod -Rf go-rwX /home/${USERNAME}
+
+#COPY . /chezmoi
+
+#RUN su - "${USERNAME}" -c '"$(curl -fsLS git.io/chezmoi)" -- init --apply --source /chezmoi'
+
+CMD ["while true;", "do:", "sleep", "30;", "done;"]
