@@ -29,7 +29,7 @@ if command -v kubectl-krew >/dev/null; then
 fi
 
 if command -v gem >/dev/null; then
-	xargs <"$HOME"/.config/Gemsfile gem install
+	xargs <"$HOME"/.config/Gemsfile gem install --user-install
 fi
 
 if command -v go >/dev/null; then
