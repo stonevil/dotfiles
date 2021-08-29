@@ -5,6 +5,7 @@ cd "$HOME" || exit 1
 {{ if eq .chezmoi.os "linux" -}}
 if command -v pacman >/dev/null; then
 	sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu || exit 1
+	sudo pacman --noconfirm -Syu git || exit 1
 	cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg --noconfirm -csi && cd /tmp && rm -rf /tmp/yay && yay -Y --gendb && yay -Syu --devel && yay -Y --devel --save || exit 1
 fi
 if command -v apk >/dev/null; then
