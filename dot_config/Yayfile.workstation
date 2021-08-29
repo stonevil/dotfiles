@@ -1,8 +1,7 @@
 virtualbox-ext-oracle
 docker-squash
-swiftlint
 golangci-lint
-gotop
+imgcat
 viddy
 dive
 usql
