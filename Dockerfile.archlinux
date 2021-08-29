@@ -18,15 +18,18 @@ ARG USERPWD=${USERPWD:-vagrant}
 
 ARG ENV_NAME=${ENV_NAME:-vagrant}
 
-ARG PATCHED_GLIBC=${PATCHED_GLIBC:-glibc-linux4-2.33-4-x86_64.pkg.tar.zst}
+ARG PATCHED_GLIBC_VERSION=${PATCHED_GLIBC_VERSION:-glibc-linux4-2.33-4-x86_64.pkg.tar.zst}
+ARG GOSU_VERSION=${GOSU_VERSION:-1.14}
+ARG GOSU_ARCH=${GOSU_ARCH:-amd64}
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 VOLUME ["/chezmoi"]
 
-RUN	${SOFTWARE_DOWNLOAD_CMD} "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${PATCHED_GLIBC}" | bsdtar -xvf - -C / && \
+RUN	${SOFTWARE_DOWNLOAD_CMD} "https://raw.githubusercontent.com/sickcodes/Docker-OSX/master/${PATCHED_GLIBC_VERSION}" | bsdtar -xvf - -C / && \
 	${UPGRADE_CMD} && \
 	${INSTALL_CMD} sudo && \
+	SOFTWARE_DOWNLOAD_CMD https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCH} -O /usr/bin/gosu && chmod 755 /usr/bin/gosu && \
 	echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
 	groupadd -g 1026 ${USERNAME} && \
 	useradd -u 1026 -g ${USERNAME} -G wheel -m -s /bin/sh ${USERNAME} && \
@@ -35,8 +38,6 @@ RUN	${SOFTWARE_DOWNLOAD_CMD} "https://raw.githubusercontent.com/sickcodes/Docker
 	chown -Rf ${USERNAME}:${USERNAME} /home/${USERNAME} && \
 	chmod -Rf go-rwX /home/${USERNAME}
 
-#COPY . /chezmoi
-
-#RUN su - "${USERNAME}" -c '"$(curl -fsLS git.io/chezmoi)" -- init --apply --source /chezmoi'
+RUN gosu "${USERNAME}" 'cd $HOME && "$(curl -fsLS git.io/chezmoi)" -- init --apply stonevil'
 
 CMD ["while true;", "do:", "sleep", "30;", "done;"]
