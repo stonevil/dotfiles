@@ -1,0 +1,14 @@
+docker-machine
+docker-compose
+vagrant
+virtualbox
+virtualbox-guest-iso
+virtualbox-ext-vnc
+virtualbox-guest-utils
+minikube
+neomutt
+picocom
+minicom
+hugo
+packer
+terraform
