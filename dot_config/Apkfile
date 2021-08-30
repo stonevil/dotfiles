@@ -37,6 +37,7 @@ openssl-dev
 musl
 musl-dev
 gcc
+g++
 libgcc
 rust
 cargo
