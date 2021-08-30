@@ -39,3 +39,4 @@ musl-dev
 gcc
 libgcc
 rust
+cargo
