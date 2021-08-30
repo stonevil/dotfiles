@@ -38,3 +38,4 @@ musl
 musl-dev
 gcc
 libgcc
+rust
