@@ -1,2 +1,5 @@
 README.md
 Dockerfile.archlinux
+Dockerfile.alpinelinux
+Dockerfile.centos7
+Vagrantfile
