@@ -6,7 +6,7 @@
 if 0 | endif
 
 if has("gui_vimr")
-	:cd $HOME . '/Documents'
+	:cd $HOME/Documents
 endif
 
 if has('nvim')
