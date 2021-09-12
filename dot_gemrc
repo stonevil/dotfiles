@@ -7,3 +7,5 @@
 :backtrace: false
 :verbose: true
 gem: --no-ri --no-rdoc
+install: --no-ri --no-rdoc
+update: --no-ri --no-rdoc
