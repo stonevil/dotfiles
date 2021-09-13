@@ -1,5 +1,3 @@
-# vim:ft=python :
-
 # Load config.py settings
 config.load_autoconfig(False)
 
