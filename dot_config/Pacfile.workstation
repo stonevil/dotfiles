@@ -1,5 +1,4 @@
-docker-machine
-docker-compose
+podman-docker
 vagrant
 virtualbox
 virtualbox-guest-iso

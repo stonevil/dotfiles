@@ -1,7 +1,7 @@
 Jinja2==2.11.3
 ansible
-docker
 neovim
 ranger-fm
 yamllint
 youtube-dl
+instaloader
