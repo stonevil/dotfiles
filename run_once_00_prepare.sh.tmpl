@@ -11,6 +11,9 @@ fi
 if command -v apk >/dev/null; then
 	sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile) || exit 1
 fi
+if command -v yum >/dev/null; then
+	sudo yum update -y && sudo yum upgrade -y && sudo yum install -y $(paste -s -d ' ' "$HOME"/.config/Yumfile) || exit 1
+fi
 
 {{ else if eq .chezmoi.os "darwin" -}}
 if [ -d "$HOME"/.homebrew ]; then
