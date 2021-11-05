@@ -2,7 +2,7 @@
 # vim:ft=sh
 # shellcheck source=/dev/null
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" }}
 HOMEBREW_PATH="$HOME/.homebrew"
 # shellcheck disable=SC2046
 RUBY_PATH=$(if [[ -d "$HOMEBREW_PATH"/Cellar/ruby ]]; then dirname $(find "$HOMEBREW_PATH"/Cellar/ruby/*/bin -name "ruby" -print -quit); fi)
@@ -11,7 +11,7 @@ GEMS_PATH=$(if [[ -d "$HOMEBREW_PATH"/lib/ruby/gems ]]; then find "$HOMEBREW_PAT
 PYTHON3_PATH=$(if [[ -d "$HOMEBREW_PATH"/Cellar ]]; then dirname $(find "$HOMEBREW_PATH"/Cellar/python*/*/bin -name "python3" -print -quit); fi)
 PATH="$RUBY_PATH:$GEMS_PATH:$PYTHON3_PATH:$HOMEBREW_PATH/bin:$PATH"
 MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
-{{ end -}}
+{{ end }}
 
 PATH="$HOME/.local/bin:$PATH"
 

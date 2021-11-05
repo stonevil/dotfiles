@@ -17,11 +17,11 @@ window:
 
   dynamic_padding: false
 
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "linux" }}
   decorations: none
-{{ else if eq .chezmoi.os "darwin" -}}
+{{ else if eq .chezmoi.os "darwin" }}
   decorations: buttonless
-{{ end -}}
+{{ end }}
   # Values for `decorations`
   #   - full: Borders and title bar
   #   - none: Neither borders nor title bar
@@ -29,7 +29,7 @@ window:
   #   - transparent: Title bar, transparent background and title bar buttons
   #   - buttonless: Title bar, transparent background, but no title bar buttons
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" }}
   startup_mode: Fullscreen
   # Values for `startup_mode`:
   #   - Windowed
@@ -37,16 +37,16 @@ window:
   #   - Fullscreen
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-{{ end -}}
+{{ end }}
 
   title: Alacritty
 
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "linux" }}
   class:
     instance: Alacritty
     general: Alacritty
   gtk_theme_variant: dark
-{{ end -}}
+{{ end }}
 
 scrolling:
   history: 10000
@@ -356,11 +356,11 @@ mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
 key_bindings:
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "linux" }}
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: Insert, mods: Shift, action: PasteSelection }
-{{ end -}}
+{{ end }}
   - { key: Paste, action: Paste }
   - { key: Copy, action: Copy }
   - { key: L, mods: Control, action: ClearLogNotice }
@@ -430,7 +430,7 @@ key_bindings:
   - { key: Return, mode: Search|~Vi, action: SearchFocusNext }
   - { key: Return, mods: Shift, mode: Search|~Vi, action: SearchFocusPrevious }
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" }}
   #macOS only
   #Vi Mode
   - { key: U, mods: Command, mode: Vi|~Search, action: ScrollToBottom }
@@ -458,7 +458,7 @@ key_bindings:
   - { key: F, mods: Command|Control, action: ToggleFullscreen }
   - { key: F, mods: Command, mode: ~Search, action: SearchForward }
   - { key: B, mods: Command, mode: ~Search, action: SearchBackward }
-{{ end -}}
+{{ end }}
 
 debug:
   render_timer: false

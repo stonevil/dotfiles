@@ -2,7 +2,7 @@
 
 cd "$HOME" || exit 1
 
-{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "linux" }}
 if command -v pacman >/dev/null && [[ -f "$HOME"/.config/Pacfile ]]; then
 	sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile) || exit 1
 	if command -v yay >/dev/null && [[ -f "$HOME"/.config/Yayfile ]]; then
@@ -13,11 +13,11 @@ if command -v apk >/dev/null && [[ -f "$HOME"/.config/Apkfile ]]; then
 	sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile) || exit 1
 fi
 
-{{ else if eq .chezmoi.os "darwin" -}}
+{{ else if eq .chezmoi.os "darwin" }}
 	export PATH="$HOME"/.homebrew/bin:$PATH
 	brew bundle --no-lock --file="$HOME/.config/Brewfile" || true
 	brew cleanup --quiet --prune=30
-{{ end -}}
+{{ end }}
 
 if command -v pip3 >/dev/null; then
 	pip3 install --no-warn-script-location --user --upgrade pip || exit 1
