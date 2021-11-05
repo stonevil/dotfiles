@@ -6,7 +6,6 @@ exec-as
 fuzzy
 krew
 kuttl
-kvaps/build
 minio
 mtail
 node-admin
