@@ -15,7 +15,7 @@ fi
 
 {{ else if eq .chezmoi.os "darwin" -}}
 	export PATH="$HOME"/.homebrew/bin:$PATH
-	brew bundle --no-lock --file="$HOME/.config/Brewfile" || exit 1
+	brew bundle --no-lock --file="$HOME/.config/Brewfile" || true
 	brew cleanup --quiet --prune=30
 {{ end -}}
 
