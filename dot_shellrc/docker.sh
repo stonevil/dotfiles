@@ -8,6 +8,6 @@ if command -v limactl >/dev/null; then
 	alias docker-rm-all='docker rm -f $(docker ps -a -q)'
 	alias docker-rmi-all='docker rmi -f $(docker images --no-trunc=false -a -q)'
 	if [[ $(limactl list docker --format "{{.Status}}") != "Stopped" ]]; then
-		export DOCKER_HOST=$(limactl list docker --format 'unix:///{{.Dir}}/sock/docker.sock')
+		export DOCKER_HOST="unix://$HOME/.docker/docker.sock"
 	fi
 fi
