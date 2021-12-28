@@ -13,7 +13,7 @@ MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
 
 PATH="$HOME/.local/bin:$PATH"
 
-source "$HOME/.antigen.zsh"
+source "$HOME/.local/antigen.zsh"
 
 # Load the oh-my-zsh's library
 antigen use oh-my-zsh
@@ -33,7 +33,7 @@ antigen bundle jeffreytse/zsh-vi-mode
 
 # Load the theme
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-antigen theme robbyrussell
+#antigen theme robbyrussell
 
 # Tell Antigen that you're done
 antigen apply
@@ -49,18 +49,18 @@ COMPLETION_WAITING_DOTS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Theme
-#GREEN="%{$fg_bold[green]%}"
-#YELLOW="%{$fg_bold[yellow]%}"
-#CYAN="%{$fg_bold[cyan]%}"
-#RED="%{$fg_bold[red]%}"
-#RESET="%{$reset_color%}"
-#
-#PROMPT='$YELLOW%c $(git_prompt_info) $RESET'
-#
-#ZSH_THEME_GIT_PROMPT_PREFIX="⥍ $CYAN"
-#ZSH_THEME_GIT_PROMPT_SUFFIX=""
-#ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿"
-#ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾"
+GREEN="%{$fg_bold[green]%}"
+YELLOW="%{$fg_bold[yellow]%}"
+CYAN="%{$fg_bold[cyan]%}"
+RED="%{$fg_bold[red]%}"
+RESET="%{$reset_color%}"
+
+PROMPT='$YELLOW%c $RESET'
+
+ZSH_THEME_GIT_PROMPT_PREFIX="⥍ $CYAN"
+ZSH_THEME_GIT_PROMPT_SUFFIX=""
+ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿"
+ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾"
 
 # Load rc plugins
 if [ -d "$HOME"/.shellrc ]; then
