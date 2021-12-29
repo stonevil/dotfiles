@@ -9,7 +9,7 @@ RUBY_PATH=$(if [[ -d "$HOMEBREW_PATH"/Cellar/ruby ]]; then dirname $(find "$HOME
 GEMS_PATH=$(if [[ -d "$HOMEBREW_PATH"/lib/ruby/gems ]]; then find "$HOMEBREW_PATH"/lib/ruby/gems/* -name "bin" -type d -print -quit; fi)
 # shellcheck disable=SC2046
 PYTHON3_PATH=$(if [[ -d "$HOMEBREW_PATH"/Cellar ]]; then dirname $(find "$HOMEBREW_PATH"/Cellar/python*/*/bin -name "python3" -print -quit); fi)
-PYTHON3_PIP_PATH="$(python3 -m site --user-base)"
+PYTHON3_PIP_PATH=$(if [[ -f "$HOMEBREW_PATH"/bin/python3 ]]; then "$HOMEBREW_PATH"/bin/python3 -m site --user-base; fi)
 PATH="$RUBY_PATH:$GEMS_PATH:$PYTHON3_PIP_PATH/bin:$PYTHON3_PATH:$HOMEBREW_PATH/bin:$HOMEBREW_PATH/sbin:$PATH"
 MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
 {{ end }}
