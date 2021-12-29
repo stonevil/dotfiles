@@ -8,6 +8,6 @@ curl -L git.io/antigen > "$HOME"/.local/antigen.zsh
 sudo usermod -s /bin/zsh "$(id -u -n)"
 
 {{ else if eq .chezmoi.os "darwin" }}
-terminal-notifier -title "Configuring shell environment" -subtitle 'Password input required' -appIcon /System/Library/PrivateFrameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Hero -ignoreDnD -message "Please type password in Terminal"
+terminal-notifier -title "Configuring shell environment" -sound default -ignoreDnD -message "Please type password in Terminal"
 chsh -s /bin/zsh
 {{ end }}
