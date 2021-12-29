@@ -1,6 +1,6 @@
-{{ if eq .chezmoi.os "darwin" }}
 #!/usr/bin/env sh
 
+{{ if eq .chezmoi.os "darwin" }}
 # Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 defaults write com.apple.ActivityMonitor IconType -int 5
