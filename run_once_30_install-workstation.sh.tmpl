@@ -16,7 +16,7 @@ cd "$HOME" || exit 1
 <!--fi-->
 
 {{ else if eq .chezmoi.os "darwin" }}
-	{{ if .chezmoi.arch eq "amd64" }}
+	{{ if eq .chezmoi.arch "amd64" }}
 export PATH="$HOME"/.homebrew/bin:$PATH
 terminal-notifier -title "Brew Installing VirtualBox" -sound default -ignoreDnD -message "Please type password in Terminal"
 brew install --cask --force virtualbox virtualbox-extension-pack vagrant || true
