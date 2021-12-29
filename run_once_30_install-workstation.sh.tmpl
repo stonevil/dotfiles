@@ -16,9 +16,10 @@ cd "$HOME" || exit 1
 <!--fi-->
 
 {{ else if eq .chezmoi.os "darwin" }}
-if [[ `uname -m` == 'x86_64' ]]; then
-	export PATH="$HOME"/.homebrew/bin:$PATH
-	brew install --cask --force virtualbox virtualbox-extension-pack vagrant || true
-	brew cleanup --quiet --prune=30
-fi
+	{{ if .chezmoi.arch eq "amd64" }}
+export PATH="$HOME"/.homebrew/bin:$PATH
+terminal-notifier -title "Brew installing VirtualBox" -subtitle 'Password input required' -appIcon /System/Library/PrivateFrameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Hero -ignoreDnD -message "Please type password in Terminal"
+brew install --cask --force virtualbox virtualbox-extension-pack vagrant || true
+brew cleanup --quiet --prune=30
+	{{ end }}
 {{ end }}
