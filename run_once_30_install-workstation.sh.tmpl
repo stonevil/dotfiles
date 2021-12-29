@@ -14,4 +14,11 @@ cd "$HOME" || exit 1
 <!--    sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile.workstation) || exit 1-->
 <!--  fi-->
 <!--fi-->
+
+{{ else if eq .chezmoi.os "darwin" }}
+if [[ `uname -m` == 'x86_64' ]]; then
+	export PATH="$HOME"/.homebrew/bin:$PATH
+	brew install --cask --force virtualbox virtualbox-extension-pack vagrant vagrant-completion || true
+	brew cleanup --quiet --prune=30
+fi
 {{ end }}
