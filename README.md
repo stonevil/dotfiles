@@ -4,7 +4,7 @@
 
 My collection of dot and config files.
 
-Build in mind for macOS 11.x and higher and Arch Linux with AwesomeWM.
+Build in mind for macOS 12.x and higher.
 
 ## Testing
 
@@ -44,11 +44,11 @@ sh -c "$(curl -fsLS git.io/chezmoi)" -- init --one-shot stonevil
 2. Cleanup .zshrc
    1. Prompt
 3. Nvim config migration to lua
+3. Add sudoers for vagrant and nfs
+3. Add nfsd to Privacy, Full Disk Access 
 4. Add distraction free / markdown mode for Nvim
-5. Migration to the fish?
-6. Synchronise git aliases in shell script and git config
+5. Synchronise git aliases in shell script and git config
 7. Templating personal inforamtion like email, etc.
 8. Proper README
-9. Further trim docker environments
-10. Packer template for Vagrant toolbox
+9. Packer template for Vagrant toolbox
 11. CentOS 7/8 Dockerfile and Yumfiles
