@@ -1,6 +1,7 @@
 Jinja2==2.11.3
 ansible
 neovim
+pynvim
 ranger-fm
 yamllint
 youtube-dl
