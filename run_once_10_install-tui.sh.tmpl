@@ -32,6 +32,10 @@ if command -v gem >/dev/null; then
 	xargs <"$HOME"/.config/Gemsfile gem install --no-suggestions --no-lock -n "$HOME"/.local/bin --user-install
 fi
 
+if command -v gem >/dev/null; then
+	xargs <"$HOME"/.config/NPMfile npm install -g
+fi
+
 if command -v go >/dev/null; then
 	source "$HOME"/.shellrc/golang.sh
 	while IFS= read -r line; do
