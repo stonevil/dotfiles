@@ -32,7 +32,7 @@ if command -v gem >/dev/null; then
 	xargs <"$HOME"/.config/Gemsfile gem install --no-suggestions --no-lock -n "$HOME"/.local/bin --user-install
 fi
 
-if command -v gem >/dev/null; then
+if command -v npm >/dev/null; then
 	xargs <"$HOME"/.config/NPMfile npm install -g
 fi
 
