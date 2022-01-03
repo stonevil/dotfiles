@@ -1,0 +1,54 @@
+# Example to use Podman instead of containerd & nerdctl
+# $ limactl shell podman podman run -it -v $HOME:$HOME --rm docker.io/library/alpine
+
+# To run `podman` on the host (assumes podman-remote is installed):
+# $ export CONTAINER_HOST=$(limactl list podman --format 'unix://./podman/podman.sock')
+# $ podman --remote ...
+
+# Requires Lima v0.8.0 or later
+images:
+  # Hint: run `limactl prune` to invalidate the "current" cache
+  - location: "https://cloud-images.ubuntu.com/impish/current/impish-server-cloudimg-amd64.img"
+    arch: "x86_64"
+  - location: "https://cloud-images.ubuntu.com/impish/current/impish-server-cloudimg-arm64.img"
+    arch: "aarch64"
+mounts:
+  - location: "~"
+  - location: "/tmp/lima"
+    writable: true
+ssh:
+  localPort: 60007
+  # Load ~/.ssh/*.pub in addition to $LIMA_HOME/_config/user.pub , for allowing DOCKER_HOST=ssh:// .
+  # This option is enabled by default.
+  # If you have an insecure key under ~/.ssh, do not use this option.
+  loadDotSSHPubKeys: true
+# containerd is managed by Docker, not by Lima, so the values are set to false here.
+containerd:
+  system: false
+  user: false
+provision:
+  - mode: system
+    script: |
+      #!/bin/bash
+      set -eux -o pipefail
+      command -v podman >/dev/null 2>&1 && exit 0
+      export DEBIAN_FRONTEND=noninteractive
+      apt-get update
+      apt-get install -y podman crun
+  - mode: user
+    script: |
+      #!/bin/bash
+      set -eux -o pipefail
+      systemctl --user enable --now podman.socket
+probes:
+  - script: |
+      #!/bin/bash
+      set -eux -o pipefail
+      if ! timeout 30s bash -c "until command -v podman >/dev/null 2>&1; do sleep 3; done"; then
+        echo >&2 "podman is not installed yet"
+        exit 1
+      fi
+    hint: See "/var/log/cloud-init-output.log". in the guest
+portForwards:
+  - guestSocket: "/run/user/{{.UID}}/podman/podman.sock"
+    hostSocket: "{{.Home}}/.podman/podman.sock"
