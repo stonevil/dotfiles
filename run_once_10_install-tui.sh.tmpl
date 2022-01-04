@@ -12,6 +12,13 @@ fi
 if command -v apk >/dev/null && [[ -f "$HOME"/.config/Apkfile ]]; then
 	sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile) || exit 1
 fi
+if command -v apt >/dev/null && [[ -f "$HOME"/.config/Aptfile ]]; then
+	sudo apt update -y && sudo apt upgrade -y && sudo apt install $(paste -s -d ' ' "$HOME"/.config/Aptfile) || exit 1
+fi
+if command -v snap >/dev/null && [[ -f "$HOME"/.config/Snapfile ]]; then
+	sudo snap install $(paste -s -d ' ' "$HOME"/.config/Snapfile) --classic || exit 1
+fi
+
 
 {{ else if eq .chezmoi.os "darwin" }}
 	export PATH="$HOME"/.homebrew/bin:$PATH
