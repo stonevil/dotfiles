@@ -18,6 +18,7 @@ silversearcher-ag
 shellcheck
 yarnpkg
 nodejs
+npm
 rust-all
 ruby
 ruby-dev
