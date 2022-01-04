@@ -1,10 +1,4 @@
-podman-docker
 vagrant
-virtualbox
-virtualbox-guest-iso
-virtualbox-ext-vnc
-virtualbox-guest-utils
-minikube
 ccache
 gopass
 neomutt
