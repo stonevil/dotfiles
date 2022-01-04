@@ -41,6 +41,8 @@ if command -v gem >/dev/null; then
 fi
 
 if command -v npm >/dev/null; then
+	npm config set prefix "${HOME}/.local/npm-packages"
+	export NPM_PACKAGES="${HOME}/.local/npm-packages"
 	xargs <"$HOME"/.config/NPMfile npm install -g
 fi
 
