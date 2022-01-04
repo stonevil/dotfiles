@@ -27,8 +27,8 @@ fi
 {{ end }}
 
 if command -v pip3 >/dev/null; then
-	pip3 install --no-warn-script-location --user --upgrade pip || exit 1
-	pip3 install --no-warn-script-location --user --upgrade --force-reinstall -r "$HOME"/.config/Pipfile || exit 1
+	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade pip || exit 1
+	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade --force-reinstall -r "$HOME"/.config/Pipfile || exit 1
 fi
 
 if command -v kubectl-krew >/dev/null; then
