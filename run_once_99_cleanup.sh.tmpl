@@ -10,3 +10,5 @@ fi
 {{ else if eq .chezmoi.os "darwin" }}
 brew cleanup --quiet --prune=30
 {{ end }}
+
+if [ -d "$HOME/[B,b]in" ]; then rm -Rf "$HOME/[B,b]in"; fi
