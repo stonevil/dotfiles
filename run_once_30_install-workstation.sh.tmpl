@@ -18,8 +18,8 @@ cd "$HOME" || exit 1
 {{ else if eq .chezmoi.os "darwin" }}
 	{{ if eq .chezmoi.arch "amd64" }}
 export PATH="$HOME"/.homebrew/bin:$PATH
-terminal-notifier -title "Brew Installing VirtualBox" -sound default -ignoreDnD -message "Please type password in Terminal"
-brew install --cask --force virtualbox virtualbox-extension-pack vagrant || true
+terminal-notifier -title "Brew Installing Vagrant" -sound default -ignoreDnD -message "Please type password in Terminal"
+brew install --cask --force vagrant || true
 brew cleanup --quiet --prune=30
 if [ -f /opt/vagrant/embedded/gems/2.2.19/gems/vagrant-2.2.19/plugins/hosts/darwin/cap/path.rb ]; then
 	sudo curl https://raw.githubusercontent.com/hashicorp/vagrant/42db2569e32a69e604634462b633bb14ca20709a/plugins/hosts/darwin/cap/path.rb -o /opt/vagrant/embedded/gems/2.2.19/gems/vagrant-2.2.19/plugins/hosts/darwin/cap/path.rb
