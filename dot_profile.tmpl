@@ -10,5 +10,5 @@ PATH="$RUBY_PATH:$GEMS_PATH:$PYTHON3_PATH:$HOMEBREW_PATH/bin:$PATH"
 MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
 {{ end }}
 
-NPM_PATH=$(if [ -d "${HOME}/.local/npm-packages/bin" ]; then "${HOME}/.local/npm-packages/bin"; fi)
+NPM_PATH=$(if [ -d $HOME/.local/npm-packages/bin ]; then dirname "$HOME/.local/npm-packages/bin"; fi)
 PATH="$HOME/.local/bin:$NPM_PATH:$PATH"
