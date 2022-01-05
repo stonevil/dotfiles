@@ -3,31 +3,34 @@
 
 # https://github.com/knazarov/homebrew-qemu-virgl
 
-toolbox() {
-	ISO_STORAGE_PATH="/Volumes/shared/sl/_soft_/_Linux_"
-	DRIVE_STORAGE_PATH="${HOME}/.qemu/drives"
+if command -v qemu-img >/dev/null; then
+	toolbox() {
+		ISO_STORAGE_PATH="/Volumes/shared/sl/_soft_/_Linux_"
+		DRIVE_STORAGE_PATH="${HOME}/.qemu/drives"
 
-	case "$1" in
-	kaiser)
-		DRIVE_PATH="$DRIVE_STORAGE_PATH/kaiser.qcow2"
-		DRIVE_SIZE="40G"
-		MEM_SIZE="4G"
-		CPU_CORES="2"
+		case "$1" in
+		kaiser)
+			QEMU_BIN="qemu-system-x86_64"
 
-		# Create drive if absent
-		if [ ! -f "$DRIVE_PATH" ]; then
-			qemu-img create -f qcow2 "${DRIVE_PATH}" "${DRIVE_SIZE}"
-			ISO_PATH="${ISO_STORAGE_PATH}/xubuntu-21.04-desktop-amd64.iso"
-		fi
+			DRIVE_PATH="$DRIVE_STORAGE_PATH/kaiser.qcow2"
+			DRIVE_SIZE="40G"
+			MEM_SIZE="4G"
+			CPU_CORES="2"
 
-		NET_CONFIG="-net user,hostfwd=tcp::6161-:22,id=nic0,smb=${HOME}/iCloud/Kaiser"
-		;;
-	*)
-		echo "Choose your Destiny, Luke!" && exit 1
-		;;
-	esac
+			# Create drive if absent
+			if [ ! -f "$DRIVE_PATH" ]; then
+				qemu-img create -f qcow2 "${DRIVE_PATH}" "${DRIVE_SIZE}"
+				ISO_PATH="${ISO_STORAGE_PATH}/xubuntu-21.04-desktop-amd64.iso"
+			fi
 
-	QEMU_CMD="qemu-system-x86_64 \
+			NET_CONFIG="-net user,hostfwd=tcp::6161-:22,id=nic0,smb=${HOME}/iCloud/Kaiser"
+			;;
+		*)
+			echo "Choose your Destiny, Luke!" && exit 1
+			;;
+		esac
+
+		QEMU_CMD="${QEMU_BIN} \
 		-machine type=q35,accel=hvf \
 		-cpu host -smp ${CPU_CORES} -m ${MEM_SIZE} \
 		-device intel-hda -device hda-output \
@@ -46,5 +49,6 @@ toolbox() {
 		-drive file=${DRIVE_PATH},if=virtio \
 		${NET_CONFIG}"
 
-	eval "set -x; ${QEMU_CMD}"
-}
+		eval "set -x; ${QEMU_CMD}"
+	}
+fi
