@@ -33,3 +33,5 @@ libffi-dev
 golang
 cargo
 openssl
+sshpass
+nfs-common
