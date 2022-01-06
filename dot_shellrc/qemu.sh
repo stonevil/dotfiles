@@ -23,7 +23,7 @@ if command -v qemu-img >/dev/null; then
 				ISO_PATH="${ISO_STORAGE_PATH}/xubuntu-21.04-desktop-amd64.iso"
 			fi
 
-			NET_CONFIG="-net user,hostfwd=tcp::6122-:22,hostfwd=tcp::6128-:3128,id=nic0,smb=${HOME}/iCloud/Kaiser"
+			NET_CONFIG="-net user,hostfwd=tcp::6161-:22,hostfwd=tcp::6168-:3128,id=nic0,smb=${HOME}/iCloud/Kaiser"
 			;;
 		*)
 			echo "Choose your Destiny, Luke!" && exit 1
