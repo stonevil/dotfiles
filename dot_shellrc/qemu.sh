@@ -27,7 +27,7 @@ if command -v qemu-img >/dev/null; then
 			NET_CONFIG="-net user,hostfwd=tcp::6122-:22,hostfwd=tcp::6128-:3128,id=nic0,smb=${HOME}/iCloud/Kaiser"
 			;;
 		*)
-			echo "Choose your Destiny, Luke!" && exit 1
+			echo "Choose your Destiny, Luke!" && return 1
 			;;
 		esac
 
