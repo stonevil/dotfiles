@@ -12,6 +12,7 @@ if command -v qemu-img >/dev/null; then
 		kaiser)
 			QEMU_BIN="qemu-system-x86_64"
 
+			VM_NAME="kaiser-toolbox"
 			DRIVE_PATH="$DRIVE_STORAGE_PATH/kaiser.qcow2"
 			DRIVE_SIZE="40G"
 			MEM_SIZE="4G"
@@ -30,9 +31,13 @@ if command -v qemu-img >/dev/null; then
 			;;
 		esac
 
+		# -daemonize
+
 		QEMU_CMD="${QEMU_BIN} \
+		-name ${VM_NAME} \
 		-machine type=q35,accel=hvf \
 		-cpu host -smp ${CPU_CORES} -m ${MEM_SIZE} \
+		-rtc clock=host,base=localtime \
 		-device intel-hda -device hda-output \
 		-device virtio-vga-gl \
 		-display cocoa,gl=es \
