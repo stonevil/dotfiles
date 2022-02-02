@@ -3,13 +3,13 @@ env:
 
 window:
   dimensions:
-    columns: 286
-    lines: 58
+    columns: 316
+    lines: 64
   dynamic_title: true
 
   position:
-    x: 45
-    y: 50
+    x: 10
+    y: 10
 
   padding:
     x: 5
@@ -32,7 +32,7 @@ window:
   #   - buttonless: Title bar, transparent background, but no title bar buttons
 
 {{ if eq .chezmoi.os "darwin" }}
-  startup_mode: Fullscreen
+  startup_mode: Windowed
   # Values for `startup_mode`:
   #   - Windowed
   #   - Maximized
