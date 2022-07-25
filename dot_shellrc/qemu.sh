@@ -40,7 +40,7 @@ if command -v qemu-img >/dev/null; then
 		-rtc clock=host,base=localtime \
 		-device intel-hda -device hda-output \
 		-device virtio-vga-gl \
-		-display cocoa,gl=es \
+		-display cocoa,gl=es,show-cursor=on \
 		-device qemu-xhci \
 		-audiodev id=none,driver=none \
 		-device usb-kbd \

@@ -48,7 +48,7 @@ tmux_plugins_update() {
 
 packages_update() {
 	if [ "$(uname)" = "Darwin" ]; then
-		brew update && brew upgrade && brew upgrade --cask && brew cleanup
+		brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove
 	fi
 
 	if [ "$(uname)" = "Linux" ]; then
