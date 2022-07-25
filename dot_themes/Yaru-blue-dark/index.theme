@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Yaru-blue-dark
+Type=X-GNOME-Metatheme
+Comment=Ubuntu Yaru-blue-dark theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Yaru-blue-dark
+MetacityTheme=Yaru-dark
+IconTheme=Yaru-blue-dark
+CursorTheme=Yaru
+CursorSize=24
+X-Yaru-Dark=true
+X-Yaru-Accent-Name=blue
+X-Yaru-Accent-Color=#0073E5

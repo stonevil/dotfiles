@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Yaru-purple
+Type=X-GNOME-Metatheme
+Comment=Ubuntu Yaru-purple theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Yaru-purple
+MetacityTheme=Yaru
+IconTheme=Yaru-purple
+CursorTheme=Yaru
+CursorSize=24
+X-Yaru-Dark=false
+X-Yaru-Accent-Name=purple
+X-Yaru-Accent-Color=#7764D8

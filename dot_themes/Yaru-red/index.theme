@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Yaru-red
+Type=X-GNOME-Metatheme
+Comment=Ubuntu Yaru-red theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Yaru-red
+MetacityTheme=Yaru
+IconTheme=Yaru-red
+CursorTheme=Yaru
+CursorSize=24
+X-Yaru-Dark=false
+X-Yaru-Accent-Name=red
+X-Yaru-Accent-Color=#DA3450

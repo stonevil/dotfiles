@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Yaru-prussiangreen
+Type=X-GNOME-Metatheme
+Comment=Ubuntu Yaru-prussiangreen theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Yaru-prussiangreen
+MetacityTheme=Yaru
+IconTheme=Yaru-prussiangreen
+CursorTheme=Yaru
+CursorSize=24
+X-Yaru-Dark=false
+X-Yaru-Accent-Name=prussiangreen
+X-Yaru-Accent-Color=#308280
