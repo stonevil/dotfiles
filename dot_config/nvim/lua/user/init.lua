@@ -231,23 +231,37 @@ local config = {
   -- Configure plugins
   plugins = {
     init = {
-      -- Clipboard manager
-      -- {
-      --   "AckslD/nvim-neoclip.lua",
-      --   requires = {
-      --     { "nvim-telescope/telescope.nvim" },
-      --     { "kkharji/sqlite.lua", module = "sqlite" },
-      --   },
-      --   config = function()
-      --     require("telescope").load_extension "neoclip"
-      --     require("neoclip").setup {
-      --       history = 1000,
-      --       enable_persistent_history = true,
-      --     }
-      --   end,
-      -- },
-      -- Better marks
       {
+        -- Clipboard manager
+        "AckslD/nvim-neoclip.lua",
+        after = "telescope.nvim",
+        module = "telescope._extensions.neoclip",
+        requires = {
+          { "nvim-telescope/telescope.nvim" },
+          { "kkharji/sqlite.lua", module = "sqlite" },
+        },
+        config = function()
+          require("telescope").load_extension "neoclip"
+          require("neoclip").setup {
+            history = 1000,
+            enable_persistent_history = true,
+            db_path = vim.fn.stdpath "data" .. "/databases/neoclip.sqlite3",
+          }
+        end,
+      },
+      {
+        "benfowler/telescope-luasnip.nvim",
+        after = "telescope.nvim",
+        module = "telescope._extensions.luasnip",
+        requires = {
+          { "nvim-telescope/telescope.nvim" },
+          { "L3MON4D3/LuaSnip" },
+          { "rafamadriz/friendly-snippets" },
+        },
+        config = function() require("telescope").load_extension "luasnip" end,
+      },
+      {
+        -- Better marks
         -- mx              Set mark x
         -- m,              Set the next available alphabetical (lowercase) mark
         -- m;              Toggle the next available mark at the current line
@@ -279,6 +293,53 @@ local config = {
         "kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit for the latest features
         config = function() require("nvim-surround").setup {} end,
+      },
+      -- {
+      --   -- Programming, Testing, Debugging
+      --   "mfussenegger/nvim-dap",
+      --   module = "dap",
+      --   config = require "user.plugins.dap",
+      --   requires = {
+      --     {
+      --       "rcarriga/nvim-dap-ui",
+      --       after = "nvim-dap",
+      --       config = require "user.plugins.dapui",
+      --     },
+      --     {
+      --       "theHamsta/nvim-dap-virtual-text",
+      --       after = "nvim-dap",
+      --       config = function() require("nvim-dap-virtual-text").setup(require "user.plugins.dap-virtual-text") end,
+      --     },
+      --     {
+      --       "nvim-telescope/telescope-dap.nvim",
+      --       after = "telescope.nvim",
+      --       module = "telescope._extensions.dap",
+      --       config = function() require("telescope").load_extension "dap" end,
+      --     },
+      --   },
+      -- },
+      -- {
+      -- {
+      --   -- Debug Adapter for Lua
+      --   "jbyuki/one-small-step-for-vimkind",
+      --   requires = { "nvim-dap" },
+      --   module = "osv",
+      -- },
+      --   -- Go programming
+      --   "ray-x/go.nvim",
+      --   ft = "go",
+      --   config = function() require("go").setup(require "user.plugins.go") end,
+      -- },
+      {
+        -- Reopen same place
+        "ethanholz/nvim-lastplace",
+        config = function()
+          require("nvim-lastplace").setup {
+            lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+            lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+            lastplace_open_folds = true,
+          }
+        end,
       },
       -- AerialToggle[!]             left/right/float  Open or close the aerial window. With [!] cursor stays in current window
       -- AerialOpen[!]               left/right/float  Open the aerial window. With [!] cursor stays in current window
@@ -444,17 +505,25 @@ local config = {
     })
 
     -- Set up custom filetypes
-    -- vim.filetype.add {
-    --   extension = {
-    --     foo = "fooscript",
-    --   },
-    --   filename = {
-    --     ["Foofile"] = "fooscript",
-    --   },
-    --   pattern = {
-    --     ["~/%.config/foo/.*"] = "fooscript",
-    --   },
-    -- }
+    vim.filetype.add {
+      extension = {
+        sshconfig = "sshconfig",
+      },
+      filename = {
+        ["Brewfile"] = "ruby",
+        ["Vagranfile"] = "ruby",
+      },
+      pattern = {
+        ["Dockerfile.*"] = "Dockerfile",
+        ["~/.kube/config"] = "yaml",
+        ["*/playbooks/*.yml"] = "yaml.ansible",
+        ["*/playbooks/roles/*/*.yml"] = "yaml.ansible",
+        ["*/templates/*.yaml"] = "yaml.gotexttmpl",
+        ["*/deployment/*.yaml"] = "yaml.gotexttmpl",
+        ["*/templates/*.tpl"] = "yaml.gotexttmpl",
+        ["*/deployment/*.tpl"] = "yaml.gotexttmpl",
+      },
+    }
   end,
 }
 
