@@ -1,0 +1,10 @@
+{{ $workstation := promptBool "workstation" -}}
+{{ $email := promptString "email" -}}
+
+{{ if eq .chezmoi.os "darwin" }}
+
+{{ end}}
+
+[data]
+  workstation = {{ $workstation }}
+  email = {{ $email | quote }}

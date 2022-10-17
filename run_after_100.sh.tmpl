@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+cd "$HOME" || exit 1
+
+if command -v nvim >/dev/null; then
+	nvim +PackerSync +PackerCompile +qall!
+else
+	exit 1
+fi
+
+{{ if eq .chezmoi.os "linux" }}
+if command -v apt >/dev/null; then
+	sudo apt autoremove -y || exit 1
+fi
+
+{{ else if eq .chezmoi.os "darwin" }}
+brew cleanup --quiet --prune=30 && brew autoremove
+{{ end }}
+
+if [ -d "$HOME/[B,b]in" ]; then rm -Rf "$HOME/[B,b]in"; fi
