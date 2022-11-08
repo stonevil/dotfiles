@@ -8,7 +8,7 @@ if command -v limactl >/dev/null; then
 	alias docker-rm-all='docker rm -f $(docker ps -a -q)'
 	alias docker-rmi-all='docker rmi -f $(docker images --no-trunc=false -a -q)'
 	if [[ $(limactl list docker --format "{{.Status}}") != "Stopped" ]]; then
-		export DOCKER_HOST="unix://$HOME/.docker/docker.sock"
+		export DOCKER_HOST="unix://$HOME/.lima/docker/sock/docker.sock"
 	fi
 
 	# lima-vm to support genuine podman
@@ -17,6 +17,6 @@ if command -v limactl >/dev/null; then
 	alias podman-rm-all='podman rm -f $(podman ps -a -q)'
 	alias podman-rmi-all='podman rmi -f $(podman images --no-trunc=false -a -q)'
 	if [[ $(limactl list podman --format "{{.Status}}") != "Stopped" ]]; then
-		export CONTAINER_HOST="unix://$HOME/.podman/podman.sock"
+		export CONTAINER_HOST="unix://$HOME/.lima/podman/sock/podman.sock"
 	fi
 fi
