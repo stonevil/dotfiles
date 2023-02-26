@@ -1,10 +1,7 @@
 README.md
-Dockerfile.archlinux
-Dockerfile.alpinelinux
-Dockerfile.centos7
-Dockerfile.manjaro
+Dockerfile*
 Vagrantfile
 .vagrant
 lazy-lock.json
 .neoconf.json
-.test
+.test*
