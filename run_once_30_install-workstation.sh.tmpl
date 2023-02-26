@@ -1,28 +1,22 @@
 #!/usr/bin/env sh
+# vim:ft=go
 
 cd "$HOME" || exit 1
 
-{{ if eq .chezmoi.os "linux" }}
-{{ if eq .workstation }}
-	if command -v apk >/dev/null && [ -f "$HOME"/.config/Apkfile.workstation ]; then
-		sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile.workstation) || exit 1
-	fi
-	if command -v apt >/dev/null && [ -f "$HOME"/.config/Aptfile.workstation ]; then
-		sudo apt update -y && sudo apt upgrade -y && sudo apt install -y $(paste -s -d ' ' "$HOME"/.config/Aptfile.workstation) || exit 1
-	fi
-	if command -v snap >/dev/null && [ -f "$HOME"/.config/Snapfile.workstation ]; then
-		sudo snap install $(paste -s -d ' ' "$HOME"/.config/Snapfile.workstation) --classic || exit 1
-	fi
-fi
-{{ end }}
-
-{{ else if eq .chezmoi.os "darwin" }}
-	{{ if eq .chezmoi.arch "amd64" }}
-export PATH="$HOME"/.homebrew/bin:$PATH
-terminal-notifier -title "Brew Installing Vagrant" -sound default -ignoreDnD -message "Please type password in Terminal"
-brew install --cask --force vagrant || true
-if [ -f /opt/vagrant/embedded/gems/2.2.19/gems/vagrant-2.2.19/plugins/hosts/darwin/cap/path.rb ]; then
-	sudo curl https://raw.githubusercontent.com/hashicorp/vagrant/42db2569e32a69e604634462b633bb14ca20709a/plugins/hosts/darwin/cap/path.rb -o /opt/vagrant/embedded/gems/2.2.19/gems/vagrant-2.2.19/plugins/hosts/darwin/cap/path.rb
-fi
+{{ if eq .workstation true }}
+	{{ if eq .chezmoi.os "darwin" }}
+		echo "Add workstation for macOS"
+	{{ else if eq .chezmoi.os "linux" }}
+		{{ if eq .chezmoi.osRelease.id "debian" }}
+			if [ -f "$HOME"/.config/Aptfile.workstation ]; then
+				sudo apt update -y && sudo apt upgrade -y && sudo apt install -y $(paste -s -d ' ' "$HOME"/.config/Aptfile.workstation) || exit 1
+			fi
+		{{ else if eq .chezmoi.osRelease.id "arch" }}
+		{{ else if eq .chezmoi.osRelease.id "alpine" }}
+			if [ -f "$HOME"/.config/Apkfile.workstation ]; then
+				(sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile.workstation)) || exit 1
+			fi
+		{{ else if eq .chezmoi.osRelease.id "fedora" }}
+		{{ end }}
 	{{ end }}
 {{ end }}

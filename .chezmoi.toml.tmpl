@@ -1,10 +1,15 @@
-{{ $workstation := promptBool "workstation" -}}
+# vim:ft=go
+
 {{ $email := promptString "email" -}}
-
-{{ if eq .chezmoi.os "darwin" }}
-
-{{ end}}
+{{ $workstation := promptBool "workstation (true|false)" false -}}
 
 [data]
-  workstation = {{ $workstation }}
-  email = {{ $email | quote }}
+	workstation = {{ $workstation | default false }}
+	email = {{ $email | quote }}
+
+{{- writeToStdout "email address is: " $email "\n" -}}
+{{ if $workstation }}
+	{{- writeToStdout "is workstation?: true\n" -}}
+{{ else }}
+	{{- writeToStdout "is workstation?: false\n" -}}
+{{ end }}

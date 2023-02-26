@@ -1,25 +1,25 @@
 #!/usr/bin/env sh
+# vim:ft=go
 
 cd "$HOME" || exit 1
 
-{{ if eq .chezmoi.os "linux" }}
-if command -v pacman >/dev/null; then
-	sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu || exit 1
-	sudo pacman --noconfirm --needed -Syu git base-devel curl wget tar || exit 1
-	cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg --noconfirm -csi && cd /tmp && rm -rf /tmp/yay && yay -Y --gendb && yay -Syu --devel && yay -Y --devel --save || exit 1
-fi
-if command -v apk >/dev/null; then
-	sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile) || exit 1
-fi
-if command -v yum >/dev/null; then
-	sudo yum update -y && sudo yum upgrade -y && sudo yum install -y $(paste -s -d ' ' "$HOME"/.config/Yumfile) || exit 1
-fi
-
-{{ else if eq .chezmoi.os "darwin" }}
-if [ -d "$HOME"/.homebrew ]; then
-	rm -Rf "$HOME"/.homebrew
-fi
-git clone https://github.com/Homebrew/brew.git "$HOME"/.homebrew
-export PATH="$HOME"/.homebrew/bin:$PATH
-brew update && brew upgrade && brew upgrade --cask
+{{ if eq .chezmoi.os "darwin" }}
+	if [ -d "$HOME"/.homebrew ]; then
+		rm -Rf "$HOME"/.homebrew
+	fi
+	(git clone https://github.com/Homebrew/brew.git "$HOME"/.homebrew) || exit 1
+	export PATH="$HOME"/.homebrew/bin:$PATH
+	(brew update && brew upgrade && brew upgrade --cask) || exit 1
+{{ else if eq .chezmoi.os "linux" }}
+	{{ if eq .chezmoi.osRelease.id "debian" }}
+		# Debian-specific code
+	{{ else if eq .chezmoi.osRelease.id "arch" }}
+		(sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu) || exit 1
+		(sudo pacman --noconfirm --needed -Syu git base-devel curl wget tar) || exit 1
+		(cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg --noconfirm -csi && cd /tmp && rm -rf /tmp/yay && yay -Y --gendb && yay -Syu --devel && yay -Y --devel --save) || exit 1
+	{{ else if eq .chezmoi.osRelease.id "alpine" }}
+		(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile)) || exit 1
+	{{ else if eq .chezmoi.osRelease.id "fedora" }}
+		(sudo yum update -y && sudo yum upgrade -y && sudo yum install -y $(paste -s -d ' ' "$HOME"/.config/Yumfile)) || exit 1
+	{{ end }}
 {{ end }}

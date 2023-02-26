@@ -1,10 +1,11 @@
 #!/usr/bin/env sh
+# vim:ft=go
 
 cd "$HOME" || exit 1
 
 {{ if eq .chezmoi.os "darwin" }}
-if [ -d "$HOME"/.homebrew ] && [ -d "$HOME"/.local/share/chezmoi/dot_config/Brewpatches ]; then
-	for file in "$HOME"/.local/share/chezmoi/dot_config/Brewpatches/*.patch; do
+if [ -d "$HOME"/.homebrew ] && [ -d "$HOME"/.local/share/chezmoi/private_dot_config/Brewpatches ]; then
+	for file in "$HOME"/.local/share/chezmoi/private_dot_config/Brewpatches/*.patch; do
 		if [ -z "$file" ]; then
 			patch -bf "$HOME"/.homebrew/Library/Taps/homebrew/homebrew-core/Formula/"`basename -a ${file%.*}`" < "$file"
 		fi

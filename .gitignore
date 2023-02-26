@@ -18,3 +18,7 @@ bin/
 
 # Vagrant temp directory
 .vagrant
+
+# Nvim plugin artifacts
+lazy-lock.json
+.neoconf.json
