@@ -5,3 +5,6 @@ Dockerfile.centos7
 Dockerfile.manjaro
 Vagrantfile
 .vagrant
+lazy-lock.json
+.neoconf.json
+.test
