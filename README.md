@@ -6,27 +6,21 @@
 
 My collection of dot and config files.
 
-Build in mind for macOS 12.x and higher.
-
-
+Build in mind for macOS 12.x and higher and Linux Workstation.
 
 ## Testing
 
 ```shell
-./test.sh [repository_name] [version]
+./.test.sh [repository_name] [version]
 ```
 
 Example for Alpine Linux
 
 ```shell
-./test.sh alpine 3.17
+./.test.sh alpine 3.17
 ```
 
-
-
 Check directory ```.test``` for list of supported platforms.
-
-
 
 ## Install
 
@@ -40,8 +34,6 @@ For containers and other temporal environments:
 sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --one-shot stonevil
 ```
 
-
-
 ## TODO
 
 1. Cleanup ```.inputrc```
@@ -50,4 +42,4 @@ sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --one-shot 
 4. Add ```nfsd``` to Privacy, Full Disk Access 
 5. Synchronize git aliases in shell script and git config
 6. Proper README
-7. CentOS 7/8 Yumfiles
+7. CentOS 7/8 Yumfile
