@@ -3,11 +3,12 @@
 
 cd "$HOME" || exit 1
 
+echo "Install workstation packages"
 {{ if eq .workstation true }}
 	{{ if eq .chezmoi.os "darwin" }}
 		echo "Add workstation for macOS"
 	{{ else if eq .chezmoi.os "linux" }}
-		{{ if eq .chezmoi.osRelease.id "debian" }}
+		{{ if (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu")) }}
 			if [ -f "$HOME"/.config/Aptfile.workstation ]; then
 				sudo apt update -y && sudo apt upgrade -y && sudo apt install -y $(paste -s -d ' ' "$HOME"/.config/Aptfile.workstation) || exit 1
 			fi

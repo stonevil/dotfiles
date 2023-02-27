@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 # vim:ft=sh
 
+echo "Configure User Environment"
 {{ if eq .chezmoi.os "darwin" }}
 # Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true

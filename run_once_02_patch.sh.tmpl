@@ -3,6 +3,7 @@
 
 cd "$HOME" || exit 1
 
+echo "Prepare system. Apply essential patches if required"
 {{ if eq .chezmoi.os "darwin" }}
 if [ -d "$HOME"/.homebrew ] && [ -d "$HOME"/.local/share/chezmoi/private_dot_config/Brewpatches ]; then
 	for file in "$HOME"/.local/share/chezmoi/private_dot_config/Brewpatches/*.patch; do
