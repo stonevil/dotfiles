@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 # vim:ft=sh
 
-# Grab command name
-case "$DISTRO" in
-	ubuntu|debian) export DISTRO="debian"
-	;;
-	*) export DISTRO="${1:-alpine}"
-	;;
-esac
+export DISTRO=$1
 
+echo "Detect OS distro and version"
 case "$DISTRO" in
 	alpine) export DISTRO_VER="${2:-3.17}"
 	;;
+	archlinux) export DISTRO_VER="${2:-latest}"
+	;;
 	fedora) export DISTRO_VER="${2:-37}"
 	;;
-	*) export DISTRO_VER="${2:-latest}"
+	centos) export DISTRO_VER="${2:-latest}"
+	;;
+	ubuntu|debian) export DISTRO_DIR="debian"; export DISTRO_VER="${2:-latest}"
+	;;
+	*) export DISTRO="alpine"; DISTRO_DIR="alpine"; DISTRO_VER="3.17"
 	;;
 esac
 
+echo "Last chance for Blade Runner"
 export CLI="${3:-limactl shell docker docker}"
 
-eval "$CLI" run -it --rm -v $PWD:/root/.local/share/chezmoi -e DISTRO=$DISTRO -e DISTRO_VER=$DISTRO_VER $DISTRO:$DISTRO_VER sh -c "/root/.local/share/chezmoi/.test/$DISTRO/run.sh"
+echo "Execute container"
+eval "$CLI" run -it --rm -v $PWD:/root/.local/share/chezmoi -e DISTRO=$DISTRO -e DISTRO_VER=$DISTRO_VER -e DISTRO_DIR:$DISTRO_DIR $DISTRO:$DISTRO_VER sh -c "/root/.local/share/chezmoi/.test/$DISTRO_DIR/run.sh"
