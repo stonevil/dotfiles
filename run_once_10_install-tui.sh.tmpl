@@ -3,17 +3,18 @@
 
 cd "$HOME" || exit 1
 
+echo "Install required packages"
 {{ if eq .chezmoi.os "darwin" }}
 	export PATH="$HOME"/.homebrew/bin:$PATH
 	brew bundle --no-lock --file="$HOME/.config/Brewfile" || true
 	brew cleanup --quiet --prune=30 || true
 {{ else if eq .chezmoi.os "linux" }}
-	{{ if eq .chezmoi.osRelease.id "debian" }}
+	{{ if (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu")) }}
 		(sudo apt update -y && sudo apt upgrade -y && sudo apt install -y $(paste -s -d ' ' "$HOME"/.config/Aptfile)) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "arch" }}
 		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile)) || exit 1
-		if command -v yay >/dev/null && [ -f "$HOME"/.config/Yayfile ]; then
-			(yay --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Yayfile)) || exit 1
+		if command -v paru >/dev/null && [ -f "$HOME"/.config/Yayfile ]; then
+			(paru --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Yayfile)) || exit 1
 		fi
 	{{ else if eq .chezmoi.osRelease.id "alpine" }}
 		(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile)) || exit 1
@@ -21,26 +22,31 @@ cd "$HOME" || exit 1
 	{{ end }}
 {{ end }}
 
+echo "Install Python pip packges"
 if command -v pip3 >/dev/null; then
 	export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade pip || exit 1
 	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade --force-reinstall -r "$HOME"/.config/Pipfile || exit 1
 fi
 
+echo "Install kubectl krew packges"
 if command -v kubectl-krew >/dev/null; then
 	kubectl-krew install <"$HOME"/.config/Krewfile
 fi
 
+echo "Install Ruby gems"
 if command -v gem >/dev/null; then
 	xargs <"$HOME"/.config/Gemsfile gem install --no-suggestions --no-lock -n "$HOME"/.local/bin --user-install
 fi
 
+echo "Install NodeJS modules"
 if command -v npm >/dev/null; then
 	npm config set prefix "${HOME}/.local/npm-packages"
 	export NPM_PACKAGES="${HOME}/.local/npm-packages"
 	xargs <"$HOME"/.config/NPMfile npm install -g
 fi
 
+echo "Install Go tools and libs"
 if command -v go >/dev/null; then
 	source "$HOME"/.shellrc/golang.sh
 	while IFS= read -r line; do
