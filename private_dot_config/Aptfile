@@ -9,7 +9,6 @@ lua5.3
 luajit
 luarocks
 htop
-neovim
 jq
 git
 ripgrep
