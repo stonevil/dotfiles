@@ -11,15 +11,15 @@ cd "$HOME" || exit 1
 	export PATH="$HOME"/.homebrew/bin:$PATH
 	(brew update && brew upgrade && brew upgrade --cask) || exit 1
 {{ else if eq .chezmoi.os "linux" }}
-	{{ if eq .chezmoi.osRelease.id "debian" }}
-		# Debian-specific code
-	{{ else if eq .chezmoi.osRelease.id "arch" }}
-		(sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu) || exit 1
-		(sudo pacman --noconfirm --needed -Syu git base-devel curl wget tar) || exit 1
-		(cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg --noconfirm -csi && cd /tmp && rm -rf /tmp/yay && yay -Y --gendb && yay -Syu --devel && yay -Y --devel --save) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "alpine" }}
 		(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile)) || exit 1
+	{{ else if eq .chezmoi.osRelease.id "arch" }}
+		(sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu) || exit 1
+		(sudo pacman --noconfirm --needed -Syu base-devel git curl wget tar) || exit 1
+		(cd /tmp && git clone https://aur.archlinux.org/paru.git && cd paru && su nobody -c "makepkg --nocomfirm -si" && cd /tmp && rm -rf /tmp/paru) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "fedora" }}
 		(sudo yum update -y && sudo yum upgrade -y && sudo yum install -y $(paste -s -d ' ' "$HOME"/.config/Yumfile)) || exit 1
+	{{ if eq .chezmoi.osRelease.idLike "debian" }}
+		(sudo apt update -y && sudo apt upgrade -y && sudo apt install -y $(paste -s -d ' ' "$HOME"/.config/Aptfile)) || exit 1
 	{{ end }}
 {{ end }}
