@@ -2,10 +2,37 @@
 -- https://wezfurlong.org/wezterm/
 
 local wezterm = require("wezterm")
+local act = wezterm.action
 
-local function is_vi_process(pane)
+local function isViProcess(pane)
 	return pane:get_foreground_process_name():find("n?vim") ~= nil
+	-- return pane:get_title():find("n?vim") ~= nil
 end
+
+local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
+	if isViProcess(pane) then
+		window:perform_action(
+			-- This should match the keybinds you set in Neovim.
+			act.SendKey({ key = vim_direction, mods = "META" }),
+			pane
+		)
+	else
+		window:perform_action(act.ActivatePaneDirection(pane_direction), pane)
+	end
+end
+
+wezterm.on("ActivatePaneDirection-left", function(window, pane)
+	conditionalActivatePane(window, pane, "Left", "LeftArrow")
+end)
+wezterm.on("ActivatePaneDirection-right", function(window, pane)
+	conditionalActivatePane(window, pane, "Right", "RightArrow")
+end)
+wezterm.on("ActivatePaneDirection-up", function(window, pane)
+	conditionalActivatePane(window, pane, "Up", "UpArrow")
+end)
+wezterm.on("ActivatePaneDirection-down", function(window, pane)
+	conditionalActivatePane(window, pane, "Down", "DownArrow")
+end)
 
 return {
 	window_close_confirmation = "NeverPrompt",
@@ -139,10 +166,15 @@ return {
 		{ key = "UpArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Up", 1 }) },
 		{ key = "RightArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Right", 1 }) },
 
-		{ key = "LeftArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Left") },
-		{ key = "DownArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Down") },
-		{ key = "UpArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Up") },
-		{ key = "RightArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Right") },
+		{ key = "LeftArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-left") },
+		{ key = "RightArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-right") },
+		{ key = "UpArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-up") },
+		{ key = "DownArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-down") },
+
+		-- { key = "LeftArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Left") },
+		-- { key = "DownArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Down") },
+		-- { key = "UpArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Up") },
+		-- { key = "RightArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Right") },
 
 		{ key = "z", mods = "META|SHIFT", action = wezterm.action.TogglePaneZoomState },
 
