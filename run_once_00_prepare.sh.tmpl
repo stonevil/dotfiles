@@ -20,7 +20,7 @@ echo "Prepare system. Install essential packages like brew, etc"
 		(cd /tmp && git clone https://aur.archlinux.org/paru.git && cd paru && su nobody -c "makepkg --nocomfirm -si" && cd /tmp && rm -rf /tmp/paru) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "fedora" }}
 		(sudo yum update -y && sudo yum upgrade -y) || exit 1
-	{{ if (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu")) }}
+	{{ if eq .chezmoi.osRelease.id "ubuntu" }}
 		(sudo apt update -y && sudo apt upgrade -y) || exit 1
 	{{ end }}
 {{ end }}
