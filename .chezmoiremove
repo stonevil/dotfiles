@@ -2,3 +2,4 @@
 ~/.cache/nvim/
 ~/bin/
 ~/Bin/
+~/.config/nvim/lazy-lock.json

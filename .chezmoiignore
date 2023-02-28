@@ -5,3 +5,4 @@ Vagrantfile
 lazy-lock.json
 .neoconf.json
 .test*
+~/.config/nvim/lazy-lock.json
