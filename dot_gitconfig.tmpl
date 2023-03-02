@@ -1,10 +1,10 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = $EDITOR
-		pager = less -R
-		autocrlf = input
-		safecrlf = true
-		whitespace = fix, -indent-with-non-tab, space-before-tab, trailing-space, cr-at-eol
+	pager = less -R --tabs 2
+	autocrlf = false
+	safecrlf = true
+	whitespace = fix, indent-with-non-tab, space-before-tab, trailing-space, cr-at-eol, blank-at-eol, blank-at-eof, tabwidth = 2
 
 [user]
 	name = Myroslav Rys
@@ -23,6 +23,19 @@
 
 [mergetool]
 	keepBackup = true
+
+[pull]
+	rebase = false
+
+[push]
+	default = matching
+
+[rebase]
+	autosquash = true
+	autostash = true
+
+[tag]
+	sort = version:refname
 
 [credential]
 	helper = cache --timeout=900
@@ -50,8 +63,15 @@
 	changed = green
 	untracked = cyan
 
+[grep]
+	lineNumber = true
+	extendedRegexp = true
+
 [log]
 	decorate = full
+
+[http]
+	cookiefile = ~/.gitcookies
 
 [alias]
 	# base commands
@@ -161,9 +181,6 @@
 
 	#revert = checkout --
 
-[push]
-	default = matching
-
 [help]
 	autocorrect = 1
 [filter "media"]
@@ -178,7 +195,4 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
-[http]
-	cookiefile = /Users/stone/.gitcookies
-[pull]
-	rebase = false
+	process = git-lfs filter-process
