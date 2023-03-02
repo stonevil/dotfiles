@@ -3,8 +3,8 @@
 
 cd "$HOME" || exit 1
 
-echo "Install Python pip3 packges"
 if command -v pip3 >/dev/null; then
+echo "Install Python pip3 packges"
 # Pipfile hash: {{ include ".packagefiles/Pipfile" | sha256sum }}
 	export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade pip || exit 1

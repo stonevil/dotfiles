@@ -3,8 +3,8 @@
 
 cd "$HOME" || exit 1
 
-echo "Install Alpine Linux packages"
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
+echo "Install Alpine Linux packages"
 # Apkfile hash: {{ include ".packagefiles/Apkfile" | sha256sum }}
 	(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Apkfile" | quote }})) || exit 1
 {{ end }}

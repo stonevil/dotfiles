@@ -3,8 +3,8 @@
 
 cd "$HOME" || exit 1
 
-echo "Install Go tools and libs"
 if command -v go >/dev/null; then
+echo "Install Go tools and libs"
 # Gofile hash: {{ include ".packagefiles/Gofile" | sha256sum }}
 	export GOPATH=$HOME/.local/golang-packages
 	export GOBIN=$HOME/.local/bin

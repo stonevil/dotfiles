@@ -3,8 +3,8 @@
 
 cd "$HOME" || exit 1
 
-echo "Install Arch Linux packages"
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
+echo "Install Arch Linux packages"
 # Pacfile hash: {{ include ".packagefiles/Pacfile" | sha256sum }}
 # Yayfile hash: {{ include ".packagefiles/Yayfile" | sha256sum }}
 	(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile" | quote }})) || exit 1

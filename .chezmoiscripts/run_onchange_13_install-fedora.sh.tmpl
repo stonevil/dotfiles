@@ -3,7 +3,7 @@
 
 cd "$HOME" || exit 1
 
-echo "Install Fedora Linux packages"
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
+echo "Install Fedora Linux packages"
 # Yumfile hash: {{ include ".packagefiles/Yumfile" | sha256sum }}
 {{ end }}

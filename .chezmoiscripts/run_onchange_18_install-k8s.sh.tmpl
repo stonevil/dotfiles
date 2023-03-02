@@ -3,8 +3,8 @@
 
 cd "$HOME" || exit 1
 
-echo "Install kubectl krew packages"
 if command -v kubectl-krew >/dev/null; then
+echo "Install kubectl krew packages"
 # Krewfile hash: {{ include ".packagefiles/Krewfile" | sha256sum }}
 	kubectl-krew install <{{ joinPath .chezmoi.sourceDir ".packagefiles/Krewfile" | quote }}
 fi

@@ -3,8 +3,8 @@
 
 cd "$HOME" || exit 1
 
-echo "Install NodeJS modules"
 if command -v npm >/dev/null; then
+echo "Install NodeJS modules"
 # NPMfile hash: {{ include ".packagefiles/NPMfile" | sha256sum }}
 	npm config set prefix "$HOME"/.local/npm-packages
 	export NPM_PACKAGES="$HOME"/.local/npm-packages
