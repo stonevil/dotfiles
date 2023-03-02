@@ -10,7 +10,7 @@ echo "Configure shell environment"
 {{ if eq .chezmoi.os "linux" }}
 	echo "Password may be required"
 	sudo usermod -s /bin/zsh "$(id -u -n)"
-{{ else if eq .chezmoi.os "darwin" }}
-	terminal-notifier -title "Configuring shell environment" -sound default -ignoreDnD -message "Please type password in Terminal"
-	chsh -s /bin/zsh
+// {{ else if eq .chezmoi.os "darwin" }}
+#	terminal-notifier -title "Configuring shell environment" -sound default -ignoreDnD -message "Please type password in Terminal"
+#	chsh -s /bin/zsh
 {{ end }}
