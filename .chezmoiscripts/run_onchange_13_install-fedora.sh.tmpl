@@ -6,4 +6,9 @@ cd "$HOME" || exit 1
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
 echo "Install Fedora Linux packages"
 # Yumfile hash: {{ include ".packagefiles/Yumfile" | sha256sum }}
+# Yumfile.workstation hash: {{ include ".packagefiles/Yumfile.workstation" | sha256sum }}
+	(sudo dnf --update add $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile" | quote }})) || exit 1
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile.workstation" | quote }} ]]; then
+		(sudo dnf --update add $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile.workstation" | quote }})) || exit 1
+	fi
 {{ end }}

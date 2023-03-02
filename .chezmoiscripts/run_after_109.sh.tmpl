@@ -11,5 +11,6 @@ echo "System cleanup after all this mess"
 		(sudo pacman --noconfirm -R $(pacman -Qdtq)) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "alpine" }}
 	{{ else if eq .chezmoi.osRelease.id "fedora" }}
+		yum autoremove -y || exit 1
 	{{ end }}
 {{ end }}

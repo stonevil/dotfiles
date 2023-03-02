@@ -6,7 +6,14 @@ cd "$HOME" || exit 1
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
 echo "Install Arch Linux packages"
 # Pacfile hash: {{ include ".packagefiles/Pacfile" | sha256sum }}
+# Pacfile.workstation hash: {{ include ".packagefiles/Pacfile.workstation" | sha256sum }}
 # Yayfile hash: {{ include ".packagefiles/Yayfile" | sha256sum }}
 	(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile" | quote }})) || exit 1
 	(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile" | quote }})) || exit 1
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile.workstation" | quote }} ]]; then
+		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile.workstation" | quote }})) || exit 1
+	fi
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile.workstation" | quote }} ]]; then
+		(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile.workstation" | quote }})) || exit 1
+	fi
 {{ end }}
