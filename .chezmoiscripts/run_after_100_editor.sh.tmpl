@@ -6,7 +6,8 @@ cd "$HOME" || exit 1
 echo "Install Nvim for some broken by design distros"
 {{ if eq .chezmoi.os "linux" }}
 	{{ if eq .chezmoi.osRelease.id "ubuntu" }}
-		(curl -sL -o /var/cache/apt/archives/nvim-linux64.deb https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb && sudo dpkg -i --force-all /var/cache/apt/archives/nvim-linux64.deb) || exit 1
+		sudo apt remove -y nvim*
+		(sudo curl -sL -o /var/cache/apt/archives/nvim-linux64.deb https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb && sudo dpkg -i --force-all /var/cache/apt/archives/nvim-linux64.deb) || exit 1
 	{{ end }}
 {{ end }}
 
