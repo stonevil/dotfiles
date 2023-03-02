@@ -1,8 +1,9 @@
 README.md
 Dockerfile*
-Vagrantfile
+Vagrantfile*
 .vagrant
 lazy-lock.json
 .neoconf.json
 .test*
+.packagefiles
 ~/.config/nvim/lazy-lock.json
