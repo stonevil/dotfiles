@@ -7,7 +7,7 @@ echo "System cleanup after all this mess"
 {{ if eq .chezmoi.os "darwin" }}
 	(brew cleanup --quiet --prune=30 && brew autoremove) || exit 1
 {{ else if eq .chezmoi.os "linux" }}
-	{{ else if eq .chezmoi.osRelease.id "arch" }}
+	{{ if eq .chezmoi.osRelease.id "arch" }}
 		(sudo pacman --noconfirm -R $(pacman -Qdtq)) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "alpine" }}
 	{{ else if eq .chezmoi.osRelease.id "fedora" }}
