@@ -3,52 +3,10 @@
 
 cd "$HOME" || exit 1
 
-echo "Install required packages"
+echo "Install Homebrew packages"
 {{ if eq .chezmoi.os "darwin" }}
-	export PATH="$HOME"/.homebrew/bin:$PATH
-	brew bundle --no-lock --force --file="$HOME/.config/Brewfile" || true
+# Brewfile hash: {{ include ".packagefiles/Brewfile" | sha256sum }}
+	export PATH="$HOME"/.homebrew/bin:"$PATH"
+	brew bundle --no-lock --force --file={{ joinPath .chezmoi.sourceDir ".packagefiles/Brewfile" | quote }} || true
 	brew cleanup --quiet --prune=30 || true
-{{ else if eq .chezmoi.os "linux" }}
-	{{ if eq .chezmoi.osRelease.id "alpine" }}
-		(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile)) || exit 1
-	{{ else if eq .chezmoi.osRelease.id "arch" }}
-		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile)) || exit 1
-		if command -v paru >/dev/null && [ -f "$HOME"/.config/Yayfile ]; then
-			(paru --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Yayfile)) || exit 1
-		fi
-	{{ else if eq .chezmoi.osRelease.id "fedora" }}
-	{{ end }}
 {{ end }}
-
-echo "Install Python pip packges"
-if command -v pip3 >/dev/null; then
-	export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
-	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade pip || exit 1
-	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade --force-reinstall -r "$HOME"/.config/Pipfile || exit 1
-fi
-
-echo "Install kubectl krew packges"
-if command -v kubectl-krew >/dev/null; then
-	kubectl-krew install <"$HOME"/.config/Krewfile
-fi
-
-echo "Install Ruby gems"
-if command -v gem >/dev/null; then
-	xargs <"$HOME"/.config/Gemsfile gem install --no-suggestions --no-lock -n "$HOME"/.local/bin --user-install
-fi
-
-echo "Install NodeJS modules"
-if command -v npm >/dev/null; then
-	npm config set prefix "$HOME"/.local/npm-packages
-	export NPM_PACKAGES="$HOME"/.local/npm-packages
-	xargs <"$HOME"/.config/NPMfile npm install -g
-fi
-
-echo "Install Go tools and libs"
-if command -v go >/dev/null; then
-	export GOPATH=$HOME/.local/golang-packages
-	export GOBIN=$HOME/.local/bin
-	while IFS= read -r line; do
-		go install "$line"
-	done <"$HOME"/.config/Gofile
-fi

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# vim:ft=go
+
+cd "$HOME" || exit 1
+
+echo "Install kubectl krew packages"
+if command -v kubectl-krew >/dev/null; then
+# Krewfile hash: {{ include ".packagefiles/Krewfile" | sha256sum }}
+	kubectl-krew install <{{ joinPath .chezmoi.sourceDir ".packagefiles/Krewfile" | quote }}
+fi

@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# vim:ft=go
+
+cd "$HOME" || exit 1
+
+echo "Install NodeJS modules"
+if command -v npm >/dev/null; then
+# NPMfile hash: {{ include ".packagefiles/NPMfile" | sha256sum }}
+	npm config set prefix "$HOME"/.local/npm-packages
+	export NPM_PACKAGES="$HOME"/.local/npm-packages
+	xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/NPMfile" | quote }} npm install -g
+fi

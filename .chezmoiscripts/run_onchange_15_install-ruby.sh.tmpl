@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# vim:ft=go
+
+cd "$HOME" || exit 1
+
+echo "Install Ruby gem packages"
+if command -v gem >/dev/null; then
+# Gemsfile hash: {{ include ".packagefiles/Gemsfile" | sha256sum }}
+	xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/Gemsfile" | quote }} gem install --no-suggestions --no-lock -n "$HOME"/.local/bin --user-install
+fi
