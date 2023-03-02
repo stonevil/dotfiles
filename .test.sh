@@ -7,7 +7,7 @@ echo "Detect OS distro and version"
 case "$DISTRO" in
 	alpine) export DISTRO_VER="${2:-3.17}"
 	;;
-	archlinux|centos|ubuntu) export DISTRO_VER="${2:-latest}"
+	archlinux|centos) export DISTRO_VER="${2:-latest}"
 	;;
 	fedora) export DISTRO_VER="${2:-37}"
 	;;

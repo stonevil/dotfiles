@@ -3,16 +3,6 @@
 
 cd "$HOME" || exit 1
 
-echo "Install Nvim for some broken by design distros"
-{{ if eq .chezmoi.os "linux" }}
-	{{ if eq .chezmoi.osRelease.id "ubuntu" }}
-		sudo apt remove -y nvim*
-		(sudo curl -sL -o /var/cache/apt/archives/nvim-linux64.deb https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb && sudo dpkg -i --force-all /var/cache/apt/archives/nvim-linux64.deb) || exit 1
-		sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100 && \
-		sudo update-alternatives --set editor /usr/bin/nvim
-	{{ end }}
-{{ end }}
-
 echo "Install Nvim Lazy plugin and dependencies"
 if command -v nvim >/dev/null; then
 	echo "Lazy NeoVim update..."

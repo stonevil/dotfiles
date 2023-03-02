@@ -8,21 +8,11 @@ echo "Install workstation packages"
 	{{ if eq .chezmoi.os "darwin" }}
 		echo "Add workstation for macOS"
 	{{ else if eq .chezmoi.os "linux" }}
-		{{ if eq .chezmoi.osRelease.id "ubuntu" }}
-			if [ -f "$HOME"/.config/Aptfile.workstation ]; then
-				(sudo add-apt-repository ppa:mozillateam/ppa && \
-				sudo apt update -y && \
-				sudo apt install -y -t 'o=LP-PPA-mozillateam' firefox && \
-				sudo echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' > /etc/apt/apt.conf.d/51unattended-upgrades-firefox && \
-				sudo echo -e "Package: firefox*\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 501" > /etc/apt/preferences.d/no-snap && \
-				sudo chown root:root /etc/apt/preferences.d/mozillafirefoxppa) || exit 1
-				(sudo apt update -y && sudo apt upgrade -y && sudo apt install -y $(paste -s -d ' ' "$HOME"/.config/Aptfile.workstation)) || exit 1
-			fi
-		{{ else if eq .chezmoi.osRelease.id "arch" }}
-		{{ else if eq .chezmoi.osRelease.id "alpine" }}
+		{{ if eq .chezmoi.osRelease.id "alpine" }}
 			if [ -f "$HOME"/.config/Apkfile.workstation ]; then
 				(sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile.workstation)) || exit 1
 			fi
+		{{ else if eq .chezmoi.osRelease.id "arch" }}
 		{{ else if eq .chezmoi.osRelease.id "fedora" }}
 			if [ -f "$HOME"/.config/Yumfile.workstation ]; then
 				(sudo dnf --update add $(paste -s -d ' ' "$HOME"/.config/Yumfile.workstation)) || exit 1

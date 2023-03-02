@@ -9,15 +9,13 @@ echo "Install required packages"
 	brew bundle --no-lock --file="$HOME/.config/Brewfile" || true
 	brew cleanup --quiet --prune=30 || true
 {{ else if eq .chezmoi.os "linux" }}
-	{{ if eq .chezmoi.osRelease.id "ubuntu" }}
-		(sudo apt update -y && sudo apt upgrade -y && sudo apt install -y $(paste -s -d ' ' "$HOME"/.config/Aptfile)) || exit 1
+	{{ if eq .chezmoi.osRelease.id "alpine" }}
+		(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile)) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "arch" }}
 		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Pacfile)) || exit 1
 		if command -v paru >/dev/null && [ -f "$HOME"/.config/Yayfile ]; then
 			(paru --noconfirm --needed -Syu $(paste -s -d ' ' "$HOME"/.config/Yayfile)) || exit 1
 		fi
-	{{ else if eq .chezmoi.osRelease.id "alpine" }}
-		(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' "$HOME"/.config/Apkfile)) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "fedora" }}
 	{{ end }}
 {{ end }}
