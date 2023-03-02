@@ -20,3 +20,4 @@ export VISUAL=$EDITOR
 alias v='$EDITOR'
 alias vi='$EDITOR'
 alias vim='$EDITOR'
+alias vimdiff='$EDITOR -d'

@@ -9,3 +9,8 @@ fi
 if [ -d "$HOME/.krew/bin" ]; then
 	export PATH=$PATH:$HOME/.krew/bin
 fi
+
+if command -v oauth2l >/dev/null; then
+	# Aliases
+	alias k='kubectl'
+fi
