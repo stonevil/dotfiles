@@ -10,10 +10,10 @@ echo "System cleanup after all this mess"
 	{{ if eq .chezmoi.osRelease.id "ubuntu" }}
 		if command -v snap >/dev/null; then
 			echo "Remove Ubuntu spyware"
-			sudo systemctl disable --now snapd.service
-			sudo systemctl disable --now snapd.socket
-			sudo systemctl disable --now snapd.seeded.service
 			(sudo snap remove $(snap list | awk '!/^Name|^core/ {print $1}') && \
+			sudo systemctl disable --now snapd.service && \
+			sudo systemctl disable --now snapd.socket && \
+			sudo systemctl disable --now snapd.seeded.service && \
 			sudo apt remove --purge -y snapd gnome-software-plugin-snap && \
 			sudo rm -rf /snap /var/snap /var/lib/snapd /var/cache/snapd /usr/lib/snapd) || exit 1
 		fi
