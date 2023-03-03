@@ -19,4 +19,4 @@ echo "Last chance for Blade Runner"
 export CLI="${3:-limactl shell docker docker}"
 
 echo "Execute container"
-eval "$CLI" run -it --rm -v $PWD:/root/.local/share/chezmoi -e DISTRO=$DISTRO -e DISTRO_VER=$DISTRO_VER $DISTRO:$DISTRO_VER sh -c "/root/.local/share/chezmoi/.test/$DISTRO/run.sh"
+eval "$CLI" run -it --rm -v $PWD:/root/.local/share/chezmoi -e DISTRO=$DISTRO -e DISTRO_VER=$DISTRO_VER $DISTRO:$DISTRO_VER sh -c "/root/.local/share/chezmoi/.test_runner.sh"
