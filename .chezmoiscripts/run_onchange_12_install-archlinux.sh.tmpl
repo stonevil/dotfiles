@@ -4,20 +4,22 @@
 cd "$HOME" || exit 1
 
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
-echo "Install Arch Linux packages"
-# Pacfile hash: {{ include ".packagefiles/Pacfile" | sha256sum }}
-# Pacfile.workstation hash: {{ include ".packagefiles/Pacfile.workstation" | sha256sum }}
-# Yayfile hash: {{ include ".packagefiles/Yayfile" | sha256sum }}
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile" | quote }} ]]; then
-		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile" | quote }})) || exit 1
-	fi
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile" | quote }} ]] and [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile" | quote }} ]]; then
-		(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile" | quote }})) || exit 1
-	fi
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile.workstation" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile.workstation" | quote }} ]]; then
-		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Pacfile.workstation" | quote }})) || exit 1
-	fi
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile.workstation" | quote }} ]] and [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile.workstation" | quote }} ]]; then
-		(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yayfile.workstation" | quote }})) || exit 1
-	fi
+echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
+# {{ .chezmoi.osRelease.id }} hash: {{ include (joinPath ".packagefiles" .chezmoi.osRelease.id) | sha256sum }}
+# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
+# {{ .chezmoi.osRelease.id }}.aur hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur") | sha256sum }}
+# {{ .chezmoi.osRelease.id }}..aur.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation") | sha256sum }}
+
+	for i in {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }} {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote }}; do
+		if [[ -f "$i" ]] && [[ -s "$i" ]]; then
+			(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' "$i")) || exit 1
+		fi
+	done
+
+	for i in {{ print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur" | quote }} {{ print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation" | quote }}; do
+		if [[ -f "$i" ]] && [[ -s "$i" ]]; then
+			(paru --noconfirm --needed -Syu $(paste -s -d ' ' "$i")) || exit 1
+		fi
+	done
+fi
 {{ end }}

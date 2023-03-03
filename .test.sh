@@ -5,13 +5,18 @@ export DISTRO=$1
 
 echo "Detect OS distro and version"
 case "$DISTRO" in
-	alpine) export DISTRO_VER="${2:-3.17}"
+	alpine) export IMAGE="$DISTRO"; export IMAGE_TAG="${2:-3.17}"
 	;;
-	archlinux|centos) export DISTRO_VER="${2:-latest}"
+	arch|centos) export IMAGE_TAG="${2:-latest}"
+		if [[ DISTRO == "arch" ]]; then
+			IMAGE="archlinux"
+		else
+			IMAGE="$DISTRO"
+		fi
 	;;
-	fedora) export DISTRO_VER="${2:-37}"
+	fedora) export IMAGE="$DISTRO"; export IMAGE_TAG="${2:-37}"
 	;;
-	*) export DISTRO="alpine"; DISTRO_VER="3.17"
+	*) export DISTRO="alpine"; IMAGE="$DISTRO"; IMAGE_TAG="3.17"
 	;;
 esac
 
@@ -19,4 +24,4 @@ echo "Last chance for Blade Runner"
 export CLI="${3:-limactl shell docker docker}"
 
 echo "Execute container"
-eval "$CLI" run -it --rm -v $PWD:/root/.local/share/chezmoi -e DISTRO=$DISTRO -e DISTRO_VER=$DISTRO_VER $DISTRO:$DISTRO_VER sh -c "/root/.local/share/chezmoi/.test_runner.sh"
+eval "$CLI" run -it --rm -v $PWD:/root/.local/share/chezmoi -e DISTRO=$DISTRO -e IMAGE_TAG=$IMAGE_TAG $IMAGE:$IMAGE_TAG sh -c "/root/.local/share/chezmoi/.test_runner.sh"

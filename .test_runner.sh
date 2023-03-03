@@ -4,19 +4,19 @@
 case "$DISTRO" in
 	alpine) echo "Alpine. Install bare minimal packages"
 		echo "Fix repositories version"
-		if [[ $DISTRO_VER == "edge" ]]; then
+		if [[ $IMAGE_TAG == "edge" ]]; then
 			sed -i 's/v3.\b[0-9]\{2\}\b/edge/g' /etc/apk/repositories || exit 1
 		else
-			sed -i "s/v3.\b[0-9]\{2\}\b/v$DISTRO_VER/g" /etc/apk/repositories || exit 1
+			sed -i "s/v3.\b[0-9]\{2\}\b/v$IMAGE_TAG/g" /etc/apk/repositories || exit 1
 		fi
 		(echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories) || exit 1
 		(apk update && apk add sudo bash curl) || exit 1
 	;;
-	archlinux) echo "Arch Linux. Install bare minimal packages"
+	arch) echo "Arch Linux. Install bare minimal packages"
 		(pacman --noconfirm -Syy && pacman --noconfirm -Syu && pacman --noconfirm --needed -Syu sudo bash curl) || exit 1
 	;;
 	centos) echo "CentOS. Install bare minimal packages"
-		if [[ $DISTRO_VER == 8* ]]; then
+		if [[ $IMAGE_TAG == 8* ]] || [[ $IMAGE_TAG == "latest" ]]; then
 			echo "Fix CentOS 8 repositories URL"
 			(sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*) || exit 1
 			(sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*) || exit 1

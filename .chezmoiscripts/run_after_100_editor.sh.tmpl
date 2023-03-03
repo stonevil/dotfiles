@@ -8,5 +8,6 @@ if command -v nvim >/dev/null; then
 	echo "Lazy NeoVim update..."
 	nvim --headless "+Lazy! sync" +qall! || exit 1
 else
+	echo "Neovim is missing!"
 	exit 1
 fi

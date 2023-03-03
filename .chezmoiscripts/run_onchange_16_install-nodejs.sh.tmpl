@@ -5,10 +5,10 @@ cd "$HOME" || exit 1
 
 if command -v npm >/dev/null; then
 echo "Install NodeJS modules"
-# NPMfile hash: {{ include ".packagefiles/NPMfile" | sha256sum }}
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/NPMfile" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/NPMfile" | quote }} ]]; then
+# npm.modules hash: {{ include ".packagefiles/npm.modules" | sha256sum }}
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} ]]; then
 		npm config set prefix "$HOME"/.local/npm-packages
 		export NPM_PACKAGES="$HOME"/.local/npm-packages
-		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/NPMfile" | quote }} npm install -g
+		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} npm install -g
 	fi
 fi

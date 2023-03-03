@@ -3,14 +3,21 @@
 
 cd "$HOME" || exit 1
 
+{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
+	sudo dnf install -y epel-release epel-next-release || exit 1
+	sudo dnf update -y || exit 1
+	sudo dnf install 'dnf-command(config-manager)'
+	sudo dnf config-manager --set-enabled PowerTools
+{{ end }}
+
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
-echo "Install Fedora Linux packages"
-# Yumfile hash: {{ include ".packagefiles/Yumfile" | sha256sum }}
-# Yumfile.workstation hash: {{ include ".packagefiles/Yumfile.workstation" | sha256sum }}
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile" | quote }} ]]; then
-		(sudo dnf install -y $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile" | quote }})) || exit 1
-	fi
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile.workstation" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile.workstation" | quote }} ]]; then
-		(sudo dnf install -y $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/Yumfile.workstation" | quote }})) || exit 1
-	fi
+echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
+# {{ .chezmoi.osRelease.id }} hash: {{ include (joinPath ".packagefiles" .chezmoi.osRelease.id) | sha256sum }}
+# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
+
+	for i in {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }} {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote }}; do
+		if [[ -f "$i" ]] && [[ -s "$i" ]]; then
+			(sudo dnf install -y $(paste -s -d ' ' "$i")) || exit 1
+		fi
+	done
 {{ end }}

@@ -40,7 +40,7 @@ ruby-libs
 rubygems
 rubygems-devel
 rust
-shellcheck
+ShellCheck
 shfmt
 source-highlight
 the_silver_searcher
