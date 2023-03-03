@@ -5,6 +5,8 @@ cd "$HOME" || exit 1
 
 if command -v gem >/dev/null; then
 echo "Install Ruby gem packages"
-# Gemsfile hash: {{ include ".packagefiles/Gemsfile" | sha256sum }}
-	xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/Gemsfile" | quote }} gem install --no-suggestions --no-lock -n "$HOME"/.local/bin --user-install
+# Gemsfile hash: {{ include ".packagefiles/Gemfile" | sha256sum }}
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Gemfile" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Gemfile" | quote }} ]]; then
+		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/Gemfile" | quote }} gem install --no-suggestions --no-lock --no-document --env-shebang --bindir "$HOME"/.local/bin
+	fi
 fi

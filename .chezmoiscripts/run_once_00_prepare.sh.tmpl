@@ -11,13 +11,16 @@ echo "Prepare system. Install essential packages like brew, etc"
 	(git clone https://github.com/Homebrew/brew.git "$HOME"/.homebrew) || exit 1
 	export PATH="$HOME"/.homebrew/bin:$PATH
 	(brew update && brew upgrade && brew upgrade --cask) || exit 1
+	brew install --no-lock --force bash curl git tar wget || exit 1
 {{ else if eq .chezmoi.os "linux" }}
 	{{ else if eq .chezmoi.osRelease.id "alpine" }}
 		(sudo apk update && sudo apk upgrade) || exit 1
+		sudo apk --update add bash curl git tar wget || exit 1
 	{{ else if eq .chezmoi.osRelease.id "arch" }}
 		(sudo pacman --noconfirm -Syy && sudo pacman --noconfirm -Syu) || exit 1
-		(sudo pacman --noconfirm --needed -Syu base-devel git curl wget tar) || exit 1
+		(sudo pacman --noconfirm --needed -Syu bash base-devel curl git tar wget) || exit 1
 		(cd /tmp && git clone https://aur.archlinux.org/paru.git && cd paru && su nobody -c "makepkg --nocomfirm -si" && cd /tmp && rm -rf /tmp/paru) || exit 1
 	{{ else if eq .chezmoi.osRelease.id "fedora" }}
 		(sudo yum update -y && sudo yum upgrade -y) || exit 1
+		sudo yum update -y bash curl git tar wget || exit 1
 {{ end }}

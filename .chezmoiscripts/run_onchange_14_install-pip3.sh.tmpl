@@ -6,7 +6,9 @@ cd "$HOME" || exit 1
 if command -v pip3 >/dev/null; then
 echo "Install Python pip3 packges"
 # Pipfile hash: {{ include ".packagefiles/Pipfile" | sha256sum }}
-	export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
-	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade pip || exit 1
-	pip3 install --no-warn-script-location --no-cache-dir --user --upgrade --force-reinstall -r {{ joinPath .chezmoi.sourceDir ".packagefiles/Pipfile" | quote }} || exit 1
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Pipfile" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Pipfile" | quote }} ]]; then
+		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
+		pip3 install --no-warn-script-location --no-cache-dir --user --upgrade --use-pep517 pip || exit 1
+		pip3 install --no-warn-script-location --no-cache-dir --user --upgrade --use-pep517 --force-reinstall -r {{ joinPath .chezmoi.sourceDir ".packagefiles/Pipfile" | quote }} || exit 1
+	fi
 fi

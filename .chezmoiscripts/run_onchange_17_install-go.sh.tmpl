@@ -6,9 +6,11 @@ cd "$HOME" || exit 1
 if command -v go >/dev/null; then
 echo "Install Go tools and libs"
 # Gofile hash: {{ include ".packagefiles/Gofile" | sha256sum }}
-	export GOPATH=$HOME/.local/golang-packages
-	export GOBIN=$HOME/.local/bin
-	while IFS= read -r line; do
-		go install "$line"
-	done <{{ joinPath .chezmoi.sourceDir ".packagefiles/Gofile" | quote }}
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/Gofile" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/Gofile" | quote }} ]]; then
+		export GOPATH=$HOME/.local/golang-packages
+		export GOBIN=$HOME/.local/bin
+		while IFS= read -r line; do
+			go install "$line"
+		done <{{ joinPath .chezmoi.sourceDir ".packagefiles/Gofile" | quote }}
+	fi
 fi
