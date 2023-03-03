@@ -2,7 +2,6 @@ automake
 bash
 bat
 cargo
-chezmoi
 ctags
 curl
 dos2unix
