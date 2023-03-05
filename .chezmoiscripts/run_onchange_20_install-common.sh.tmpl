@@ -1,0 +1,40 @@
+#!/usr/bin/env sh
+# vim:ft=go
+
+cd "$HOME" || exit 1
+
+mkdir -p "$HOME"/.local/bin
+
+# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
+
+echo "Install chezmoi binary"
+${SOFTWARE_DOWNLOAD_CMD} https://github.com/twpayne/chezmoi/releases/download/v${CHEZMOI_VERSION}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }} -o "$HOME"/.local/bin/chezmoi && chmod 755 "$HOME"/.local/bin/chezmoi
+
+echo "Install fzf binary"
+${SOFTWARE_DOWNLOAD_CMD} https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fzf-${FZF_VERSION}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz | tar -xzv -C "$HOME"/.local/bin fzf
+
+echo "Install helm binary"
+${SOFTWARE_DOWNLOAD_CMD} https://get.helm.sh/helm-v${HELM_VERSION}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz | tar -xzv --strip-components 1 -C "$HOME"/.local/bin {{ .chezmoi.os }}-{{ .chezmoi.arch }}/helm
+
+echo "Install helm binary"
+${SOFTWARE_DOWNLOAD_CMD} https://get.helm.sh/helm-v${HELM_VERSION}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz | tar -xzv --strip-components 1 -C "$HOME"/.local/bin {{ .chezmoi.os }}-{{ .chezmoi.arch }}/helm
+
+echo "Install kubectl binary"
+${SOFTWARE_DOWNLOAD_CMD} https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl -o "$HOME"/.local/bin/kubectl && chmod 755 "$HOME"/.local/bin/kubectl
+
+echo "Install kubectl krew binary"
+${SOFTWARE_DOWNLOAD_CMD} https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz | tar -xzv -C "$HOME"/.local/bin --transform='s,krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }},krew,' --show-transformed-names ./krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}
+
+echo "Install bat binary"
+{{ if eq .chezmoi.os "darwin" }}
+	{{ if eq .chezmoi.arch "amd64" }}
+		${SOFTWARE_DOWNLOAD_CMD} https://github.com/sharkdp/bat/releases/download/v"$BAT_VERSION"/bat-v"$BAT_VERSION"-x86_64-apple-darwin.tar.gz | tar -xzv --strip-components 1 -C "$HOME"/.local/bin bat-v"$BAT_VERSION"-x86_64-apple-darwin/bat
+	{{ end }}
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+	{{ if eq .chezmoi.arch "amd64" }}
+		${SOFTWARE_DOWNLOAD_CMD} https://github.com/sharkdp/bat/releases/download/v"$BAT_VERSION"/bat-v"$BAT_VERSION"-x86_64-unknown-linux-gnu.tar.gz | tar -xzv --strip-components 1 -C "$HOME"/.local/bin bat-v"$BAT_VERSION"-x86_64-unknown-linux-gnu/bat
+	{{ else if eq .chezmoi.arch "arm64" }}
+		${SOFTWARE_DOWNLOAD_CMD} https://github.com/sharkdp/bat/releases/download/v"$BAT_VERSION"/bat-v"$BAT_VERSION"-aarch64-unknown-linux-gnu.tar.gz | tar -xzv --strip-components 1 -C "$HOME"/.local/bin bat-v"$BAT_VERSION"-aarch64-unknown-linux-gnu/bat
+	{{ end }}
+{{ end }}

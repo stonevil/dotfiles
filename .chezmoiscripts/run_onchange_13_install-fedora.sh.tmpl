@@ -4,13 +4,12 @@
 cd "$HOME" || exit 1
 
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
-	sudo dnf install -y epel-release epel-next-release || exit 1
+	sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm || exit 1
 	sudo dnf update -y || exit 1
-	sudo dnf install 'dnf-command(config-manager)'
-	sudo dnf config-manager --set-enabled PowerTools
+	sudo dnf module reset ruby -y
 {{ end }}
 
-{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
+{{ if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "fedora") (eq .chezmoi.osRelease.id "centos"))) }}
 echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
 # {{ .chezmoi.osRelease.id }} hash: {{ include (joinPath ".packagefiles" .chezmoi.osRelease.id) | sha256sum }}
 # {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
