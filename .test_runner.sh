@@ -28,4 +28,5 @@ case "$DISTRO" in
 	;;
 esac
 
-sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --promptString email="fu@bar.org" --promptBool workstation=true --apply
+sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --promptString email="fu@bar.org" --promptBool workstation=true
+sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- apply
