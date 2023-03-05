@@ -1,17 +1,14 @@
 automake
 bash
-bat
 cargo
 ctags
 curl
 dos2unix
-fzf
 g++
 gcc
 git
 golang
 gzip
-helm
 htop
 ImageMagick
 jq
