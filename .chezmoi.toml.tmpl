@@ -17,6 +17,12 @@
 	workstation = {{ $workstation | default false }}
 	email = {{ $email | quote }}
 
+[data.wezterm.hdpi]
+  fontsize = 15
+
+[data.wezterm.fhd]
+  fontsize = 16
+
 {{- writeToStdout "email address is: " $email "\n" -}}
 {{ if $workstation }}
 	{{- writeToStdout "is workstation?: true\n" -}}
