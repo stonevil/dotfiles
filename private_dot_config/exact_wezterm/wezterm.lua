@@ -114,8 +114,8 @@ return {
 	initial_cols = 140,
 	initial_rows = 50,
 	inactive_pane_hsb = {
-		saturation = 0.6,
-		brightness = 0.6,
+		saturation = 0.3,
+		brightness = 0.3,
 	},
 
 	-- Font configuration
