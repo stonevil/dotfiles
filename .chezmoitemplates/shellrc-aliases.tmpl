@@ -1,0 +1,82 @@
+alias ansible-lint='ansible-lint -c ~/.ansible-lint'
+
+if command -v limactl >/dev/null; then
+	# lima-vm to support genuine docker
+	alias docker='limactl shell docker docker'
+	alias docker-stop-all='docker stop $(docker ps -a -q)'
+	alias docker-rm-all='docker rm -f $(docker ps -a -q)'
+	alias docker-rmi-all='docker rmi -f $(docker images --no-trunc=false -a -q)'
+	if [[ $(limactl list docker --format "{{`{{.Status}}`}}") != "Stopped" ]]; then
+		export DOCKER_HOST="unix://$HOME/.lima/docker/sock/docker.sock"
+	fi
+
+	# lima-vm to support genuine podman
+	alias podman='limactl shell podman podman'
+	alias podman-stop-all='podman stop $(podman ps -a -q)'
+	alias podman-rm-all='podman rm -f $(podman ps -a -q)'
+	alias podman-rmi-all='podman rmi -f $(podman images --no-trunc=false -a -q)'
+	if [[ $(limactl list podman --format "{{`{{.Status}}`}}") != "Stopped" ]]; then
+		export CONTAINER_HOST="unix://$HOME/.lima/podman/sock/podman.sock"
+	fi
+fi
+
+if command -v git >/dev/null; then
+	alias gad='git add'
+	alias gAD='git add -A'
+	alias gpu='git push'
+	alias glg='git log'
+	alias gst='git status'
+	alias gdf='git diff'
+	alias gco='git commit -v'
+	alias gca='git commit -a -v'
+	alias gbr='git branch'
+	alias gch='git cheikout'
+	alias gmv='git mv'
+	alias grm='git rm'
+	alias ggr='git grep'
+	alias grad='git remote add'
+	alias grrm='git remote rm'
+	alias gpl='git pull'
+	alias gcl='git clone'
+	alias gta='git tag -a -m'
+	alias gfl='git reflog'
+
+	# leverage an alias from the ~/.gitconfig
+	alias ghi='git hist'
+	alias glg1='git lg1'
+	alias glg2='git lg2'
+	alias glg='git lg'
+
+	# review all files in a git-managed directory that are not yet added to git
+	alias gv='vim $(git ls-files -o -X .gitignore)'
+
+	# cleanup credentials cache
+	alias glogout='git credential-cache exit'
+
+	# review all files in a git-managed directory that are not yet added to git
+	alias gv='vim $(git ls-files -o -X .gitignore)'
+	# cleanup credentials cache
+	alias glogout='git credential-cache exit'
+
+	git_submodule_remove() {
+		git config -f .git/config --remove-section submodule."$1"
+		git config -f .gitmodules --remove-section submodule."$1"
+		git rm --cached "$1"
+		git commit -m "Remove $1 cookbook submodule"
+		rm -rf "$1"
+		rm -rf .git/modules/"$1"
+	}
+fi
+
+# Configure gcurl alias
+if command -v oauth2l >/dev/null; then
+	alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform userinfo.email)" -H "Content-Type: application/json" '
+fi
+
+if command -v minikube >/dev/null; then
+	export MINIKUBE_CPU_COUNT="2"
+	export MINIKUBE_MEMORY_SIZE="4gb"
+	export MINIKUBE_DISK_SIZE="40gb"
+
+	alias minikube-create='minikube start --cpus=$MINIKUBE_CPU_COUNT --memory=$MINIKUBE_MEMORY_SIZE --disk-size=$MINIKUBE_DISK_SIZE --extra-config=apiserver.authorization-mode=RBAC'
+fi

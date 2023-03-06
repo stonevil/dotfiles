@@ -1,0 +1,98 @@
+{{ if eq .chezmoi.os "darwin" }}
+if [ "$(uname)" = "Darwin" ]; then
+	darkmode() {
+		# shellcheck disable=SC2046,SC2145
+		defaults write $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance -bool FALSE
+		# shellcheck disable=SC2145
+		if command -v terminal-notifier >/dev/null; then
+			terminal-notifier -title "The Empire Strikes Back" -subtitle 'Embrace the Dark Side, Luke' -appIcon /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Hero -ignoreDnD -message "Use your $@"
+		fi
+	}
+
+	darkmodeoff() {
+		# shellcheck disable=SC2046,SC2145
+		defaults delete $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance
+		# shellcheck disable=SC2145
+		if command -v terminal-notifier >/dev/null; then
+			terminal-notifier -title "A New Hope" -subtitle 'I felt a great disturbance in the Force' -appIcon /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Hero -ignoreDnD -message "Use your $@"
+		fi
+	}
+fi
+
+tn() {
+	start_time=$(date +%s)
+	"$@"
+	end_time=$(date +%s)
+	terminal-notifier -title "Job is done, Sir!" -subtitle $((end_time - start_time)) -appIcon /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Frog -ignoreDnD -message "$@"
+}
+
+tm_cleanup() {
+	tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
+	while IFS= read -r l; do
+		sudo tmutil deletelocalsnapshots "$l"
+	done <<<"$tm_list"
+}
+
+f2iso() {
+	hdiutil makehybrid -iso -joliet -o "$(basename $@)".iso "$@" && echo "$(basename $@).iso image created"
+}
+{{ end }}
+
+dbat() {
+	if [ $# -eq 2 ]; then
+		diff -t -y --color "$1" "$2" | bat -l rs
+	else
+		echo "bat diff function accepts two and only two arguments"
+	fi
+}
+
+tfbat() {
+	if [ $# -ge 1 ]; then
+		tail -f "$@" | bat --paging=never -l log --style="grid"
+	else
+		echo "bat tail -f function requires at least one arguments"
+	fi
+}
+
+ip_external() {
+	dig +short myip.opendns.com @resolver1.opendns.com
+}
+
+ydl() {
+	cd "$HOME"/Downloads || exit 1
+	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
+	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
+		terminal-notifier -title "Video Download Finished" -sound default -message "$video_title"
+	else
+		terminal-notifier -title "Video Download Failed" -sound default -message "$video_title"
+	fi
+}
+
+ymdl() {
+	cd "$HOME"/Downloads || exit 1
+	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
+	if yt-dlp -x --audio-format m4a --embed-thumbnail "$@"; then
+		terminal-notifier -title "Video Download Finished" -sound default -message "$video_title"
+	else
+		terminal-notifier -title "Video Download Failed" -sound default -message "$video_title"
+	fi
+}
+
+passgen() {
+	openssl rand -base64 "$1"
+}
+
+stmux() { ssh "$@" -t sh -c '~/.homebrew/bin/tmux attach-session -dv'; }
+
+export VAGRANT_PROVIDER_GUI="false"
+vagrant_ip() {
+	vagrant ssh -c "ip address show eth0 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//'"
+}
+vagrant_install_all_plugins() {
+	vagrant plugin install vagrant-vbguest
+}
+vagrant_update_all_plugins() {
+	for plugin in $(vagrant plugin list | cut -f1 -d' '); do
+		vagrant plugin update "$plugin"
+	done
+}

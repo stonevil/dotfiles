@@ -1,12 +1,5 @@
 # vim:ft=sh :
 
-{{ if eq .chezmoi.os "darwin" }}
-HOMEBREW_PATH="$HOME/.homebrew"
-RUBY_PATH=$(if [ -d $HOMEBREW_PATH/Cellar/ruby ]; then dirname $(find $HOMEBREW_PATH/Cellar/ruby/*/bin -name "ruby" -print -quit); fi)
-GEMS_PATH=$(if [ -d $HOMEBREW_PATH/lib/ruby/gems ]; then find $HOMEBREW_PATH/lib/ruby/gems/* -name "bin" -type d -print -quit; fi)
+{{ template "shellrc-path.tmpl" . }}
 
-PATH="$RUBY_PATH:$GEMS_PATH:$HOMEBREW_PATH/bin:$PATH"
-MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
-{{ end }}
-
-PATH="$HOME/.local/bin:$PATH"
+{{ template "shellrc-env.tmpl" . }}

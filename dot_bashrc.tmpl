@@ -1,27 +1,12 @@
-#!/usr/bin/env bash
 # vim:ft=sh
 # shellcheck source=/dev/null
 
-{{ if eq .chezmoi.os "darwin" }}
-HOMEBREW_PATH="$HOME/.homebrew"
-# shellcheck disable=SC2046
-RUBY_PATH=$(if [[ -d "$HOMEBREW_PATH"/Cellar/ruby ]]; then dirname $(find "$HOMEBREW_PATH"/Cellar/ruby/*/bin -name "ruby" -print -quit); fi)
-GEMS_PATH=$(if [[ -d "$HOMEBREW_PATH"/lib/ruby/gems ]]; then find "$HOMEBREW_PATH"/lib/ruby/gems/* -name "bin" -type d -print -quit; fi)
+{{ template "shellrc-path.tmpl" . }}
 
-PATH="$RUBY_PATH:$GEMS_PATH:$HOMEBREW_PATH/bin:$PATH"
-MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
-{{ end }}
+{{ template "shellrc-aliases.tmpl" . }}
 
-PATH="$HOME/.local/bin:$PATH"
+{{ template "shellrc-env.tmpl" . }}
 
-# Load rc plugins
-# shellcheck source=/dev/null
-if [ -d "$HOME"/.shellrc ]; then
-	if [ "$(ls -A "$HOME"/.shellrc)" ]; then
-		for file in "$HOME"/.shellrc/[A-Za-z]*.sh; do
-			source "$file"
-		done
-	fi
-else
-	echo "404: ~/.shellrc folder not found"
-fi
+{{ template "shellrc-functions.tmpl" . }}
+
+{{ template "shellrc-editor.tmpl" . }}

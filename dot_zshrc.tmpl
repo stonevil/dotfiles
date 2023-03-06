@@ -1,79 +1,14 @@
-#!/usr/bin/env zsh
 # vim:ft=zsh :
 # shellcheck source=/dev/null
 
-{{ if eq .chezmoi.os "darwin" }}
-HOMEBREW_PATH="$HOME/.homebrew"
-# shellcheck disable=SC2046
-RUBY_PATH=`if [[ -d $HOMEBREW_PATH/Cellar/ruby ]]; then dirname $(find $HOMEBREW_PATH/Cellar/ruby/*/bin -name "ruby" -print -quit); fi`
-GEMS_PATH=`if [[ -d $HOMEBREW_PATH/lib/ruby/gems ]]; then find $HOMEBREW_PATH/lib/ruby/gems/* -name "bin" -type d -print -quit; fi`
+{{ template "shellrc-path.tmpl" . }}
 
-PATH="$RUBY_PATH:$GEMS_PATH:$HOMEBREW_PATH/bin:$PATH"
-MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
-{{ end }}
+{{ template "shellrc-zsh.tmpl" . }}
 
-PATH="$HOME/.local/bin:$PATH"
+{{ template "shellrc-aliases.tmpl" . }}
 
-source "$HOME/.local/antigen.zsh"
+{{ template "shellrc-env.tmpl" . }}
 
-# Load the oh-my-zsh's library
-antigen use oh-my-zsh
+{{ template "shellrc-functions.tmpl" . }}
 
-antigen bundle colored-man-pages
-antigen bundle kubectl
-antigen bundle rsync
-antigen bundle sudo
-antigen bundle vagrant
-#antigen bundle Aloxaf/fzf-tab
-
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-
-antigen bundle jeffreytse/zsh-vi-mode
-
-# Load the theme
-# https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#antigen theme robbyrussell
-
-# Tell Antigen that you're done
-antigen apply
-
-CASE_SENSITIVE="true"
-DISABLE_AUTO_UPDATE="true"
-export UPDATE_ZSH_DAYS=2
-# DISABLE_LS_COLORS="true"
-DISABLE_AUTO_TITLE="true"
-ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Theme
-GREEN="%{$fg_bold[green]%}"
-YELLOW="%{$fg_bold[yellow]%}"
-CYAN="%{$fg_bold[cyan]%}"
-RED="%{$fg_bold[red]%}"
-RESET="%{$reset_color%}"
-
-PROMPT='$YELLOW%c $RESET'
-
-ZSH_THEME_GIT_PROMPT_PREFIX="⥍ $CYAN"
-ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿"
-ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾"
-
-# Load rc plugins
-if [ -d "$HOME"/.shellrc ]; then
-	if [ "$(ls -A "$HOME"/.shellrc)" ]; then
-		for file in "$HOME"/.shellrc/[A-Za-z]*; do
-			source "$file"
-		done
-	fi
-else
-	echo "404: ~/.shellrc folder not found"
-fi
-
-# Reload zshrc
-alias reload=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
-alias zshrc="$EDITOR ~/.zshrc && reload"
+{{ template "shellrc-editor.tmpl" . }}

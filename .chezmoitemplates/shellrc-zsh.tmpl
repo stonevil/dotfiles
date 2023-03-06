@@ -1,0 +1,48 @@
+source "$HOME/.local/antigen.zsh"
+
+# Load the oh-my-zsh's library
+antigen use oh-my-zsh
+
+antigen bundle colored-man-pages
+antigen bundle kubectl
+antigen bundle rsync
+antigen bundle sudo
+antigen bundle vagrant
+#antigen bundle Aloxaf/fzf-tab
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+
+antigen bundle jeffreytse/zsh-vi-mode
+
+# Load the theme
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#antigen theme robbyrussell
+
+# Tell Antigen that you're done
+antigen apply
+
+CASE_SENSITIVE="true"
+DISABLE_AUTO_UPDATE="true"
+export UPDATE_ZSH_DAYS=2
+# DISABLE_LS_COLORS="true"
+DISABLE_AUTO_TITLE="true"
+ENABLE_CORRECTION="true"
+COMPLETION_WAITING_DOTS="true"
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Theme
+GREEN="%{$fg_bold[green]%}"
+YELLOW="%{$fg_bold[yellow]%}"
+CYAN="%{$fg_bold[cyan]%}"
+RED="%{$fg_bold[red]%}"
+RESET="%{$reset_color%}"
+
+PROMPT='$YELLOW%c $RESET'
+
+ZSH_THEME_GIT_PROMPT_PREFIX="⥍ $CYAN"
+ZSH_THEME_GIT_PROMPT_SUFFIX=""
+ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿"
+ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾"
