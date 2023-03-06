@@ -2,13 +2,6 @@
 
 [scriptEnv]
 	SOFTWARE_DOWNLOAD_CMD="curl --connect-timeout 300 --retry 5 --retry-delay 20 --silent --insecure --location"
-	FZF_VERSION = "0.38.0"
-	BAT_VERSION = "0.22.1"
-	CHEZMOI_VERSION = "2.31.1"
-	HELM_VERSION = "3.11.1"
-	RKE_VERSION = "0.3.2"
-	KUBECTL_VERSION = "1.14.8"
-	KREW_VERSION = "0.4.3"
 
 {{ $email := promptString "email" -}}
 {{ $workstation := promptBool "workstation" false -}}
@@ -22,6 +15,34 @@
 
 [data.wezterm.fhd]
   fontsize = 16
+
+[data.libc]
+{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
+	platform = "musl"
+{{ else }}
+	platform = "gnu"
+{{ end }}
+
+[data.tools.fzf]
+	version = "0.38.0"
+
+[data.tools.bat]
+	version = "0.22.1"
+
+[data.tools.chezmoi]
+	version = "2.31.1"
+
+[data.tools.helm]
+	version = "3.11.1"
+
+[data.tools.rke]
+	version = "0.3.2"
+
+[data.tools.kubectl]
+	version = "1.14.8"
+
+[data.tools.krew]
+	version = "0.4.3"
 
 {{- writeToStdout "email address is: " $email "\n" -}}
 {{ if $workstation }}
