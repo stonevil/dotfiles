@@ -1,0 +1,4 @@
+if command -v krew >/dev/null; then
+	echo "Kubectl. Update plugins"
+	(krew update && krew upgrade) || exit 1
+fi

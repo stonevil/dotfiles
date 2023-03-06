@@ -4,10 +4,12 @@
 cd "$HOME" || exit 1
 
 {{ if eq .chezmoi.os "darwin" }}
-echo "Install {{ .chezmoi.os | title }} packages"
- {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}
+# {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}
+
+	echo "Install {{ .chezmoi.os | title }} packages"
 	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]]; then
 		export PATH="$HOME"/.homebrew/bin:"$PATH"
+		{{ template "darwin.tmpl" . }}
 		brew bundle --no-lock --force --file={{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} || true
 		brew cleanup --quiet --prune=30 || true
 	fi

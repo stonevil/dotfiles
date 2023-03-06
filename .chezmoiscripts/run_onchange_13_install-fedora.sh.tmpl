@@ -4,15 +4,19 @@
 cd "$HOME" || exit 1
 
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
+	echo "Fix {{ .chezmoi.osRelease.id | title }} repositories url"
 	sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm || exit 1
-	sudo dnf update -y || exit 1
-	sudo dnf module reset ruby -y
+	{{ template "fedora.tmpl" . }}
+	sudo dnf module reset ruby -y || exit 1
 {{ end }}
 
 {{ if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "fedora") (eq .chezmoi.osRelease.id "centos"))) }}
-echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
 # {{ .chezmoi.osRelease.id }} hash: {{ include (joinPath ".packagefiles" .chezmoi.osRelease.id) | sha256sum }}
 # {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
+
+	echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
+
+	{{ template "fedora.tmpl" . }}
 
 	for i in {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }} {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote }}; do
 		if [[ -f "$i" ]] && [[ -s "$i" ]]; then

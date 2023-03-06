@@ -6,18 +6,18 @@ export DISTRO=$1
 echo "Detect OS distro and version"
 case "$DISTRO" in
 	alpine) export IMAGE="$DISTRO"; export IMAGE_TAG="${2:-3.17}"
-	;;
+		;;
 	arch|centos) export IMAGE_TAG="${2:-latest}"
 		if [[ DISTRO == "arch" ]]; then
 			IMAGE="archlinux"
 		else
 			IMAGE="$DISTRO"
 		fi
-	;;
+		;;
 	fedora) export IMAGE="$DISTRO"; export IMAGE_TAG="${2:-37}"
 	;;
 	*) export DISTRO="alpine"; IMAGE="$DISTRO"; IMAGE_TAG="3.17"
-	;;
+		;;
 esac
 
 echo "Last chance for Blade Runner"

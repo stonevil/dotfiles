@@ -1,0 +1,14 @@
+if [ -d "$HOME"/.tmux/plugins ]; then
+	echo "TMUX. Update plugins"
+	for plugin in "$HOME"/.tmux/plugins/*; do
+		if [ -d "$plugin" ]; then
+			cd "$plugin" || exit
+			if [ -d '.git' ]; then
+				git pull
+			fi
+		fi
+	done
+	if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+		tmux source-file ~/.tmux.conf
+	fi
+fi

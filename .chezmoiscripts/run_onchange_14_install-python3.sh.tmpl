@@ -3,13 +3,4 @@
 
 cd "$HOME" || exit 1
 
-if command -v pip3 >/dev/null; then
-echo "Install Python pip3 packges"
-# pip3.packages hash: {{ include ".packagefiles/pip3.packages" | sha256sum }}
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} ]]; then
-		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
-		export PATH=$HOME/.local/bin:$PATH
-		pip3 install --disable-pip-version-check --no-cache-dir --upgrade --force-reinstall --ignore-installed --prefix "$HOME"/.local install pip || exit 1
-		pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed --prefix "$HOME"/.local -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
-	fi
-fi
+{{ template "python3.tmpl" . }}

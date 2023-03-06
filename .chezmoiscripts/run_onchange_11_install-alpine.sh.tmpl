@@ -4,9 +4,11 @@
 cd "$HOME" || exit 1
 
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
-echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
 # {{ .chezmoi.osRelease.id }} hash: {{ include (joinPath ".packagefiles" .chezmoi.osRelease.id) | sha256sum }}
+
+	echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
 	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }} ]]; then
-		(sudo apk update && sudo apk upgrade && sudo apk --update add $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }})) || exit 1
+		{{ template "alpine.tmpl" . }}
+		(sudo apk --update add $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }})) || exit 1
 	fi
 {{ end }}

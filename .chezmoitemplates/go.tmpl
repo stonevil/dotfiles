@@ -1,0 +1,11 @@
+if command -v go >/dev/null; then
+# go.packages hash: {{ include ".packagefiles/go.packages" | sha256sum }}
+	echo "Go. Install or update tools and libs"
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/go.packages" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/go.packages" | quote }} ]]; then
+		export GOPATH=$HOME/.local/golang-packages
+		export GOBIN=$HOME/.local/bin
+		while IFS= read -r line; do
+			go install "$line"
+		done <{{ joinPath .chezmoi.sourceDir ".packagefiles/go.packages" | quote }}
+	fi
+fi

@@ -1,0 +1,3 @@
+echo "RedHat. Update packages"
+(sudo dnf update -y && sudo dnf upgrade -y) || exit 1
+sudo dnf autoremove -y || exit 1
