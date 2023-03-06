@@ -1,6 +1,4 @@
 hadolint-bin
-krew-bin
-kubeval-bin
 zplug
 stern
 minio-mc-bin
