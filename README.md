@@ -42,5 +42,5 @@ sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --one-shot 
 4. Add ```nfsd``` to Privacy, Full Disk Access 
 5. Synchronize git aliases in shell script and git config
 6. Proper README
-7. CentOS 7/8 Yumfile
-8. Rework trigers for *file with packages
+7. Rework shellrc
+8. Fix lima templates
