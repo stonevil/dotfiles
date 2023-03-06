@@ -5,3 +5,7 @@ Vagrantfile*
 .neoconf.json
 .test*
 .packagefiles
+{{ if (ne .chezmoi.os "darwin") }}
+Library
+private_Library
+{{ end }}

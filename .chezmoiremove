@@ -1,5 +1,8 @@
-~/.local/share/nvim/
-~/.cache/nvim/
-~/bin/
-~/Bin/
-~/.config/nvim/lazy-lock.json
+.local/share/nvim
+.cache/nvim
+bin
+.bin
+Bin
+.Bin
+.krew
+.config/nvim/lazy-lock.json
