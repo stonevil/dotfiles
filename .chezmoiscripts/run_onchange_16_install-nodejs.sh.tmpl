@@ -8,8 +8,8 @@ cd "$HOME" || exit 1
 if command -v npm >/dev/null; then
 	echo "Install NodeJS modules"
 	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} ]]; then
-		npm config set prefix "$HOME"/.local/npm-packages
-		export NPM_PACKAGES="$HOME"/.local/npm-packages
+		npm config set prefix "$HOME"/.local
+		export NPM_PACKAGES="$HOME"/.local
 		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} npm install -g
 	fi
 fi
