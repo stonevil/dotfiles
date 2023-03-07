@@ -2,14 +2,20 @@
 
 # chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
 
+[".local/antigen.zsh"]
+	type = "file"
+	refreshPeriod = "48h"
+	executable = true
+	url = "https://git.io/antigen"
+
 [".local/bin/chezmoi"]
 	type = "file"
 	refreshPeriod = "48h"
 	executable = true
 {{ if eq .libc.platform "musl" }}
-	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
+	url = "https://github.com/twpayne/chezmoi/releases/download/{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
 {{ else }}
-	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+	url = "https://github.com/twpayne/chezmoi/releases/download/{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 {{ end }}
 
 [".local/bin/bat"]
@@ -19,23 +25,23 @@
 	stripComponents = 1
 {{ if eq .chezmoi.os "darwin" }}
 	{{ if eq .chezmoi.arch "amd64" }}
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-x86_64-apple-darwin.tar.gz"
+	url = "https://github.com/sharkdp/bat/releases/download/{{ .tools.bat.version }}/bat-{{ .tools.bat.version }}-x86_64-apple-darwin.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-x86_64-apple-darwin/bat"]
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ .tools.bat.version }}-x86_64-apple-darwin/bat"]
 	{{ end }}
 {{ end }}
 {{ if eq .chezmoi.os "linux" }}
 	{{ if eq .chezmoi.arch "amd64" }}
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-x86_64-unknown-linux-{{ .libc.platform }}.tar.gz"
+	url = "https://github.com/sharkdp/bat/releases/download/{{ .tools.bat.version }}/bat-{{ .tools.bat.version }}-x86_64-unknown-linux-{{ .libc.platform }}.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-x86_64-unknown-linux-{{ .libc.platform }}/bat"]
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ .tools.bat.version }}-x86_64-unknown-linux-{{ .libc.platform }}/bat"]
 	{{ else if eq .chezmoi.arch "arm64" }}
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-aarch64-unknown-linux-{{ .libc.platform }}.tar.gz"
+	url = "https://github.com/sharkdp/bat/releases/download/{{ .tools.bat.version }}/bat-{{ .tools.bat.version }}-aarch64-unknown-linux-{{ .libc.platform }}.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-aarch64-unknown-linux-{{ .libc.platform }}/bat"]
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ .tools.bat.version }}-aarch64-unknown-linux-{{ .libc.platform }}/bat"]
 	{{ end }}
 {{ end }}
 
@@ -44,7 +50,7 @@
 	refreshPeriod = "48h"
 	executable = true
 	stripComponents = 1
-	url = "https://get.helm.sh/helm-v{{ .tools.helm.version }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+	url = "https://get.helm.sh/helm-{{ .tools.helm.version }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/helm".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "{{ .chezmoi.os }}-{{ .chezmoi.arch }}/helm"]
@@ -68,7 +74,7 @@
 	type = "file"
 	refreshPeriod = "48h"
 	executable = true
-	url = "https://github.com/kubernetes-sigs/krew/releases/download/v{{ .tools.krew.version }}/krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+	url = "https://github.com/kubernetes-sigs/krew/releases/download/{{ .tools.krew.version }}/krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/krew".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "./krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}"]
@@ -77,4 +83,4 @@
 	type = "file"
 	refreshPeriod = "48h"
 	executable = true
-	url = "https://github.com/rancher/rke/releases/download/v{{ .tools.rke.version }}/rke_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+	url = "https://github.com/rancher/rke/releases/download/{{ .tools.rke.version }}/rke_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
