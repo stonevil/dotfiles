@@ -38,9 +38,8 @@ sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --one-shot 
 
 1. Cleanup ```.inputrc```
 2. Cleanup ```.zshrc```
-3. Move to ```fish```. Lua everywhere
+3. Move to ```fish```. ```Lua``` everywhere
 4. Add ```nfsd``` to Privacy, Full Disk Access 
 5. Synchronize git ```aliases``` in shell script and ```git``` config
-6. Proper README
-7. Rework ```shellrc```
-8. Fix ```lima``` templates
+6. Proper ```README```
+7. Rework ```neovim``` config. Linters (!) is first priority.
