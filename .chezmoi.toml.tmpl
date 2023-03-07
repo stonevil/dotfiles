@@ -24,25 +24,25 @@
 {{ end }}
 
 [data.tools.fzf]
-	version = "0.38.0"
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}"
 
 [data.tools.bat]
-	version = "0.22.1"
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base }}"
 
 [data.tools.chezmoi]
-	version = "2.31.1"
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/twpayne/chezmoi/releases/latest" | trim | base }}"
 
 [data.tools.helm]
-	version = "3.11.1"
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base }}"
 
 [data.tools.rke]
-	version = "0.3.2"
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/rancher/rke/releases/latest" | trim | base }}"
 
 [data.tools.kubectl]
 	version = "1.14.8"
 
 [data.tools.krew]
-	version = "0.4.3"
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/kubernetes-sigs/krew/releases/latest" | trim | base }}"
 
 {{- writeToStdout "email address is: " $email "\n" -}}
 {{ if $workstation }}
