@@ -30,7 +30,7 @@
 	type = "archive"
 	exact = true
 	refreshPeriod = "168h"
-{{ if (or (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64")) (eq .chezmoi.os "linux") }}
+{{ if (or (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64")) (eq .chezmoi.os "linux")) }}
 	url = "https://github.com/lima-vm/lima/releases/download/v{{ .tools.limactl.version }}/lima-{{ .tools.limactl.version }}-{{ .chezmoi.os | title }}-{{ .arch.opt2 }}.tar.gz"
 {{ else if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) }}
 	url = "https://github.com/lima-vm/lima/releases/download/v{{ .tools.limactl.version }}/lima-{{ .tools.limactl.version }}-{{ .chezmoi.os | title }}-{{ .chezmoi.arch }}.tar.gz"
