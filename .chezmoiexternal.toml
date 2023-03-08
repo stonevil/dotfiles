@@ -53,9 +53,9 @@
 	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 {{ end }}
 
-[".local/bin/bat"]
 {{ if eq .chezmoi.os "darwin" }}
 	{{ if eq .chezmoi.arch "amd64" }}
+[".local/bin/bat"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
@@ -66,6 +66,7 @@
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-x86_64-apple-darwin/bat"]
 	{{ end }}
 {{ else if eq .chezmoi.os "linux" }}
+[".local/bin/bat"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
