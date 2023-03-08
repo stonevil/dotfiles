@@ -54,18 +54,22 @@
 {{ end }}
 
 [".local/bin/bat"]
+{{ if eq .chezmoi.os "darwin" }}
+	{{ if eq .chezmoi.arch "amd64" }}
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 	stripComponents = 1
-{{ if eq .chezmoi.os "darwin" }}
-	{{ if eq .chezmoi.arch "amd64" }}
 	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-x86_64-apple-darwin.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-x86_64-apple-darwin/bat"]
 	{{ end }}
 {{ else if eq .chezmoi.os "linux" }}
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
 	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
