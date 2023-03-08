@@ -31,7 +31,6 @@
 	opt1 = "{{ .chezmoi.arch }}"
 	opt2 = "aarch64"
 {{ end }}
-	
 
 [data.tools.fzf]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}"
@@ -56,6 +55,21 @@
 
 [data.tools.krew]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/kubernetes-sigs/krew/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.terraform]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/terraform/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.packer]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/packer/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.vagrant]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/vagrant/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.vault]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/vault/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.consul]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/consul/releases/latest" | trim | base | trimPrefix "v" }}"
 
 {{- writeToStdout "email address is: " $email "\n" -}}
 {{ if $workstation }}
