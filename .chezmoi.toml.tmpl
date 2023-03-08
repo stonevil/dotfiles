@@ -23,6 +23,16 @@
 	platform = "gnu"
 {{ end }}
 
+[data.arch]
+{{ if eq .chezmoi.arch "amd64" }}
+	opt1 = "{{ .chezmoi.arch }}"
+	opt2 = "x86_64"
+{{ else if eq .chezmoi.arch "arm64" }}
+	opt1 = "{{ .chezmoi.arch }}"
+	opt2 = "aarch64"
+{{ end }}
+	
+
 [data.tools.fzf]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}"
 
@@ -37,6 +47,9 @@
 
 [data.tools.rke]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/rancher/rke/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.limactl]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/lima-vm/lima/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.kubectl]
 	version = "1.14.8"

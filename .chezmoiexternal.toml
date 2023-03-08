@@ -2,15 +2,39 @@
 
 # chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
 
+[".lima/default/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/default.yaml"
+
+[".lima/docker/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/docker.yaml"
+
+[".lima/podman/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/podman.yaml"
+
+[".lima/k3s/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/k3s.yaml"
+
 [".local/antigen.zsh"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 	url = "https://git.io/antigen"
 
 [".local/bin/chezmoi"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 {{ if eq .libc.platform "musl" }}
 	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
@@ -20,7 +44,7 @@
 
 [".local/bin/bat"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 	stripComponents = 1
 {{ if eq .chezmoi.os "darwin" }}
@@ -47,7 +71,7 @@
 
 [".local/bin/helm"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 	stripComponents = 1
 	url = "https://get.helm.sh/helm-v{{ .tools.helm.version }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
@@ -57,7 +81,7 @@
 
 [".local/bin/fzf"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 	url = "https://github.com/junegunn/fzf/releases/download/{{ .tools.fzf.version }}/fzf-{{ .tools.fzf.version }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/fzf".filter]
@@ -66,13 +90,13 @@
 
 [".local/bin/kubectl"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 	url = "https://storage.googleapis.com/kubernetes-release/release/v{{ .tools.kubectl.version }}/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
 
 [".local/bin/krew"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 	url = "https://github.com/kubernetes-sigs/krew/releases/download/v{{ .tools.krew.version }}/krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/krew".filter]
@@ -81,6 +105,6 @@
 
 [".local/bin/rke"]
 	type = "file"
-	refreshPeriod = "48h"
+	refreshPeriod = "168h"
 	executable = true
 	url = "https://github.com/rancher/rke/releases/download/v{{ .tools.rke.version }}/rke_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
