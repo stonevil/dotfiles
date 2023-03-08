@@ -115,8 +115,10 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "./krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}"]
 
+{{ if eq .chezmoi.os "linux" }}
 [".local/bin/rke"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 	url = "https://github.com/rancher/rke/releases/download/v{{ .tools.rke.version }}/rke_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+{{ end }}
