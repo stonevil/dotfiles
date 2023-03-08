@@ -10,7 +10,7 @@ cd "$HOME" || exit 1
 	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]]; then
 		export PATH="$HOME"/.homebrew/bin:"$PATH"
 		{{ template "darwin.tmpl" . }}
-		brew bundle --file={{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} || true
+		brew bundle --cleanup --force --no-lock --file={{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} || true
 		brew cleanup --quiet --prune=30 || true
 	fi
 {{ end }}
