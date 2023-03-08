@@ -1,3 +1,5 @@
+export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+
 if command -v nvim >/dev/null; then
 	echo "Nvim. Lazy plugin and dependencies"
 	nvim --headless "+Lazy! sync" +qall! || exit 1
