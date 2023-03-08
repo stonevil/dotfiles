@@ -38,8 +38,6 @@
 	[".local/lima".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
-	{{ end}}
-{{ end}}
 
 [".local/antigen.zsh"]
 	type = "file"
