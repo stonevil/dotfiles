@@ -26,6 +26,17 @@
 	executable = false
 	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/k3s.yaml"
 
+{{ if eq .chezmoi.os "linux" }}
+[".local/lima"]
+	type = "archive"
+	exact = true
+	refreshPeriod = "168h"
+	url = "https://github.com/lima-vm/lima/releases/download/v{{ .tools.limactl.version }}/lima-{{ .tools.limactl.version }}-{{ .chezmoi.os | title }}-{{ .arch.opt2 }}.tar.gz"
+	[".local/lima".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
+{{ end }}
+
 [".local/antigen.zsh"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -54,19 +65,11 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-x86_64-apple-darwin/bat"]
 	{{ end }}
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
-	{{ if eq .chezmoi.arch "amd64" }}
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-x86_64-unknown-linux-{{ .libc.platform }}.tar.gz"
+{{ else if eq .chezmoi.os "linux" }}
+	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-x86_64-unknown-linux-{{ .libc.platform }}/bat"]
-	{{ else if eq .chezmoi.arch "arm64" }}
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ .tools.bat.version }}/bat-v{{ .tools.bat.version }}-aarch64-unknown-linux-{{ .libc.platform }}.tar.gz"
-	[".local/bin/bat".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-aarch64-unknown-linux-{{ .libc.platform }}/bat"]
-	{{ end }}
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}/bat"]
 {{ end }}
 
 [".local/bin/helm"]
@@ -83,10 +86,14 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
+{{ if eq .chezmoi.os "darwin" }}
+	url = "https://github.com/junegunn/fzf/releases/download/{{ .tools.fzf.version }}/fzf-{{ .tools.fzf.version }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
+{{ else if eq .chezmoi.os "linux" }}
 	url = "https://github.com/junegunn/fzf/releases/download/{{ .tools.fzf.version }}/fzf-{{ .tools.fzf.version }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/fzf".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
+{{ end }}
 
 [".local/bin/kubectl"]
 	type = "file"
