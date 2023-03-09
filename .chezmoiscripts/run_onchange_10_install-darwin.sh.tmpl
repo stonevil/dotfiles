@@ -5,7 +5,7 @@ cd "$HOME" || exit 1
 
 {{ if eq .chezmoi.os "darwin" }}
 # {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}
-# {{ .chezmoi.os }}.head hash: {{ include (print (joinPath ".packagefiles" .chezmoi.os) ".head" )) | sha256sum }}
+# {{ .chezmoi.os }}.head hash: {{ include (print (joinPath ".packagefiles" .chezmoi.os) ".head" ) | sha256sum }}
 
 	export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
 	
