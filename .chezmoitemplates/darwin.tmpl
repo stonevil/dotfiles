@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 echo "Darwin. Update brew packages"
 (brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove) || exit 1

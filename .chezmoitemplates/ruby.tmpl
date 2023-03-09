@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 if command -v gem >/dev/null; then
 # gem.packages hash: {{ include ".packagefiles/gem.packages" | sha256sum }}

@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 if [ -d "$HOME"/.tmux/plugins ]; then
 	echo "TMUX. Update plugins"

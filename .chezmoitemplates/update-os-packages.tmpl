@@ -1,3 +1,5 @@
+{{ template "path.tmpl" . }}
+
 echo "System update and cleanup after all this mess"
 {{ if eq .chezmoi.os "darwin" }}
 	{{ template "darwin.tmpl" . }}

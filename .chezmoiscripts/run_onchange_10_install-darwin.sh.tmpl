@@ -8,9 +8,9 @@ cd "$HOME" || exit 1
 
 	echo "Install {{ .chezmoi.os | title }} packages"
 	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]]; then
-		export PATH="$HOME"/.homebrew/bin:"$PATH"
+		export HOMEBREW_CASK_OPTS="--appdir="$HOME"/Applications
 		{{ template "darwin.tmpl" . }}
-		brew bundle --cleanup --force --no-lock --file={{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} || true
+		brew bundle --appdir="$HOME"/Applications --cleanup --force --no-lock --file={{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} || true
 		brew cleanup --quiet --prune=30 || true
 	fi
 {{ end }}

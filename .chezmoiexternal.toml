@@ -26,19 +26,6 @@
 	executable = false
 	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/k3s.yaml"
 
-[".local/lima"]
-	type = "archive"
-	exact = true
-	refreshPeriod = "168h"
-{{ if (or (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64")) (eq .chezmoi.os "linux")) }}
-	url = "https://github.com/lima-vm/lima/releases/download/v{{ .tools.limactl.version }}/lima-{{ .tools.limactl.version }}-{{ .chezmoi.os | title }}-{{ .arch.opt2 }}.tar.gz"
-{{ else if (and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")) }}
-	url = "https://github.com/lima-vm/lima/releases/download/v{{ .tools.limactl.version }}/lima-{{ .tools.limactl.version }}-{{ .chezmoi.os | title }}-{{ .chezmoi.arch }}.tar.gz"
-{{ end }}
-	[".local/lima".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
-
 [".local/antigen.zsh"]
 	type = "file"
 	refreshPeriod = "168h"

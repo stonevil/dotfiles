@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 echo "RedHat. Update packages"
 (sudo dnf update -y && sudo dnf upgrade -y) || exit 1

@@ -9,7 +9,6 @@ echo "Prepare system. Install essential packages like brew, etc"
 		rm -Rf "$HOME"/.homebrew
 	fi
 	(git clone https://github.com/Homebrew/brew.git "$HOME"/.homebrew) || exit 1
-	export PATH="$HOME"/.homebrew/bin:$PATH
 	{{ template "darwin.tmpl" . }}
 	brew install --force bash curl git gnu-tar wget || exit 1
 {{ else if eq .chezmoi.os "linux" }}

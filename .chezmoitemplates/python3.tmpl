@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 if command -v pip3 >/dev/null; then
 # pip3.packages hash: {{ include ".packagefiles/pip3.packages" | sha256sum }}

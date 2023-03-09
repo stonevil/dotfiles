@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 if command -v go >/dev/null; then
 # go.packages hash: {{ include ".packagefiles/go.packages" | sha256sum }}

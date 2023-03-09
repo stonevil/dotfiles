@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 if command -v krew >/dev/null; then
 	echo "Kubectl. Update plugins"

@@ -1,0 +1,5 @@
+{{ if eq .chezmoi.os "darwin" }}
+	export PATH="$HOME"/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ else if eq .chezmoi.os "linux" }}
+	export PATH="$HOME"/.local/bin:"$PATH"
+{{ end }}

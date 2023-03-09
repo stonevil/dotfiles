@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME"/.homebrew/bin:"$PATH"
+{{ template "path.tmpl" . }}
 
 if command -v nvim >/dev/null; then
 	echo "Nvim. Lazy plugin and dependencies"
