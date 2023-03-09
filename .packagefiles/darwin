@@ -1,101 +1,89 @@
-tap "esolitos/ipa"
-tap "golangci/tap"
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
-tap "homebrew/services"
-tap "nickolasburr/pfa"
-tap "sachaos/tap"
-tap "universal-ctags/universal-ctags"
-tap "wagoodman/bashful"
-tap "wagoodman/dive"
-tap "xo/xo"
-brew "autoconf"
-brew "autoconf-archive"
-brew "automake"
-brew "gettext"
-brew "bat"
-brew "bash"
-brew "bit-git"
-brew "gdbm"
-brew "readline"
-brew "sqlite"
-brew "xz"
-brew "black"
-brew "libpng"
-brew "freetype"
-brew "fontconfig"
-brew "libffi"
-brew "ccache"
-brew "ccat"
-brew "cmake"
-brew "coreutils"
-brew "dasel"
-brew "diffutils"
-brew "dmg2img"
-brew "dos2unix"
-brew "node"
-brew "eslint"
-brew "fd"
-brew "fish"
-brew "flac"
-brew "gnutls"
-brew "jpeg"
-brew "findutils"
-brew "gawk"
-brew "gcc"
-brew "git"
-brew "git-lfs"
-brew "glow"
-brew "gnu-sed"
-brew "go"
-brew "gotags"
-brew "gzip"
-brew "hadolint"
-brew "hblock"
-brew "hub"
-brew "imagemagick"
-brew "jid"
-brew "jq"
-brew "lua"
-brew "luajit"
-brew "luarocks"
-brew "lua-language-server"
-brew "make"
-brew "makedepend"
-brew "mkcert"
-brew "mkdocs"
-brew "neovim"
-brew "nmap"
-brew "parallel"
-brew "lima"
-brew "pipenv"
-brew "prettier"
-brew "pwgen"
-brew "ripgrep"
-brew "ruby"
-brew "rust"
-brew "samba"
-brew "screen"
-brew "shellcheck"
-brew "shfmt"
-brew "smartmontools"
-brew "source-highlight"
-brew "ssh-copy-id", link: true
-brew "star"
-brew "telnet"
-brew "terminal-notifier"
-brew "the_silver_searcher"
-brew "tmux"
-brew "tree"
-brew "unzip"
-brew "watch"
-brew "wget"
-brew "wimlib"
-brew "yarn"
-brew "esolitos/ipa/sshpass"
-brew "golangci/tap/golangci-lint"
-brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
-brew "wagoodman/dive/dive"
-cask "google-cloud-sdk"
-cask "wezterm"
+autoconf
+autoconf-archive
+automake
+gettext
+bat
+bash
+bit-git
+gdbm
+readline
+sqlite
+xz
+black
+libpng
+freetype
+fontconfig
+libffi
+ccache
+ccat
+cmake
+coreutils
+dasel
+diffutils
+dmg2img
+dos2unix
+node
+eslint
+fd
+fish
+flac
+gnutls
+jpeg
+findutils
+gawk
+gcc
+git
+git-lfs
+glow
+gnu-sed
+go
+gotags
+gzip
+hadolint
+hblock
+hub
+imagemagick
+jid
+jq
+lua
+luajit
+luarocks
+lua-language-server
+make
+makedepend
+mkcert
+mkdocs
+neovim
+nmap
+parallel
+lima
+prettier
+python3
+pwgen
+ripgrep
+ruby
+rust
+samba
+screen
+shellcheck
+shfmt
+smartmontools
+source-highlight
+ssh-copy-id
+star
+telnet
+terminal-notifier
+the_silver_searcher
+tmux
+tree
+unzip
+watch
+wget
+wimlib
+yarn
+esolitos/ipa/sshpass
+golangci/tap/golangci-lint
+wagoodman/bashful/bashful
+wagoodman/dive/dive
+google-cloud-sdk
+wezterm

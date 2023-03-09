@@ -1,5 +1,6 @@
 {{ template "path.tmpl" . }}
 
 echo "Darwin. Update brew packages"
+export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
 (brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove) || exit 1
 (brew cleanup --quiet --prune=30 && brew autoremove) || exit 1

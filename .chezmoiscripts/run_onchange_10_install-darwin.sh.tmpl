@@ -5,12 +5,19 @@ cd "$HOME" || exit 1
 
 {{ if eq .chezmoi.os "darwin" }}
 # {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}
+# {{ .chezmoi.os }}.head hash: {{ include (joinPath ".packagefiles" .chezmoi.os ".head" ) | sha256sum }}
 
-	echo "Install {{ .chezmoi.os | title }} packages"
 	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} ]]; then
-		export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+		echo "Install {{ .chezmoi.os | title }} packages"
 		{{ template "darwin.tmpl" . }}
-		brew bundle --appdir="$HOME/Applications" --cleanup --force --no-lock --file={{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }} || true
-		brew cleanup --quiet --prune=30 || true
+		export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+		brew install --force $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }})
 	fi
+	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os ".head" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os ".head" | quote }} ]]; then
+		echo "Install {{ .chezmoi.os | title }} packages"
+		{{ template "darwin.tmpl" . }}
+		export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+		brew install --HEAD --force $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os ".head" | quote }})
+	fi
+	brew cleanup --quiet --prune=30 || true
 {{ end }}
