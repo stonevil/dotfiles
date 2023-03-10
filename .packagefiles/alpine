@@ -26,6 +26,7 @@ musl
 musl-dev
 ncurses
 neovim
+npm
 nodejs
 nodejs-dev
 openssh
