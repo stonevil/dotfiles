@@ -25,13 +25,13 @@ Check directory ```.test``` for list of supported platforms.
 ## Install
 
 ```shell
-sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --apply stonevil
+sh -c "$(BINDIR=/tmp curl -fsLS git.io/chezmoi)" -- init --apply stonevil
 ```
 
 For containers and other temporal environments:
 
 ```shell
-sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --one-shot stonevil
+sh -c "$(BINDIR=/tmp curl -fsLS git.io/chezmoi)" -- init --promptString email="fu@bar.org" --promptBool workstation=true apply --force --one-shot stonevil
 ```
 
 ## TODO
@@ -43,3 +43,5 @@ sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --one-shot 
 5. Synchronize git ```aliases``` in shell script and ```git``` config
 6. Proper ```README```
 7. Rework ```neovim``` config. Linters (!) is first priority.
+8. Sync tab widht in alll shell tools.
+9. Research and fix zsh theme issue in Alpine
