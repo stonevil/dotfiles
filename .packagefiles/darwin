@@ -25,6 +25,7 @@ dos2unix
 node
 eslint
 fd
+ffmpeg
 fish
 flac
 gnutls
