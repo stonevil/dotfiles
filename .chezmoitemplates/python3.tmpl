@@ -5,8 +5,14 @@ if command -v pip3 >/dev/null; then
 	echo "Python 3. Install or update pip3 packages"
 	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} ]]; then
 		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
-		export PATH=$HOME/.local/bin:$PATH
-		pip3 install --disable-pip-version-check --no-cache-dir --upgrade --force-reinstall --ignore-installed --prefix "$HOME"/.local install pip || exit 1
-		pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed --prefix "$HOME"/.local -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
+		{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
+		pip3 install --disable-pip-version-check --no-cache-dir --upgrade --force-reinstall --ignore-installed install pip || exit 1
+		{{ end }}
+		{{ if (eq .chezmoi.os "linux") }}
+			pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed --user -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
+		{{ end }}
+		{{ if (eq .chezmoi.os "linux") }}
+			pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
+		{{ end }}
 	fi
 fi
