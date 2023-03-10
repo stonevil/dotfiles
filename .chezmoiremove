@@ -1,8 +1,7 @@
-.local/share/nvim
-.cache/nvim
 bin
 .bin
 Bin
 .Bin
 .krew
+.shellrc
 .config/nvim/lazy-lock.json
