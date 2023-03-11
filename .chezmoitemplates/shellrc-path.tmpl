@@ -4,6 +4,15 @@ export HOMEBREW_PATH="$HOME/.homebrew"
 export RUBY_PATH=`if [[ -d $HOMEBREW_PATH/Cellar/ruby ]]; then dirname $(find $HOMEBREW_PATH/Cellar/ruby/*/bin -name "ruby" -print -quit); fi`
 export GEMS_PATH=`if [[ -d $HOMEBREW_PATH/lib/ruby/gems ]]; then find $HOMEBREW_PATH/lib/ruby/gems/* -name "bin" -type d -print -quit; fi`
 
+if [[ -d "$HOME"/.local/xtensa-esp32-elf ]]; then
+	export XTENSA_PATH="$HOME"/.local/xtensa-esp32-elf
+	export PATH="$PATH":"$XTENSA_PATH"/bin
+fi
+
+if [[ -d "$HOME"/.local/esp-idf ]]; then
+	export IDF_PATH="$HOME"/.local/esp-idf
+fi
+
 export PATH="$RUBY_PATH:$GEMS_PATH:$HOMEBREW_PATH/bin:$PATH"
 export MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
 
