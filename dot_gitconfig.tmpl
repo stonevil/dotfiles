@@ -1,7 +1,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = $EDITOR
-	pager = less -R --tabs 2
+	pager = less -R --tabs={{ .tui.tabs }}
 	autocrlf = false
 	safecrlf = true
 	whitespace = fix, indent-with-non-tab, space-before-tab, trailing-space, cr-at-eol, blank-at-eol, blank-at-eof, tabwidth = 2
