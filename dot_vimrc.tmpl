@@ -18,8 +18,6 @@ function! InstallPlug(plugpath)
 		endif
 		echo 'Installing vim-plug...'
 		execute '!curl -fL --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -o ' . a:plugpath
-		"silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-		"let g:not_finish_vimplug = "yes"
 		autocmd VimEnter * PlugInstall
 	endif
 endfunction
@@ -37,7 +35,6 @@ call InstallPlug(vimplug_exists)
 "" Install vim-plug if required
 "" Required:
 call plug#begin()
-	Plug 'ayu-theme/ayu-vim'
 	Plug 'danilo-augusto/vim-afterglow'
 
 	Plug 'bling/vim-airline'
@@ -62,38 +59,6 @@ call plug#begin()
 
 	" Displaying thin vertical lines at each indentation level for code indented with spaces
 	Plug 'Yggdroot/indentLine'
-	"Plug 'thaerkh/vim-indentguides'
-
-	" Better % navigate and highlight matching words modern matchit and matchparen replacement
-	"Plug 'andymass/vim-matchup'
-	" adds motions g%, [%, ]%, and z%
-
-	" Plug 'kshenoy/vim-signature'
-	" mx         - Toggle mark 'x' and display it in the leftmost column
-	" dmx        - Remove mark 'x' where x is a-zA-Z
-
-	" m,         - Place the next available mark
-	" m.         - If no mark on line, place the next available mark. Otherwise, remove (first) existing mark.
-	" m-         - Delete all marks from the current line
-	" m<Space>   - Delete all marks from the current buffer
-	" ]`         - Jump to next mark
-	" [`         - Jump to prev mark
-	" ]'         - Jump to start of next line containing a mark
-	" ['         - Jump to start of prev line containing a mark
-	" `]         - Jump by alphabetical order to next mark
-	" `[         - Jump by alphabetical order to prev mark
-	" ']         - Jump by alphabetical order to start of next line having a mark
-	" '[         - Jump by alphabetical order to start of prev line having a mark
-	" m/         - Open location list and display marks from current buffer
-
-	" m[0-9]     - Toggle the corresponding marker !@#$%^&*()
-	" m<S-[0-9]> - Remove all markers of the same type
-	" ]-         - Jump to next line having a marker of the same type
-	" [-         - Jump to prev line having a marker of the same type
-	" ]=         - Jump to next line having a marker of any type
-	" [=         - Jump to prev line having a marker of any type
-	" m?         - Open location list and display markers from current buffer
-	" m<BS>      - Remove all markers
 
 	" Vim sugar for the UNIX shell commands
 	Plug 'tpope/vim-eunuch'
@@ -115,12 +80,7 @@ call plug#begin()
 	" https://github.com/junegunn/vim-easy-align
 
 	" Provides insert mode auto-completion for quotes, parens, brackets
-	"Plug 'Raimondi/delimitMate'
 	Plug 'jiangmiao/auto-pairs'
-	"Plug 'cohama/lexima.vim'
-
-	" Adds various text objects to give you more targets to operate on
-	"Plug 'wellle/targets.vim'
 
 	" Enable repeating supported plugin maps with "."
 	Plug 'tpope/vim-repeat'
@@ -129,9 +89,6 @@ call plug#begin()
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
 	Plug 'tenfyzhong/CompleteParameter.vim'
-
-	" Logrotate Bundle
-	"Plug 'moon-musick/vim-logrotate', {'for': 'logrotate'}
 
 	" Polyglot
 	Plug 'sheerun/vim-polyglot'
@@ -165,7 +122,6 @@ call plug#end()
 set guioptions=
 
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
-set clipboard^=unnamed
 set clipboard^=unnamedplus
 
 set nocompatible								" Enables us Vim specific features
@@ -204,7 +160,7 @@ set wildignore+=.cache,node_modules,package-lock.json,yarn.lock,dist,.git
 
 set autoindent									" Enabile Autoindent
 set shiftround									" Round indent to multiple of 'shiftwidth'. Applies to > and < commands.
-set noexpandtab ci pi sts={{ .tui.tabs }} ts={{ .tui.tabs }} sw={{ .tui.tabs }}	" noexpandtab, copyindent, preserveindent, softtabstop=2, shiftwidth=2, tabstop=2
+set noexpandtab ci pi sts={{ .tui.tabs }} ts={{ .tui.tabs }} sw={{ .tui.tabs }}
 set wrap linebreak nolist				" Word wrap without line breaks
 set backspace=indent,eol,start	" Makes backspace key more powerful.
 
@@ -307,12 +263,6 @@ let g:ansible_unindent_after_newline = 1
 let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_name_highlight = 'd'
-
-
-""""""""""
-"" Yggdroot/indentLine
-"let g:indentLine_setColors = 0
-" :IndentLinesToggle
 
 
 """"""""""
@@ -488,23 +438,6 @@ endif
 
 
 """"""""""
-"" vim-diminactive
-"let g:diminactive_enable_focus = 1
-"let g:diminactive_use_colorcolumn = 1
-"let g:diminactive_use_syntax = 1
-
-
-""""""""""
-"" vim-tmux-navigator
-" <ctrl-h>	- Left
-" <ctrl-j>	- Down
-" <ctrl-k>	- Up
-" <ctrl-l>	- Right
-" <ctrl-\>	- Previous split
-let g:tmux_navigator_disable_when_zoomed = 1
-
-
-""""""""""
 "" vim-airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#csv#enabled = 1
@@ -516,15 +449,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tmuxline#enabled = 0
 let g:tmuxline_powerline_separators = 0
 "let airline#extensions#tmuxline#snapshot_file = $HOME . '/.local/share/tmux.theme'
-
-
-""""""""""
-"" delimitMate
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-let g:delimitMate_smart_quotes = 1
-let g:delimitMate_expand_inside_quotes = 0
-let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 
 
 """"""""""
@@ -650,13 +574,6 @@ nnoremap <silent><leader>gp :SkylightPreview<CR>
 
 
 """"""""""
-"" Enter |Terminal-mode| automatically
-if has('nvim')
-	autocmd TermOpen * startinsert
-endif
-
-
-""""""""""
 "" Abbreviations
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -732,14 +649,9 @@ vnoremap K :m '<-2<CR>gv=gv
 
 """"""""""
 "" Theme
-if exists('$TMUX') || $COLORTERM == 'truecolor'
-	set termguicolors " Use the true color mode
-	let ayucolor="dark"
-	colorscheme ayu
-else
-	set t_Co=256
-	colorscheme afterglow
-endif
+set t_Co=256
+colorscheme afterglow
+let g:airline_theme='afterglow'
 
 set colorcolumn=0
 set background=dark
