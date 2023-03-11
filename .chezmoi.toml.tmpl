@@ -5,12 +5,15 @@
 
 {{ $email := promptString "email" -}}
 {{ $workstation := promptBool "workstation" false -}}
+{{ $tabs := promptInt "tabs width" 2 -}}
 
 [data]
 	workstation = {{ $workstation | default false }}
 	email = {{ $email | quote }}
+	tabs = {{ $tabs | default 2 }}
 
-[data.wezterm.hdpi]
+[data.terminal.hdpi]
+	font = "Iosevka Nerd Font"
   fontsize = 15
 
 [data.wezterm.fhd]

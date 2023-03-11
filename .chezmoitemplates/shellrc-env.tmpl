@@ -17,3 +17,10 @@ export PACKER_LOG_PATH="$HOME"/.packer.d/log
 export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 
 export KREW_ROOT="$HOME"/.local/bin
+
+
+# Set tabs width for terminal
+tabs -{{ .tabs }}
+if command -v setterm >/dev/null; then
+	setterm --tegtabs {{ .tabs }}
+fi

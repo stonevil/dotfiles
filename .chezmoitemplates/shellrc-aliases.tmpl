@@ -1,3 +1,10 @@
+alias more='less -x {{ .tabs }}'
+
+alias ports='netstat -a | grep -i "listen"'
+alias path='echo -e ${PATH//:/\\n}'
+
+alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
+
 alias ansible-lint='ansible-lint -c ~/.ansible-lint'
 
 if command -v limactl >/dev/null; then
@@ -71,12 +78,4 @@ fi
 # Configure gcurl alias
 if command -v oauth2l >/dev/null; then
 	alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform userinfo.email)" -H "Content-Type: application/json" '
-fi
-
-if command -v minikube >/dev/null; then
-	export MINIKUBE_CPU_COUNT="2"
-	export MINIKUBE_MEMORY_SIZE="4gb"
-	export MINIKUBE_DISK_SIZE="40gb"
-
-	alias minikube-create='minikube start --cpus=$MINIKUBE_CPU_COUNT --memory=$MINIKUBE_MEMORY_SIZE --disk-size=$MINIKUBE_DISK_SIZE --extra-config=apiserver.authorization-mode=RBAC'
 fi

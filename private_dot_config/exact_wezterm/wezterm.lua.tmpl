@@ -1,5 +1,5 @@
 -- WezTerm
--- https://wezfurlong.org/wezterm/
+-- vim:ft=lua
 
 local wezterm = require("wezterm")
 local act = wezterm.action
@@ -120,8 +120,8 @@ return {
 
 	-- Font configuration
 	-- https://wezfurlong.org/wezterm/config/fonts.html
-	font = wezterm.font("Iosevka Nerd Font"),
-	font_size = 15.0,
+	font = wezterm.font("{{ .terminal.hdpi.font }}"),
+	font_size = {{ .terminal.hdpi.fontsize }},
 	max_fps = 120,
 	line_height = 1.1,
 
