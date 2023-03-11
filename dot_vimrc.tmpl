@@ -2,18 +2,13 @@
 " vint: -ProhibitAutocmdWithNoGroup
 " vint: -ProhibitSetNoCompatible
 
-
 if 0 | endif
 
 if has("gui_vimr")
 	:cd $HOME/Documents
 endif
 
-if has('nvim')
-	let vimplug_exists=expand($HOME . '/.config/nvim/autoload/plug.vim')
-else
-	let vimplug_exists=expand($HOME . '/.vim/autoload/plug.vim')
-endif
+let vimplug_exists=expand($HOME . '/.vim/autoload/plug.vim')
 
 function! InstallPlug(plugpath)
 	if !filereadable(a:plugpath)
@@ -41,7 +36,7 @@ call InstallPlug(vimplug_exists)
 
 "" Install vim-plug if required
 "" Required:
-call plug#begin(expand($HOME . '/.config/nvim/plugged'))
+call plug#begin()
 	Plug 'ayu-theme/ayu-vim'
 	Plug 'danilo-augusto/vim-afterglow'
 
@@ -56,20 +51,8 @@ call plug#begin(expand($HOME . '/.config/nvim/plugged'))
 	Plug 'junegunn/fzf.vim'
 	Plug 'dominickng/fzf-session.vim'
 
-	" Ranger integration
-	if has('nvim')
-		Plug 'kevinhwang91/rnvimr'
-	endif
-
-	" TMUX integration
-	Plug 'christoomey/vim-tmux-navigator'
-	Plug 'tmux-plugins/vim-tmux-focus-events'
-	Plug 'roxma/vim-tmux-clipboard'
-	"Plug 'wellle/tmux-complete.vim'
-
 	" Git Integration
 	Plug 'tpope/vim-fugitive'
-	Plug 'airblade/vim-gitgutter'
 
 	" Comment stuff out. Use gcc to comment out a line (takes a count), gc to comment out the target of a motion
 	Plug 'scrooloose/nerdcommenter'
@@ -221,7 +204,7 @@ set wildignore+=.cache,node_modules,package-lock.json,yarn.lock,dist,.git
 
 set autoindent									" Enabile Autoindent
 set shiftround									" Round indent to multiple of 'shiftwidth'. Applies to > and < commands.
-set noexpandtab ci pi sts=2 ts=2 sw=2	" noexpandtab, copyindent, preserveindent, softtabstop=2, shiftwidth=2, tabstop=2
+set noexpandtab ci pi sts={{ .tui.tabs }} ts={{ .tui.tabs }} sw={{ .tui.tabs }}	" noexpandtab, copyindent, preserveindent, softtabstop=2, shiftwidth=2, tabstop=2
 set wrap linebreak nolist				" Word wrap without line breaks
 set backspace=indent,eol,start	" Makes backspace key more powerful.
 
@@ -265,44 +248,6 @@ nnoremap <leader>N :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 
 """"""""""
-"" Functions
-" toggle between number and relativenumber
-function! ToggleNumber()
-	if(&relativenumber == 1)
-		set norelativenumber
-		set number
-	else
-		set relativenumber
-	endif
-endfunc
-
-" Toggle spell with a language
-function! ToggleSpell(lang)
-	if !exists('b:old_spelllang')
-		let b:old_spelllang = &spelllang
-		let b:old_spellfile = &spellfile
-		let b:old_dictionary = &dictionary
-	endif
-	let l:newMode = ''
-	if !&l:spell || a:lang != &l:spelllang
-		setlocal spell
-		let l:newMode = 'spell'
-		execute 'setlocal spelllang=' . a:lang
-		execute 'setlocal spellfile=' . $HOME . '/.local/share/nvim-spell/' . matchstr(a:lang, '[a-zA-Z][a-zA-Z]') . '.' . &encoding . '.add'
-		execute 'setlocal dictionary=' . $HOME . '/.local/share/nvim-spell/' . a:lang . '.' . &encoding . '.dic'
-		let l:newMode .= ', ' . a:lang
-	else
-		setlocal nospell
-		let l:newMode = 'nospell'
-		execute 'setlocal spelllang=' . b:old_spelllang
-		execute 'setlocal spellfile=' . b:old_spellfile
-		execute 'setlocal dictionary=' . b:old_dictionary
-	endif
-	return l:newMode
-endfunction
-nnoremap <leader>gb :call ToggleSpell("en_gb")<CR> "Toggle English spell
-nnoremap <leader>uk :call ToggleSpell("uk_ua")<CR> "Toggle Ukraine spell
-
 " Floating window with borders
 function! OpenFloatingWindow()
 	let width = min([&columns - 4, max([80, &columns - 20])])
@@ -326,27 +271,12 @@ function! OpenFloatingWindow()
 	au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
-" Hunk stage and stage commit
-function! HunkStageAndCommit() abort
-	:GitGutterStageHunk
-	:Git commit
-endfunction
-nnoremap <leader>hc :call HunkStageAndCommit()<CR>
-
 
 """"""""""
 "" Configuration groups
 augroup tmuxfile
 	autocmd!
 	autocmd BufRead,BufNewFile .tmux.conf set filetype=tmux
-	if exists('$TMUX')
-		autocmd FileType tmux nnoremap <leader><F12> :new +resize20 term://zsh -i -c '_files_dot_install && tmux source-file ~/.tmux.conf && exit'<CR>
-	endif
-augroup END
-
-augroup shellfile
-	autocmd!
-	autocmd FileType sh nnoremap <leader><F12> :new +resize20 term://zsh -i -c 'shellcheck %'<CR>
 augroup END
 
 augroup sshconfig
@@ -354,29 +284,10 @@ augroup sshconfig
 	autocmd BufRead,BufNewFile *.sshconfig set syntax=sshconfig
 augroup END
 
-augroup vagrantfile
-	autocmd!
-	autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
-	autocmd FileType ruby nnoremap <leader><F9> :new +resize20 term://zsh -i -c 'vagrant up'<CR>
-	autocmd FileType ruby nnoremap <leader><F12> :new +resize20 term://zsh -i -c 'vagrant validate'<CR>
-augroup END
-
-augroup dockerfile
-	autocmd!
-	autocmd FileType Dockerfile nnoremap <leader><F9> :new +resize20 term://zsh -i -c "CONTAINERNAME=`basename $PWD \| tr '[:upper:]' '[:lower:]'`; docker build -t $CONTAINERNAME -f % ."<CR><CR>
-	autocmd FileType Dockerfile nnoremap <leader><F12> :new +resize20 term://zsh -i -c 'hadolint %'<CR>
-augroup END
-
-augroup helmfile
-	autocmd!
-	autocmd FileType helm nnoremap <leader><F12> :new +resize20 term://zsh -i -c 'helm install --dry-run --debug .'<CR><CR>
-augroup END
-
 augroup k8sfile
 	autocmd!
 	autocmd BufRead,BufNewFile */.kube/config set filetype=yaml
 	autocmd BufRead,BufNewFile */templates/*.yaml,*/deployment/*.yaml,*/templates/*.tpl,*/deployment/*.tpl set filetype=yaml.gotexttmpl
-	autocmd FileType yaml nnoremap <leader><F12> :new +resize20 term://zsh -i -c 'kubectl --dry-run -o yam %'<CR>
 augroup END
 
 augroup markdownfile
@@ -386,7 +297,6 @@ augroup END
 
 augroup ansiblefile
 	autocmd BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
-	autocmd FileType yaml.ansible nnoremap <leader><F12> :new +resize20 term://zsh -i -c 'ansible-lint .'<CR>
 augroup END
 
 
@@ -575,24 +485,6 @@ if has('nvim')
 	" Customize the initial layout
 	let g:rnvimr_layout = { 'relative': 'editor', 'width': float2nr(round(1.0 * &columns)), 'height': float2nr(round(1.0 * &lines)), 'col': float2nr(round(0.0 * &columns)), 'row': float2nr(round(0.0 * &lines)), 'style': 'minimal' }
 endif
-
-
-""""""""""
-"" airblade/vim-gitgutter
-" ]c					- jump to next hunk (change)
-" [c					- jump to previous hunk (change)
-" <leader>hs	- stage the hunk
-" <leader>hu	- undo it
-" <leader>hc	- stage the hunk and commit
-
-" To stage part of any hunk:
-" <leader>hp	- preview the hunk
-" :wincmd P		- move to the preview window
-" delete the lines you do not want to stage;
-" stage the remaining lines: either write (:w) the window or stage via <leader>hs or :GitGutterStageHunk
-
-" ic					- operates on all lines in the current hunk.
-" ac					- operates on all lines in the current hunk and any trailing empty lines.
 
 
 """"""""""
@@ -852,16 +744,6 @@ endif
 set colorcolumn=0
 set background=dark
 silent do ColorScheme
-
-highlight Normal guibg=none ctermbg=none
-highlight Comment ctermbg=none guibg=none
-highlight LineNr guibg=none ctermbg=none
-highlight Folded guibg=none ctermbg=none
-highlight NonText guibg=none ctermbg=none
-highlight SpecialKey guibg=none ctermbg=none
-highlight VertSplit guibg=none ctermbg=none
-highlight SignColumn guibg=none ctermbg=none
-highlight EndOfBuffer guibg=none ctermbg=none
 
 
 """"""""""
