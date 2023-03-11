@@ -1,11 +1,12 @@
 {{ template "path.tmpl" . }}
 
-if command -v gem >/dev/null; then
-# gem.packages hash: {{ include ".packagefiles/gem.packages" | sha256sum }}
-	echo "Ruby. Install or update gem packages"
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/gem.packages" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/gem.packages" | quote }} ]]; then
+{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/gem.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/gem.packages")).size 0) }}
+	# gem.packages hash: {{ include ".packagefiles/gem.packages" | sha256sum }}
+
+	if command -v gem >/dev/null; then
+		echo "Ruby. Install or update gem packages"
 		export GEM_HOME="$HOME"/.local/gem-packages
 		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/gem.packages" | quote }} gem install --no-suggestions --no-lock --no-document --env-shebang --bindir "$HOME"/.local/bin
 		gem cleanup
 	fi
-fi
+{{ end }}

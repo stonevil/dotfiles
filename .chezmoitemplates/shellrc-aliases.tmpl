@@ -1,4 +1,4 @@
-alias more='less -x {{ .tui.tabs }}'
+alias more='less -R --tabs={{ .tui.tabs }}'
 
 alias ports='netstat -a | grep -i "listen"'
 alias path='echo -e ${PATH//:/\\n}'

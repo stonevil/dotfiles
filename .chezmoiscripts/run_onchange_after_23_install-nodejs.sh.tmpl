@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 # vim:ft=go
 
-# npm.modules hash: {{ include ".packagefiles/npm.modules" | sha256sum }}
-
 cd "$HOME" || exit 1
 
-if command -v npm >/dev/null; then
-	echo "Install NodeJS modules"
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} ]]; then
+{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/npm.modules")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/npm.modules")).size 0) }}
+	# npm.modules hash: {{ include ".packagefiles/npm.modules" | sha256sum }}
+	{{ template "path.tmpl" . }}
+	if command -v npm >/dev/null; then
+		echo "Install NodeJS modules"
 		npm config set prefix "$HOME"/.local
 		export NPM_PACKAGES="$HOME"/.local
 		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} npm install -g
 	fi
-fi
+{{ end }}

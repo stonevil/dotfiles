@@ -1,18 +1,19 @@
 {{ template "path.tmpl" . }}
 
-if command -v pip3 >/dev/null; then
-# pip3.packages hash: {{ include ".packagefiles/pip3.packages" | sha256sum }}
-	echo "Python 3. Install or update pip3 packages"
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} ]]; then
+{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages")).size 0) }}
+	# pip3.packages hash: {{ include ".packagefiles/pip3.packages" | sha256sum }}
+
+	if command -v pip3 >/dev/null; then
+		echo "Python 3. Install or update pip3 packages"
 		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 		{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
-		pip3 install --disable-pip-version-check --no-cache-dir --upgrade --force-reinstall --ignore-installed install pip || exit 1
+			pip3 install --disable-pip-version-check --no-cache-dir --upgrade --force-reinstall --ignore-installed install pip || exit 1
 		{{ end }}
 		{{ if (eq .chezmoi.os "linux") }}
 			pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed --user -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
 		{{ end }}
-		{{ if (eq .chezmoi.os "linux") }}
+		{{ if (eq .chezmoi.os "darwin") }}
 			pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
 		{{ end }}
 	fi
-fi
+{{ end }}

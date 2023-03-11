@@ -4,23 +4,26 @@
 cd "$HOME" || exit 1
 
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
-	echo "Fix {{ .chezmoi.osRelease.id | title }} repositories url"
+	echo "Fix {{ .chezmoi.osRelease.id | title }} repositories url, ruby, etc"
+	sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+	sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 	sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm || exit 1
 	{{ template "fedora.tmpl" . }}
 	sudo dnf module reset ruby -y || exit 1
 {{ end }}
 
 {{ if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "fedora") (eq .chezmoi.osRelease.id "centos"))) }}
-# {{ .chezmoi.osRelease.id }} hash: {{ include (joinPath ".packagefiles" .chezmoi.osRelease.id) | sha256sum }}
-# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
-
 	echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
-
 	{{ template "fedora.tmpl" . }}
 
-	for i in {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }} {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote }}; do
-		if [[ -f "$i" ]] && [[ -s "$i" ]]; then
+	{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id)) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id)).size 0) }}
+		# {{ .chezmoi.osRelease.id }} hash: {{ include (joinPath ".packagefiles" .chezmoi.osRelease.id) | sha256sum }}
+		(sudo dnf install -y $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }})) || exit 1
+	{{ end }}
+
+	{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")).size 0) }}
+		# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
 			(sudo dnf install -y $(paste -s -d ' ' "$i")) || exit 1
-		fi
-	done
+			(sudo dnf install -y $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote }})) || exit 1
+	{{ end }}
 {{ end }}

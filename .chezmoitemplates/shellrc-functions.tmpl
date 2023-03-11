@@ -1,5 +1,4 @@
 {{ if eq .chezmoi.os "darwin" }}
-if [ "$(uname)" = "Darwin" ]; then
 	darkmode() {
 		# shellcheck disable=SC2046,SC2145
 		defaults write $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance -bool FALSE
@@ -17,25 +16,24 @@ if [ "$(uname)" = "Darwin" ]; then
 			terminal-notifier -title "A New Hope" -subtitle 'I felt a great disturbance in the Force' -appIcon /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Hero -ignoreDnD -message "Use your $@"
 		fi
 	}
-fi
 
-tn() {
-	start_time=$(date +%s)
-	"$@"
-	end_time=$(date +%s)
-	terminal-notifier -title "Job is done, Sir!" -subtitle $((end_time - start_time)) -appIcon /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Frog -ignoreDnD -message "$@"
-}
+	tn() {
+		start_time=$(date +%s)
+		"$@"
+		end_time=$(date +%s)
+		terminal-notifier -title "Job is done, Sir!" -subtitle $((end_time - start_time)) -appIcon /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotoPrintProduct.framework/Versions/A/Resources/alert-yellow_large.tiff -sound Frog -ignoreDnD -message "$@"
+	}
 
-tm_cleanup() {
-	tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
-	while IFS= read -r l; do
-		sudo tmutil deletelocalsnapshots "$l"
-	done <<<"$tm_list"
-}
+	tm_cleanup() {
+		tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
+		while IFS= read -r l; do
+			sudo tmutil deletelocalsnapshots "$l"
+		done <<<"$tm_list"
+	}
 
-f2iso() {
-	hdiutil makehybrid -iso -joliet -o "$(basename $@)".iso "$@" && echo "$(basename $@).iso image created"
-}
+	f2iso() {
+		hdiutil makehybrid -iso -joliet -o "$(basename $@)".iso "$@" && echo "$(basename $@).iso image created"
+	}
 {{ end }}
 
 dbat() {
@@ -62,9 +60,11 @@ ydl() {
 	cd "$HOME"/Downloads || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
 	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
+	{{ if eq .chezmoi.os "darwin" }}
 		terminal-notifier -title "Video Download Finished" -sound default -message "$video_title"
 	else
 		terminal-notifier -title "Video Download Failed" -sound default -message "$video_title"
+	{{ end }}
 	fi
 }
 
@@ -72,9 +72,11 @@ ymdl() {
 	cd "$HOME"/Downloads || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
 	if yt-dlp -x --audio-format m4a --embed-thumbnail "$@"; then
+	{{ if eq .chezmoi.os "darwin" }}
 		terminal-notifier -title "Video Download Finished" -sound default -message "$video_title"
 	else
 		terminal-notifier -title "Video Download Failed" -sound default -message "$video_title"
+	{{ end }}
 	fi
 }
 

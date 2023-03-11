@@ -1,14 +1,14 @@
 #!/usr/bin/env sh
 # vim:ft=go
 
-# krew.packages hash: {{ include ".packagefiles/krew.packages" | sha256sum }}
-
 cd "$HOME" || exit 1
 
-if command -v krew >/dev/null; then
-	echo "Install kubectl krew packages"
-	if [[ -f {{ joinPath .chezmoi.sourceDir ".packagefiles/krew.packages" | quote }} ]] && [[ -s {{ joinPath .chezmoi.sourceDir ".packagefiles/krew.packages" | quote }} ]]; then
+{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/krew.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/krew.packages")).size 0) }}
+	# krew.packages hash: {{ include ".packagefiles/krew.packages" | sha256sum }}
+	{{ template "path.tmpl" . }}
+	if command -v krew >/dev/null; then
+		echo "Install kubectl krew packages"
 		export KREW_ROOT="$HOME/.local/krew"
 		krew install <{{ joinPath .chezmoi.sourceDir ".packagefiles/krew.packages" | quote }}
 	fi
-fi
+{{ end }}

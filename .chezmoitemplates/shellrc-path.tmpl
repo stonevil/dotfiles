@@ -1,24 +1,24 @@
 {{ if eq .chezmoi.os "darwin" }}
-export HOMEBREW_PATH="$HOME/.homebrew"
-# shellcheck disable=SC2046
-export RUBY_PATH=`if [[ -d $HOMEBREW_PATH/Cellar/ruby ]]; then dirname $(find $HOMEBREW_PATH/Cellar/ruby/*/bin -name "ruby" -print -quit); fi`
-export GEMS_PATH=`if [[ -d $HOMEBREW_PATH/lib/ruby/gems ]]; then find $HOMEBREW_PATH/lib/ruby/gems/* -name "bin" -type d -print -quit; fi`
+	export HOMEBREW_PATH="$HOME"/.homebrew
 
-if [[ -d "$HOME"/.local/xtensa-esp32-elf ]]; then
-	export XTENSA_PATH="$HOME"/.local/xtensa-esp32-elf
-	export PATH="$PATH":"$XTENSA_PATH"/bin
-fi
+	export PATH="$HOMEBREW_PATH"/bin:"$PATH"
+	export MANPATH="$HOMEBREW_PATH"/share/man:"$MANPATH"
 
-if [[ -d "$HOME"/.local/esp-idf ]]; then
-	export IDF_PATH="$HOME"/.local/esp-idf
-fi
-
-export PATH="$RUBY_PATH:$GEMS_PATH:$HOMEBREW_PATH/bin:$PATH"
-export MANPATH="$HOMEBREW_PATH/share/man:$MANPATH"
-
-export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+	export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
 {{ end }}
 
-export KREW_ROOT="$HOME/.local/krew"
+{{ if stat (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") }}
+	export XTENSA_PATH="$HOME"/.local/xtensa-esp32-elf
+	export PATH="$PATH":"$XTENSA_PATH"/bin
+{{ end }}
 
-export PATH="$KREW_ROOT/bin:$HOME/.local/bin:$PATH"
+{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
+	export IDF_PATH="$HOME"/.local/esp-idf
+{{ end }}
+
+{{ if stat (joinPath .chezmoi.homeDir ".local/krew") }}
+	export KREW_ROOT="$HOME/.local/krew"
+	export PATH="$KREW_ROOT/bin:$HOME/.local/bin:$PATH"
+{{ end }}
+
+export PATH="$HOME"/.local/bin:"$PATH"
