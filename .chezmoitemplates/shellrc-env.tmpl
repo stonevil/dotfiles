@@ -18,9 +18,8 @@ export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 
 export KREW_ROOT="$HOME"/.local/bin
 
-
 # Set tabs width for terminal
-tabs -{{ .tabs }}
+tabs -{{ .tui.tabs }}
 if command -v setterm >/dev/null; then
-	setterm --tegtabs {{ .tabs }}
+	setterm --tabs={{ .tui.tabs }} --blink on
 fi

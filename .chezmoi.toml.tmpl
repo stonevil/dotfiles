@@ -10,6 +10,8 @@
 [data]
 	workstation = {{ $workstation | default false }}
 	email = {{ $email | quote }}
+
+[data.tui]
 	tabs = {{ $tabs | default 2 }}
 
 [data.terminal.hdpi]
