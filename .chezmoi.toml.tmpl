@@ -3,16 +3,16 @@
 [scriptEnv]
 	SOFTWARE_DOWNLOAD_CMD="curl --connect-timeout 300 --retry 5 --retry-delay 20 --silent --insecure --location"
 
-{{ $email := promptString "email" -}}
-{{ $workstation := promptBool "workstation" false -}}
-{{ $tabs := promptInt "tabs width" 2 -}}
+{{ $email := promptStringOnce . "email" "What is your email address" }}
+{{ $workstation := promptBoolOnce . "workstation" "Is this workstation?" false }}
+{{ $tabs := promptIntOnce . "tabs" "Configure default tabs width" 2 }}
 
 [data]
-	workstation = {{ $workstation | default false }}
+	workstation = {{ $workstation }}
 	email = {{ $email | quote }}
 
 [data.tui]
-	tabs = {{ $tabs | default 2 }}
+	tabs = {{ $tabs }}
 
 [data.terminal]
 	font = "Iosevka Nerd Font"
