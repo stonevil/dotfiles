@@ -3,9 +3,9 @@
 [scriptEnv]
 	SOFTWARE_DOWNLOAD_CMD="curl --connect-timeout 300 --retry 5 --retry-delay 20 --silent --insecure --location"
 
-{{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
-{{ $workstation := promptBoolOnce . "workstation" "Is this workstation?" false }}
-{{ $tabs := promptIntOnce . "tabs" "Configure default tabs width" 2 }}
+{{ $email := promptString "What is your email address" "fu@bar.org" }}
+{{ $workstation := promptBool "Is this workstation?" false }}
+{{ $tabs := promptInt "Configure default tabs width" 2 }}
 
 [data]
 	workstation = {{ $workstation }}

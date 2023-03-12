@@ -12,18 +12,20 @@ cd "$HOME" || exit 1
 		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease | quote }})) || exit 1
 	{{ end }}
 
-	{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osReleasei.id) ".workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")).size 0) }}
-		# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
-		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote))) || exit 1
-	{{ end }}
-
 	{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osReleasei.id) ".aur")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur")).size 0) }}
 		# {{ .chezmoi.osRelease.id }}.aur hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur") | sha256sum }}
 		(paru --noconfirm --needed -Syu $(paste -s -d ' ' (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur" | quote))) || exit 1
 	{{ end }}
 
-	{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osReleasei.id) ".aur.workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation")).size 0) }}
-		# {{ .chezmoi.osRelease.id }}.aur.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation") | sha256sum }}
-		(paru --noconfirm --needed -Syu $(paste -s -d ' ' (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation" | quote))) || exit 1
+	{{ if .workstation }}
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osReleasei.id) ".workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
+			(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote))) || exit 1
+		{{ end }}
+
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osReleasei.id) ".aur.workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.aur.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation") | sha256sum }}
+			(paru --noconfirm --needed -Syu $(paste -s -d ' ' (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation" | quote))) || exit 1
+		{{ end }}
 	{{ end }}
 {{ end }}
