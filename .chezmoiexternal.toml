@@ -112,7 +112,7 @@
 	url = "https://github.com/rancher/rke/releases/download/v{{ .tools.rke.version }}/rke_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 {{ end }}
 
-{{ if hasPrefix "stoned" .chezmoi.hostname }}
+{{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname)}}
 [".local/esp-idf"]
 	type = "git-repo"
 	refreshPeriod = "168h"
