@@ -38,6 +38,7 @@ git-lfs
 glow
 gnu-sed
 go
+gomplate
 gotags
 gzip
 hadolint
