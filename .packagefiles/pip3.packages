@@ -2,3 +2,4 @@ flake8
 neovim
 yamllint
 yt-dlp
+ruff
