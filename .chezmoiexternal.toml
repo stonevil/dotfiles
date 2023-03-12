@@ -26,6 +26,12 @@
 	executable = false
 	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/k3s.yaml"
 
+[".lima/fedora/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/fedora.yaml"
+
 [".local/antigen.zsh"]
 	type = "file"
 	refreshPeriod = "168h"
