@@ -4,6 +4,7 @@ Vagrantfile*
 .vagrant
 .neoconf.json
 .test*
+.entrypoint*
 .packagefiles
 {{ if (ne .chezmoi.os "darwin") }}
 Library
