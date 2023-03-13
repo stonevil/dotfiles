@@ -82,5 +82,8 @@ if command -v oauth2l >/dev/null; then
 fi
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
-	alias idf-enable='. "$HOME"/.local/esp-idf/export.sh'	
+	alias idf-env='. "$HOME"/.local/esp-idf/export.sh'	
 {{ end }}
+
+# Maybe reqirk required. Terminal Notification
+alias ip-external='dig +short myip.opendns.com @resolver1.opendns.com'
