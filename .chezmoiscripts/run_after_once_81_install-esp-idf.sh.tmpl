@@ -4,6 +4,7 @@
 cd "$HOME" || exit 1
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
+	# {{ .chezmoi.homeDir}}.local/esp-idf hash: {{ include (joinPath .chezmoi.homeDir ".local/esp-idf/.git/packed-refs") | sha256sum }}
 	{{ template "path.tmpl" . }}
 	export IDF_TOOLS_PATH="$HOME"/.local/espressif
 	echo "ESP-IDF. Install"
