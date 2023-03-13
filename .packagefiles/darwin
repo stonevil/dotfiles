@@ -20,6 +20,7 @@ cmake
 coreutils
 dasel
 diffutils
+dfu-util
 dmg2img
 dos2unix
 node
@@ -56,6 +57,7 @@ makedepend
 mkcert
 mkdocs
 neovim
+ninja
 nmap
 parallel
 lima

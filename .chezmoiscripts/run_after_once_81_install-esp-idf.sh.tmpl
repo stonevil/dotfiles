@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+# vim:ft=go
+
+cd "$HOME" || exit 1
+
+{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
+	{{ template "path.tmpl" . }}
+	export IDF_TOOLS_PATH="$HOME"/.local/espressif
+	echo "ESP-IDF. Install"
+	(cd "$HOME"/.local/esp-idf && ./install.sh all) || exit 1
+{{ end }}
