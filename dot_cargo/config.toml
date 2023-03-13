@@ -1,0 +1,6 @@
+[term]
+quiet = false
+verbose = false
+color = 'auto'
+progress.when = 'auto'
+progress.width = 80

@@ -17,8 +17,12 @@
 {{ end }}
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/krew") }}
-	export KREW_ROOT="$HOME/.local/krew"
-	export PATH="$KREW_ROOT/bin:$HOME/.local/bin:$PATH"
+	export KREW_ROOT="$HOME"/.local/krew
+	export PATH="$KREW_ROOT"/bin:"$HOME"/.local/bin:"$PATH"
+{{ end }}
+
+{{ if stat (joinPath .chezmoi.homeDir ".cargo") }}
+	export PATH="$HOME".cargo/bin:"$PATH"
 {{ end }}
 
 export PATH="$HOME"/.local/bin:"$PATH"
