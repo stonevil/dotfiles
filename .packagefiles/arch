@@ -15,6 +15,7 @@ luarocks
 mkcert
 neovim
 nodejs
+npm
 openssh
 parallel
 pwgen

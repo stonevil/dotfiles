@@ -22,7 +22,7 @@
 {{ end }}
 
 {{ if stat (joinPath .chezmoi.homeDir ".cargo") }}
-	export PATH="$HOME".cargo/bin:"$PATH"
+	export PATH="$HOME"/.cargo/bin:"$PATH"
 {{ end }}
 
 export PATH="$HOME"/.local/bin:"$PATH"

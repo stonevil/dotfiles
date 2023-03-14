@@ -11,7 +11,7 @@ alpine)
 	;;
 arch | centos)
 	export IMAGE_TAG="${2:-latest}"
-	if [[ DISTRO == "arch" ]]; then
+	if [[ $DISTRO == "arch" ]]; then
 		IMAGE="archlinux"
 	else
 		IMAGE="$DISTRO"

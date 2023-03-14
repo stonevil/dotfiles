@@ -1,5 +1,5 @@
 {{ template "path.tmpl" . }}
 
 echo "Arch. Update packages"
-(sudo pacman --noconfirm -Syu "$(pacman -Qq)") || exit 1
-(sudo pacman --noconfirm -R $(pacman -Qdtq)) || exit 1
+(sudo pacman --noconfirm -Syu "$(pacman -Qq)")
+(sudo pacman --noconfirm -R $(pacman -Qdtq))

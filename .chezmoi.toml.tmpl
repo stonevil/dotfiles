@@ -4,7 +4,7 @@
 	SOFTWARE_DOWNLOAD_CMD="curl --connect-timeout 300 --retry 5 --retry-delay 20 --silent --insecure --location"
 
 {{ $email := promptString "What is your email address" "fu@bar.org" }}
-{{ $workstation := promptBool "Is this workstation?" false }}
+{{ $workstation := promptBool "Is this workstation" false }}
 {{ $tabs := promptInt "Configure default tabs width" 2 }}
 
 [data]
