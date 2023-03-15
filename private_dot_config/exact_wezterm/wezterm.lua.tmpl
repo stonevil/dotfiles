@@ -43,7 +43,7 @@ return {
 	-- Smart tab bar [distraction-free mode]
 	show_new_tab_button_in_tab_bar = false,
 	hide_tab_bar_if_only_one_tab = true,
-	use_fancy_tab_bar = false,
+	use_fancy_tab_bar = true,
 	tab_bar_at_bottom = false,
 
 	window_padding = {
@@ -51,6 +51,16 @@ return {
 		right = "1cell",
 		top = "0.5cell",
 		bottom = "0.5cell",
+	},
+
+	window_frame = {
+		font = wezterm.font({
+			family = "{{ .terminal.font }}",
+			weight = "Bold",
+		}),
+		-- font_size = {{ .terminal.hdpi.fontsize }},
+		active_titlebar_bg = "#000000",
+		-- inactive_titlebar_bg = "#333333",
 	},
 
 	-- iTerm colours for reference
@@ -136,6 +146,9 @@ return {
 	pane_focus_follows_mouse = false,
 
 	send_composed_key_when_left_alt_is_pressed = true,
+
+	key_map_preference = "Physical",
+
 	keys = {
 		{ key = "mapped:#", mods = "META", action = "DisableDefaultAssignment" },
 		{ key = "mapped:≠", mods = "META", action = "DisableDefaultAssignment" },
@@ -176,14 +189,29 @@ return {
 		-- { key = "UpArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Up") },
 		-- { key = "RightArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Right") },
 
+		{ key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
+
+		{ key = '\\', mods = 'SUPER', action = act.PaneSelect { alphabet = '1234567890' }, },
+
+		{ key = 's', mods = 'SUPER', action = wezterm.action.QuickSelect },
+
+		{ key = 'L', mods = 'SUPER', action = wezterm.action.ShowDebugOverlay },
+
 		{ key = "z", mods = "META|SHIFT", action = wezterm.action.TogglePaneZoomState },
+
+		{ key = "l", mods = "META|SHIFT", action = wezterm.action.ActivateLastTab },
 
 		{ key = "?", mods = "META|SHIFT", action = wezterm.action.ActivateCopyMode },
 
+		{ key = '0', mods = 'SUPER', action = wezterm.action.ResetFontSize },
 		{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
 		{ key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
 
 		{ key = "v", mods = "SUPER", action = "Paste" },
 		{ key = "c", mods = "SUPER", action = "Copy" },
 	},
+
+	mouse_bindings = {
+    { event = { Up = { streak = 1, button = 'Left' } }, mods = 'SUPER', action = wezterm.action.OpenLinkAtMouseCursor, },
+  },
 }
