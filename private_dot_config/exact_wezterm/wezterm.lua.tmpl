@@ -189,13 +189,16 @@ return {
 		-- { key = "UpArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Up") },
 		-- { key = "RightArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Right") },
 
-		{ key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
+		-- Nightly builds only
+		-- { key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
 
-		{ key = '\\', mods = 'SUPER', action = act.PaneSelect { alphabet = '1234567890' }, },
+		{ key = 'l', mods = 'SUPER', action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|TABS', title = 'LAUNCHER' }, },
 
 		{ key = 's', mods = 'SUPER', action = wezterm.action.QuickSelect },
 
-		{ key = 'L', mods = 'SUPER', action = wezterm.action.ShowDebugOverlay },
+		{ key = 'd', mods = 'SUPER|SHIFT', action = wezterm.action.ShowDebugOverlay },
+
+		{ key = '\\', mods = 'SUPER', action = act.PaneSelect { alphabet = '1234567890' }, },
 
 		{ key = "z", mods = "META|SHIFT", action = wezterm.action.TogglePaneZoomState },
 
