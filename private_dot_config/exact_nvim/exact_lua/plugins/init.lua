@@ -16,9 +16,9 @@ return {
 	},
 
 	-- override nvim-cmp and add cmp-emoji
-	{
-		"mfussenegger/nvim-lint",
-	},
+	-- {
+	-- 	"mfussenegger/nvim-lint",
+	-- },
 
 	-- override nvim-cmp and add cmp-emoji
 	{
