@@ -1,6 +1,4 @@
-### dotFiles in active redevelopment right now. Use for you own risk. In a process migration to [chezmoi](https://www.chezmoi.io). Unstable and can be broken.
-
-## 
+dotFiles in active redevelopment right now. Use for you own risk. In a process migration to [chezmoi](https://www.chezmoi.io).
 
 ## dotFiles
 
@@ -20,7 +18,13 @@ Example for Alpine Linux
 ./.test.sh alpine edge
 ```
 
-Check directory ```.test``` for list of supported platforms.
+##### Supported test platforms:
+
+- macOS (with Vagrant)
+- Alpine Linux Edge
+- Arch Linux
+- CentOS 8 or higher
+- Fedora 37
 
 ## Install
 
