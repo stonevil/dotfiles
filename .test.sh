@@ -32,4 +32,4 @@ echo "Last chance for Blade Runner"
 export CLI="${3:-limactl shell docker docker}"
 
 echo "Execute container"
-${CLI} run -it --rm -v $PWD:/root/.local/share/chezmoi -e DISTRO=$DISTRO -e IMAGE_TAG=$IMAGE_TAG $IMAGE:$IMAGE_TAG sh -c "/root/.local/share/chezmoi/.entrypoint.sh"
+${CLI} run -it --rm -v "$PWD":/root/.local/share/chezmoi -e DISTRO="$DISTRO" -e IMAGE_TAG="$IMAGE_TAG" "$IMAGE":"$IMAGE_TAG" sh -c "/root/.local/share/chezmoi/.entrypoint.sh"
