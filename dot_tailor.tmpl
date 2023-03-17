@@ -96,7 +96,7 @@ Tailor.config do |config|
     style.allow_screaming_snake_case_classes false, level: :error
     style.allow_trailing_line_spaces false, level: :error
     style.allow_invalid_ruby false, level: :warn
-    style.indentation_spaces {{ .tabs }}, level: :error
+    style.indentation_spaces {{ .tui.tabs }}, level: :error
     style.max_code_lines_in_class 300, level: :error
     style.max_code_lines_in_method 300, level: :error
     style.max_line_length 300, level: :error
@@ -113,7 +113,7 @@ Tailor.config do |config|
     style.allow_screaming_snake_case_classes false, level: :error
     style.allow_trailing_line_spaces false, level: :error
     style.allow_invalid_ruby false, level: :warn
-    style.indentation_spaces {{ .tabs }}, level: :error
+    style.indentation_spaces {{ .tui.tabs }}, level: :error
     style.max_code_lines_in_class 300, level: :error
     style.max_code_lines_in_method 300, level: :error
     style.max_line_length 300, level: :error
