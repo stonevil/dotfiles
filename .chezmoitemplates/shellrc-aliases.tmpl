@@ -81,9 +81,9 @@ if command -v oauth2l >/dev/null; then
 	alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform userinfo.email)" -H "Content-Type: application/json" '
 fi
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
-	alias idf-env='. "$HOME"/.local/esp-idf/export.sh'	
-{{ end }}
+{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
+	alias idf-env='. "$HOME"/.local/esp-idf/export.sh'
+{{- end }}
 
 # Maybe reqirk required. Terminal Notification
 alias ip-external='dig +short myip.opendns.com @resolver1.opendns.com'

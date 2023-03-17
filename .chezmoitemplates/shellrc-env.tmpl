@@ -18,9 +18,9 @@ export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 
 export KREW_ROOT="$HOME"/.local/bin
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
+{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
 	export IDF_TOOLS_PATH="$HOME"/.local/espressif
-{{ end }}
+{{- end }}
 
 # Set tabs width for terminal
 tabs -{{ .tui.tabs }}

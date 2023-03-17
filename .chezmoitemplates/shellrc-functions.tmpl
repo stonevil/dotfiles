@@ -73,12 +73,12 @@ passgen() {
 }
 
 notify() {
-	{{ if eq .chezmoi.os "darwin" }}
+	{{ if eq .chezmoi.os "darwin" -}}
 		osascript -e "display notification \"$2\" with title \"$1\""
-	{{ else if eq .chezmoi.os "linux" }}
+	{{- else if eq .chezmoi.os "linux" }}
 		# Proper implementation required
 		echo "$@"
-	{{ end }}
+	{{- end }}
 }
 
 stmux() { ssh "$@" -t sh -c '~/.homebrew/bin/tmux attach-session -dv'; }
