@@ -3,3 +3,4 @@ github.com/arl/gitmux@latest
 github.com/go-delve/delve/cmd/dlv@latest
 github.com/segmentio/golines@latest
 mvdan.cc/gofumpt@latest
+github.com/mgechev/revive@latest

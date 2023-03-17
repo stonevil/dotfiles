@@ -1,2 +1,5 @@
 cargo-update
 tree-sitter-cli
+selene
+stylua
+shellharden

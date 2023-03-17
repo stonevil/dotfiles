@@ -1,1 +1,4 @@
 neovim
+cspell
+@commitlint/cli
+@commitlint/config-conventional
