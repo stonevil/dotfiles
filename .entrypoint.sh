@@ -22,7 +22,8 @@ arch)
 	;;
 centos)
 	echo "CentOS. Install bare minimal packages"
-	if [[ $IMAGE_TAG == 8* ]] || [[ $IMAGE_TAG == "latest" ]]; then
+	# shellcheck disable=SC2081
+	if [ "$IMAGE_TAG" = 8* ] || [ "$IMAGE_TAG" = "latest" ]; then
 		echo "Fix CentOS 8 repositories URL"
 		(sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*) || exit 1
 		(sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*) || exit 1
@@ -39,11 +40,11 @@ sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --promptStr
 sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- apply --force
 
 if command -v zsh >/dev/null; then
-	zsh
+	RPROMPT="$DISTRO/$IMAGE_TAG" zsh
 else
 	if command -v bash >/dev/null; then
-		bash
+		RPROMPT="$DISTRO/$IMAGE_TAG" bash
 	else
-		sh
+		RPROMPT="$DISTRO/$IMAGE_TAG" sh
 	fi
 fi
