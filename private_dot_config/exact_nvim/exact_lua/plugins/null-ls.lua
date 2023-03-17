@@ -23,7 +23,6 @@ return {
 				diagnostics.fish,
 				diagnostics.gitlint,
 				diagnostics.hadolint,
-				diagnostics.markdownlint_cli2,
 				diagnostics.revive,
 				diagnostics.ruff,
 				diagnostics.shellcheck,
