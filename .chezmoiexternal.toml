@@ -42,14 +42,14 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-{{ if eq .libc.platform "musl" }}
+{{- if eq .libc.platform "musl" }}
 	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
-{{ else }}
+{{- else }}
 	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
-{{ end }}
+{{- end }}
 
 {{ if eq .chezmoi.os "darwin" }}
-	{{ if eq .chezmoi.arch "amd64" }}
+	{{- if eq .chezmoi.arch "amd64" }}
 [".local/bin/bat"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -59,8 +59,8 @@
 	[".local/bin/bat".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-x86_64-apple-darwin/bat"]
-	{{ end }}
-{{ else if eq .chezmoi.os "linux" }}
+	{{- end }}
+{{- else if eq .chezmoi.os "linux" }}
 [".local/bin/bat"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -70,7 +70,7 @@
 	[".local/bin/bat".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}/bat"]
-{{ end }}
+{{- end }}
 
 [".local/bin/helm"]
 	type = "file"
@@ -86,14 +86,14 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 	url = "https://github.com/junegunn/fzf/releases/download/{{ .tools.fzf.version }}/fzf-{{ .tools.fzf.version }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
-{{ else if eq .chezmoi.os "linux" }}
+{{- else if eq .chezmoi.os "linux" }}
 	url = "https://github.com/junegunn/fzf/releases/download/{{ .tools.fzf.version }}/fzf-{{ .tools.fzf.version }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/fzf".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
-{{ end }}
+{{- end }}
 
 [".local/bin/kubectl"]
 	type = "file"
@@ -110,13 +110,48 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "./krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}"]
 
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 [".local/bin/rke"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 	url = "https://github.com/rancher/rke/releases/download/v{{ .tools.rke.version }}/rke_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
-{{ end }}
+{{- end }}
+
+[".local/bin/lazygit"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+{{- if eq .chezmoi.arch "amd64" }}
+	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ .tools.lazygit.version }}/lazygit_{{ .tools.lazygit.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
+{{- else if eq .chezmoi.arch "arm64"}}
+	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ .tools.lazygit.version }}/lazygit_{{ .tools.lazygit.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
+{{- end }}
+	[".local/bin/lazygit".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazygit"]
+
+[".local/bin/lazydocker"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+{{- if eq .chezmoi.arch "amd64" }}
+	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ .tools.lazydocker.version }}/lazydocker_{{ .tools.lazydocker.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
+{{- else if eq .chezmoi.arch "arm64"}}
+	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ .tools.lazydocker.version }}/lazydocker_{{ .tools.lazydocker.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
+{{- end }}
+	[".local/bin/lazydocker".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazydocker"]
+
+[".local/bin/staticcheck"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/dominikh/go-tools/releases/download/{{ .tools.staticcheck.version }}/staticcheck_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/staticcheck".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "staticcheck/staticcheck"]
 
 {{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname)}}
 [".local/esp-idf"]
@@ -126,4 +161,4 @@
 	url = "https://github.com/espressif/esp-idf.git"
 	[".local/esp-idf".pull]
 		args = ["--recurse-submodules=true"]
-{{ end }}
+{{- end }}

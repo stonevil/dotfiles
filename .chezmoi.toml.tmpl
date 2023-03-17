@@ -78,6 +78,15 @@
 [data.tools.consul]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/consul/releases/latest" | trim | base | trimPrefix "v" }}"
 
+[data.tools.lazygit]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.lazydocker]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.staticcheck]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/dominikh/go-tools/releases/latest" | trim | base }}"
+
 [data.gui.wezterm]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/wez/wezterm/releases/latest" | trim | base }}"
 
