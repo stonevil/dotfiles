@@ -4,10 +4,33 @@ return {
 		"williamboman/mason.nvim",
 		opts = {
 			ensure_installed = {
-				"stylua",
-				"shellcheck",
-				"shfmt",
+				"ansible-language-server",
+				"arduino-language-server",
+				"bash-language-server",
+				"buf-language-server",
+				"cmake-language-server",
+				"cspell",
+				"commitlint",
+				"delve",
+				"diagnostic-languageserver",
+				"docker-compose-language-service",
+				"dockerfile-language-server",
 				"flake8",
+				"gitlint",
+				"hadolint",
+				"lua-language-server",
+				"markdownlint",
+				"nginx-language-server",
+				"prettier",
+				"protolint",
+				"revive",
+				"ruff-lsp",
+				"shellharden",
+				"staticcheck",
+				"stylua",
+				"taplo",
+				"terraform-ls",
+				"vim-language-server",
 			},
 			pip = {
 				upgrade_pip = false,
@@ -24,6 +47,14 @@ return {
 					{{- end }}
 				},
 			},
+			ui = {
+				border = "single",
+				width = 0.8,
+				height = 0.8,
+			},
 		},
+		config = function(_, opts)
+			require("mason").setup(opts)
+		end,
 	},
 }
