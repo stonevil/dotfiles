@@ -16,12 +16,9 @@
 
 [data.terminal]
 	font = "Iosevka Nerd Font"
-
-[data.terminal.hdpi]
   fontsize = 15
-
-[data.wezterm.fhd]
-  fontsize = 16
+	cols = 140
+	rows = 50
 
 [data.libc]
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
