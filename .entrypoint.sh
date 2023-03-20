@@ -5,14 +5,7 @@ case "$DISTRO" in
 alpine)
 	echo "Alpine. Install bare minimal packages"
 	echo "Fix repositories version"
-	case "$IMAGE_TAG" in
-	edge)
-		sed -i 's/v3.\b[0-9]\{2\}\b/edge/g' /etc/apk/repositories || exit 1
-		;;
-	v3.*)
-		sed -i "s/v3.\b[0-9]\{2\}\b/v$IMAGE_TAG/g" /etc/apk/repositories || exit 1
-		;;
-	esac
+	sed -i 's/v3.\b[0-9]\{2\}\b/edge/g' /etc/apk/repositories || exit 1
 	(echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories) || exit 1
 	(apk update && apk add sudo bash curl) || exit 1
 	;;
