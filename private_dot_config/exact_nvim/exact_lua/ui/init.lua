@@ -1,19 +1,29 @@
 -- Color Scheme
 return {
 	{
-		"stonevil/nordic.nvim",
+		"EdenEast/nightfox.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require("nordic").setup({
-				-- Telesccope custom configs.
-				telescope = {
-					-- Available styles: `classic`, `flat`.
-					style = "classic",
+			require("nightfox").setup({
+				options = {
+					transparent = false,
+					styles = {
+						comments = "italic",
+						keywords = "bold",
+					},
 				},
-				transparent_bg = true,
+				palettes = {
+					duskfox = {
+						black = "#000000", -- Just black
+						bg1 = "#000000", -- Black background
+						bg0 = "#000000", -- Alt backgrounds (floats, statusline, ...)
+						bg3 = "#121820", -- 55% darkened from stock
+						sel0 = "#131b24", -- 55% darkened from stock
+					},
+				},
 			})
-			require("nordic").load()
+			require("nightfox").load()
 		end,
 	},
 
@@ -21,7 +31,7 @@ return {
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "nordic",
+			colorscheme = "nordfox",
 		},
 	},
 
