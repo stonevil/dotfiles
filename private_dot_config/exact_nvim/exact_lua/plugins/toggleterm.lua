@@ -2,10 +2,11 @@ return {
 	"akinsho/toggleterm.nvim",
 	module = true,
 	cmd = "ToggleTerm",
-	-- event = { "BufReadPost", "BufNewFile" },
+	event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		local toggleterm = require("toggleterm")
-
+		local keymap = vim.keymap.set
+		keymap("n", "<leader>ft", "<cmd>ToggleTerm<cr>", { desc = "Open Float Terminal" })
 		toggleterm.setup({
 			size = function(term)
 				if term.direction == "horizontal" then
