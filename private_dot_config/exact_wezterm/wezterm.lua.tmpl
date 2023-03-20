@@ -99,8 +99,8 @@ return {
 
 	enable_wayland = true,
 
-	initial_cols = 140,
-	initial_rows = 50,
+	initial_cols = {{ .terminal.columns }},
+	initial_rows = {{ .terminal.rows }},
 	inactive_pane_hsb = {
 		saturation = 0.3,
 		brightness = 0.3,
@@ -109,7 +109,7 @@ return {
 	-- Font configuration
 	-- https://wezfurlong.org/wezterm/config/fonts.html
 	font = wezterm.font("{{ .terminal.font }}"),
-	font_size = {{ .terminal.hdpi.fontsize }},
+	font_size = {{ .terminal.fontsize }},
 	max_fps = 120,
 	line_height = 1.1,
 
