@@ -1,5 +1,18 @@
--- Color Scheme
 return {
+	-- Transparense everywhere
+	{
+		"xiyaowong/transparent.nvim",
+		cmd = { "TransparentEnable", "TransparentDisable", "TransparentToggle" },
+		opts = {
+			enable = vim.g.transparent_enabled,
+			extra_groups = "all",
+		},
+		config = function(_, opts)
+			require("transparent").setup(opts)
+		end,
+	},
+
+	-- Color Scheme
 	{
 		"EdenEast/nightfox.nvim",
 		lazy = false,
@@ -7,14 +20,14 @@ return {
 		config = function()
 			require("nightfox").setup({
 				options = {
-					transparent = false,
+					transparent = vim.g.transparent_enabled,
 					styles = {
 						comments = "italic",
 						keywords = "bold",
 					},
 				},
 				palettes = {
-					duskfox = {
+					nordfox = {
 						black = "#000000", -- Just black
 						bg1 = "#000000", -- Black background
 						bg0 = "#000000", -- Alt backgrounds (floats, statusline, ...)
