@@ -1,4 +1,4 @@
-# vim:ft=go
+{{/* vim:ft=go */}}
 
 [scriptEnv]
 	SOFTWARE_DOWNLOAD_CMD="curl --connect-timeout 300 --retry 5 --retry-delay 20 --silent --insecure --location"
@@ -83,6 +83,9 @@
 
 [data.tools.lazydocker]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.revive]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com//mgechev/revive/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.staticcheck]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/dominikh/go-tools/releases/latest" | trim | base }}"

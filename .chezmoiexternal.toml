@@ -144,6 +144,19 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazydocker"]
 
+[".local/bin/revive"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+{{- if eq .chezmoi.arch "amd64" }}
+	url = "https://github.com/mgechev/revive/releases/download/v{{ .tools.revive.version }}/revive_{{ .tools.revive.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
+{{- else if eq .chezmoi.arch "arm64"}}
+	url = "https://github.com/mgechev/revive/releases/download/v{{ .tools.revive.version }}/revive_{{ .tools.revive.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
+{{- end }}
+	[".local/bin/revive".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "revive"]
+
 [".local/bin/staticcheck"]
 	type = "file"
 	refreshPeriod = "168h"
