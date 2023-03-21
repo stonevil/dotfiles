@@ -43,4 +43,11 @@ return {
 			})
 		end,
 	},
+
+	-- syntax aware text-objects, select, move, swap, and peek support
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	},
 }
