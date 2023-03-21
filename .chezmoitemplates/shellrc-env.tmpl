@@ -24,6 +24,6 @@ export KREW_ROOT="$HOME"/.local/bin
 
 # Set tabs width for terminal
 tabs -{{ .tui.tabs }}
-if command -v setterm >/dev/null; then
+if command -v setterm >/dev/null 2>&1; then
 	setterm --tabs={{ .tui.tabs }} --blink on
 fi

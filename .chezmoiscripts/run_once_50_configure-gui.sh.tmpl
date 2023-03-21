@@ -37,6 +37,9 @@ defaults write com.apple.dock autohide -bool true
 # Dock: make icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
+# Dock: show recent applications in Dock
+defaults write com.apple.dock show-recents -bool true
+
 # Mission Control: speed up animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
@@ -61,6 +64,15 @@ defaults write com.apple.dock mru-spaces -bool false
 # Top left screen corner → Mission Control
 defaults write com.apple.dock wvous-tl-corner -int 6
 defaults write com.apple.dock wvous-tl-modifier -int 0
+# Top right
+defaults write com.apple.dock wvous-tr-corner -int 0
+defaults write com.apple.dock wvous-tr-modifier -int 0
+# Bottom left
+defaults write com.apple.dock wvous-bl-corner -int 0
+defaults write com.apple.dock wvous-bl-modifier -int 0
+# Bottom right
+defaults write com.apple.dock wvous-br-corner -int 0
+defaults write com.apple.dock wvous-br-modifier -int 0
 
 # Finder: disable desktop
 defaults write com.apple.finder CreateDesktop -bool false
@@ -88,13 +100,13 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 
 # Finder: show path bar
-#defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowPathbar -bool false
 
 # Finder: allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # Finder: display full POSIX path as Finder window title
-#defaults write com.apple.finder _FXShowPosixPathInTitle -bool false
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool false
 
 # Finder: when performing a search, search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
@@ -109,7 +121,7 @@ defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 defaults write NSGlobalDomain com.apple.springing.delay -float 1
 
 # Finder: avoid creating .DS_Store files on network volumes
-#defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Finder: enable disk image verification
 defaults write com.apple.frameworks.diskimages skip-verify -bool false
@@ -148,6 +160,9 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool true
 # macOS: enable AirDrop over Ethernet and on unsupported Macs running Lion
 #defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
+# macOS: set the timezone; see `sudo systemsetup -listtimezones` for other values
+#sudo systemsetup -settimezone "America/Los_Angeles" > /dev/null
+
 # Finder: expand the following File Info panes:
 defaults write com.apple.finder FXInfoPanesExpanded -dict Comments -bool false Preview -bool false General -bool true OpenWith -bool true Privileges -bool false
 
@@ -155,7 +170,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict Comments -bool false P
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
 
 # Sound: increase sound quality for Bluetooth headphones/headsets
-#defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 # Keyboard: enable full keyboard access for all controls
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
@@ -169,9 +184,12 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Keyboard: set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with `Inches`, `en_GB` with `en_US`, and `true` with `false`.
 defaults write NSGlobalDomain AppleLanguages -array "en-GB" "en" "uk"
-#defaults write NSGlobalDomain AppleLocale -string "uk@currency=UAH"
+defaults write NSGlobalDomain AppleLocale -string "en_US@currency=USD"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
+
+# Keyboard: show language menu in the top right corner of the boot screen
+sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Keyboard: enable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
@@ -236,6 +254,9 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 # Finder: set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
+# Finder: keep folders on top when sorting by name
+#defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
 # macOS: scrollbars
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
@@ -271,6 +292,12 @@ defaults write com.apple.helpviewer DevMode -bool true
 
 # macOS: enable smart dashes
 #defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool true
+
+# Dashboard: disable
+defaults write com.apple.dashboard mcx-disabled -bool true
+
+# Dashboard: don’t show Dashboard as a Space
+defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Safari: press Tab to highlight each item on a web page
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
@@ -310,12 +337,29 @@ defaults write com.apple.Safari WebKitMinimumFontSize -int 12
 # Safari: hide sidebar in new windows
 defaults write com.apple.Safari ShowSidebarInNewWindows -int 0
 
+# Safari: disable auto-playing video
+defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+
+# Safari: enable “Do Not Track”
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+
+# Safari: disable Java
+defaults write com.apple.Safari WebKitJavaEnabled -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles -bool false
+
 # Safari: setup search engine
 #defaults write com.apple.Safari SearchProviderIdentifier -string "com.duckduckgo"
 #defaults write com.apple.Safari SearchProviderIdentifierMigratedToSystemPreference -int 1
 
 # Safari: restore at launch
 defaults write com.apple.Safari AlwaysRestoreSessionAtLaunch -int 1
+
+# QuickTime: auto-play videos when opened with QuickTime Player
+defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool false
 
 # macOS: require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
@@ -333,6 +377,27 @@ defaults write com.apple.screencapture type -string "png"
 
 # macOS: disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
+
+# Mac App Store: enable the automatic update check
+defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+
+# Mac App Store: check for software updates daily, not just once per week
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
+# Mac App Store: download newly available updates in background
+defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+
+# Mac App Store: install System data files & security updates
+defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+
+# Mac App Store: automatically download apps purchased on other Macs
+#defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
+
+# Mac App Store: turn on app auto-update
+defaults write com.apple.commerce AutoUpdate -bool true
+
+# Mac App Store: allow the App Store to reboot machine on macOS updates
+defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 
 # TextEdit: use plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -int 0

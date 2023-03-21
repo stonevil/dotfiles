@@ -8,7 +8,7 @@ alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
 
 alias ansible-lint='ansible-lint -c ~/.ansible-lint'
 
-if command -v limactl >/dev/null; then
+if command -v limactl >/dev/null 2>&1; then
 	# lima-vm to support genuine docker
 	alias docker='limactl shell docker docker'
 	alias docker-stop-all='docker stop $(docker ps -a -q)'
@@ -28,7 +28,7 @@ if command -v limactl >/dev/null; then
 	fi
 fi
 
-if command -v git >/dev/null; then
+if command -v git >/dev/null 2>&1; then
 	alias gad='git add'
 	alias gAD='git add -A'
 	alias gpu='git push'
@@ -77,7 +77,7 @@ if command -v git >/dev/null; then
 fi
 
 # Configure gcurl alias
-if command -v oauth2l >/dev/null; then
+if command -v oauth2l >/dev/null 2>&1; then
 	alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform userinfo.email)" -H "Content-Type: application/json" '
 fi
 

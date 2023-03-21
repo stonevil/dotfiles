@@ -1,6 +1,6 @@
 {{ template "path.tmpl" . }}
 
-if command -v zsh >/dev/null; then
+if command -v zsh >/dev/null 2>&1; then
 	echo "ZSH Antigen. Install or update plugins"
 	/usr/bin/env zsh -c "source $HOME/.zshrc && antigen apply && antigen update"
 fi

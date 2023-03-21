@@ -6,7 +6,7 @@ cd "$HOME" || exit 1
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/npm.modules")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/npm.modules")).size 0) }}
 	# npm.modules hash: {{ include ".packagefiles/npm.modules" | sha256sum }}
 	{{ template "path.tmpl" . }}
-	if command -v npm >/dev/null; then
+	if command -v npm >/dev/null 2>&1; then
 		echo "Install NodeJS modules"
 		npm config set prefix "$HOME"/.local
 		export NPM_PACKAGES="$HOME"/.local

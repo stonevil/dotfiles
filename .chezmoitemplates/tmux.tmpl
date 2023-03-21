@@ -1,6 +1,6 @@
 {{ template "path.tmpl" . }}
 
-if command -v tmux >/dev/null; then
+if command -v tmux >/dev/null 2>&1; then
 	echo "TMUX. Update plugins"
 	{{ if stat (joinPath .chezmoi.homeDir ".tmux/plugins") }}
 		for plugin in "$HOME"/.tmux/plugins/*; do

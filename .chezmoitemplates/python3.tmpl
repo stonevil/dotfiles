@@ -3,7 +3,7 @@
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages")).size 0) }}
 	# pip3.packages hash: {{ include ".packagefiles/pip3.packages" | sha256sum }}
 
-	if command -v pip3 >/dev/null; then
+	if command -v pip3 >/dev/null 2>&1; then
 		echo "Python 3. Install or update pip3 packages"
 		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 		{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}

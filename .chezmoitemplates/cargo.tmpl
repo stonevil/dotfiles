@@ -1,6 +1,6 @@
 {{ template "path.tmpl" . }}
 
-if command -v cargo >/dev/null; then
+if command -v cargo >/dev/null 2>&1; then
 	echo "Rust. Install or update cargo packages"
 	cargo install-update -a
 fi

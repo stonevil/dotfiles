@@ -6,7 +6,7 @@ cd "$HOME" || exit 1
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/cargo.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/cargo.packages")).size 0) }}
 	# cargo.packages hash: {{ include ".packagefiles/cargo.packages" | sha256sum }}
 	{{ template "path.tmpl" . }}
-	if command -v cargo >/dev/null; then
+	if command -v cargo >/dev/null 2>&1; then
 		echo "Rust. Install or update cargo packages"
 		cargo install $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/cargo.packages" | quote }}) || exit 1
 	fi
