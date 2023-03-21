@@ -1,4 +1,6 @@
-# vim:ft=go
+{{- /*
+	vim:ft=go
+*/ -}}
 
 # chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
 
