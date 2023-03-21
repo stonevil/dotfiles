@@ -3,7 +3,7 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		keys = {
-      -- add a keymap to browse plugin files
+			{ "<leader>bt", "<cmd>Telescope buffers<cr>", desc = "Telescope Buffers" },
       -- stylua: ignore
       {
         "<leader>fp",
@@ -31,16 +31,29 @@ return {
 		},
 	},
 
-	-- add telescope-fzf-native
+	-- add telescope tabs
+	{
+		"LukasPietzschmann/telescope-tabs",
+		requires = { "nvim-telescope/telescope.nvim" },
+		config = function()
+			require("telescope-tabs").setup({
+				show_preview = true,
+			})
+		end,
+	},
+
+	-- enable telescope plugins
 	{
 		"telescope.nvim",
 		dependencies = {
 			"nvim-telescope/telescope-fzf-native.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
+			"nvim-telescope/telescope.nvim",
 			build = "make",
 			config = function()
 				require("telescope").load_extension("fzf")
 				require("telescope").load_extension("ui-select")
+				require("telescope").load_extension("tabs")
 			end,
 		},
 	},
