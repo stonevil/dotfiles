@@ -5,8 +5,8 @@ env:
 
 window:
   dimensions:
-    columns: {{ .terminal.cols }}
-    lines: {{ .terminal.rows }}
+    columns: {{ .gui.cols }}
+    lines: {{ .gui.rows }}
   dynamic_title: true
 
   position:
@@ -19,7 +19,7 @@ window:
 
   dynamic_padding: false
 
-  opacity: 1.0
+  opacity: {{ .gui.opacity }}
 
   decorations: none
   # Values for `decorations`
@@ -51,13 +51,13 @@ scrolling:
 
 font:
   normal:
-    family: "{{ .terminal.font }}"
+    family: "{{ .gui.font }}"
     style: "Light"
   bold:
     style: "Light"
   italic:
     style: "Light Italic"
-  size: {{ .terminal.fontsize }}
+  size: {{ .gui.fontsize }}
   offset:
     x: 0
     y: 3

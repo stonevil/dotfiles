@@ -55,10 +55,10 @@ return {
 
 	window_frame = {
 		font = wezterm.font({
-			family = "{{ .terminal.font }}",
+			family = "{{ .gui.font }}",
 			weight = "Bold",
 		}),
-		-- font_size = {{ .terminal.fontsize }},
+		-- font_size = {{ .gui.fontsize }},
 		active_titlebar_bg = "#000000",
 		inactive_titlebar_bg = "#000000",
 	},
@@ -88,7 +88,7 @@ return {
 	-- https://wezfurlong.org/wezterm/colorschemes/index.html
 	color_scheme = "darkfox",
 
-	window_background_opacity = 1.0,
+	window_background_opacity = {{ .gui.opacity }},
 	window_decorations = "RESIZE",
 
 	enable_scroll_bar = false,
@@ -97,10 +97,12 @@ return {
 
 	native_macos_fullscreen_mode = true,
 
+	quit_when_all_windows_are_closed = true,
+
 	enable_wayland = true,
 
-	initial_cols = {{ .terminal.cols }},
-	initial_rows = {{ .terminal.rows }},
+	initial_cols = {{ .gui.cols }},
+	initial_rows = {{ .gui.rows }},
 	inactive_pane_hsb = {
 		saturation = 0.3,
 		brightness = 0.3,
@@ -108,8 +110,8 @@ return {
 
 	-- Font configuration
 	-- https://wezfurlong.org/wezterm/config/fonts.html
-	font = wezterm.font("{{ .terminal.font }}"),
-	font_size = {{ .terminal.fontsize }},
+	font = wezterm.font("{{ .gui.font }}"),
+	font_size = {{ .gui.fontsize }},
 	max_fps = 120,
 	line_height = 1.1,
 

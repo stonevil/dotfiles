@@ -6,6 +6,7 @@
 {{ $email := promptString "What is your email address" "fu@bar.org" }}
 {{ $workstation := promptBool "Is this workstation" false }}
 {{ $tabs := promptInt "Configure default tabs width" 2 }}
+{{ $opacity := promptString "Windows opacity" "1.0" }}
 
 [data]
 	workstation = {{ $workstation }}
@@ -14,11 +15,12 @@
 [data.tui]
 	tabs = {{ $tabs }}
 
-[data.terminal]
+[data.gui]
 	font = "Iosevka Nerd Font"
   fontsize = 15
 	cols = 140
 	rows = 50
+	opacity = {{ $opacity }}
 
 [data.libc]
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
