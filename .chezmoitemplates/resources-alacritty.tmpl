@@ -2,6 +2,5 @@
 		# alacritty hash: {{ include (joinPath .chezmoi.homeDir "Applications/Alacritty.app/Contents/MacOS/alacritty") | sha256sum }}
 		echo "Alacritty. Update icon to something useful. Original ugly as hell"
 		cp -f {{ (joinPath .chezmoi.sourceDir ".resources/alacritty/alacritty.icns") | quote }} {{ (joinPath .chezmoi.homeDir "Applications/Alacritty.app/Contents/Resources/alacritty.icns") | quote }}
-		echo "Alacritty. Enter password to remove quarantine from Alacritty"
-		sudo xattr -r -d com.apple.quarantine {{ (joinPath .chezmoi.homeDir "Applications/Alacritty.app") | quote }}
+		xattr -r -d com.apple.quarantine {{ (joinPath .chezmoi.homeDir "Applications/Alacritty.app") | quote }}
 	{{ end }}
