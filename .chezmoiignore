@@ -6,6 +6,7 @@ Vagrantfile*
 .test*
 .entrypoint*
 .packagefiles
+.resources
 {{ if (ne .chezmoi.os "darwin") }}
 Library
 private_Library

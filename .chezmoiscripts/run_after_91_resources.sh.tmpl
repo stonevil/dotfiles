@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+# vim:ft=go
+
+cd "$HOME" || exit 1
+
+{{ if eq .chezmoi.os "darwin" }}
+	{{ template "resources-alacritty.tmpl" . }}
+{{ end }}
