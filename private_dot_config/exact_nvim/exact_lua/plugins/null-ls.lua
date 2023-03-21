@@ -21,7 +21,6 @@ return {
 				diagnostics.cmake_lint,
 				diagnostics.commitlint,
 				diagnostics.fish,
-				diagnostics.gitlint,
 				diagnostics.hadolint,
 				diagnostics.revive,
 				diagnostics.ruff,
