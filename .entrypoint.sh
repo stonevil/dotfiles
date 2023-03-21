@@ -32,10 +32,10 @@ esac
 sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --promptString email="fu@bar.org" --promptBool workstation=true --promptInt tabs=2 --promptString opacity="1.0"
 sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- apply --force
 
-if command -v zsh >/dev/null; then
+if command -v zsh >/dev/null 2>&1; then
 	RPROMPT="$DISTRO/$IMAGE_TAG" zsh
 else
-	if command -v bash >/dev/null; then
+	if command -v bash >/dev/null 2>&1; then
 		RPROMPT="$DISTRO/$IMAGE_TAG" bash
 	else
 		RPROMPT="$DISTRO/$IMAGE_TAG" sh
