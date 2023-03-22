@@ -190,8 +190,8 @@ return {
 		{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
 		{ key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
 
-		{ key = "v", mods = "SUPER", action = "Paste" },
-		{ key = "c", mods = "SUPER", action = "Copy" },
+		{ key = "v", mods = "SUPER", action = act.PasteFrom "Clipboard" },
+		{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo "ClipboardAndPrimarySelection" },
 	},
 
 	mouse_bindings = {
