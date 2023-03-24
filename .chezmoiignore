@@ -13,6 +13,7 @@ private_Library
 {{ else if (eq .chezmoi.os "darwin") }}
 .Xresources
 .config/autostart*
+.config/foot*
 .config/KDE*
 .config/kde*
 .config/plasma*
