@@ -1,38 +1,38 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
-#: You can configure individual font faces and even specify special fonts for particular characters.
-font_family Iosevka Nerd Font Light
-bold_font auto
-italic_font auto
+#: Fonts
+
+font_family      {{ .gui.font }}
+bold_font        auto
+italic_font      auto
 bold_italic_font auto
 
-font_size 15.0
+font_size {{ .gui.fontsize }}
 
 # force_ltr no
-
-# adjust_line_height  0
-# adjust_column_width 0
-
-# adjust_baseline 0
 
 # symbol_map
 
 # narrow_symbols
 
-disable_ligatures never
+# disable_ligatures never
 
 # font_features
 
+# modify_font
+
 # box_drawing_scale 0.001, 1, 1.5, 2
 
+# undercurl_style thin-sparse
 
-#: Cursor customization {{{
+
+#: Cursor customization
 
 # cursor #cccccc
 
 # cursor_text_color #111111
 
-cursor_shape block
+# cursor_shape block
 
 # cursor_beam_thickness 1.5
 
@@ -45,7 +45,7 @@ cursor_shape block
 
 #: Scrollback
 
-# scrollback_lines 2000
+scrollback_lines 10000
 
 # scrollback_pager less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
 
@@ -62,7 +62,7 @@ cursor_shape block
 
 #: Mouse
 
-mouse_hide_wait 3.0
+# mouse_hide_wait 3.0
 
 # url_color #0087bd
 # url_style curly
@@ -72,9 +72,12 @@ mouse_hide_wait 3.0
 # url_prefixes file ftp ftps gemini git gopher http https irc ircs kitty mailto news sftp ssh
 
 # detect_urls yes
+
 # url_excluded_characters
 
-copy_on_select no
+# show_hyperlink_targets no
+
+# copy_on_select no
 
 # paste_actions quote-urls-at-prompt
 
@@ -86,7 +89,7 @@ copy_on_select no
 
 # click_interval -1.0
 
-focus_follows_mouse no
+# focus_follows_mouse no
 
 # pointer_shape_when_grabbed arrow
 
@@ -100,27 +103,46 @@ focus_follows_mouse no
 # clear_all_mouse_actions no
 
 # mouse_map left click ungrabbed mouse_handle_click selection link prompt
+
 # mouse_map shift+left click grabbed,ungrabbed mouse_handle_click selection link prompt
+
 # mouse_map ctrl+shift+left release grabbed,ungrabbed mouse_handle_click link
+
 # mouse_map ctrl+shift+left press grabbed discard_event
+
 # mouse_map middle release ungrabbed paste_from_selection
+
 # mouse_map left press ungrabbed mouse_selection normal
+
 # mouse_map ctrl+alt+left press ungrabbed mouse_selection rectangle
+
+# mouse_map left doublepress ungrabbed mouse_selection word
+
 # mouse_map left triplepress ungrabbed mouse_selection line
+
 # mouse_map ctrl+alt+left triplepress ungrabbed mouse_selection line_from_point
+
 # mouse_map right press ungrabbed mouse_selection extend
+
 # mouse_map shift+middle release ungrabbed,grabbed paste_selection
 # mouse_map shift+middle press grabbed discard_event
+
 # mouse_map shift+left press ungrabbed,grabbed mouse_selection normal
+
 # mouse_map ctrl+shift+alt+left press ungrabbed,grabbed mouse_selection rectangle
+
 # mouse_map shift+left doublepress ungrabbed,grabbed mouse_selection word
+
 # mouse_map shift+left triplepress ungrabbed,grabbed mouse_selection line
+
 # mouse_map ctrl+shift+alt+left triplepress ungrabbed,grabbed mouse_selection line_from_point
+
 # mouse_map shift+right press ungrabbed,grabbed mouse_selection extend
+
 # mouse_map ctrl+shift+right press ungrabbed mouse_show_command_output
 
 
-#: Performance tuning {{{
+#: Performance tuning
 
 # repaint_delay 10
 
@@ -129,11 +151,12 @@ focus_follows_mouse no
 # sync_to_monitor yes
 
 
-#: Terminal bell {{{
+#: Terminal bell
 
-enable_audio_bell no
+# enable_audio_bell yes
 
 # visual_bell_duration 0.0
+
 # visual_bell_color none
 
 # window_alert_on_bell yes
@@ -147,11 +170,11 @@ enable_audio_bell no
 
 #: Window layout
 
-remember_window_size no
-initial_window_width 1900
-initial_window_height 1060
+remember_window_size  yes
+initial_window_width  1024
+initial_window_height 820
 
-enabled_layouts *
+# enabled_layouts *
 
 # window_resize_step_cells 2
 # window_resize_step_lines 2
@@ -166,9 +189,10 @@ enabled_layouts *
 
 # window_padding_width 0
 
-placement_strategy center
+# placement_strategy center
 
 # active_border_color #00ff00
+
 # inactive_border_color #cccccc
 
 # bell_border_color #ff5a00
@@ -196,7 +220,7 @@ hide_window_decorations yes
 
 #: Tab bar
 
-tab_bar_edge bottom
+# tab_bar_edge bottom
 
 # tab_bar_margin_width 0.0
 
@@ -206,17 +230,19 @@ tab_bar_style powerline
 
 tab_bar_align left
 
-tab_bar_min_tabs 2
+# tab_bar_min_tabs 2
 
 # tab_switch_strategy previous
 
 # tab_fade 0.25 0.5 0.75 1
 
-# tab_separator " ┇ "
+# tab_separator " ┇"
 
-# tab_powerline_style angled
+tab_powerline_style angled
 
 # tab_activity_symbol none
+
+# tab_title_max_length 0
 
 # tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}"
 
@@ -234,25 +260,28 @@ tab_bar_min_tabs 2
 # tab_bar_margin_color none
 
 
-#: Theme
+#: Color scheme
 
-include themes/ayu.conf
+include themes/darkfox.conf
 
-background_opacity 1.0
+background_opacity {{ .gui.opacity }}
 
 # background_image none
+
 # background_image_layout tiled
+
 # background_image_linear no
+
 # dynamic_background_opacity no
+
 # background_tint 0.0
 
-dim_opacity 0.80
+# background_tint_gaps 1.0
 
-# selection_foreground #000000
-# selection_background #fffacd
+dim_opacity 0.75
 
 
-#: System
+#: Advanced
 
 # shell .
 
@@ -260,13 +289,11 @@ dim_opacity 0.80
 
 # close_on_child_death no
 
-allow_remote_control yes
+# remote_control_password
 
-# Linux
-listen_on unix:@mykitty
-# macOS
-# listen_on unix:/tmp/mykitty
-# macos_options_as_alt both
+# allow_remote_control no
+
+# listen_on none
 
 # env
 
@@ -280,7 +307,7 @@ listen_on unix:@mykitty
 
 # clipboard_control write-clipboard write-primary read-clipboard-ask read-primary-ask
 
-# clipboard_max_size 64
+# clipboard_max_size 512
 
 # file_transfer_confirmation_bypass
 
@@ -294,18 +321,31 @@ listen_on unix:@mykitty
 
 # term xterm-kitty
 
+
+#: OS specific tweaks
+
 # wayland_titlebar_color system
 
 # macos_titlebar_color system
+
 # macos_option_as_alt no
+
 # macos_hide_from_tasks no
+
 macos_quit_when_last_window_closed yes
+
 # macos_window_resizable yes
+
 # macos_thicken_font 0
-macos_traditional_fullscreen yes
+
+# macos_traditional_fullscreen no
+
 # macos_show_window_title_in all
+
 # macos_menubar_title_max_length 0
+
 # macos_custom_beam_cursor no
+
 # macos_colorspace srgb
 
 # linux_display_server auto
@@ -320,9 +360,6 @@ macos_traditional_fullscreen yes
 # action_alias
 
 # kitten_alias
-
-
-#: Clipboard
 
 # map kitty_mod+c copy_to_clipboard
 # map cmd+c       copy_to_clipboard
@@ -476,8 +513,6 @@ macos_traditional_fullscreen yes
 # map cmd+0               change_font_size all 0
 
 
-#: Open URL
-
 # map kitty_mod+e open_url_with_hints
 
 # map kitty_mod+p>f kitten hints --type path --program -
@@ -494,13 +529,10 @@ macos_traditional_fullscreen yes
 
 # map kitty_mod+p>y kitten hints --type hyperlink
 
-map alt+h kitten pass_keys.py neighboring_window left   alt+h
-map alt+j kitten pass_keys.py neighboring_window bottom alt+j
-map alt+k kitten pass_keys.py neighboring_window top    alt+k
-map alt+l kitten pass_keys.py neighboring_window right  alt+l
-map alt+p kitten pass_keys.py neighboring_window prev  alt+p
 
-#: Miscellaneous {{{
+#: Miscellaneous
+
+# map kitty_mod+f1 show_kitty_doc overview
 
 # map kitty_mod+f11 toggle_fullscreen
 # map ctrl+cmd+f    toggle_fullscreen
@@ -530,19 +562,18 @@ map alt+p kitten pass_keys.py neighboring_window prev  alt+p
 
 # map cmd+k clear_terminal to_cursor active
 
-
-#: Reload kitty.conf
-
 # map kitty_mod+f5 load_config_file
 # map ctrl+cmd+,   load_config_file
-
-
-#: Debug kitty configuration
 
 # map kitty_mod+f6 debug_config
 # map opt+cmd+,    debug_config
 
-
-#: Open kitty Website
-
 # map shift+cmd+/ open_url https://sw.kovidgoyal.net/kitty/
+
+# map cmd+h hide_macos_app
+
+# map opt+cmd+h hide_macos_other_apps
+
+# map cmd+m minimize_macos_window
+
+# map cmd+q quit
