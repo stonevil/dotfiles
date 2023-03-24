@@ -10,4 +10,16 @@ Vagrantfile*
 {{ if (ne .chezmoi.os "darwin") }}
 Library
 private_Library
+{{ else if (eq .chezmoi.os "darwin") }}
+.Xresources
+.config/autostart*
+.config/KDE*
+.config/kde*
+.config/plasma*
+.config/Plasma*
+.config/pulse*
+.config/gtk*
+.gtk*
+.themes
+.icons
 {{ end }}
