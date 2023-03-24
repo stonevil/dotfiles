@@ -1,0 +1,44 @@
+# Enable mouse scrolling and scroll bar history scrolling
+termcapinfo xterm* ti@:te@
+
+defscrollback 10000
+
+startup_message off
+multiuser on
+escape ``
+vbell on
+
+hstatus ""
+defutf8 on
+ignorecase on
+nonblock on
+msgwait 2
+
+bindkey "^T" windows
+bindkey "^N" screen
+bindkey "^F" next
+
+# terminfo and termcap for nice 256 color terminal
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+
+# tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+# erase background with current bg color
+defbce "on"
+
+caption string "%{Yb} %{k}| %{G} %l %{k}|%{W} %-w%{+b}%n %t%{-b}%+w"
+hardstatus string "%{.bY} %D %0c  %{k}| %{..G} %H  %{k}| %-w%{.bW}%n %t%{-}%+w %=% %{G} %l"
+
+# Scroll up
+bindkey -d "^[[5S" eval copy "stuff 5\025"
+bindkey -m "^[[5S" stuff 5\025
+# Scroll down
+bindkey -d "^[[5T" eval copy "stuff 5\004"
+bindkey -m "^[[5T" stuff 5\004
+# Scroll up more
+bindkey -d "^[[25S" eval copy "stuff \025"
+bindkey -m "^[[25S" stuff \025
+# Scroll down more
+bindkey -d "^[[25T" eval copy "stuff \004"
+bindkey -m "^[[25T" stuff \004
