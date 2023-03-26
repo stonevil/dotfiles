@@ -23,6 +23,11 @@
 	cols = 140
 	rows = 50
 	opacity = {{ $opacity }}
+{{ if eq .chezmoi.os "darwin" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
+{{ else if eq .chezmoi.os "linux" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir ".local/share/fonts") | quote }}
+{{ end }}
 
 [data.libc]
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
