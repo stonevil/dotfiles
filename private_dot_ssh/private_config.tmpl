@@ -1,0 +1,12 @@
+# General configuration
+Host *
+	ControlMaster auto
+	ControlPath ~/.ssh/%r@%h:%p
+	ControlPersist 240
+	ConnectTimeout 120
+	RemoteForward 8377 localhost:8377
+{{- if eq .chezmoi.os "darwin" }}
+  UseKeychain yes
+{{- end }}
+
+Include config.d/*
