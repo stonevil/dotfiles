@@ -90,6 +90,8 @@
 	executable = true
 {{- if eq .chezmoi.os "darwin" }}
 	url = "https://github.com/junegunn/fzf/releases/download/{{ .tools.fzf.version }}/fzf-{{ .tools.fzf.version }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
+	[".local/bin/fzf".filter]
+		command = "zcat"
 {{- else if eq .chezmoi.os "linux" }}
 	url = "https://github.com/junegunn/fzf/releases/download/{{ .tools.fzf.version }}/fzf-{{ .tools.fzf.version }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/fzf".filter]
