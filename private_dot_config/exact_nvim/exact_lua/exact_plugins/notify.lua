@@ -1,4 +1,3 @@
--- UI Config
 return {
 	{
 		"rcarriga/nvim-notify",
