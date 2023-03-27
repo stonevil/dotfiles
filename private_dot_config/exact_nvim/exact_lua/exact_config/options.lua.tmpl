@@ -1,8 +1,13 @@
+-- vim:ft=lua
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.g.transparent_enabled = true
+if vim.fn.has "nvim-0.9" == 1 then
+  vim.opt.diffopt:append "linematch:60" -- enable linematch diff algorithm
+end
+
+vim.g.transparency = true
 
 vim.opt.laststatus = 2
 vim.opt.confirm = true

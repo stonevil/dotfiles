@@ -20,7 +20,7 @@ return {
 		config = function()
 			require("nightfox").setup({
 				options = {
-					transparent = vim.g.transparent_enabled,
+					transparent = vim.g.transparency,
 					styles = {
 						comments = "italic",
 						keywords = "bold",
