@@ -4,6 +4,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+-- Pane management. Intergration with NeoVim
 local function isViProcess(pane)
 	return pane:get_foreground_process_name():find("n?vim") ~= nil
 	-- return pane:get_title():find("n?vim") ~= nil
@@ -34,6 +35,7 @@ wezterm.on("ActivatePaneDirection-down", function(window, pane)
 	conditionalActivatePane(window, pane, "Down", "DownArrow")
 end)
 
+-- Tab right part
 wezterm.on('update-right-status', function(window, pane)
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
@@ -76,6 +78,7 @@ wezterm.on('update-right-status', function(window, pane)
 	-- The filled in variant of the < symbol
 	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 
+
 	-- Color palette for the backgrounds of each cell
 	local colors = {
 		'#000000',
@@ -115,6 +118,7 @@ wezterm.on('update-right-status', function(window, pane)
 
 	window:set_right_status(wezterm.format(elements))
 end)
+
 
 return {
 	window_close_confirmation = "NeverPrompt",
