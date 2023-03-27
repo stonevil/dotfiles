@@ -1,13 +1,13 @@
 # vim:ft=yaml :
+---
 env:
   TERM: xterm-256color
   COLORTERM: truecolor
 
 window:
-  dimensions:
-    columns: {{ .gui.cols }}
-    lines: {{ .gui.rows }}
-  dynamic_title: true
+  dimensions: # Alacritty currently have some issues with window position. Window spawns off-screen
+    columns: 120
+    lines: 33
 
   position:
     x: 20
@@ -39,11 +39,17 @@ window:
 
   title: Alacritty
 
+  dynamic_title: true
+
+{{- if eq .chezmoi.os "linux" }}
   class:
     instance: Alacritty
     general: Alacritty
+{{- end }}
 
   decorations_theme_variant: Dark
+
+  resize_increments: false
 
   option_as_alt: OnlyLeft
 
@@ -62,10 +68,12 @@ font:
   size: {{ .gui.fontsize }}
   offset:
     x: 0
-    y: 3
+    y: 0
   glyph_offset:
     x: 0
     y: 0
+
+  builtin_box_drawing: true
 
 tabspaces: {{ .tui.tabs }}
 
@@ -102,8 +110,8 @@ colors: *darkfox
 
 bell:
   animation: EaseOutExpo
-  duration: 0
-  color: "#ffffff"
+  duration: 100
+  color: '0xcdcecf'
   command: None
 
 selection:
@@ -113,10 +121,11 @@ save_to_clipboard: true
 
 cursor:
   style:
-    shape: Block
+    shape: Beam
     blinking: On
-  vi_mode_style: Underline
+  vi_mode_style: Block
   blink_interval: 750
+  blink_timeout: 5
   unfocused_hollow: true
   thickness: 0.15
 
