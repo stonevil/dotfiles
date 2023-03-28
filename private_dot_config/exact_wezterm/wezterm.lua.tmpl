@@ -4,6 +4,15 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+-- Wayland support
+local function enable_wayland()
+	local wayland = os.getenv("XDG_SESSION_TYPE")
+	if wayland == "wayland" then
+		return true
+	end
+	return false
+end
+
 -- Pane management. Intergration with NeoVim
 local function isViProcess(pane)
 	return pane:get_foreground_process_name():find("n?vim") ~= nil
@@ -41,8 +50,7 @@ wezterm.on('update-right-status', function(window, pane)
 	local cells = {}
 
 	-- Figure out the cwd and host of the current pane.
-	-- This will pick up the hostname for the remote host if your
-	-- shell is using OSC 7 on the remote host.
+	-- This will pick up the hostname for the remote host if your shell is using OSC 7 on the remote host.
 	local cwd_uri = pane:get_current_working_dir()
 	if cwd_uri then
 		cwd_uri = cwd_uri:sub(8)
@@ -186,7 +194,7 @@ return {
 
 	quit_when_all_windows_are_closed = true,
 
-	enable_wayland = true,
+	enable_wayland = enable_wayland(),
 
 	initial_cols = {{ .gui.cols }},
 	initial_rows = {{ .gui.rows }},
