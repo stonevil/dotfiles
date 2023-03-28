@@ -1,3 +1,7 @@
+{{-
+vim:ft=bash.gotexttmpl
+-}}
+
 {{ template "path.tmpl" . }}
 
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/go.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/go.packages")).size 0) }}

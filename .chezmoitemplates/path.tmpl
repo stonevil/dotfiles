@@ -1,3 +1,7 @@
+{{-
+vim:ft=bash.gotexttmpl
+-}}
+
 {{ if eq .chezmoi.os "darwin" }}
 	export PATH="$HOME"/.cargo/bin:"$HOME"/.local/bin:"$HOME"/.homebrew/bin:"$PATH"
 {{ else if eq .chezmoi.os "linux" }}
