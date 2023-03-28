@@ -1,5 +1,5 @@
 {{- /*
-	vim:ft=chezmoi
+	vim:ft=toml.gotexttmpl
 */ -}}
 
 # chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
