@@ -1,5 +1,5 @@
 {{- /*
-	vim:ft=go
+	vim:ft=chezmoi
 */ -}}
 
 # chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
@@ -179,3 +179,17 @@
 	[".local/esp-idf".pull]
 		args = ["--recurse-submodules=true"]
 {{- end }}
+
+[".local/esp-idf"]
+	type = "git-repo"
+	refreshPeriod = "168h"
+	url = "https://github.com/espressif/esp-idf.git"
+	[".local/esp-idf".pull]
+		args = ["--recurse-submodules=true"]
+
+[".config/nvim"]
+	type = "git-repo"
+	refreshPeriod = "24h"
+	url = "https://github.com/AstroNvim/AstroNvim.git"
+	[".config/nvim".pull]
+		args = ["--depth", "1"]
