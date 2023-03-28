@@ -23,6 +23,11 @@
 	cols = 140
 	rows = 50
 	opacity = {{ $opacity }}
+{{ if lt ($opacity | float64) 1.0 }}
+	blur = 20
+{{ else }}
+	blur = 0
+{{ end}}
 {{ if eq .chezmoi.os "darwin" }}
 	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
 {{ else if eq .chezmoi.os "linux" }}
