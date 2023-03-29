@@ -6,5 +6,5 @@ vim:ft=bash.gotexttmpl
 
 if command -v nvim >/dev/null 2>&1; then
 	echo "Nvim. Lazy plugin and dependencies"
-	bash --login -c 'nvim --headless +AstroUpdate "+Lazy! sync" +qall!' || exit 1
+	nvim --headless +AstroUpdate "+Lazy! sync" +qall! || exit 1
 fi
