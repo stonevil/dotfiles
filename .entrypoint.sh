@@ -7,11 +7,11 @@ alpine)
 	echo "Fix repositories version"
 	sed -i 's/v3.\b[0-9]\{2\}\b/edge/g' /etc/apk/repositories || exit 1
 	(echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories) || exit 1
-	(apk update && apk add sudo bash curl) || exit 1
+	(apk update && apk add sudo bash curl git) || exit 1
 	;;
 arch)
 	echo "Arch Linux. Install bare minimal packages"
-	(pacman --noconfirm -Syy && pacman --noconfirm -Syu && pacman --noconfirm --needed -Syu sudo bash curl) || exit 1
+	(pacman --noconfirm -Syy && pacman --noconfirm -Syu && pacman --noconfirm --needed -Syu sudo bash curl git) || exit 1
 	;;
 centos)
 	echo "CentOS. Install bare minimal packages"
@@ -21,11 +21,11 @@ centos)
 		(sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*) || exit 1
 		(sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*) || exit 1
 	fi
-	(yum update -y && yum install -y sudo bash curl) || exit 1
+	(yum update -y && yum install -y sudo bash curl git) || exit 1
 	;;
 fedora)
 	echo "Fedora. Install bare minimal packages"
-	(dnf update -y && dnf install -y sudo bash curl) || exit 1
+	(dnf update -y && dnf install -y sudo bash curl git) || exit 1
 	;;
 esac
 
