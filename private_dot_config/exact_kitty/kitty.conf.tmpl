@@ -295,9 +295,19 @@ editor .
 
 # remote_control_password
 
-# allow_remote_control no
+allow_remote_control yes
 
-# listen_on none
+{{- if eq .chezmoi.os "darwin" }}
+listen_on unix:/tmp/mykitty
+{{ else if eq .chezmoi.os "linux" }}
+listen_on unix:@mykitty
+{{- end }}
+
+map alt+left kitten pass_keys.py neighboring_window left alt+left
+map alt+down kitten pass_keys.py neighboring_window bottom alt+down
+map alt+up kitten pass_keys.py neighboring_window top alt+up
+map alt+right kitten pass_keys.py neighboring_window right alt+right
+map alt+p kitten pass_keys.py neighboring_window prev alt+p
 
 # env
 
