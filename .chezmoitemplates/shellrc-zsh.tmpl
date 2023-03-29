@@ -38,15 +38,4 @@ COMPLETION_WAITING_DOTS="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Theme
-GREEN="%{$fg_bold[green]%}"
-YELLOW="%{$fg_bold[yellow]%}"
-CYAN="%{$fg_bold[cyan]%}"
-RED="%{$fg_bold[red]%}"
-RESET="%{$reset_color%}"
-
-PROMPT='$YELLOW%c $RESET'
-
-ZSH_THEME_GIT_PROMPT_PREFIX="⥍ $CYAN"
-ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY=" $RED⦿"
-ZSH_THEME_GIT_PROMPT_CLEAN=" $GREEN⦾"
+PROMPT='%{$fg[yellow]%}[%~% ] %(?.%{$fg[green]%}.%{$fg[red]%})%B$%b '
