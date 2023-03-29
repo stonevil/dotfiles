@@ -2,11 +2,10 @@ return {
 	-- Transparense everywhere
 	{
 		"xiyaowong/transparent.nvim",
+		lazy = false,
+		priority = 1000,
 		cmd = { "TransparentEnable", "TransparentDisable", "TransparentToggle" },
-		opts = {
-			enable = vim.g.transparent_enabled,
-			extra_groups = "all",
-		},
+		opts = {},
 		config = function(_, opts)
 			require("transparent").setup(opts)
 		end,
@@ -20,7 +19,7 @@ return {
 		config = function()
 			require("nightfox").setup({
 				options = {
-					transparent = vim.g.transparency,
+					transparent = (vim.fn.has("gui_running") == 0 and vim.g.transparent_enabled),
 					styles = {
 						comments = "italic",
 						keywords = "bold",
