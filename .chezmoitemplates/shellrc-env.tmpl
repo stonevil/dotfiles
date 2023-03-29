@@ -13,17 +13,20 @@ export AZURE_LOGGING_ENABLE_LOG_FILE=FALSE
 npm config set prefix "$HOME"/.local
 export NPM_PACKAGES="$HOME"/.local
 
-export PACKER_CACHE_DIR="$HOME"/.packer.d/cache
-export PACKER_ISO_DIR="$HOME"/.packer.d/iso
-export PACKER_BOX_DIR="$HOME"/.packer.d/box
-export PACKER_LOG_PATH="$HOME"/.packer.d/log
+export GOPATH=$HOME/.local/golang-packages
+export GOBIN=$HOME/.local/bin
 
 export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 
 export KREW_ROOT="$HOME"/.local/bin
 
+export PACKER_CACHE_DIR="$HOME"/.packer.d/cache
+export PACKER_ISO_DIR="$HOME"/.packer.d/iso
+export PACKER_BOX_DIR="$HOME"/.packer.d/box
+export PACKER_LOG_PATH="$HOME"/.packer.d/log
+
 {{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
-	export IDF_TOOLS_PATH="$HOME"/.local/espressif
+export IDF_TOOLS_PATH="$HOME"/.local/espressif
 {{- end }}
 
 # Set tabs width for terminal
