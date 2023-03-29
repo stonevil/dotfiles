@@ -1,6 +1,6 @@
-{{-
+{{- /*
 vim:ft=bash.gotexttmpl
--}}
+*/ -}}
 
 	{{ if stat (joinPath .chezmoi.homeDir "Applications/Alacritty.app/Contents/MacOS/alacritty") }}
 		# alacritty hash: {{ include (joinPath .chezmoi.homeDir "Applications/Alacritty.app/Contents/MacOS/alacritty") | sha256sum }}
