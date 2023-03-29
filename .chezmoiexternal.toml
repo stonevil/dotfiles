@@ -180,11 +180,9 @@
 		args = ["--recurse-submodules=true"]
 {{- end }}
 
-{{- /*
 [".config/nvim"]
 	type = "git-repo"
 	refreshPeriod = "24h"
 	url = "https://github.com/AstroNvim/AstroNvim.git"
 	[".config/nvim".pull]
 		args = ["--depth", "1"]
-*/ -}}
