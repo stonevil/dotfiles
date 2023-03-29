@@ -24,8 +24,6 @@ python-pip
 ripgrep
 ruby
 rust
-shellcheck
-shfmt
 source-highlight
 sshpass
 the_silver_searcher

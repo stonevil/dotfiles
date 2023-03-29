@@ -2,14 +2,12 @@ autoconf
 autoconf-archive
 automake
 gettext
-bat
 bash
 bit-git
 gdbm
 readline
 sqlite
 xz
-black
 libpng
 freetype
 fontconfig
@@ -18,7 +16,6 @@ ccache
 ccat
 cmake
 coreutils
-dasel
 diffutils
 dfu-util
 dmg2img
@@ -36,11 +33,9 @@ gawk
 gcc
 git
 git-lfs
-glow
 gnu-sed
 go
 gzip
-hadolint
 hblock
 hub
 imagemagick
@@ -59,7 +54,6 @@ ninja
 nmap
 parallel
 lima
-prettier
 python3
 pwgen
 ripgrep
@@ -67,8 +61,6 @@ ruby
 rust
 samba
 screen
-shellcheck
-shfmt
 smartmontools
 source-highlight
 ssh-copy-id
@@ -83,9 +75,6 @@ wget
 wimlib
 yarn
 esolitos/ipa/sshpass
-golangci/tap/golangci-lint
-wagoodman/bashful/bashful
-wagoodman/dive/dive
 google-cloud-sdk
 wezterm
 alacritty

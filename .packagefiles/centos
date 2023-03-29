@@ -36,7 +36,6 @@ ruby-libs
 rubygems
 rubygems-devel
 rust
-ShellCheck
 source-highlight
 the_silver_searcher
 tmux

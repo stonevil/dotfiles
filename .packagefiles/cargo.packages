@@ -1,5 +1,2 @@
 cargo-update
-starship
-tree-sitter-cli
-stylua
-shellharden
+bat
