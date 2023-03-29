@@ -9,17 +9,19 @@
 {{ $workstation := promptBool "Is this workstation" false }}
 {{ $tabs := promptInt "Configure default tabs width" 2 }}
 {{ $opacity := promptString "Windows opacity" "1.0" }}
+{{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
 
 [data]
 	workstation = {{ $workstation }}
 	email = {{ $email | quote }}
 
 [data.tui]
+	shellPath = {{ $shellPath | quote }}
 	tabs = {{ $tabs }}
 
 [data.gui]
 	font = "Iosevka Nerd Font"
-  fontsize = 15
+  fontSize = 15
 	cols = 140
 	rows = 50
 	opacity = {{ $opacity }}
@@ -104,9 +106,12 @@
 [data.gui.wezterm]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/wez/wezterm/releases/latest" | trim | base }}"
 
-{{- writeToStdout "email address is: " $email "\n" -}}
+{{- writeToStdout "email address is set to: " $email "\n" -}}
 {{ if $workstation }}
 	{{- writeToStdout "is workstation?: true\n" -}}
 {{ else }}
 	{{- writeToStdout "is workstation?: false\n" -}}
 {{ end }}
+{{- writeToStdout "tabs wight set to: " ($tabs | toString) "\n" -}}
+{{- writeToStdout "terminals window opacity set to: " $opacity "\n" -}}
+{{- writeToStdout "shell command set to: " $shellPath "\n" -}}

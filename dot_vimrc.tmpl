@@ -1,6 +1,6 @@
-" vim:ft=vim :
-" vint: -ProhibitAutocmdWithNoGroup
-" vint: -ProhibitSetNoCompatible
+{{- /*
+vim:ft=vim.gotexttmpl
+*/ -}}
 
 if 0 | endif
 
@@ -135,7 +135,7 @@ set mouse=a											" Enable proper mouse selection
 set history=1000
 set undolevels=1000
 
-set shell=/bin/zsh							" Add -i to load profile files. Enables $PATH, etc. Have an issues with some junk line inserted on file save
+set shell={{ .tui.shellPath }}
 
 set encoding=utf-8							" Set default encoding to UTF-8
 set fileencoding=utf-8

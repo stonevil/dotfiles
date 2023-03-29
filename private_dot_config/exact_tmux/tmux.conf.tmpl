@@ -1,7 +1,13 @@
+{{- /*
+vim:ft=tmux.gotexttmpl
+*/ -}}
+
+# vim:ft=tmux
+
 ## Shell
 
-# Use zsh
-set -g default-shell /bin/zsh
+# Use {{ .tui.shellPath }}
+set -g default-shell {{ .tui.shellPath }}
 
 ## Commands
 # Use C-s as prefix

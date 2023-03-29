@@ -1,3 +1,7 @@
+{{- /*
+vim:ft=yaml.gotexttmpl
+*/ -}}
+
 # vim:ft=yaml :
 ---
 env:
@@ -51,7 +55,7 @@ window:
 
   resize_increments: false
 
-  option_as_alt: OnlyLeft
+  option_as_alt: OnlyRight
 
 scrolling:
   history: 10000
@@ -65,7 +69,7 @@ font:
     style: "Light"
   italic:
     style: "Light Italic"
-  size: {{ .gui.fontsize }}
+  size: {{ .gui.fontSize }}
   offset:
     x: 0
     y: 0
@@ -132,7 +136,7 @@ cursor:
 live_config_reload: true
 
 shell:
-  program: /bin/zsh
+  program: {{ .tui.shellPath }}
   args:
     - --login
 

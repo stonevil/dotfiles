@@ -1,6 +1,10 @@
+{{- /*
+vim:ft=dosini.gotexttmpl
+*/ -}}
+
 # -*- conf -*-
 
-# shell=$SHELL (if set, otherwise user's default shell from /etc/passwd)
+shell={{ .tui.shellPath }} --login
 # term=foot (or xterm-256color if built with -Dterminfo=disabled)
 # login-shell=no
 
@@ -8,7 +12,7 @@
 # title=foot
 # locked-title=no
 
-font={{ .gui.font | quote }}:size={{ .gui.fontsize }}
+font={{ .gui.font | quote }}:size={{ .gui.fontSize }}
 # font-bold=<bold variant of regular font>
 # font-italic=<italic variant of regular font>
 # font-bold-italic=<bold+italic variant of regular font>
@@ -193,5 +197,3 @@ bright15=e7ecf4
 # select-word=BTN_LEFT-2
 # select-word-whitespace=Control+BTN_LEFT-2
 # select-row=BTN_LEFT-3
-
-# vim: ft=dosini

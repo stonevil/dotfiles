@@ -1,4 +1,8 @@
-# vim:fileencoding=utf-8:foldmethod=marker
+{{- /*
+vim:ft=conf.gotexttmpl
+*/ -}}
+
+# vim:ft=conf
 
 #: Fonts
 
@@ -7,7 +11,7 @@ bold_font        auto
 italic_font      auto
 bold_italic_font auto
 
-font_size {{ .gui.fontsize }}
+font_size {{ .gui.fontSize }}
 
 # force_ltr no
 
@@ -283,9 +287,9 @@ dim_opacity 0.75
 
 #: Advanced
 
-# shell .
+shell {{ .tui.shellPath }} --login
 
-# editor .
+editor .
 
 # close_on_child_death no
 
@@ -328,7 +332,7 @@ dim_opacity 0.75
 
 # macos_titlebar_color system
 
-# macos_option_as_alt no
+macos_option_as_alt right
 
 # macos_hide_from_tasks no
 
