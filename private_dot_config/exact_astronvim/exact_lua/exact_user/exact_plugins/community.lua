@@ -8,6 +8,7 @@ return {
 	{ import = "astrocommunity.editing-support.nvim-ts-rainbow2" },
 	{ import = "astrocommunity.editing-support.todo-comments-nvim" },
 	{ import = "astrocommunity.file-explorer.oil-nvim" },
+	{ import = "astrocommunity.motion.mini-surround" },
 	{ import = "astrocommunity.pack.bash" },
 	{ import = "astrocommunity.pack.cmake" },
 	{ import = "astrocommunity.pack.go" },
