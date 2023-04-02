@@ -1,6 +1,9 @@
+{{- /*
+vim:ft=lua.gotexttmpl
+*/ -}}
+
 return {
 	"akinsho/toggleterm.nvim",
-	opts = function(_, config)
 		require("toggleterm").setup({
 			cmd = "{{ .tui.shellPath }} --login",
 		})
