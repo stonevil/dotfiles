@@ -36,6 +36,11 @@ vim:ft=bash.gotexttmpl
 	}
 {{ end }}
 
+qcow2vhd() {
+	qemu-img convert -O vhdx -o subformat=fixed "$@" "$(basename $@)".vhd
+	notify "qemu-img" "$(basename $@).vhd image converted"
+}
+
 dbat() {
 	if [ $# -eq 2 ]; then
 		diff -t -y --color "$1" "$2" | bat -l rs
