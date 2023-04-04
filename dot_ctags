@@ -1,20 +1,87 @@
---regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
---regex-ruby=/(^|;)[ \t]*(has_many|belongs_to|has_one|has_and_belongs_to_many)\(? *:([[:alnum:]_]+)/\3/f,function,association/
---regex-ruby=/(^|;)[ \t]*(named_)?scope\(? *:([[:alnum:]_]+)/\3/f,function,named_scope/
---regex-ruby=/(^|;)[ \t]*expose\(? *:([[:alnum:]_]+)/\2/f,function,exposure/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2/f,function,aasm_event/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f,function,aasm_event/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f,function,aasm_event/
+--recurse
+--tag-relative=yes
 
---langdef=markdown
+--exclude=*/.hg/*
+--exclude=.hg/*
+--exclude=*/.cvs/*
+--exclude=.cvs/*
+--exclude=*/.svn/*
+--exclude=.svn/*
+--exclude=*/.git/*
+--exclude=.git/*
+--exclude=*/compiled/*
+--exclude=compiled/*
+--exclude=*/public_html/*
+--exclude=public_html/*
+--exclude=*/.idea/*
+--exclude=.idea/*
+--exclude=*/bower_components/*
+--exclude=bower_components/*
+--exclude=*/images/*
+--exclude=images/*
+--exclude=*/.DS_Store/*
+--exclude=.DS_Store/*
+--exclude=*/log/*
+--exclude=log/*
+--exclude=*/target/*
+--exclude=target/*
+--exclude=*/deployment/*
+--exclude=deployment/*
+--exclude=*/vendor/*
+--exclude=vendor/*
+--exclude=*/bin-packages/*
+--exclude=bin-packages/*
+--exclude=*/node_modules/*
+--exclude=node_modules/*
+--exclude=*/doc/*
+--exclude=doc/*
+
+--exclude=*.war
+--exclude=*.jar
+--exclude=*.class
+--exclude=*flymake*
+--exclude=*.min.js
+--exclude=*.test.js
+--exclude=*.mock.js
+--exclude=*.min.css
+--exclude=*.bundle.*.js
+--exclude=bundle.*.js
+--exclude=*.pack.js
+--exclude=*.log
+--exclude=*.sql
+--exclude=*.sass
+--exclude=*.ftl
+--exclude=tags
+--exclude=TAGS
+--exclude=GTAGS
+--exclude=GPATH
+--exclude=GRTAGS
+--exclude=.#*
+
 --langmap=markdown:.md.markdown.mdown.mkd.mkdn
---regex-markdown=/^#[ \t]+(.*)/\1/h,heading1/
---regex-markdown=/^##[ \t]+(.*)/\1/h,heading2/
---regex-markdown=/^###[ \t]+(.*)/\1/h,heading3/
+--regex-markdown=/^(#[^#].*)/\1/f,function/
+--regex-markdown=/^(##[^#].*)/\1/f,function/
+--regex-markdown=/^(###[^#].{0,19})/\1/f,function/
+--regex-markdown=/^(=[^=].*)/\1/v,variable/
+--regex-markdown=/^(==[^=].*)/\1/v,variable/
+--regex-markdown=/^(===[^=].{0,19})/\1/v,variable/
+
+--langdef=ini
+--langmap=ini:.ini
+--regex-ini=/^[ \t]*\[(.*)\]/\1/v,variable/
+--regex-ini=/^[ \t]*([^=]+)=(.*)/\1/v,variable/
+
+--langdef=orgmode
+--langmap=orgmode:.org
+--regex-orgmode=/<<([^>]+)>>/\1/v,variable/
+
+--langmap=yaml:.yml.yaml
+--regex-yaml=/^[ \t]*(.*):/\1/k,key,keys/
 
 --langdef=ansible
---langmap=ansible:.yml
---regex-ansible=/^\s*- name:(.*)/\1/t,task/
+--langmap=ansible:.yml.yaml
+--regex-ansible=/^[ \t]*-[ \t]*name:[ \t]*(.+)/\1/k,tasks/
+--languages=ansible,ruby,python
 
 --langdef=puppet
 --langmap=puppet:.pp
@@ -23,15 +90,96 @@
 --regex-puppet=/^node[ \t]*([a-zA-Z0-9_\-]+)[ \t]*/\1/n,node/
 --regex-puppet=/^define[ \t]*([:a-zA-Z0-9_\-]+)[ \t]*/\1/d,definition/
 
+--langdef=dockerfile
+--langmap=dockerfile:+(Dockerfile)
+--regex-dockerfile=/^(FROM|MAINTAINER|RUN|CMD|LABEL|EXPOSE|ENV|ADD|COPY|ENTRYPOINT|VOLUME|USER|WORKDIR|ARG|ONBUILD|STOPSIGNAL|HEALTHCHECK|SHELL)/\1/d,dockerfile,dockerfiles/
+
+--langmap=html:.htm.html.erb.cmp.page.component
+--regex-html=/[ \t]+ng-(controller|click|change|show|if|blur|focus|disabled|repeat)[ \t]*=[ \t]*['"][^[:alnum:]$]*([[:alnum:]$]{4,})/\2/a/
+--regex-html=/[ \t]+<(app-[[:alnum:]$-_]{3,})/\1/a/
+
+--langmap=css:.css
+--regex-css=/^[ \t]*\.?([[:alnum:]_:\\-]+)[ \t]*\{[ \t]*$/\1/v,variable/
+--regex-css=/^[ \t]*\.?[[:alnum:]_:\\-]+,[ \t]*\.?([[:alnum:]_:\\-]+)\{[ \t]*$/\1/v,variable/
+--regex-css=/^[ \t]*\.?[[:alnum:]_:\\-]+,[ \t]*\.?[[:alnum:]_:\\-]+,[ \t]*\.?([[:alnum:]_:\\-]+)\{[ \t]*$/\1/v,variable/
+--regex-css=/^[ \t]*@define-mixin[ \t]+([^ ]+)/\1/f,function/
+
+--langmap=scss:.scss.sass
+--regex-scss=/^[ \t]*@mixin ([[:alnum:]_-]+)/\1/f,function/
+--regex-scss=/^[ \t]*\$([[:alnum:]_-]+)/\1/v,variable/
+--regex-scss=/^[ \t]*\.([[:alnum:]_-]+)/\1/v,variable/
+--regex-scss=/^[ \t]*&\.([[:alnum:]_-]+)/\1/v,variable/
+--regex-scss=/^[ \t]*#([[:alnum:]_-]+)/#\1/v,variable/
+--regex-scss=/^[ \t]*(([[:alnum:]_-]+[ \t\n,]+)+)\{/\1/v,variable/
+--regex-scss=/^[ \t]*@media[ \t]+([[:alnum:]_-]+)/\1/v,variable/
+
 --langdef=js
---langmap=js:.js
---regex-JavaScript=/([A-Za-z0-9._$\(\)]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/m,method/
---regex-JavaScript=/([A-Za-z0-9._$\#\(\)]+)[ \t]*[:][ \t]*([A-Za-z0-9._\-\#\'\"]+)[ \t]*/\1/p,property/
---regex-JavaScript=/([A-Za-z0-9._$\#\(\)]+)[ \t]*[:][ \t]*([A-Za-z0-9\'\"._\-\#\(]+)[ \t]*\{/\1/p,property/
---regex-JavaScript=/var ([A-Za-z0-9._$\#]+)[ \t]*[=][ \t]*([A-Za-z0-9._'"\$\#\[\{]+)[,|;]/\1/v,variable/
---regex-JavaScript=/([A-Za-z0-9._$\#]+)[ \t]*[=][ \t]*([A-Za-z0-9._'"\$\#]+)extend\(/\1/c,class/
+--langmap=javascript:.js.ts
+--regex-javascript=/^[ \t]*([A-Z]+_[A-Z0-9_]+)[ \t]*[:=]/\1/v,variable/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*=[ \t]*\[/\2/v,variable/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([:upper:][[:alnum:]_$]+)[ \t]*=[ \t]*function/\2/f,function/
+--regex-javascript=/^[ \t]*(export)?[ \t]*class[ \t]+([[:alnum:]_$]+)/\2/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+(\{[ \t]*)*([[:alnum:]_\*]*[ \t]as[ \t])([[:alnum:]_]+)/\3/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+(\{[ \t]*)*([[:alnum:]_\*]*[ \t]as[ \t])*([[:alnum:]_]+),[ \t]*([[:alnum:]_\*]*[ \t]as[ \t])([[:alnum:]_]+)/\5/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+(\{[ \t]*)*([[:alnum:]_\*]*[ \t]as[ \t])*([[:alnum:]_]+),[ \t]*([[:alnum:]_\*]*[ \t]as[ \t])*([[:alnum:]_]+),[ \t]*([[:alnum:]_\*]*[ \t]as[ \t])([[:alnum:]_]+)/\7/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+(var|let|const)[ \t]+([[:alnum:]_$]+)/\2/v,variable/
+--regex-javascript=/^[ \t]*export[ \t]+function[ \t]+([[:alnum:]_$]+)/\1/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*[^,]+,[ \t]*([[:alnum:]_$]+)/\3/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*[^,]+,[ \t]*([[:alnum:]_$]+)[ \t]*,[ \t]*([[:alnum:]_$]+)/\4/v,variable/
+--regex-javascript=/^[ \t]*export[ \t]+default[ \t]+(\{[ \t]*)*([[:alnum:]_\*]*[ \t]as[ \t])([[:alnum:]_]+)/\3/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+default[ \t]+(\{[ \t]*)*([[:alnum:]_\*]*[ \t]as[ \t])*([[:alnum:]_]+),[ \t]*([[:alnum:]_\*]*[ \t]as[ \t])([[:alnum:]_]+)/\5/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+default[ \t]+(\{[ \t]*)*([[:alnum:]_\*]*[ \t]as[ \t])*([[:alnum:]_]+),[ \t]*([[:alnum:]_\*]*[ \t]as[ \t])*([[:alnum:]_]+),[ \t]*([[:alnum:]_\*]*[ \t]as[ \t])([[:alnum:]_]+)/\7/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+default[ \t]+(var|let|const)[ \t]+([[:alnum:]_$]+)/\2/v,variable/
+--regex-javascript=/^[ \t]*export[ \t]+default[ \t]+function[ \t]+([[:alnum:]_$]+)/\1/f,function/
+--regex-javascript=/^[ \t]*export[ \t]+default[ \t]+(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*[^,]+,[ \t]*([[:alnum:]_$]+)/\3/v,variable/
+--regex-javascript=/^[ \t]*export[ \t]+default[ \t]+(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*[^,]+,[ \t]*([[:alnum:]_$]+)[ \t]*,[ \t]*([[:alnum:]_$]+)/\4/v,variable/
+--regex-javascript=/^[ \t]*\(?async[ \t]function[ \t]*([[:alnum:]_$]+)[ \t(]/\1/f,function/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([_[:lower:]][[:alnum:]_$]+)[ \t]*=[ \t]*(async[ \t]+)?function[^\*][^\*]/\2/f,function/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([_[:lower:]][[:alnum:]_$]+)[ \t]*=[ \t]*\([^\)]*$/\2/f,function/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([_[:lower:]][[:alnum:]_$]+)[ \t]*=[^=]*=>/\2/f,function/
+--regex-javascript=/^[ \t]*function[ \t]*\*[ \t]*([[:alnum:]_$]+)/\1/f,function/
+--regex-javascript=/^[ \t]*(\*[ \t])([[:alnum:]_$]+)[ \t]*(.*)[ \t]*\{/\2/f,function/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)\.([[:alnum:]_$]+)[ \t]*=[ \t]*\(/\2/f,function/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)\.([[:alnum:]_$]+)\.([[:alnum:]_$]+)[ \t]*=[ \t]*function/\3/f,function/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)\.([[:alnum:]_$]+)\.([[:alnum:]_$]+)[ \t]*=[ \t]*\(/\3/f,function/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)[ \t]*[:=][ \t]*[\(]*function[ \t]*\(/\1/f,function/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)[ \t]*[:=][ \t]\(/\1/f,function/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)[ \t]*[:=][ \t]+async[ \t]\(+/\1/f,function/
+--regex-javascript=/^[ \t]*(static|async)[ \t]+([[:alnum:]_$]+)[ \t]*\(/\2/f,function/
+--regex-javascript=/^[ \t]*get[ \t]+([[:alnum:]_$]+)[ \t]*\(/\1/f,function/
+--regex-javascript=/^[ \t]*set[ \t]+([[:alnum:]_$]+)[ \t]*\(/\1/f,function/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)\.([[:alnum:]_$]+)[ \t]*=[ \t]*\{/\2/v,variable/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)[ \t]*:[ \t]*[{"\/\[]/\1/v,variable/
+--regex-javascript=/^[ \t]*([[:alnum:]_$]+)[ \t]*:[ \t]*([[:alnum:]_$]+)[ \t,]*$/\1/v,variable/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*[=:][ \t]*['"0-9]/\2/v,variable/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*[,;]/\2/v,variable/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*,[ \t]*([[:alnum:]_$]+)/\3/v,variable/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([[:alnum:]_$]+)[ \t]*,[ \t]*([[:alnum:]_$]+)[ \t]*,[ \t]*([[:alnum:]_$]+)/\4/v,variable/
+--regex-javascript=/^[ \t]*keystone\.set\([ \t]*['"]([^'"]+)['"]/\1/v,variable/
+--regex-javascript=/(,|^|\.)[ \t]*(public *|private *|async *)?([[:alpha:]_$][[:alnum:]_$]+)[ \t]*[:=][ \t]*(function\*?[ \t]*\(|\([^\)]*\)[\t ]+=>)/\3/f,function/
+--regex-javascript=/^[ \t]*(public |async |private |static )?([[:alpha:]_$][[:alnum:]_$]{3,})[ \t]*\([[:alnum:]_$,: ]*\)[ \t]*\{/\2/f,function/
+--regex-javascript=/^[ \t]*case[ \t]+'([^']+)/\1/v,variable/
+--regex-javascript=/^[ \t]*@Input\(\)[ \t]+([[:alnum:]_$]+)/\1/v,variable/
+--regex-javascript=/^[ \t]*(constructor)[ \t]*\(/\1/f,function/
+--regex-javascript=/^[ \t]*([[:alpha:]_$][[:alnum:]_$]*):[ \t]*storeState\./\1/v,variable/
 
 --langdef=coffee
 --langmap=coffee:.coffee
 --regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]+=.*->.*$/\1/f,function/
 --regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]+=[^->\n]*$/\1/v,variable/
+
+--langmap=Rust:.rs
+--regex-Rust=/^[ \t]*(#\[[^\]]\][ \t]*)*(pub[ \t]+)?(extern[ \t]+)?("[^"]+"[ \t]+)?(unsafe[ \t]+)?fn[ \t]+([[:alnum:]_]+)/\6/f,function/
+--regex-Rust=/^[ \t]*(pub[ \t]+)?(type|enum|struct|mod)[ \t]+([[:alnum:]_]+)/\3/v,variable/
+--regex-Rust=/^[ \t]*macro_rules![ \t]+([[:alnum:]_]+)/\1/f,function/
+--regex-Rust=/^[ \t]*(pub[ \t]+)?(static|const)[ \t]+(mut[ \t]+)?([[:alnum:]_]+)/\4/v,variable/
+--regex-Rust=/^[ \t]*(pub[ \t]+)?(unsafe[ \t]+)?trait[ \t]+([[:alnum:]_]+)/\3/f,function/
+--regex-Rust=/^[ \t]*(pub[ \t]+)?(unsafe[ \t]+)?impl([ \t\n]*<[^>]*>)?[ \t]+(([[:alnum:]_:]+)[ \t]*(<[^>]*>)?[ \t]+(for)[ \t]+)?([[:alnum:]_]+)/\5 \7 \8/f,function/
+
+--regex-Lua=/^.*[ \t]*function[ \t]*([:alnum:]+):([:alnum:]+)/\2/f,function/
+--regex-Lua=/^[ \t]*local[ \t]+([:alnum:]+)/\1/v,variable/
+--regex-Lua=/^.*[ \t]*function[ \t]*([:alnum:]+)\.([:alnum:]+).*$/\2/f,function/
+--regex-Lua=/^.*[ \t]*function[ \t]*([:alnum:]+)[ \t]*\(/\1/f,function/
+--regex-Lua=/^[ \t]*([:alnum:]+)[ \t]*=[ \t]*\{/\1/f,function/
+--regex-Lua=/^[ \t]*module[ \t]+([:alnum:]+)\/\1/f,function/
+--regex-Lua=/^[ \t]*module[ \t]+[[:alnum:]._]+\.([:alnum:]+)\/\1/f,function/
