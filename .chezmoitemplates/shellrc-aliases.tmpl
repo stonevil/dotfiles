@@ -8,6 +8,8 @@ alias more='less'
 alias ports='netstat -a | grep -i "listen"'
 alias path='echo -e ${PATH//:/\\n}'
 
+alias ctags-check='ctags --options="$HOME"/.local/share/chezmoi/dot_ctags'
+
 alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
 
 alias removex='find . -type f -exec chmod a-x "{}" \;'
