@@ -1,0 +1,6 @@
+gui:
+  showIcons: true
+  border: "single"
+git:
+  paging:
+    colorArg: always
