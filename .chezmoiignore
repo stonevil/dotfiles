@@ -1,6 +1,7 @@
 README.md
 Dockerfile*
 Vagrantfile*
+tags
 .vagrant
 .neoconf.json
 .test*
