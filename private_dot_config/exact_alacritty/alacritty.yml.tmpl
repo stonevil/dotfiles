@@ -2,7 +2,6 @@
 vim:ft=yaml.gotexttmpl
 */ -}}
 
-# vim:ft=yaml :
 ---
 env:
   TERM: xterm-256color
@@ -140,7 +139,7 @@ shell:
   args:
     - --login
 
-working_directory: None
+working_directory: {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
 
 mouse:
   double_click: {threshold: 300}
