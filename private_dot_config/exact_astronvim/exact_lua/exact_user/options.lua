@@ -26,7 +26,7 @@ return {
 		scrolloff = 4,
 		sidescrolloff = 4,
 		smartcase = true,
-		wildignore = "*.bak,.hg,*.swp,__pycache__,/tmp/*,*.so,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.ico,*.pdf,*.wav,*.mp4,*.mp3,*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem,*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.swp,*~,._*,_pycache_,.DS_Store,.vscode,.localized,.cache,node_modules,package-lock.json,yarn.lock,dist,.git",
+		wildignore = "*.bak,.hg,*.swp,__pycache__,/tmp/*,*.so,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.ico,*.pdf,*.wav,*.mp4,*.mp3,*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem,*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.swp,*~,._*,_pycache_,.DS_Store,.vscode,.localized,.cache,.keep,node_modules,package-lock.json,yarn.lock,dist,.git",
 	},
 	g = {
 		mapleader = " ", -- sets vim.g.mapleader
