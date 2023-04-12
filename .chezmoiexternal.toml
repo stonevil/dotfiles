@@ -181,8 +181,7 @@
 {{- end }}
 
 [".config/nvim"]
-	type = "git-repo"
+	type = "archive"
 	refreshPeriod = "24h"
-	url = "https://github.com/AstroNvim/AstroNvim.git"
-	[".config/nvim".pull]
-		args = ["--depth", "1"]
+	stripComponents = 1
+	url = "https://github.com/AstroNvim/AstroNvim/archive/refs/tags/v{{ .tools.astronvim.version }}.tar.gz"
