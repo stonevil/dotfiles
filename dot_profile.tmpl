@@ -1,5 +1,13 @@
-# vim:ft=sh :
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ template "path.tmpl" . }}
 
 {{ template "shellrc-path.tmpl" . }}
 
 {{ template "shellrc-env.tmpl" . }}
+
+{{ if eq .chezmoi.os "linux" }}
+{{ template "gui-env.tmpl" . }}
+{{ end }}

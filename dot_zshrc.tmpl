@@ -16,3 +16,7 @@ vim:ft=zsh.gotexttmpl
 {{ template "shellrc-functions.tmpl" . }}
 
 {{ template "shellrc-editor.tmpl" . }}
+
+{{ if eq .chezmoi.os "linux" }}
+{{ template "gui-env.tmpl" . }}
+{{ end }}
