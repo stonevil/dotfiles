@@ -21,6 +21,9 @@
 0.0.0.0 cdn.ampproject.org
 #</Google AMP>
 
+#<OCLP Analytics>
+0.0.0.0 analytics.dortania.com
+
 #<JetBrains>
 0.0.0.0 account.jetbrains.com
 #</JetBrains>
