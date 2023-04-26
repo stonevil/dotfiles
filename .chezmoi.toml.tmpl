@@ -97,9 +97,6 @@
 [data.tools.lazydocker]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}"
 
-[data.gui.wezterm]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/wez/wezterm/releases/latest" | trim | base }}"
-
 [data.tools.astronvim]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/AstroNvim/AstroNvim/releases/latest" | trim | base | trimPrefix "v" }}"
 
@@ -111,4 +108,10 @@
 {{ end }}
 {{- writeToStdout "tabs wight set to: " ($tabs | toString) "\n" -}}
 {{- writeToStdout "terminals window opacity set to: " $opacity "\n" -}}
-{{- writeToStdout "shell command set to: " $shellPath "\n" -}}
+{{- writeToStdout "shell command set to: " $shellPath "\n" }}
+
+[data.fonts.iosevka]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/ryanoasis/nerd-fonts/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.gui.wezterm]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/wez/wezterm/releases/latest" | trim | base }}"

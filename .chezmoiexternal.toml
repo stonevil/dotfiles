@@ -148,7 +148,7 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazydocker"]
 
-{{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname)}}
+{{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname) -}}
 [".local/esp-idf"]
 	type = "git-repo"
 	refreshPeriod = "168h"
@@ -163,3 +163,12 @@
 	refreshPeriod = "24h"
 	stripComponents = 1
 	url = "https://github.com/AstroNvim/AstroNvim/archive/refs/tags/v{{ .tools.astronvim.version }}.tar.gz"
+
+{{ if eq .chezmoi.os "darwin" -}}
+["Library/Fonts/Iosevka"]
+{{- else if eq .chezmoi.os "linux" }}
+[".local/share/fonts/Iosevka"]
+{{- end }}
+	type = "archive"
+	refreshPeriod = "24h"
+	url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ .fonts.iosevka.version }}/Iosevka.zip"
