@@ -1,0 +1,8 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+if command -v hblock >/dev/null 2>&1; then
+	echo "hblock. Generate and update hosts file.\nPlease enter admin password"
+	hblock --color auto
+fi
