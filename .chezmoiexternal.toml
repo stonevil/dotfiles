@@ -173,5 +173,5 @@
 	type = "archive"
 	refreshPeriod = "24h"
 	url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ $.fonts.nerd.version }}/{{ . }}.zip"
-	include = ["*.ttf"]
+	include = ["*.ttf", "*.otf"]
 {{ end -}}
