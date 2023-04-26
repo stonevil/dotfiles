@@ -110,7 +110,8 @@
 {{- writeToStdout "terminals window opacity set to: " $opacity "\n" -}}
 {{- writeToStdout "shell command set to: " $shellPath "\n" }}
 
-[data.fonts.iosevka]
+[data.fonts.nerd]
+	fontsList = ["Iosevka", "Agave", "IBMPlexMono", "Hasklig", "Lekton", "Lilex", "Monoid", "RobotoMono", "VictorMono"]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/ryanoasis/nerd-fonts/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.gui.wezterm]

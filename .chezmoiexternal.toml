@@ -164,12 +164,14 @@
 	stripComponents = 1
 	url = "https://github.com/AstroNvim/AstroNvim/archive/refs/tags/v{{ .tools.astronvim.version }}.tar.gz"
 
-{{ if eq .chezmoi.os "darwin" -}}
-["Library/Fonts/Iosevka"]
-{{- else if eq .chezmoi.os "linux" }}
-[".local/share/fonts/Iosevka"]
-{{- end }}
+{{- range .fonts.nerd.fontsList }}
+{{ if eq $.chezmoi.os "darwin" }}
+["Library/Fonts/{{ . }}"]
+{{- else if eq $.chezmoi.os "linux" }}
+[".local/share/fonts/{{ . }}"]
+{{ end }}
 	type = "archive"
 	refreshPeriod = "24h"
-	url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ .fonts.iosevka.version }}/Iosevka.zip"
+	url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ $.fonts.nerd.version }}/{{ . }}.zip"
 	include = ["*.ttf"]
+{{ end -}}
