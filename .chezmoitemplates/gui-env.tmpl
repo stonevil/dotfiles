@@ -2,7 +2,8 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+# Check for Wayland
+if [[ -z "$XDG_SESSION_TYPE" && "$XDG_SESSION_TYPE" == "wayland" ]]; then
 	# Enable Wayland for Firefox
 	export MOZ_ENABLE_WAYLAND=1
 fi
