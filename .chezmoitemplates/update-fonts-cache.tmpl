@@ -4,7 +4,7 @@ vim:ft=bash.gotexttmpl
 
 {{ template "path.tmpl" . }}
 
-echo "System update and cleanup fonts cache"
 {{ if eq .chezmoi.os "linux" }}
+echo "Linux. Update fonts cache"
 fc-cache -f -v
 {{ end }}
