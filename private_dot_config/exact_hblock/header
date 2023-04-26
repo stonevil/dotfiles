@@ -294,6 +294,8 @@
 0.0.0.0 dmd.metaservices.microsoft.com
 0.0.0.0 schemas.microsoft.com
 0.0.0.0 go.microsoft.com
+0.0.0.0 bingapis.com
+0.0.0.0 bing.com
 0.0.0.0 40.76.0.0/14
 0.0.0.0 40.96.0.0/12
 0.0.0.0 40.124.0.0/16
