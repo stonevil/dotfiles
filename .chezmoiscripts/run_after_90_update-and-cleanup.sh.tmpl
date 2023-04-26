@@ -5,6 +5,8 @@ cd "$HOME" || exit 1
 
 {{ template "update-os-packages.tmpl" . }}
 
+{{ template "update-fonts-cache.tmpl" . }}
+
 {{ template "gcloud.tmpl" . }}
 
 {{ template "krew.tmpl" . }}
