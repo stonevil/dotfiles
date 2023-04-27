@@ -31,6 +31,9 @@ vim:ft=bash.gotexttmpl
 	}
 
 	f2iso() {
+		if [[ -f "$(basename $@)".iso ]]; then
+			rm -f "$(basename $@)".iso
+		fi
 		hdiutil makehybrid -iso -joliet -o "$(basename $@)".iso "$@" && \
 		notify "hdutil" "$(basename $@).iso image created"
 	}
