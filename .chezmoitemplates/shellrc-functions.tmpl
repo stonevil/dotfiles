@@ -29,15 +29,19 @@ vim:ft=bash.gotexttmpl
 		done <<<"$tm_list"
 		notify "tmutil" "Snapshots deleted"
 	}
-
-	f2iso() {
-		if [[ -f "$(basename $@)".iso ]]; then
-			rm -f "$(basename $@)".iso
-		fi
-		hdiutil makehybrid -iso -joliet -o "$(basename $@)".iso "$@" && \
-		notify "hdutil" "$(basename $@).iso image created"
-	}
 {{ end }}
+
+f2iso() {
+	if [[ -f "$(basename $@)".iso ]]; then
+		rm -f "$(basename $@)".iso
+	fi
+{{- if eq .chezmoi.os "darwin" }}
+	hdiutil makehybrid -iso -joliet -o "$(basename $@)".iso "$@" && \
+{{- else if eq .chezmoi.os "linux" }}
+	mkisofs -lJR -o "$(basename $@)".iso "$@" && \
+{{- end }}
+	notify "f2iso" "$(basename $@).iso image created"
+}
 
 qcow2vhd() {
 	qemu-img convert -O vhdx -o subformat=fixed "$@" "$(basename $@)".vhd
@@ -93,7 +97,7 @@ notify() {
 	{{- end }}
 }
 
-stmux() { ssh "$@" -t sh -c '~/.homebrew/bin/tmux attach-session -dv'; }
+stmux() { ssh "$@" -t bash -l -c 'tmux attach-session -dv'; }
 
 export VAGRANT_PROVIDER_GUI="false"
 vagrant_ip() {
