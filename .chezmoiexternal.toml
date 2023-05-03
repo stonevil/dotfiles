@@ -4,35 +4,26 @@
 
 # chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
 
-[".lima/default/lima.yaml"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = false
-	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/default.yaml"
+{{- /*
+	Common
+*/}}
+[".config/nvim"]
+	type = "archive"
+	refreshPeriod = "24h"
+	stripComponents = 1
+	url = "https://github.com/AstroNvim/AstroNvim/archive/refs/tags/v{{ .tools.astronvim.version }}.tar.gz"
 
-[".lima/docker/lima.yaml"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = false
-	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/docker.yaml"
-
-[".lima/podman/lima.yaml"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = false
-	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/podman.yaml"
-
-[".lima/k3s/lima.yaml"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = false
-	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/k3s.yaml"
-
-[".lima/fedora/lima.yaml"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = false
-	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/fedora.yaml"
+{{- range .fonts.nerd.fontsList }}
+{{ if eq $.chezmoi.os "darwin" }}
+["Library/Fonts/{{ . }}"]
+{{- else if eq $.chezmoi.os "linux" }}
+[".local/share/fonts/{{ . }}"]
+{{ end }}
+	type = "archive"
+	refreshPeriod = "24h"
+	url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ $.fonts.nerd.version }}/{{ . }}.zip"
+	include = ["*.ttf", "*.otf"]
+{{ end -}}
 
 [".local/antigen.zsh"]
 	type = "file"
@@ -74,16 +65,6 @@
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ .tools.bat.version }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}/bat"]
 {{- end }}
 
-[".local/bin/helm"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	stripComponents = 1
-	url = "https://get.helm.sh/helm-v{{ .tools.helm.version }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
-	[".local/bin/helm".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "{{ .chezmoi.os }}-{{ .chezmoi.arch }}/helm"]
-
 [".local/bin/fzf"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -98,6 +79,51 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
 {{- end }}
+
+
+{{- /*
+	Workstation
+*/}}
+{{ if eq .workstation true }}
+[".lima/default/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/default.yaml"
+
+[".lima/docker/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/docker.yaml"
+
+[".lima/podman/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/podman.yaml"
+
+[".lima/k3s/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/k3s.yaml"
+
+[".lima/fedora/lima.yaml"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/fedora.yaml"
+
+[".local/bin/helm"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	url = "https://get.helm.sh/helm-v{{ .tools.helm.version }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/helm".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "{{ .chezmoi.os }}-{{ .chezmoi.arch }}/helm"]
 
 [".local/bin/kubectl"]
 	type = "file"
@@ -147,7 +173,12 @@
 	[".local/bin/lazydocker".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazydocker"]
+{{- end }}
 
+
+{{- /*
+	Per station configuration
+*/ }}
 {{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname) -}}
 [".local/esp-idf"]
 	type = "git-repo"
@@ -157,21 +188,3 @@
 	[".local/esp-idf".pull]
 		args = ["--recurse-submodules=true"]
 {{- end }}
-
-[".config/nvim"]
-	type = "archive"
-	refreshPeriod = "24h"
-	stripComponents = 1
-	url = "https://github.com/AstroNvim/AstroNvim/archive/refs/tags/v{{ .tools.astronvim.version }}.tar.gz"
-
-{{- range .fonts.nerd.fontsList }}
-{{ if eq $.chezmoi.os "darwin" }}
-["Library/Fonts/{{ . }}"]
-{{- else if eq $.chezmoi.os "linux" }}
-[".local/share/fonts/{{ . }}"]
-{{ end }}
-	type = "archive"
-	refreshPeriod = "24h"
-	url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ $.fonts.nerd.version }}/{{ . }}.zip"
-	include = ["*.ttf", "*.otf"]
-{{ end -}}
