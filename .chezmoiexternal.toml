@@ -6,7 +6,7 @@
 
 {{- /*
 	Common
-*/}}
+*/ -}}
 [".config/nvim"]
 	type = "archive"
 	refreshPeriod = "24h"
@@ -83,7 +83,7 @@
 
 {{- /*
 	Workstation
-*/}}
+*/ -}}
 {{ if eq .workstation true }}
 [".lima/default/lima.yaml"]
 	type = "file"
@@ -178,7 +178,7 @@
 
 {{- /*
 	Per station configuration
-*/ }}
+*/ -}}
 {{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname) -}}
 [".local/esp-idf"]
 	type = "git-repo"
