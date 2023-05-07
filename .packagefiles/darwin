@@ -45,6 +45,7 @@ lua
 luajit
 luarocks
 lua-language-server
+maciasl
 make
 makedepend
 mkcert
