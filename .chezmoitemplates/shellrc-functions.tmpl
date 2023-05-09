@@ -92,8 +92,7 @@ notify() {
 	{{ if eq .chezmoi.os "darwin" -}}
 		osascript -e "display notification \"$2\" with title \"$1\""
 	{{- else if eq .chezmoi.os "linux" }}
-		# Proper implementation required
-		echo "$@"
+		notify-send "$2" "$1"
 	{{- end }}
 }
 
