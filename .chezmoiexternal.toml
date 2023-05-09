@@ -1,12 +1,9 @@
-{{- /*
-	vim:ft=gotexttmpl
-*/ -}}
+# vim:ft=gotexttmpl
 
 # chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
 
-{{- /*
-	Common
-*/ -}}
+
+# Common
 [".config/nvim"]
 	type = "archive"
 	refreshPeriod = "24h"
@@ -81,9 +78,7 @@
 {{- end }}
 
 
-{{- /*
-	Workstation
-*/ -}}
+# Workstation
 {{ if eq .workstation true }}
 [".lima/default/lima.yaml"]
 	type = "file"
@@ -176,9 +171,7 @@
 {{- end }}
 
 
-{{- /*
-	Per station configuration
-*/ -}}
+# Per station configuration
 {{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname) -}}
 [".local/esp-idf"]
 	type = "git-repo"
