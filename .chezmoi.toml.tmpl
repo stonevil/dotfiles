@@ -2,11 +2,10 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
-[scriptEnv]
-	SOFTWARE_DOWNLOAD_CMD="curl --connect-timeout 300 --retry 5 --retry-delay 20 --silent --insecure --location"
-
 {{ $email := promptString "What is your email address" "fu@bar.org" }}
 {{ $workstation := promptBool "Is this workstation" false }}
+{{ $embedded := promptBool "Is this embedded development workstation" false }}
+{{ $media := promptBool "Do you require basic tools for media manipulation" false }}
 {{ $tabs := promptInt "Configure default tabs width" 2 }}
 {{ $opacity := promptString "Windows opacity" "1.0" }}
 {{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
@@ -14,6 +13,12 @@
 [data]
 	workstation = {{ $workstation }}
 	email = {{ $email | quote }}
+
+[data.designation]
+	dev = {{ $workstation }}
+	devops = {{ $workstation }}
+	embedded = {{ $embedded }}
+	media = {{ $media }}
 
 [data.tui]
 	shellPath = {{ $shellPath | quote }}
@@ -52,23 +57,22 @@
 	opt2 = "aarch64"
 {{ end }}
 
-[data.tools.fzf]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}"
-
-[data.tools.bat]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"
-
 [data.tools.chezmoi]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/twpayne/chezmoi/releases/latest" | trim | base | trimPrefix "v" }}"
+
+
+{{ if $devops }}
+[data.tools.limactl]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/lima-vm/lima/releases/latest" | trim | base | trimPrefix "v" }}"
+
+[data.tools.vagrant]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/vagrant/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.helm]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.rke]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/rancher/rke/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.tools.limactl]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/lima-vm/lima/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.kubectl]
 	version = "1.26.2"
@@ -82,20 +86,26 @@
 [data.tools.packer]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/packer/releases/latest" | trim | base | trimPrefix "v" }}"
 
-[data.tools.vagrant]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/vagrant/releases/latest" | trim | base | trimPrefix "v" }}"
-
 [data.tools.vault]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/vault/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.consul]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/consul/releases/latest" | trim | base | trimPrefix "v" }}"
+{{ end }}
+
+
+[data.tools.fzf]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}"
+
+[data.tools.bat]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.lazygit]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.lazydocker]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}"
+
 
 [data.tools.astronvim]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/AstroNvim/AstroNvim/releases/latest" | trim | base | trimPrefix "v" }}"
@@ -109,6 +119,7 @@
 {{- writeToStdout "tabs wight set to: " ($tabs | toString) "\n" -}}
 {{- writeToStdout "terminals window opacity set to: " $opacity "\n" -}}
 {{- writeToStdout "shell command set to: " $shellPath "\n" }}
+
 
 [data.fonts.nerd]
 	fontsList = ["Iosevka", "Agave", "IBMPlexMono", "Hasklig", "Lekton", "Lilex", "Monoid", "RobotoMono", "VictorMono"]
