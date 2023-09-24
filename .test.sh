@@ -7,7 +7,7 @@ _help() {
 	echo -e "./.test.sh [distro] [version]\n"
 	echo "Example with Alpine Edge Linux:"
 	echo -e "./.test.sh alpine edge\n"
-	echo -e "Supported distro: Fedora Linux v37 and newer, Alpine Linux Edge\n"
+	echo -e "Supported distro: Fedora Linux v38 and newer, Alpine Linux Edge\n"
 }
 
 _check() {
@@ -37,7 +37,7 @@ export DISTRO=$1
 case "$DISTRO" in
 alpine)
 	export IMAGE="$DISTRO"
-	export IMAGE_TAG="${2:-3.17}"
+	export IMAGE_TAG="${2:-3.18}"
 	;;
 arch | centos)
 	export IMAGE_TAG="${2:-latest}"
@@ -49,7 +49,7 @@ arch | centos)
 	;;
 fedora)
 	export IMAGE="$DISTRO"
-	export IMAGE_TAG="${2:-37}"
+	export IMAGE_TAG="${2:-38}"
 	;;
 help | '--help' | '-h')
 	_help
@@ -58,7 +58,7 @@ help | '--help' | '-h')
 *)
 	export DISTRO="alpine"
 	IMAGE="$DISTRO"
-	IMAGE_TAG="3.17"
+	IMAGE_TAG="3.18"
 	;;
 esac
 
