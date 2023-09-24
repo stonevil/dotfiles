@@ -29,8 +29,18 @@
 {{ else }}
 	{{- writeToStdout "is Embedded DEV workstation?: false\n" -}}
 {{ end }}
+{{ if $media }}
+	{{- writeToStdout "install basic tools for media manipulation?: true\n" -}}
+{{ else }}
+	{{- writeToStdout "install basic tools for media manipulation?: false\n" -}}
+{{ end }}
+{{ if $ads }}
+	{{- writeToStdout "block ads?: true\n" -}}
+{{ else }}
+	{{- writeToStdout "block ads?: false\n" -}}
+{{ end }}
 {{- writeToStdout "tabs wight set to: " ($tabs | toString) "\n" -}}
-{{- writeToStdout "terminals window opacity set to: " $opacity "\n" -}}
+{{- writeToStdout "terminal window opacity set to: " $opacity "\n" -}}
 {{- writeToStdout "shell command set to: " $shellPath "\n" }}
 
 
