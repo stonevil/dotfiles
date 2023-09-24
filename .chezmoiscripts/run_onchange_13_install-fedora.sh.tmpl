@@ -21,14 +21,25 @@ cd "$HOME" || exit 1
 		(sudo dnf install -y $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }})) || exit 1
 	{{ end }}
 
-	{{ if .workstation }}
-		echo "Install {{ .chezmoi.osRelease.id | title }} Linux workstation packages"
-		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")).size 0) }}
-			# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
+	{{ if .tags.devops }}
+		echo "Install {{ .chezmoi.osRelease.id | title }} Linux DevOps packages"
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".devops")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".devops")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.devops hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".devops") | sha256sum }}
 			(sudo dnf install -y $(paste -s -d ' ' "$i")) || exit 1
-			(sudo dnf install -y $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote }})) || exit 1
+			(sudo dnf install -y $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".devops" | quote }})) || exit 1
 		{{ end }}
+	{{ end }}
 
+	{{ if .tags.dev }}
+		echo "Install {{ .chezmoi.osRelease.id | title }} Linux Dev packages"
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".dev")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".dev")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.dev hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".dev") | sha256sum }}
+			(sudo dnf install -y $(paste -s -d ' ' "$i")) || exit 1
+			(sudo dnf install -y $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".dev" | quote }})) || exit 1
+		{{ end }}
+	{{ end }}
+
+	{{ if or .tags.devops .tags.dev }}
 		sudo dnf install -y https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly-{{ .chezmoi.osRelease.id }}{{ .chezmoi.osRelease.versionID }}.rpm
 	{{ end }}
 {{ end }}

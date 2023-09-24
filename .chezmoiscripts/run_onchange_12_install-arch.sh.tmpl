@@ -13,7 +13,7 @@ cd "$HOME" || exit 1
 		(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id | quote }})) || exit 1
 	{{ end }}
 
-	{{ if or (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur")) (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation")) }}
+	{{ if or (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur")) (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.devops")) }}
 		cargo install paru || exit 1
 	{{ end }}
 
@@ -22,15 +22,29 @@ cd "$HOME" || exit 1
 		(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur" | quote) }})) || exit 1
 	{{ end }}
 
-	{{ if .workstation }}
-		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation")).size 0) }}
-			# {{ .chezmoi.osRelease.id }}.workstation hash: {{ include (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation") | sha256sum }}
-			(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".workstation" | quote) }})) || exit 1
+	{{ if .tags.devops }}
+		echo "Install {{ .chezmoi.osRelease.id | title }} Linux DevOps packages"
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".devops")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".devops")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.devops hash: {{ include (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".devops") | sha256sum }}
+			(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".devops" | quote) }})) || exit 1
 		{{ end }}
 
-		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation")).size 0) }}
-			# {{ .chezmoi.osRelease.id }}.aur.workstation hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation") | sha256sum }}
-			(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.workstation" | quote) }})) || exit 1
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.devops")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.devops")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.aur.devops hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.devops") | sha256sum }}
+			(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.devops" | quote) }})) || exit 1
+		{{ end }}
+	{{ end }}
+
+	{{ if .tags.dev }}
+		echo "Install {{ .chezmoi.osRelease.id | title }} Linux Dev packages"
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".dev")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".dev")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.dev hash: {{ include (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".dev") | sha256sum }}
+			(sudo pacman --noconfirm --needed -Syu $(paste -s -d ' ' {{ (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".dev" | quote) }})) || exit 1
+		{{ end }}
+
+		{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.dev")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id) ".aur.dev")).size 0) }}
+			# {{ .chezmoi.osRelease.id }}.aur.dev hash: {{ include (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.dev") | sha256sum }}
+			(paru --noconfirm --needed -Syu $(paste -s -d ' ' {{ (print (joinPath ".packagefiles" .chezmoi.osRelease.id) ".aur.dev" | quote) }})) || exit 1
 		{{ end }}
 	{{ end }}
 {{ end }}

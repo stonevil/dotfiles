@@ -4,14 +4,6 @@
 
 
 # Common
-[".config/nvim"]
-	type = "git-repo"
-	refreshPeriod = "24h"
-	ref = "master"
-	url = "https://github.com/AstroNvim/AstroNvim.git"
-	[".config/nvim".clone]
-		args = ["--depth", "1"]
-
 {{- range .fonts.nerd.fontsList }}
 {{ if eq $.chezmoi.os "darwin" }}
 ["Library/Fonts/{{ . }}"]
@@ -80,8 +72,8 @@
 {{- end }}
 
 
-# Workstation
-{{ if eq .workstation true }}
+# DevOps
+{{ if eq .tags.devops true }}
 [".lima/default/lima.yaml"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -136,15 +128,11 @@
 	[".local/bin/krew".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "./krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}"]
-
-{{- if eq .chezmoi.os "linux" }}
-[".local/bin/rke"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	url = "https://github.com/rancher/rke/releases/download/v{{ .tools.rke.version }}/rke_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 {{- end }}
 
+
+# Common Dev and DevOps
+{{ if (or (eq .tags.dev true) (eq .tags.devops true)) }}
 [".local/bin/lazygit"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -173,8 +161,13 @@
 {{- end }}
 
 
-# Per station configuration
-{{ if or (hasPrefix "stoned" .chezmoi.hostname) (hasPrefix "td" .chezmoi.hostname) -}}
+{{ if eq .tags.dev true }}
+# TODO
+{{- end }}
+
+
+# Embedded Dev
+{{ if eq .tags.embedded true -}}
 [".local/esp-idf"]
 	type = "git-repo"
 	refreshPeriod = "168h"

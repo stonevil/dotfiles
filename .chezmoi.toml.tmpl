@@ -3,22 +3,46 @@
 */ -}}
 
 {{ $email := promptString "What is your email address" "fu@bar.org" }}
-{{ $workstation := promptBool "Is this workstation" false }}
-{{ $embedded := promptBool "Is this embedded development workstation" false }}
+{{ $dev := promptBool "Is this DEV workstation" false }}
+{{ $devops := promptBool "Is this DevOps workstation" false }}
+{{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
 {{ $media := promptBool "Do you require basic tools for media manipulation" false }}
+{{ $ads := promptBool "Do you want to block ads" false }}
 {{ $tabs := promptInt "Configure default tabs width" 2 }}
 {{ $opacity := promptString "Windows opacity" "1.0" }}
 {{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
 
+
+{{- writeToStdout "email address is set to: " $email "\n" -}}
+{{ if $dev }}
+	{{- writeToStdout "is DEV workstation?: true\n" -}}
+{{ else }}
+	{{- writeToStdout "is DEV workstation?: false\n" -}}
+{{ end }}
+{{ if $devops }}
+	{{- writeToStdout "is DevOps workstation?: true\n" -}}
+{{ else }}
+	{{- writeToStdout "is DevOps workstation?: false\n" -}}
+{{ end }}
+{{ if $embedded }}
+	{{- writeToStdout "is Embedded DEV workstation?: true\n" -}}
+{{ else }}
+	{{- writeToStdout "is Embedded DEV workstation?: false\n" -}}
+{{ end }}
+{{- writeToStdout "tabs wight set to: " ($tabs | toString) "\n" -}}
+{{- writeToStdout "terminals window opacity set to: " $opacity "\n" -}}
+{{- writeToStdout "shell command set to: " $shellPath "\n" }}
+
+
 [data]
-	workstation = {{ $workstation }}
 	email = {{ $email | quote }}
 
-[data.designation]
-	dev = {{ $workstation }}
-	devops = {{ $workstation }}
+[data.tags]
+	dev = {{ $dev }}
+	devops = {{ $devops }}
 	embedded = {{ $embedded }}
 	media = {{ $media }}
+	ads = {{ $ads }}
 
 [data.tui]
 	shellPath = {{ $shellPath | quote }}
@@ -71,27 +95,21 @@
 [data.tools.helm]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base | trimPrefix "v" }}"
 
-[data.tools.rke]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/rancher/rke/releases/latest" | trim | base | trimPrefix "v" }}"
-
 [data.tools.kubectl]
 	version = "1.26.2"
 
 [data.tools.krew]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/kubernetes-sigs/krew/releases/latest" | trim | base | trimPrefix "v" }}"
+{{- end }}
 
-[data.tools.terraform]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/terraform/releases/latest" | trim | base | trimPrefix "v" }}"
 
-[data.tools.packer]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/packer/releases/latest" | trim | base | trimPrefix "v" }}"
+{{ if (or $dev $devops) }}
+[data.tools.lazygit]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}"
 
-[data.tools.vault]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/vault/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.tools.consul]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/consul/releases/latest" | trim | base | trimPrefix "v" }}"
-{{ end }}
+[data.tools.lazydocker]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}"
+{{- end }}
 
 
 [data.tools.fzf]
@@ -99,26 +117,6 @@
 
 [data.tools.bat]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.tools.lazygit]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.tools.lazydocker]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}"
-
-
-[data.tools.astronvim]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/AstroNvim/AstroNvim/releases/latest" | trim | base | trimPrefix "v" }}"
-
-{{- writeToStdout "email address is set to: " $email "\n" -}}
-{{ if $workstation }}
-	{{- writeToStdout "is workstation?: true\n" -}}
-{{ else }}
-	{{- writeToStdout "is workstation?: false\n" -}}
-{{ end }}
-{{- writeToStdout "tabs wight set to: " ($tabs | toString) "\n" -}}
-{{- writeToStdout "terminals window opacity set to: " $opacity "\n" -}}
-{{- writeToStdout "shell command set to: " $shellPath "\n" }}
 
 
 [data.fonts.nerd]
