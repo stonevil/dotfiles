@@ -10,7 +10,7 @@ env:
 window:
   dimensions: # Alacritty currently have some issues with window position. Window spawns off-screen
     columns: 120
-    lines: 33
+    lines: 50
 
   position:
     x: 20
@@ -24,7 +24,11 @@ window:
 
   opacity: {{ .gui.opacity }}
 
+{{ if eq .chezmoi.os "linux" }}
   decorations: none
+{{ else if eq .chezmoi.os "darwin" }}
+  decorations: buttonless
+{{- end }}
   # Values for `decorations`
   #   - full: Borders and title bar
   #   - none: Neither borders nor title bar
