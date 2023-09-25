@@ -12,7 +12,7 @@
 {{ end }}
 	type = "archive"
 	refreshPeriod = "24h"
-	url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{ $.fonts.nerd.version }}/{{ . }}.zip"
+	url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.zip"
 	include = ["*.ttf", "*.otf"]
 {{ end -}}
 
@@ -27,9 +27,9 @@
 	refreshPeriod = "168h"
 	executable = true
 {{- if eq .libc.platform "musl" }}
-	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
+	url = "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
 {{- else }}
-	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ .tools.chezmoi.version }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+	url = "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 {{- end }}
 
 {{ if eq .chezmoi.os "darwin" }}
@@ -70,6 +70,42 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
 {{- end }}
+
+[".local/bin/xplr"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+{{- if eq .chezmoi.arch "amd64" }}
+	{{- if eq .chezmoi.os "darwin" }}
+		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-macos.tar.gz"
+	{{- else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
+		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux-musl.tar.gz"
+	{{- else if (and (eq .chezmoi.os "linux") (not .chezmoi.osRelease.id "alpine")) }}
+		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux.tar.gz"
+	{{ end }}
+{{ else if eq .chezmoi.arch "arm64" }}
+	{{- if eq .chezmoi.os "darwin" }}
+		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-macos-{{ .arch.opt2 }}.tar.gz"
+	{{- else if eq .chezmoi.os "linux" }}
+		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux-{{ .arch.opt2 }}.tar.gz"
+	{{ end }}
+{{- end }}
+	[".local/bin/xplr".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "xplr"]
+
+[".local/bin/zellij"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+{{- if eq .chezmoi.os "darwin" }}
+	url = "https://github.com/zellij-org/zellij/releases/latest/download/zellij-{{ .arch.opt2 }}-apple-{{ .chezmoi.os }}.tar.gz"
+{{- else if eq .chezmoi.os "linux" }}
+	url = "https://github.com/zellij-org/zellij/releases/latest/download/zellij-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-musl.tar.gz"
+{{- end }}
+	[".local/bin/zellij".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zellij"]
 
 
 # DevOps
@@ -124,7 +160,7 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://github.com/kubernetes-sigs/krew/releases/download/v{{ .tools.krew.version }}/krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+	url = "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/krew".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "./krew-{{ .chezmoi.os }}_{{ .chezmoi.arch }}"]
@@ -132,7 +168,7 @@
 
 
 # Common Dev and DevOps
-{{ if (or (eq .tags.dev true) (eq .tags.devops true)) }}
+{{ if (or .tags.dev .tags.devops) }}
 [".local/bin/lazygit"]
 	type = "file"
 	refreshPeriod = "168h"

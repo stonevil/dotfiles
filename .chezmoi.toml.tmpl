@@ -91,25 +91,13 @@
 	opt2 = "aarch64"
 {{ end }}
 
-[data.tools.chezmoi]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/twpayne/chezmoi/releases/latest" | trim | base | trimPrefix "v" }}"
-
 
 {{ if $devops }}
-[data.tools.limactl]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/lima-vm/lima/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.tools.vagrant]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/vagrant/releases/latest" | trim | base | trimPrefix "v" }}"
-
 [data.tools.helm]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base | trimPrefix "v" }}"
 
 [data.tools.kubectl]
-	version = "1.26.2"
-
-[data.tools.krew]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/kubernetes-sigs/krew/releases/latest" | trim | base | trimPrefix "v" }}"
+	version = "1.28.2"
 {{- end }}
 
 
@@ -131,7 +119,3 @@
 
 [data.fonts.nerd]
 	fontsList = ["Iosevka", "Agave", "IBMPlexMono", "Hasklig", "Lekton", "Lilex", "Monoid", "RobotoMono", "VictorMono"]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/ryanoasis/nerd-fonts/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.gui.wezterm]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/wez/wezterm/releases/latest" | trim | base }}"
