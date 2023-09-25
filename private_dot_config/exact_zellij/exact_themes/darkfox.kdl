@@ -1,0 +1,15 @@
+themes {
+	darkfox {
+		bg "#000000"
+		fg "#cdcecf"
+		black "#000000"
+		red "#bf616a"
+		green "#a3be8c"
+		yellow "#ebcb8b"
+		blue "#81a1c1"
+		magenta "#b48ead"
+		orange "#f0d399"
+		cyan "#88c0d0"
+		white "#e5e9f0"
+	}
+}
