@@ -5,11 +5,11 @@
 
 # Common
 {{- range .fonts.nerd.fontsList }}
-{{ if eq $.chezmoi.os "darwin" }}
+	{{ if eq $.chezmoi.os "darwin" }}
 ["Library/Fonts/{{ . }}"]
-{{- else if eq $.chezmoi.os "linux" }}
+	{{- else if eq $.chezmoi.os "linux" }}
 [".local/share/fonts/{{ . }}"]
-{{ end }}
+	{{ end }}
 	type = "archive"
 	refreshPeriod = "24h"
 	url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.zip"
@@ -77,17 +77,17 @@
 	executable = true
 {{- if eq .chezmoi.arch "amd64" }}
 	{{- if eq .chezmoi.os "darwin" }}
-		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-macos.tar.gz"
+	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-macos.tar.gz"
 	{{- else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
-		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux-musl.tar.gz"
+	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux-musl.tar.gz"
 	{{- else if (and (eq .chezmoi.os "linux") (not .chezmoi.osRelease.id "alpine")) }}
-		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux.tar.gz"
+	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux.tar.gz"
 	{{ end }}
 {{ else if eq .chezmoi.arch "arm64" }}
 	{{- if eq .chezmoi.os "darwin" }}
-		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-macos-{{ .arch.opt2 }}.tar.gz"
+	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-macos-{{ .arch.opt2 }}.tar.gz"
 	{{- else if eq .chezmoi.os "linux" }}
-		url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux-{{ .arch.opt2 }}.tar.gz"
+	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux-{{ .arch.opt2 }}.tar.gz"
 	{{ end }}
 {{- end }}
 	[".local/bin/xplr".filter]
@@ -109,7 +109,7 @@
 
 
 # DevOps
-{{ if eq .tags.devops true }}
+{{ if .tags.devops }}
 [".lima/default/lima.yaml"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -173,11 +173,11 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-{{- if eq .chezmoi.arch "amd64" }}
+	{{- if eq .chezmoi.arch "amd64" }}
 	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ .tools.lazygit.version }}/lazygit_{{ .tools.lazygit.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
-{{- else if eq .chezmoi.arch "arm64"}}
+	{{- else if eq .chezmoi.arch "arm64"}}
 	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ .tools.lazygit.version }}/lazygit_{{ .tools.lazygit.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
-{{- end }}
+	{{- end }}
 	[".local/bin/lazygit".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazygit"]
@@ -186,11 +186,11 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-{{- if eq .chezmoi.arch "amd64" }}
+	{{- if eq .chezmoi.arch "amd64" }}
 	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ .tools.lazydocker.version }}/lazydocker_{{ .tools.lazydocker.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
-{{- else if eq .chezmoi.arch "arm64"}}
+	{{- else if eq .chezmoi.arch "arm64"}}
 	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ .tools.lazydocker.version }}/lazydocker_{{ .tools.lazydocker.version }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
-{{- end }}
+	{{- end }}
 	[".local/bin/lazydocker".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazydocker"]
