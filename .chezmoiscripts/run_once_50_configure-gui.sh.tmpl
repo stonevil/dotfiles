@@ -40,16 +40,6 @@ defaults write com.apple.dock showhidden -bool true
 # Dock: show recent applications in Dock
 defaults write com.apple.dock show-recents -bool true
 
-# Dock: adjust the Dock to the left side corner
-# Possible values:
-# start: left edge
-# end: right edge
-# To reset: defaults delete com.apple.dock pinning
-defaults write com.apple.dock pinning -string start
-
-# Dock: minimization effect
-defaults write com.apple.dock mineffect -string suck
-
 # Mission Control: speed up animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
@@ -58,9 +48,6 @@ defaults write com.apple.dock expose-group-by-app -bool true
 
 # Mission Control: don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
-
-# WindowServer: Drag window with Control + Option + Command + Left Click
-defaults write -g NSWindowShouldDragOnGesture -bool true
 
 # Hot corners
 # Possible values:
