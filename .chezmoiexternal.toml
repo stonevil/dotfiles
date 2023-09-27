@@ -110,9 +110,6 @@
 
 # DevOps
 {{ if .tags.devops -}}
-[data.lima]
-	configList = ["default", "docker", "podman", "k3s", "fedora"]
-
 {{- range .lima.configList }}
 [".lima/{{ . }}/lima.yaml"]
 	type = "file"
