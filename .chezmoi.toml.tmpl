@@ -91,31 +91,12 @@
 	opt2 = "aarch64"
 {{ end }}
 
-
-{{ if $devops }}
-[data.tools.helm]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.tools.kubectl]
-	version = "1.28.2"
-{{- end }}
-
-
-{{ if (or $dev $devops) }}
-[data.tools.lazygit]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}"
-
-[data.tools.lazydocker]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}"
-{{- end }}
-
-
-[data.tools.fzf]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}"
-
-[data.tools.bat]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"
-
-
 [data.fonts.nerd]
 	fontsList = ["Iosevka", "Agave", "IBMPlexMono", "Hasklig", "Lekton", "Lilex", "Monoid", "RobotoMono", "VictorMono"]
+
+[data.lima]
+	configList = ["default", "docker", "podman", "k3s", "fedora"]
+
+# Common
+[data.tools.bat]
+	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"
