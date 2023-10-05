@@ -26,10 +26,10 @@ private_Library
 .themes
 .icons
 {{- end }}
-{{- if eq .tags.ads false}}
+{{- if eq .tags.ads false }}
 .config/hblock
 {{- end }}
-{{- if or (eq .tags.dev false) (eq .tags.devops false) -}}
+{{- if or (eq .tags.dev false) (eq .tags.devops false) }}
 .config/lazygit
 .config/lazydocker
 {{- end }}
