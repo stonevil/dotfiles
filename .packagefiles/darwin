@@ -1,3 +1,7 @@
+python3
+ruby
+node
+go
 autoconf
 autoconf-archive
 automake
@@ -20,7 +24,6 @@ diffutils
 dfu-util
 dmg2img
 dos2unix
-node
 eslint
 fd
 ffmpeg
@@ -34,7 +37,6 @@ gcc
 git
 git-lfs
 gnu-sed
-go
 gzip
 hblock
 hub
@@ -50,15 +52,12 @@ make
 makedepend
 mkcert
 mkdocs
-neovim
 ninja
 nmap
 parallel
 lima
-python3
 pwgen
 ripgrep
-ruby
 rust
 samba
 screen
@@ -77,5 +76,6 @@ wimlib
 yarn
 esolitos/ipa/sshpass
 google-cloud-sdk
+neovim
 wezterm
 alacritty
