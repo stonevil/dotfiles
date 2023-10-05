@@ -62,14 +62,12 @@
 	executable = true
 {{- if eq .chezmoi.os "darwin" }}
 	url = "https://github.com/junegunn/fzf/releases/download/{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}/fzf-{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
-	[".local/bin/fzf".filter]
-		command = "zcat"
 {{- else if eq .chezmoi.os "linux" }}
 	url = "https://github.com/junegunn/fzf/releases/download/{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}/fzf-{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+{{- end }}
 	[".local/bin/fzf".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
-{{- end }}
 
 [".local/bin/xplr"]
 	type = "file"
