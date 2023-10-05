@@ -4,3 +4,4 @@ Bin
 .Bin
 .krew
 .shellrc
+.config/astronvim
