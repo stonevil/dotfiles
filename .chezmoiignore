@@ -8,10 +8,10 @@ tags
 .entrypoint*
 .packagefiles
 .resources
-{{ if (ne .chezmoi.os "darwin") }}
+{{- if ne .chezmoi.os "darwin" }}
 Library
 private_Library
-{{ else if (eq .chezmoi.os "darwin") }}
+{{ else if ne .chezmoi.os "linux" }}
 .Xresources
 .config/autostart*
 .config/foot*
@@ -21,7 +21,15 @@ private_Library
 .config/Plasma*
 .config/pulse*
 .config/gtk*
+.config/konsole
 .gtk*
 .themes
 .icons
-{{ end }}
+{{- end }}
+{{- if eq .tags.ads false}}
+.config/hblock
+{{- end }}
+{{- if or (eq .tags.dev false) (eq .tags.devops false) -}}
+.config/lazygit
+.config/lazydocker
+{{- end }}
