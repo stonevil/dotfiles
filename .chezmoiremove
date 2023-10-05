@@ -4,4 +4,3 @@ Bin
 .Bin
 .krew
 .shellrc
-.config/nvim/lazy-lock.json
