@@ -47,6 +47,11 @@
 [data]
 	email = {{ $email | quote }}
 
+{{ if eq .chezmoi.os "darwin" }}
+[data.path]
+	homebrew = {{ (joinPath .chezmoi.homeDir ".homebrew" | quote) }}
+{{ end }}
+
 [data.tags]
 	dev = {{ $dev }}
 	devops = {{ $devops }}

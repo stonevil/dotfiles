@@ -2,31 +2,31 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if eq .chezmoi.os "darwin" }}
-	export HOMEBREW_PATH="$HOME"/.homebrew
+{{- if eq .chezmoi.os "darwin" }}
+export PATH={{ .path.homebrew | quote }}/sbin:{{ .path.homebrew | quote }}/bin:"$PATH"
+export MANPATH="{{ .path.homebrew | quote }}/share/man":"$MANPATH"
 
-	export PATH="$HOMEBREW_PATH"/bin:"$PATH"
-	export MANPATH="$HOMEBREW_PATH"/share/man:"$MANPATH"
+export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
 
-	export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+[ -d {{ .path.homebrew | quote }}/Cellar/ruby ] && export PATH={{ .path.homebrew | quote }}/Cellar/ruby/$(ls {{ .path.homebrew }}/Cellar/ruby | tail -n 1)/bin:"$PATH"
 {{ end }}
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") }}
-	export XTENSA_PATH="$HOME"/.local/xtensa-esp32-elf
-	export PATH="$PATH":"$XTENSA_PATH"/bin
+{{- if stat (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") }}
+export XTENSA_PATH="$HOME"/.local/xtensa-esp32-elf
+export PATH="$PATH":"$XTENSA_PATH"/bin
 {{ end }}
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
-	export IDF_PATH="$HOME"/.local/esp-idf
+{{- if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
+export IDF_PATH="$HOME"/.local/esp-idf
 {{ end }}
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/krew") }}
-	export KREW_ROOT="$HOME"/.local/krew
-	export PATH="$KREW_ROOT"/bin:"$HOME"/.local/bin:"$PATH"
+{{- if stat (joinPath .chezmoi.homeDir ".local/krew") }}
+export KREW_ROOT="$HOME"/.local/krew
+export PATH="$KREW_ROOT"/bin:"$HOME"/.local/bin:"$PATH"
 {{ end }}
 
-{{ if stat (joinPath .chezmoi.homeDir ".cargo") }}
-	export PATH="$HOME"/.cargo/bin:"$PATH"
-{{ end }}
+{{- if stat (joinPath .chezmoi.homeDir ".cargo") }}
+export PATH="$HOME"/.cargo/bin:"$PATH"
+{{- end }}
 
 export PATH="$HOME"/.local/bin:"$PATH"
