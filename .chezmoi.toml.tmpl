@@ -49,7 +49,7 @@
 
 {{ if eq .chezmoi.os "darwin" }}
 [data.path]
-	homebrew = {{ (joinPath .chezmoi.homeDir ".homebrew" | quote) }}
+	homebrew = {{ (joinPath .chezmoi.homeDir ".brew" | quote) }}
 {{ end }}
 
 [data.tags]
