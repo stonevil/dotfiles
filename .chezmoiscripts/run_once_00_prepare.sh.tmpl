@@ -5,10 +5,10 @@ cd "$HOME" || exit 1
 
 echo "Prepare system. Install essential packages like brew, etc"
 {{ if eq .chezmoi.os "darwin" }}
-	{{ if stat (joinPath .chezmoi.homeDir ".homebrew") }}
+	{{ if stat .path.homebrew }}
 		rm -Rf {{ .path.homebrew | quote }}
 	{{ end }}
-	(git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }}) || exit 1
+	git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
 	{{ template "darwin.tmpl" . }}
 	brew tap --force homebrew/core || exit 1
 	brew install --force bash curl git gnu-tar wget ruby || exit 1
