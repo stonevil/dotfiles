@@ -78,7 +78,7 @@
 	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-macos.tar.gz"
 	{{- else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
 	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux-musl.tar.gz"
-	{{- else if (and (eq .chezmoi.os "linux") (not .chezmoi.osRelease.id "alpine")) }}
+	{{- else if (and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "alpine")) }}
 	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-linux.tar.gz"
 	{{ end }}
 {{ else if eq .chezmoi.arch "arm64" }}
