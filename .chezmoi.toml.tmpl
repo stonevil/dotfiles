@@ -99,9 +99,6 @@
 [data.fonts.nerd]
 	fontsList = ["Iosevka", "Agave", "IBMPlexMono", "Hasklig", "Lekton", "Lilex", "Meslo", "Monoid", "RobotoMono", "VictorMono"]
 
-[data.lima]
-	configList = ["default", "docker", "podman", "k3s", "fedora"]
-
 # Common
 [data.tools.bat]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"

@@ -107,15 +107,6 @@
 
 
 # DevOps
-{{ if .tags.devops -}}
-{{- range .lima.configList }}
-[".lima/{{ . }}/lima.yaml"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = false
-	url = "https://raw.githubusercontent.com/lima-vm/lima/master/examples/{{ . }}.yaml"
-{{ end }}
-
 [".local/bin/helm"]
 	type = "file"
 	refreshPeriod = "168h"
