@@ -6,3 +6,4 @@ Bin
 .shellrc
 .config/astronvim
 .homebrew
+.brew/bin/*.lima
