@@ -29,8 +29,12 @@ fedora)
 	;;
 esac
 
-sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- init --promptString email='fu@bar.org' --promptBool dev=true --promptBool devops=true --promptBool embedded=true --promptBool media=true --promptBool ads=true --promptInt tabs=2 --promptString opacity='1.0' --promptString shellPath='/bin/zsh'
-sh -c "$(BINDIR=$HOME/.local/bin curl -fsLS git.io/chezmoi)" -- apply --force
+export BINDIR="$HOME/.local/bin"
+export PATH=$BINDIR:$PATH
+
+sh -c "$(curl -fsLS git.io/chezmoi)"
+chezmoi init --promptString email='fu@bar.org' --promptBool dev=true --promptBool devops=true --promptBool embedded=true --promptBool media=true --promptBool ads=true --promptInt tabs=2 --promptString opacity='1.0' --promptString shellPath='/bin/zsh'
+chezmoi apply --force
 
 if command -v zsh >/dev/null 2>&1; then
 	RPROMPT="$DISTRO/$IMAGE_TAG" zsh
