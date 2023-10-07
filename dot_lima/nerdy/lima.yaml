@@ -1,19 +1,22 @@
-vmType: vz
-os: null
+vmType: null
+os: Linux
 arch: null
 
 rosetta:
   enabled: true
   binfmt: true
 
-# This template requires Lima v0.8.0 or later
 images:
-- location: "https://download.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
+- location: "https://cloud-images.ubuntu.com/releases/23.04/release-20230926/ubuntu-23.04-server-cloudimg-amd64.img"
   arch: "x86_64"
-  digest: "sha256:d334670401ff3d5b4129fcc662cf64f5a6e568228af59076cc449a4945318482"
-- location: "https://download.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/aarch64/images/Fedora-Cloud-Base-38-1.6.aarch64.qcow2"
+  digest: "sha256:1e35473cea5e1b827b91ad6ebb43b605a00d506c11f66c75076c424ae5372440"
+- location: "https://cloud-images.ubuntu.com/releases/23.04/release-20230926/ubuntu-23.04-server-cloudimg-arm64.img"
   arch: "aarch64"
-  digest: "sha256:ad71d22104a16e4f9efa93e61e8c7bce28de693f59c802586abbe85e9db55a65"
+  digest: "sha256:46d4f3874831fc28e0edcf24b86b6b8017e0492fa848d951cfa3c7b520b2d2fa"
+- location: "https://cloud-images.ubuntu.com/releases/23.04/release/ubuntu-23.04-server-cloudimg-amd64.img"
+  arch: "x86_64"
+- location: "https://cloud-images.ubuntu.com/releases/23.04/release/ubuntu-23.04-server-cloudimg-arm64.img"
+  arch: "aarch64"
 
 # Builtin default: min(4, host CPU cores)
 cpus: null
@@ -24,47 +27,167 @@ disk: null
 
 mounts:
 - location: "~"
+  mountPoint: null
+  writable: true
+  sshfs:
+    cache: null
+    followSymlinks: null
+    sftpDriver: null
+  9p:
+    securityModel: null
+    protocolVersion: null
+    msize: null
+    cache: null
 - location: "/tmp/lima"
   writable: true
 
+mountType: null
+
+additionalDisks:
+
+ssh:
+  localPort: 0
+  loadDotSSHPubKeys: null
+  forwardAgent: null
+  forwardX11: null
+  forwardX11Trusted: null
+
+caCerts:
+  removeDefaults: null
+
+  files:
+
+  certs:
+
 containerd:
   system: false
-  user: false
-
-firmware:
-  legacyBIOS: null
+  user: null
 
 provision:
 - mode: system
   script: |
     #!/bin/bash
     set -eux -o pipefail
-    command -v podman >/dev/null 2>&1 && exit 0
-    dnf -y install podman
-- mode: user
-  script: |
-    #!/bin/bash
-    set -eux -o pipefail
-    systemctl --user enable --now podman.socket
+    export DEBIAN_FRONTEND=noninteractive
+    systemctl start containerd
+    nerdctl run --privileged --rm tonistiigi/binfmt --install all
+    apt-get install -y vim
+# - mode: user
+#   script: |
+#     #!/bin/bash
+#     set -eux -o pipefail
+#     cat <<EOF > ~/.vimrc
+#     set number
+#     EOF
 
-probes:
-- script: |
-    #!/bin/bash
-    set -eux -o pipefail
-    if ! timeout 30s bash -c "until command -v podman >/dev/null 2>&1; do sleep 3; done"; then
-      echo >&2 "podman is not installed yet"
-      exit 1
-    fi
-  hint: See "/var/log/cloud-init-output.log" in the guest
+# - mode: boot
+#   script: |
+#     systemctl disable NetworkManager-wait-online.service
+# # `dependency` is executed before the regular dependency resolution workflow in
+# # pkg/cidata/cidata.TEMPLATE.d/boot/30-install-packages.sh
+# # If skipDefaultDependencyResolution is set on at least one `dependency` mode provisioning script, the regular
+# # dependency resolution workflow in pkg/cidata/cidata.TEMPLATE.d/boot/30-install-packages.sh will be skipped.
+# - mode: dependency
+#   skipDefaultDependencyResolution: false
+#   script: |
+#     #!/bin/bash
+#     dnf config-manager --add-repo ...
+#     dnf install ...
+
+# probes:
+# - mode: readiness
+#   description: vim to be installed
+#   script: |
+#      #!/bin/bash
+#      set -eux -o pipefail
+#      if ! timeout 30s bash -c "until command -v vim; do sleep 3; done"; then
+#        echo >&2 "vim is not installed yet"
+#        exit 1
+#      fi
+#   hint: |
+#     vim was not installed in the guest. Make sure the package system is working correctly.
+#     Also see "/var/log/cloud-init-output.log" in the guest.
+
+cpuType:
+  aarch64: null
+  armv7l: null
+  x86_64: null
+
+firmware:
+  legacyBIOS: null
+
+audio:
+  device: null
+
+video:
+  display: null
+  vnc:
+    display: null
+
+networks:
+# - lima: shared
+#   # MAC address of the instance; lima will pick one based on the instance name,
+#   # so DHCP assigned ip addresses should remain constant over instance restarts.
+#   macAddress: ""
+#   # Interface name, defaults to "lima0", "lima1", etc.
+#   interface: ""
+
+# - socket: "/var/run/socket_vmnet"
+
+# The "vzNAT" IP address is accessible from the host, but not from other guests.
+# - vzNAT: true
+
+# - vnl: "vde:///var/run/vde.ctl"
+#   # VDE Switch port number (not TCP/UDP port number). Set to 65535 for PTP mode.
+#   # Builtin default: 0
+#   switchPort: 0
+#   # MAC address of the instance; lima will pick one based on the instance name,
+#   # so DHCP assigned ip addresses should remain constant over instance restarts.
+#   macAddress: ""
+#   # Interface name, defaults to "lima0", "lima1", etc.
+#   interface: ""
 
 portForwards:
-- guestSocket: "/run/user/{{.UID}}/podman/podman.sock"
-  hostSocket: "{{.Dir}}/sock/podman.sock"
+- guestSocket: "/run/user/{{.UID}}/containerd/containerd.sock"
+  hostSocket: "{{.Dir}}/sock/containerd.sock"
 
-message: |
-  To run `podman` on the host (assumes podman-remote is installed), run the following commands:
-  ------
-  podman system connection add lima-{{.Name}} "unix://{{.Dir}}/sock/podman.sock"
-  podman system connection default lima-{{.Name}}
-  podman{{if eq .HostOS "linux"}} --remote{{end}} run quay.io/podman/hello
-  ------
+# - guestPort: 443
+
+# - guestPortRange: [4000, 4999]
+
+# - guestPort: 80
+
+# - guestIP: "127.0.0.2" # overrides the default value "127.0.0.1"
+
+# - guestPort: 8888
+
+# - guestPort: 7443
+
+# - guestIP: "127.0.0.1"
+#   guestPortRange: [1, 65535]
+#   hostIP: "127.0.0.1"
+#   hostPortRange: [1, 65535]
+
+# - guest: "/etc/myconfig.cfg"
+#   host: "{{.Dir}}/copied-from-guest/myconfig"
+
+# message: |
+#   This will be shown to the user.
+
+# env:
+#   KEY: value
+
+propagateProxyEnv: null
+
+hostResolver:
+  enabled: null
+  ipv6: null
+  hosts:
+    # guest.name: 127.1.1.1
+    # host.name: host.lima.internal
+
+# dns:
+# - 1.1.1.1
+# - 1.0.0.1
+
+guestInstallPrefix: null
