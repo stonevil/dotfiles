@@ -107,6 +107,7 @@
 
 
 # DevOps
+{{ if .tags.devops -}}
 [".local/bin/helm"]
 	type = "file"
 	refreshPeriod = "168h"
