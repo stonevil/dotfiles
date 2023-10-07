@@ -34,7 +34,7 @@ vim:ft=bash.gotexttmpl
 if command -v limactl >/dev/null 2>&1; then
 	toolbox() {
 		limactl start toolbox
-		limactl shell toolbox
+		imactl shell --shell /bin/zsh toolbox
 		echo "You left Toolbox Universei\n\n"
 	}
 fi
