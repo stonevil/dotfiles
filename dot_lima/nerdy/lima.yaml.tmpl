@@ -1,3 +1,8 @@
+{{- /*
+	vim:ft=toml.yaml
+*/ -}}
+
+{{- if eq .chezmoi.arch "arm64" }}
 vmType: null
 os: Linux
 arch: null
@@ -5,6 +10,7 @@ arch: null
 rosetta:
   enabled: true
   binfmt: true
+{{- end -}}
 
 images:
 - location: "https://cloud-images.ubuntu.com/releases/23.04/release-20230926/ubuntu-23.04-server-cloudimg-amd64.img"
@@ -29,39 +35,8 @@ mounts:
 - location: "~"
   mountPoint: null
   writable: true
-  sshfs:
-    cache: null
-    followSymlinks: null
-    sftpDriver: null
-  9p:
-    securityModel: null
-    protocolVersion: null
-    msize: null
-    cache: null
 - location: "/tmp/lima"
   writable: true
-
-mountType: null
-
-additionalDisks:
-
-ssh:
-  localPort: 0
-  loadDotSSHPubKeys: null
-  forwardAgent: null
-  forwardX11: null
-  forwardX11Trusted: null
-
-caCerts:
-  removeDefaults: null
-
-  files:
-
-  certs:
-
-containerd:
-  system: false
-  user: null
 
 provision:
 - mode: system
@@ -69,60 +44,18 @@ provision:
     #!/bin/bash
     set -eux -o pipefail
     export DEBIAN_FRONTEND=noninteractive
-    systemctl start containerd
+    apt-get install -y sudo bash zsh curl wget git neovim python3-neovim
+    systemctl enable --now containerd
     nerdctl run --privileged --rm tonistiigi/binfmt --install all
-    apt-get install -y vim
-# - mode: user
-#   script: |
-#     #!/bin/bash
-#     set -eux -o pipefail
-#     cat <<EOF > ~/.vimrc
-#     set number
-#     EOF
-
-# - mode: boot
-#   script: |
-#     systemctl disable NetworkManager-wait-online.service
-# # `dependency` is executed before the regular dependency resolution workflow in
-# # pkg/cidata/cidata.TEMPLATE.d/boot/30-install-packages.sh
-# # If skipDefaultDependencyResolution is set on at least one `dependency` mode provisioning script, the regular
-# # dependency resolution workflow in pkg/cidata/cidata.TEMPLATE.d/boot/30-install-packages.sh will be skipped.
-# - mode: dependency
-#   skipDefaultDependencyResolution: false
-#   script: |
-#     #!/bin/bash
-#     dnf config-manager --add-repo ...
-#     dnf install ...
-
-# probes:
-# - mode: readiness
-#   description: vim to be installed
-#   script: |
-#      #!/bin/bash
-#      set -eux -o pipefail
-#      if ! timeout 30s bash -c "until command -v vim; do sleep 3; done"; then
-#        echo >&2 "vim is not installed yet"
-#        exit 1
-#      fi
-#   hint: |
-#     vim was not installed in the guest. Make sure the package system is working correctly.
-#     Also see "/var/log/cloud-init-output.log" in the guest.
-
-cpuType:
-  aarch64: null
-  armv7l: null
-  x86_64: null
-
-firmware:
-  legacyBIOS: null
-
-audio:
-  device: null
-
-video:
-  display: null
-  vnc:
-    display: null
+probes:
+- script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    if ! timeout 30s bash -c "until command -v zsh >/dev/null 2>&1; do sleep 3; done"; then
+      echo >&2 "zsh is not installed yet"
+      exit 1
+    fi
+  hint: See "/var/log/cloud-init-output.log" in the guest
 
 networks:
 # - lima: shared
@@ -148,46 +81,8 @@ networks:
 #   interface: ""
 
 portForwards:
-- guestSocket: "/run/user/{{.UID}}/containerd/containerd.sock"
-  hostSocket: "{{.Dir}}/sock/containerd.sock"
-
-# - guestPort: 443
-
-# - guestPortRange: [4000, 4999]
-
-# - guestPort: 80
-
-# - guestIP: "127.0.0.2" # overrides the default value "127.0.0.1"
-
-# - guestPort: 8888
-
-# - guestPort: 7443
-
-# - guestIP: "127.0.0.1"
-#   guestPortRange: [1, 65535]
-#   hostIP: "127.0.0.1"
-#   hostPortRange: [1, 65535]
-
-# - guest: "/etc/myconfig.cfg"
-#   host: "{{.Dir}}/copied-from-guest/myconfig"
-
-# message: |
-#   This will be shown to the user.
+- guestSocket: "/run/user/"{{`{{.UID}}`}}"/containerd/containerd.sock"
+  hostSocket: "{{`{{.Dir}}`}}/sock/containerd.sock"
 
 # env:
 #   KEY: value
-
-propagateProxyEnv: null
-
-hostResolver:
-  enabled: null
-  ipv6: null
-  hosts:
-    # guest.name: 127.1.1.1
-    # host.name: host.lima.internal
-
-# dns:
-# - 1.1.1.1
-# - 1.0.0.1
-
-guestInstallPrefix: null

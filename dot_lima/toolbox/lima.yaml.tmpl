@@ -1,3 +1,17 @@
+{{- /*
+	vim:ft=toml.yaml
+*/ -}}
+
+{{- if eq .chezmoi.arch "arm64" }}
+vmType: null
+os: Linux
+arch: null
+
+rosetta:
+  enabled: true
+  binfmt: true
+{{- end -}}
+
 images:
 - location: "https://download.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
   arch: "x86_64"
@@ -23,7 +37,10 @@ provision:
   script: |
     #!/bin/bash
     set -eux -o pipefail
-    dnf install -y sudo bash curl git
+    dnf install -y sudo bash zsh curl wget git containerd neovim python3-neovim
+    systemctl enable --now containerd
+    nerdctl run --privileged --rm tonistiigi/binfmt --install all
+    dnf autoremove -y
 - mode: user
   script: |
     #!/bin/bash
@@ -32,3 +49,42 @@ provision:
     sh -c "$(curl -fsLS get.chezmoi.io)"
     mkdir -p "$HOME/.local/share/"
     [ ! -d "$HOME/.local/share/chezmoi" ] && git clone https://github.com/stonevil/dotfiles.git "$HOME/.local/share/chezmoi"
+probes:
+- script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    if ! timeout 30s bash -c "until command -v zsh >/dev/null 2>&1; do sleep 3; done"; then
+      echo >&2 "zsh is not installed yet"
+      exit 1
+    fi
+  hint: See "/var/log/cloud-init-output.log" in the guest
+
+networks:
+# - lima: shared
+#   # MAC address of the instance; lima will pick one based on the instance name,
+#   # so DHCP assigned ip addresses should remain constant over instance restarts.
+#   macAddress: ""
+#   # Interface name, defaults to "lima0", "lima1", etc.
+#   interface: ""
+
+# - socket: "/var/run/socket_vmnet"
+
+# The "vzNAT" IP address is accessible from the host, but not from other guests.
+# - vzNAT: true
+
+# - vnl: "vde:///var/run/vde.ctl"
+#   # VDE Switch port number (not TCP/UDP port number). Set to 65535 for PTP mode.
+#   # Builtin default: 0
+#   switchPort: 0
+#   # MAC address of the instance; lima will pick one based on the instance name,
+#   # so DHCP assigned ip addresses should remain constant over instance restarts.
+#   macAddress: ""
+#   # Interface name, defaults to "lima0", "lima1", etc.
+#   interface: ""
+
+portForwards:
+- guestSocket: "/run/user/"{{`{{.UID}}`}}"/containerd/containerd.sock"
+  hostSocket: "{{`{{.Dir}}`}}/sock/containerd.sock"
+
+# env:
+#   KEY: value
