@@ -33,7 +33,7 @@ export BINDIR="$HOME/.local/bin"
 export PATH=$BINDIR:$PATH
 
 sh -c "$(curl -fsLS git.io/chezmoi)"
-chezmoi init --promptString email='fu@bar.org' --promptBool dev=true --promptBool devops=true --promptBool embedded=true --promptBool media=true --promptBool ads=true --promptInt tabs=2 --promptString opacity='1.0' --promptString shellPath='/bin/zsh'
+chezmoi init --promptString email='fu@bar.org',opacity='1.0',shellPath='/bin/zsh' --promptBool dev=true,devops=true,embedded=true,media=true,ads=true --promptInt tabs=2 && \
 chezmoi apply --force
 
 if command -v zsh >/dev/null 2>&1; then
