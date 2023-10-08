@@ -22,27 +22,35 @@
 	executable = true
 	url = "https://git.io/antigen"
 
+{{ $chezmoi_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/twpayne/chezmoi/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/chezmoi"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-{{- if eq .libc.platform "musl" }}
-	url = "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
-{{- else }}
-	url = "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
-{{- end }}
+{{- if eq .chezmoi.os "darwin" }}
+	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi_{{ $chezmoi_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+{{- else if eq .chezmoi.os "linux" }}
+	{{ if and (eq .chezmoi.arch "amd64") (eq .libc.platform "musl") }}
+	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi_{{ $chezmoi_v }}_{{ .chezmoi.os }}_{{ .libc.platform }}_{{ .chezmoi.arch }}.tar.gz"
+	{{ end }}
+	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi_{{ $chezmoi_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+{{ end }}
+	[".local/bin/chezmoi".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "chezmoi"]
 
-{{- if eq .chezmoi.os "darwin" -}}
+{{ $bat_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}
+{{ if eq .chezmoi.os "darwin" -}}
 	{{- if eq .chezmoi.arch "amd64" }}
 [".local/bin/bat"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 	stripComponents = 1
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}/bat-v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}-x86_64-apple-darwin.tar.gz"
+	url = "https://github.com/sharkdp/bat/releases/download/v{{ $bat_v }}/bat-v{{ $bat_v }}-x86_64-apple-darwin.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}-x86_64-apple-darwin/bat"]
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ $bat_v }}-x86_64-apple-darwin/bat"]
 	{{- end }}
 {{- else if eq .chezmoi.os "linux" }}
 [".local/bin/bat"]
@@ -50,20 +58,21 @@
 	refreshPeriod = "168h"
 	executable = true
 	stripComponents = 1
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}/bat-v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}.tar.gz"
+	url = "https://github.com/sharkdp/bat/releases/download/v{{ $bat_v }}/bat-v{{ $bat_v }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}.tar.gz"
 	[".local/bin/bat".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}/bat"]
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ $bat_v }}-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}/bat"]
 {{- end }}
 
+{{ $fzf_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/fzf"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 {{- if eq .chezmoi.os "darwin" }}
-	url = "https://github.com/junegunn/fzf/releases/download/{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}/fzf-{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
+	url = "https://github.com/junegunn/fzf/releases/download/{{ $fzf_v }}/fzf-{{ $fzf_v }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
 {{- else if eq .chezmoi.os "linux" }}
-	url = "https://github.com/junegunn/fzf/releases/download/{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}/fzf-{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+	url = "https://github.com/junegunn/fzf/releases/download/{{ $fzf_v }}/fzf-{{ $fzf_v }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
 {{- end }}
 	[".local/bin/fzf".filter]
 		command = "tar"
@@ -107,13 +116,14 @@
 
 
 # DevOps
+{{ $helm_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base | trimPrefix "v" }}
 {{ if .tags.devops -}}
 [".local/bin/helm"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 	stripComponents = 1
-	url = "https://get.helm.sh/helm-v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base | trimPrefix "v" }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+	url = "https://get.helm.sh/helm-v{{ $helm_v }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/helm".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "{{ .chezmoi.os }}-{{ .chezmoi.arch }}/helm"]
@@ -137,27 +147,29 @@
 
 # Common Dev and DevOps
 {{ if (or .tags.dev .tags.devops) -}}
+{{ $lazygit_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/lazygit"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 	{{- if eq .chezmoi.arch "amd64" }}
-	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}/lazygit_{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
+	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ $lazygit_v }}/lazygit_{{ $lazygit_v }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
 	{{- else if eq .chezmoi.arch "arm64"}}
-	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}/lazygit_{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
+	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ $lazygit_v }}/lazygit_{{ $lazygit_v }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
 	{{- end }}
 	[".local/bin/lazygit".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazygit"]
 
+{{ $lazydocker_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/lazydocker"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
 	{{- if eq .chezmoi.arch "amd64" }}
-	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}/lazydocker_{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
+	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ $lazydocker_v }}/lazydocker_{{ $lazydocker_v }}_{{ .chezmoi.os | title }}_{{ .arch.opt2 }}.tar.gz"
 	{{- else if eq .chezmoi.arch "arm64"}}
-	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}/lazydocker_{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazydocker/releases/latest" | trim | base | trimPrefix "v" }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
+	url = "https://github.com/jesseduffield/lazydocker/releases/download/v{{ $lazydocker_v }}/lazydocker_{{ $lazydocker_v }}_{{ .chezmoi.os | title }}_{{ .arch.opt1 }}.tar.gz"
 	{{- end }}
 	[".local/bin/lazydocker".filter]
 		command = "tar"

@@ -101,10 +101,6 @@
 [data.fonts.nerd]
 	fontsList = ["Iosevka", "Agave", "IBMPlexMono", "Hasklig", "Lekton", "Lilex", "Meslo", "Monoid", "RobotoMono", "VictorMono"]
 
-# Common
-[data.tools.bat]
-	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"
-
 # Check for Linux session type
 {{ if eq .chezmoi.os "linux" }}
 [data.session]
