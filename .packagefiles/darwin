@@ -47,7 +47,6 @@ lua
 luajit
 luarocks
 lua-language-server
-maciasl
 make
 makedepend
 mkcert
@@ -76,6 +75,5 @@ wimlib
 yarn
 esolitos/ipa/sshpass
 google-cloud-sdk
-neovim
 wezterm
 alacritty
