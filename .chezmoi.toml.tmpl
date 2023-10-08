@@ -2,16 +2,18 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
-{{ $email := promptString "What is your email address" "fu@bar.org" }}
-{{ $dev := promptBool "Is this DEV workstation" false }}
-{{ $devops := promptBool "Is this DevOps workstation" false }}
-{{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
-{{ $media := promptBool "Do you require basic tools for media manipulation" false }}
-{{ $ads := promptBool "Do you want to block ads" false }}
-{{ $tabs := promptInt "Configure default tabs width" 2 }}
-{{ $opacity := promptString "Windows opacity" "1.0" }}
-{{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
+	{{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
+	{{ $dev := promptBool "Is this DEV workstation" false }}
+	{{ $devops := promptBool "Is this DevOps workstation" false }}
+	{{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
+	{{ $media := promptBool "Do you require basic tools for media manipulation" false }}
+	{{ $ads := promptBool "Do you want to block ads" false }}
+	{{ $tabs := promptInt "Configure default tabs width" 2 }}
+	{{ $opacity := promptString "Windows opacity" "1.0" }}
+	{{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
 
+{{ $session := env "XDG_SESSION_TYPE" | quote }}
+{{ $wsl := (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 
 {{- writeToStdout "email address is set to: " $email "\n" -}}
 {{ if $dev }}
@@ -39,7 +41,7 @@
 {{ else }}
 	{{- writeToStdout "block ads?: false\n" -}}
 {{ end }}
-{{- writeToStdout "tabs wight set to: " ($tabs | toString) "\n" -}}
+{{- writeToStdout "tabs wight set to: " ($tabs | toString) " spaces" "\n" -}}
 {{- writeToStdout "terminal window opacity set to: " $opacity "\n" -}}
 {{- writeToStdout "shell command set to: " $shellPath "\n" }}
 
@@ -102,3 +104,10 @@
 # Common
 [data.tools.bat]
 	version = "{{ output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}"
+
+# Check for Linux session type
+{{ if eq .chezmoi.os "linux" }}
+[data.session]
+	type = {{ $session }}
+	wsl = {{ $wsl }}
+{{ end }}
