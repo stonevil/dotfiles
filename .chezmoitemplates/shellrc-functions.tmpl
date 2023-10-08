@@ -34,8 +34,16 @@ vim:ft=bash.gotexttmpl
 if command -v limactl >/dev/null 2>&1; then
 	toolbox() {
 		limactl start toolbox
-		imactl shell --shell /bin/zsh toolbox
+		limactl shell --shell /bin/zsh toolbox
 		echo "You left Toolbox Universei\n\n"
+	}
+fi
+
+if command -v limactl >/dev/null 2>&1; then
+	nerdy() {
+		limactl start nerdy
+		limactl shell --shell /bin/zsh nerdy
+		echo "You left Nerdy Universei\n\n"
 	}
 fi
 
