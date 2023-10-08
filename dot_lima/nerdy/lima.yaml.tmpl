@@ -2,7 +2,7 @@
 	vim:ft=toml.yaml
 */ -}}
 
-{{- if eq .chezmoi.arch "arm64" }}
+{{- if eq .chezmoi.arch "arm64" -}}
 vmType: null
 os: Linux
 arch: null
@@ -10,7 +10,7 @@ arch: null
 rosetta:
   enabled: true
   binfmt: true
-{{- end -}}
+{{- end }}
 
 images:
 - location: "https://cloud-images.ubuntu.com/releases/23.04/release-20230926/ubuntu-23.04-server-cloudimg-amd64.img"

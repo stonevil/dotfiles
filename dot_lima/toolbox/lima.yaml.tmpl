@@ -2,7 +2,7 @@
 	vim:ft=toml.yaml
 */ -}}
 
-{{- if eq .chezmoi.arch "arm64" }}
+{{- if eq .chezmoi.arch "arm64" -}}
 vmType: null
 os: Linux
 arch: null
@@ -10,7 +10,7 @@ arch: null
 rosetta:
   enabled: true
   binfmt: true
-{{- end -}}
+{{- end }}
 
 images:
 - location: "https://download.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
