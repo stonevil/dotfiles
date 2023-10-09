@@ -1,9 +1,0 @@
-bin
-.bin
-Bin
-.Bin
-.krew
-.shellrc
-.config/astronvim
-.homebrew
-.brew/bin/*.lima

@@ -1,3 +1,7 @@
+{{- /*
+	vim:ft=toml.gotexttmpl
+*/ -}}
+
 TODO
 README.md
 Dockerfile*
@@ -50,3 +54,6 @@ private_Library
 .config/lazygit
 .config/lazydocker
 {{- end }}
+{{ if and (eq .chezmoi.os "linux") (or (ne .session.type "wayland") (ne .session.type "x11") (ne .session.type "xorg")) }}
+.config/nvim/lua/plugins/wezterm.lua
+{{ end }}

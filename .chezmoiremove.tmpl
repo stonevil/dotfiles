@@ -1,0 +1,16 @@
+{{- /*
+	vim:ft=toml.gotexttmpl
+*/ -}}
+
+bin
+.bin
+Bin
+.Bin
+.krew
+.shellrc
+.config/astronvim
+.homebrew
+.brew/bin/*.lima
+{{ if and (eq .chezmoi.os "linux") (or (ne .session.type "wayland") (ne .session.type "x11") (ne .session.type "xorg")) }}
+.config/nvim/lua/plugins/wezterm.lua
+{{ end }}
