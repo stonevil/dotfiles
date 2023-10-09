@@ -1,0 +1,51 @@
+[packages.core]
+	darwin = []
+	cargo = [
+		cargo-update
+	pip = []
+]
+
+[packages.media]
+	darwin = [
+		"imageoptim",
+		"mpv",
+	]
+	pip = []
+
+[packages.dev]
+	alpine = []
+	darwin = []
+	fedora = []
+	pip = []
+
+[packages.dev.gui]
+	darwin = [
+		"wezterm",
+		"alacritty"
+	]
+
+[packages.dev]
+	cargo = [
+		bat
+		watchexec-cli
+		spacer
+		stylua
+]
+
+[packages.nvim]
+
+[plugins]
+	krew = [
+		"ctx",
+		"exec-as",
+		"fuzzy",
+		"krew",
+		"mtail",
+		"node-admin",
+		"node-restart",
+		"node-shell",
+		"restart",
+		"view-allocations",
+		"view-secret",
+		"view-utilization"
+	]
