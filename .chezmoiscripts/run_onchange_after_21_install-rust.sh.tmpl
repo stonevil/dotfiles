@@ -8,6 +8,6 @@ cd "$HOME" || exit 1
 	{{ template "path.tmpl" . }}
 	if command -v cargo >/dev/null 2>&1; then
 		echo "Rust. Install or update cargo packages"
-		cargo install $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/cargo.packages" | quote }}) || exit 1
+		cargo install --force $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/cargo.packages" | quote }}) || exit 1
 	fi
 {{ end }}
