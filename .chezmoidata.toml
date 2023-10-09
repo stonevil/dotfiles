@@ -1,22 +1,18 @@
 [packages.core]
 	darwin = []
 	cargo = [
-		cargo-update
-	pip = []
-]
+		"cargo-update"
+	]
+	pip3 = []
 
 [packages.media]
 	darwin = [
 		"imageoptim",
 		"mpv",
 	]
-	pip = []
-
-[packages.dev]
-	alpine = []
-	darwin = []
-	fedora = []
-	pip = []
+	pip3 = [
+		"yt-dlp"
+	]
 
 [packages.dev.gui]
 	darwin = [
@@ -25,16 +21,60 @@
 	]
 
 [packages.dev]
+	alpine = []
+	darwin = []
+	fedora = []
+	pip3 = []
 	cargo = [
-		bat
-		watchexec-cli
-		spacer
-		stylua
-]
+		"bat",
+		"watchexec-cli",
+		"spacer"
+	]
+	go = [
+		"github.com/arl/gitmux@latest",
+		"github.com/tomwright/dasel/v2/cmd/dasel@master",
+	]
 
 [packages.nvim]
+	cargo = [
+		"stylua",
+	]
+	go = [
+		"github.com/sachaos/viddy@latest",
+		"github.com/danielgatis/imgcat@latest",
+		"github.com/go-delve/delve/cmd/dlv@latest",
+		"github.com/charmbracelet/glow@latest",
+		"github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2",
+		"github.com/mgechev/revive@latest"
+	]
+	pip3 = [
+		"neovim",
+		"flake8",
+		"yamllint",
+		"gitlint",
+		"ruff"
+	]
+	gem = [
+		"neovim",
+		"rubocop"
+	]
+	npm = [
+		"neovim",
+		"cspell",
+		"@commitlint/cli",
+		"@commitlint/config-conventional"
+	]
 
-[plugins]
+[containers]
+	go = [
+		"github.com/wagoodman/dive@latest",
+	]
+
+[k8s]
+	go = [
+		"github.com/danielgatis/imgcat@latest",
+		"github.com/stern/stern@latest"
+	]
 	krew = [
 		"ctx",
 		"exec-as",
@@ -48,4 +88,16 @@
 		"view-allocations",
 		"view-secret",
 		"view-utilization"
+	]
+
+[tmux]
+	go = [
+		"github.com/arl/gitmux@latest",
+	]
+
+[vagrant]
+	plugins = [
+		"vagrant-libvirt",
+		"vagrant-vbguest",
+		"vagrant-reload"
 	]

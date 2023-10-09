@@ -11,7 +11,9 @@ antigen bundle colored-man-pages
 antigen bundle kubectl
 antigen bundle rsync
 antigen bundle sudo
+{{- if eq .chezmoi.arch "amd64" }}
 antigen bundle vagrant
+{{- end }}
 #antigen bundle Aloxaf/fzf-tab
 
 antigen bundle zsh-users/zsh-syntax-highlighting

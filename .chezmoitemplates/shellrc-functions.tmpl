@@ -2,33 +2,33 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if eq .chezmoi.os "darwin" }}
-	darkmode() {
-		# shellcheck disable=SC2046,SC2145
-		defaults write $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance -bool FALSE
-		notify "Embrace the Dark Side, Luke" ""Use your $@"
-	}
+{{- if eq .chezmoi.os "darwin" }}
+darkmode() {
+	# shellcheck disable=SC2046,SC2145
+	defaults write $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance -bool FALSE
+	notify "Embrace the Dark Side, Luke" ""Use your $@"
+}
 
-	darkmodeoff() {
-		# shellcheck disable=SC2046,SC2145
-		defaults delete $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance
-		notify "I felt a great disturbance in the Force" ""Use your $@"
-	}
+darkmodeoff() {
+	# shellcheck disable=SC2046,SC2145
+	defaults delete $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance
+	notify "I felt a great disturbance in the Force" ""Use your $@"
+}
 
-	tn() {
-		start_time=$(date +%s)
-		"$@"
-		end_time=$(date +%s)
-		notify "Job is done, Sir!" "$@"
-	}
+tn() {
+	start_time=$(date +%s)
+	"$@"
+	end_time=$(date +%s)
+	notify "Job is done, Sir!" "$@"
+}
 
-	tm-cleanup() {
-		tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
-		while IFS= read -r l; do
-			sudo tmutil deletelocalsnapshots "$l"
-		done <<<"$tm_list"
-		notify "tmutil" "Snapshots deleted"
-	}
+tm-cleanup() {
+	tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
+	while IFS= read -r l; do
+		sudo tmutil deletelocalsnapshots "$l"
+	done <<<"$tm_list"
+	notify "tmutil" "Snapshots deleted"
+}
 {{ end }}
 
 if command -v limactl >/dev/null 2>&1; then
@@ -114,6 +114,8 @@ notify() {
 
 stmux() { ssh "$@" -t bash -l -c 'tmux attach-session -dv'; }
 
+# Vagrant and VirtualBox and other Virtualisation dead in the water on the ARM platform for now
+{{- if eq .chezmoi.arch "amd64" }}
 export VAGRANT_PROVIDER_GUI="false"
 vagrant_ip() {
 	vagrant ssh -c "ip address show eth0 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//'"
@@ -126,3 +128,4 @@ vagrant_update_all_plugins() {
 		vagrant plugin update "$plugin"
 	done
 }
+{{- end }}
