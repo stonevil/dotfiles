@@ -4,16 +4,18 @@
 
 
 # Common
-{{- range .fonts.nerd.fontsList }}
-	{{ if eq $.chezmoi.os "darwin" -}}
+{{ if or (eq .chezmoi.os "darwin") (and (eq .chezmoi.os "linux") (or (ne .session.type "wayland") (ne .session.type "x11") (ne .session.type "xorg"))) }}
+	{{- range .fonts.nerd.fontsList }}
+		{{ if eq $.chezmoi.os "darwin" -}}
 ["Library/Fonts/{{ . }}"]
-	{{- else if eq $.chezmoi.os "linux" }}
+		{{- else if eq $.chezmoi.os "linux" }}
 [".local/share/fonts/{{ . }}"]
-	{{ end }}
+		{{ end }}
 	type = "archive"
 	refreshPeriod = "24h"
 	url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.zip"
 	include = ["*.ttf", "*.otf"]
+	{{ end }}
 {{ end }}
 
 [".local/antigen.zsh"]
