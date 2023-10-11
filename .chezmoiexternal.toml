@@ -4,7 +4,7 @@
 
 
 # Common
-{{ if or (eq .chezmoi.os "darwin") (and (eq .chezmoi.os "linux") (or (ne .session.type "wayland") (ne .session.type "x11") (ne .session.type "xorg"))) }}
+{{ if or (eq .chezmoi.os "darwin") (and (eq .chezmoi.os "linux") (or (eq .session.type "wayland") (eq .session.type "x11") (eq .session.type "xorg"))) }}
 	{{- range .fonts.nerd.fontsList }}
 		{{ if eq $.chezmoi.os "darwin" -}}
 ["Library/Fonts/{{ . }}"]
