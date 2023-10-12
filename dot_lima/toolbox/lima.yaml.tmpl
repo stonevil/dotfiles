@@ -3,7 +3,7 @@
 */ -}}
 
 {{- if eq .chezmoi.arch "arm64" -}}
-vmType: null
+vmType: vz
 os: Linux
 arch: null
 
@@ -29,6 +29,7 @@ disk: null
 
 mounts:
 - location: "~"
+  writable: true
 - location: "/tmp/lima"
   writable: true
 
