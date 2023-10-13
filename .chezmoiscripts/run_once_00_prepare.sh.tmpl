@@ -21,6 +21,6 @@ echo "Prepare system. Install essential packages like brew, etc"
 		(sudo pacman --noconfirm --needed -Syu bash base-devel curl git tar wget) || exit 1
 	{{ else if (or (eq .chezmoi.osRelease.id "centos") (eq .chezmoi.osRelease.id "fedora")) }}
 		{{ template "fedora.tmpl" . }}
-		sudo dnf update -y bash curl git tar wget || exit 1
+		sudo dnf install -y bash curl git tar wget || exit 1
 	{{ end }}
 {{ end }}
