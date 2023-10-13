@@ -9,5 +9,5 @@ cd "$HOME" || exit 1
 
 if command -v krew >/dev/null 2>&1; then
 	echo "Krew. Install kubectl krew packages"
-	krew install {{ range .k8s.krew | sortAlpha | uniq -}}{{  .  }} {{ end }}
+	krew install {{ join " " (.k8s.krew | sortAlpha | uniq) }}
 fi

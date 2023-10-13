@@ -17,8 +17,8 @@
 [packages.dev.apps]
 	darwin = [
 		"wezterm",
-		"alacritty"
-		"coteditor",
+		"alacritty",
+		"coteditor"
 	]
 
 [packages.media.apps]
@@ -38,7 +38,7 @@
 	]
 	go = [
 		"github.com/arl/gitmux@latest",
-		"github.com/tomwright/dasel/v2/cmd/dasel@master",
+		"github.com/tomwright/dasel/v2/cmd/dasel@master"
 	]
 
 [nvim]
