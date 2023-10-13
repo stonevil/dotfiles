@@ -14,10 +14,16 @@
 		"yt-dlp"
 	]
 
-[packages.dev.gui]
+[packages.dev.apps]
 	darwin = [
 		"wezterm",
 		"alacritty"
+		"coteditor",
+	]
+
+[packages.media.apps]
+	darwin = [
+		"gimp"
 	]
 
 [packages.dev]
@@ -35,7 +41,7 @@
 		"github.com/tomwright/dasel/v2/cmd/dasel@master",
 	]
 
-[packages.nvim]
+[nvim]
 	cargo = [
 		"stylua",
 	]
@@ -96,6 +102,11 @@
 	]
 
 [vagrant]
+	darwin = [
+		"virtualbox",
+		"vagrant"
+	]
+	fedora = []
 	plugins = [
 		"vagrant-libvirt",
 		"vagrant-vbguest",
