@@ -7,5 +7,4 @@ github.com/tomwright/dasel/v2/cmd/dasel@master
 github.com/go-delve/delve/cmd/dlv@latest
 github.com/charmbracelet/glow@latest
 github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2
-github.com/stern/stern@latest
 github.com/mgechev/revive@latest
