@@ -183,6 +183,17 @@
 	]
 	pip3 = []
 
+[packages.core.apps]
+	darwin = [
+		"firefox"
+	]
+
+[packages.social.apps]
+	darwin = [
+		"caprine",
+		"discord"
+	]
+
 [packages.media]
 	darwin = [
 		"ffmpeg"
@@ -197,26 +208,44 @@
 		"inkscape",
 		"imageoptim",
 		"iina",
-		"handbrake"
+		"handbrake",
+		"kid3"
+	]
+
+[packages.books.apps]
+	darwin = [
+		"calibre"
+	]
+
+[packages.utils.apps]
+	darwin = [
+		"coconutbattery",
+		"google-chrome",
+		"keycastr",
+		"onyx",
+		"pacifist",
+		"qutebrowser",
+		"waterfox"
+	]
+
+[packages.tor.apps]
+	darwin = [
+		"onionshare",
+		"qbittorrent",
+		"tor-browser"
 	]
 
 [packages.dev]
 	alpine = [
-		"neovim",
-		"tmux"
 	]
 	darwin = [
 		"google-cloud-sdk",
 		"lima",
-		"neovim",
-		"tmux"
 	]
 	darwin_head = [
 		"universal-ctags/universal-ctags/universal-ctags"
 	]
 	fedora = [
-		"neovim",
-		"tmux"
 	]
 	cargo = [
 		"bat",
@@ -231,12 +260,24 @@
 
 [packages.dev.apps]
 	darwin = [
-		"wezterm",
 		"alacritty",
-		"coteditor"
+		"dbeaver-community",
+		"coteditor",
+		"kitty",
+		"meld",
+		"wezterm"
 	]
 
 [nvim]
+	alpine = [
+		"neovim",
+	]
+	darwin = [
+		"neovim"
+	]
+	fedora = [
+		"neovim"
+	]
 	cargo = [
 		"stylua"
 	]
@@ -292,8 +333,17 @@
 	]
 
 [tmux]
+	alpine = [
+		"tmux"
+	]
+	darwin = [
+		"tmux"
+	]
+	fedora = [
+		"tmux"
+	]
 	go = [
-		"github.com/arl/gitmux@latest"
+		"github.com/arl/gitmux@latest",
 	]
 
 [vagrant]
