@@ -2,7 +2,8 @@ add_newline = false
 format = """$directory$character"""
 right_format = """$all"""
 
-# [directory]
+[directory]
+style = 'bold blue'
 # truncation_length = 2
 # truncation_symbol = '…/'
 # disabled = true
@@ -13,13 +14,21 @@ right_format = """$all"""
 'Development' = ' '
 'Documents' = '󰈙 '
 'Downloads' = ' '
+'Library' = ' '
 'Movies' = '󰟞 '
 'Music' = ' '
 'Pictures' = ' '
+'Public' = '󱔔 '
+'Sites' = '󰖟 '
+'Sync' = '󰓦 '
+'Virtual Machines.localized' = ' '
+'Virtual Machines' = ' '
+'VirtualBox' = ' '
+'.config' = ' '
 
 [aws]
 format = 'on [$symbol($profile )(\($region\) )]($style)'
-style = 'bold blue'
+style = 'blue'
 symbol = "  "
 
 [golang]
