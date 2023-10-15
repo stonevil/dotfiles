@@ -1,29 +1,27 @@
 [packages.core]
 	darwin = []
 	cargo = [
-		"cargo-update"
+		"cargo-update",
+		"cargo-cache",
+		"starship"
 	]
 	pip3 = []
 
 [packages.media]
 	darwin = [
-		"imageoptim",
-		"mpv",
+		"ffmpeg"
 	]
 	pip3 = [
 		"yt-dlp"
 	]
 
-[packages.dev.apps]
-	darwin = [
-		"wezterm",
-		"alacritty",
-		"coteditor"
-	]
-
 [packages.media.apps]
 	darwin = [
-		"gimp"
+		"gimp",
+		"inkscape",
+		"imageoptim",
+		"iina",
+		"handbrake"
 	]
 
 [packages.dev]
@@ -39,6 +37,13 @@
 	go = [
 		"github.com/arl/gitmux@latest",
 		"github.com/tomwright/dasel/v2/cmd/dasel@master"
+	]
+
+[packages.dev.apps]
+	darwin = [
+		"wezterm",
+		"alacritty",
+		"coteditor"
 	]
 
 [nvim]
@@ -73,7 +78,7 @@
 
 [containers]
 	go = [
-		"github.com/wagoodman/dive@latest",
+		"github.com/wagoodman/dive@latest"
 	]
 
 [k8s]
@@ -98,7 +103,7 @@
 
 [tmux]
 	go = [
-		"github.com/arl/gitmux@latest",
+		"github.com/arl/gitmux@latest"
 	]
 
 [vagrant]
