@@ -1,9 +1,185 @@
 [packages.core]
-	darwin = []
+	apine = [
+		"automake",
+		"bash",
+		"cargo",
+		"ctags",
+		"curl",
+		"dos2unix",
+		"g++",
+		"gcc",
+		"git",
+		"go",
+		"gzip",
+		"htop",
+		"imagemagick",
+		"jq",
+		"libffi",
+		"libffi-dev",
+		"libgcc",
+		"linux-headers",
+		"lua5.3",
+		"lua5.3-dev",
+		"luajit",
+		"luarocks5.3",
+		"make",
+		"mkcert",
+		"musl",
+		"musl-dev",
+		"ncurses",
+		"npm",
+		"nodejs",
+		"nodejs-dev",
+		"openssh",
+		"openssl",
+		"openssl-dev",
+		"parallel",
+		"perl",
+		"pwgen",
+		"py3-apipkg",
+		"py3-pip",
+		"python3",
+		"python3-dev",
+		"ripgrep",
+		"ruby",
+		"ruby-dev",
+		"rust",
+		"shadow",
+		"source-highlight",
+		"the_silver_searcher",
+		"tree",
+		"tzdata",
+		"unzip",
+		"wget",
+		"yarn",
+		"zsh"
+	]
+	darwin = [
+		"autoconf",
+		"autoconf-archive",
+		"automake",
+		"bash",
+		"bit-git",
+		"ccache",
+		"ccat",
+		"cmake",
+		"coreutils",
+		"dfu-util",
+		"diffutils",
+		"dmg2img",
+		"dos2unix",
+		"eslint",
+		"esolitos/ipa/sshpass",
+		"fd",
+		"findutils",
+		"fish",
+		"flac",
+		"fontconfig",
+		"freetype",
+		"gawk",
+		"gcc",
+		"gdbm",
+		"gettext",
+		"git",
+		"git-lfs",
+		"gnu-sed",
+		"gnutls",
+		"go",
+		"gzip",
+		"hub",
+		"imagemagick",
+		"jid",
+		"jpeg",
+		"jq",
+		"libffi",
+		"libpng",
+		"lua",
+		"lua-language-server",
+		"luajit",
+		"luarocks",
+		"make",
+		"makedepend",
+		"mkcert",
+		"mkdocs",
+		"ninja",
+		"nmap",
+		"node",
+		"parallel",
+		"pwgen",
+		"python3",
+		"readline",
+		"ripgrep",
+		"ruby",
+		"rust",
+		"samba",
+		"screen",
+		"smartmontools",
+		"source-highlight",
+		"sqlite",
+		"ssh-copy-id",
+		"star",
+		"telnet",
+		"the_silver_searcher",
+		"tree",
+		"unzip",
+		"watch",
+		"wget",
+		"wimlib",
+		"xz",
+		"yarn"
+	]
+	fedora = [
+		"automake",
+		"bash",
+		"cargo",
+		"ctags",
+		"curl",
+		"dos2unix",
+		"g++",
+		"gcc",
+		"git",
+		"golang",
+		"gzip",
+		"htop",
+		"ImageMagick",
+		"jq",
+		"libffi",
+		"libffi-devel",
+		"ua",
+		"lua-libs",
+		"luajit",
+		"luarocks",
+		"make",
+		"nodejs",
+		"nodejs-devel",
+		"nodejs-libs",
+		"perl",
+		"pwgen",
+		"python3",
+		"python3-devel",
+		"python3-pip",
+		"python3-wheel",
+		"ripgrep",
+		"ruby",
+		"ruby-devel",
+		"ruby-libs",
+		"rubygems",
+		"rubygems-devel",
+		"rust",
+		"source-highlight",
+		"the_silver_searcher",
+		"unzip",
+		"wget",
+		"yarnpkg",
+		"zsh"
+	]
 	cargo = [
 		"cargo-update",
 		"cargo-cache",
-		"starship"
+		"starship",
+		"bat",
+		"spacer",
+		"watchexec-cli"
 	]
 	pip3 = []
 
@@ -25,10 +201,23 @@
 	]
 
 [packages.dev]
-	alpine = []
-	darwin = []
-	fedora = []
-	pip3 = []
+	alpine = [
+		"neovim",
+		"tmux"
+	]
+	darwin = [
+		"google-cloud-sdk",
+		"lima",
+		"neovim",
+		"tmux"
+	]
+	darwin_head = [
+		"universal-ctags/universal-ctags/universal-ctags"
+	]
+	fedora = [
+		"neovim",
+		"tmux"
+	]
 	cargo = [
 		"bat",
 		"watchexec-cli",
@@ -38,6 +227,7 @@
 		"github.com/arl/gitmux@latest",
 		"github.com/tomwright/dasel/v2/cmd/dasel@master"
 	]
+	pip3 = []
 
 [packages.dev.apps]
 	darwin = [
@@ -48,7 +238,7 @@
 
 [nvim]
 	cargo = [
-		"stylua",
+		"stylua"
 	]
 	go = [
 		"github.com/sachaos/viddy@latest",
