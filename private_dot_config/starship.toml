@@ -1,0 +1,30 @@
+add_newline = false
+format = """$directory$character"""
+right_format = """$all"""
+
+# [directory]
+# truncation_length = 2
+# truncation_symbol = '…/'
+# disabled = true
+
+[directory.substitutions]
+'~/Development/' = 'dev'
+'~/Documents/' = 'docs'
+'~/Downloads//' = 'down'
+'~/Desktop/' = 'desk'
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = 'bold blue'
+symbol = "  "
+
+[golang]
+format = '[ $version](bold cyan) '
+
+[kubernetes]
+symbol = '☸'
+disabled = false
+detect_files = ['k8s', 'Dockerfile']
+detect_extensions = ['yaml']
+format = '[$symbol$context( \($namespace\))]($style) '
+[kubernetes.context_aliases]

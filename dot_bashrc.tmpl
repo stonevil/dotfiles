@@ -18,3 +18,5 @@ vim:ft=bash.gotexttmpl
 {{ if eq .chezmoi.os "linux" }}
 {{ template "gui-env.tmpl" . }}
 {{ end }}
+
+{{ template "shellrc-prompt.tmpl" . }}
