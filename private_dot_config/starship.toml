@@ -8,10 +8,14 @@ right_format = """$all"""
 # disabled = true
 
 [directory.substitutions]
-'~/Development/' = 'dev'
-'~/Documents/' = 'docs'
-'~/Downloads//' = 'down'
-'~/Desktop/' = 'desk'
+'Applications' = ' '
+'Desktop' = ' '
+'Development' = ' '
+'Documents' = '󰈙 '
+'Downloads' = ' '
+'Movies' = '󰟞 '
+'Music' = ' '
+'Pictures' = ' '
 
 [aws]
 format = 'on [$symbol($profile )(\($region\) )]($style)'
@@ -28,3 +32,6 @@ detect_files = ['k8s', 'Dockerfile']
 detect_extensions = ['yaml']
 format = '[$symbol$context( \($namespace\))]($style) '
 [kubernetes.context_aliases]
+
+[swift]
+disabled = true
