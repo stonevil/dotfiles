@@ -50,6 +50,10 @@ probes:
 portForwards:
 - guestSocket: "/run/user/{{.UID}}/podman/podman.sock"
   hostSocket: "{{.Dir}}/sock/podman.sock"
+
+env:
+  CODESPACES: true
+
 message: |
   To run `podman` on the host (assumes podman-remote is installed), run the following commands:
   ------

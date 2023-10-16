@@ -83,5 +83,5 @@ portForwards:
 - guestSocket: "/run/user/{{`{{.UID}}`}}/containerd/containerd.sock"
   hostSocket: "{{`{{.Dir}}`}}/sock/containerd.sock"
 
-# env:
-#   KEY: value
+env:
+  CODESPACES: true
