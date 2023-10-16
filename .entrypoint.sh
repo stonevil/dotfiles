@@ -29,10 +29,10 @@ fedora)
 	;;
 esac
 
+export CODESPACES=true
+
 export BINDIR="$HOME/.local/bin"
 export PATH=$BINDIR:$PATH
-
-export CODESPACES=true
 
 sh -c "$(curl -fsLS git.io/chezmoi)"
 chezmoi init --promptString email='fu@bar.org',opacity='1.0',shellPath='/bin/zsh' --promptBool dev=true,devops=true,embedded=true,media=true,ads=true --promptInt tabs=2 && \
