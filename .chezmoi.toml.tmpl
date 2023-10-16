@@ -2,18 +2,48 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
-	{{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
-	{{ $dev := promptBool "Is this DEV workstation" false }}
-	{{ $devops := promptBool "Is this DevOps workstation" false }}
-	{{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
-	{{ $media := promptBool "Do you require basic tools for media manipulation" false }}
-	{{ $ads := promptBool "Do you want to block ads" false }}
-	{{ $tabs := promptInt "Configure default tabs width" 2 }}
-	{{ $opacity := promptString "Windows opacity" "1.0" }}
-	{{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
 
+# Detect if this VM/Containers/Codespaces
+{{ $codespaces:= env "CODESPACES" | not | not }}
+
+# Detect GUI Session Type
 {{ $session := env "XDG_SESSION_TYPE" | quote }}
 {{ $wsl := (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+
+[data]
+	codespaces = {{ $codespaces }}
+
+# Set for Linux Session Type
+{{ if eq .chezmoi.os "linux" }}
+[data.session]
+	type = {{ $session }}
+	wsl = {{ $wsl }}
+{{ end }}
+
+# Detect Desktop OR Laptop
+{{ $chassisType := "desktop" }}
+{{ if eq .chezmoi.os "darwin" }}
+	{{ if contains "MacBook" (output "sysctl" "-n" "hw.model") }}
+		{{ $chassisType = "laptop" }}
+	{{ else }}
+		{{ $chassisType = "desktop" }}
+	{{ end }}
+{{ else if eq .chezmoi.os "linux" }}
+	{{ $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis }}
+{{ else if eq .chezmoi.os "windows" }}
+	{{ $chassisType = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "if ((Get-CimInstance -Class Win32_Battery | Measure-Object).Count -gt 0) { Write-Output 'laptop' } else { Write-Output 'desktop' }") | trim }}
+{{ end }}
+
+# Boring with some questions
+{{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
+{{ $dev := promptBool "Is this DEV workstation" false }}
+{{ $devops := promptBool "Is this DevOps workstation" false }}
+{{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
+{{ $media := promptBool "Do you require basic tools for media manipulation" false }}
+{{ $ads := promptBool "Do you want to block ads" false }}
+{{ $tabs := promptInt "Configure default tabs width" 2 }}
+{{ $opacity := promptString "Windows opacity" "1.0" }}
+{{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
 
 {{- writeToStdout "email address is set to: " $email "\n" -}}
 {{ if $dev }}
@@ -68,8 +98,8 @@
 [data.gui]
 	font = "Iosevka Nerd Font"
   fontSize = 15
-	cols = 140
-	rows = 50
+	cols = 120
+	rows = 28
 	opacity = {{ $opacity }}
 {{ if lt ($opacity | float64) 1.0 }}
 	blur = 20
@@ -100,10 +130,3 @@
 
 [data.fonts.nerd]
 	fontsList = ["Iosevka", "Agave", "IBMPlexMono", "Hasklig", "Lekton", "Lilex", "Meslo", "Monoid", "RobotoMono", "VictorMono"]
-
-# Check for Linux session type
-{{ if eq .chezmoi.os "linux" }}
-[data.session]
-	type = {{ $session }}
-	wsl = {{ $wsl }}
-{{ end }}
