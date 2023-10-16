@@ -10,9 +10,6 @@
 {{ $session := env "XDG_SESSION_TYPE" | quote }}
 {{ $wsl := (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 
-[data]
-	codespaces = {{ $codespaces }}
-
 # Set for Linux Session Type
 {{ if eq .chezmoi.os "linux" }}
 [data.session]
@@ -28,7 +25,7 @@
 	{{ else }}
 		{{ $chassisType = "desktop" }}
 	{{ end }}
-{{ else if eq .chezmoi.os "linux" }}
+{{ else if and (eq .chezmoi.os "linux") (not (findExecutable "hostnamectl" (list "/usr/bin/" "/usr/sbin") | not)) }}
 	{{ $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis }}
 {{ else if eq .chezmoi.os "windows" }}
 	{{ $chassisType = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "if ((Get-CimInstance -Class Win32_Battery | Measure-Object).Count -gt 0) { Write-Output 'laptop' } else { Write-Output 'desktop' }") | trim }}
@@ -78,6 +75,7 @@
 
 [data]
 	email = {{ $email | quote }}
+	codespaces = {{ $codespaces }}
 
 {{ if eq .chezmoi.os "darwin" }}
 [data.path]
