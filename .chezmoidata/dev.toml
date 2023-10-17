@@ -1,17 +1,73 @@
 [packages.dev]
 	dependencies = [
+		"go",
+		"lua",
+		"python",
+		"rust",
 		"nvim",
 	]
 	alpine = [
+		"automake",
+		"ctags",
+		"g++",
+		"gcc",
+		"imagemagick",
+		"jq",
+		"libgcc",
+		"linux-headers",
+		"make",
+		"mkcert",
+		"musl",
+		"musl-dev",
+		"ncurses",
+		"openssh",
+		"openssl",
+		"openssl-dev",
+		"parallel",
 	]
 	darwin = [
+		"autoconf",
+		"autoconf-archive",
+		"automake",
+		"bit-git",
+		"ccache",
+		"ccat",
+		"cmake",
+		"flac",
+		"fontconfig",
+		"freetype",
 		"google-cloud-sdk",
+		"gcc",
+		"gdbm",
+		"gettext",
+		"hub",
 		"lima",
+		"imagemagick",
+		"jid",
+		"jq",
+		"libpng",
+		"make",
+		"makedepend",
+		"mkcert",
+		"mkdocs",
+		"ninja",
+		"parallel",
+		"sqlite",
+		"telnet",
+		"readline",
 	]
 	darwin_head = [
 		"universal-ctags/universal-ctags/universal-ctags"
 	]
 	fedora = [
+		"automake",
+		"ctags",
+		"g++",
+		"gcc",
+		"ImageMagick",
+		"jq",
+		"make",
+		"yarnpkg",
 	]
 	cargo = [
 		"bat",

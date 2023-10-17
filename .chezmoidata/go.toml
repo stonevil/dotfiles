@@ -1,0 +1,10 @@
+[go]
+	alpine = [
+		"go"
+	]
+	darwin = [
+		"go"
+	]
+	fedora = [
+		"golang",
+	]

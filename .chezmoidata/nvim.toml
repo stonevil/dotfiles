@@ -11,6 +11,8 @@
 	]
 	darwin = [
 		"neovim"
+		"eslint",
+		"lua-language-server",
 	]
 	fedora = [
 		"neovim"
@@ -23,7 +25,7 @@
 		"github.com/danielgatis/imgcat@latest",
 		"github.com/go-delve/delve/cmd/dlv@latest",
 		"github.com/charmbracelet/glow@latest",
-		"github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2",
+		"github.com/golangci/golangci-lint/cmd/golangci-lint@latest",
 		"github.com/mgechev/revive@latest"
 	]
 	pip3 = [

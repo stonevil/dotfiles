@@ -2,10 +2,12 @@
 	apine = [
 		"npm",
 		"nodejs",
-		"nodejs-dev"
+		"nodejs-dev",
+		"yarn",
 	]
 	darwin = [
-		"node"
+		"node",
+		"yarn"
 	]
 	fedora = [
 		"nodejs",
