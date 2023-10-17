@@ -23,7 +23,6 @@
 	darwin = [
 		"bash",
 		"coreutils",
-		"dfu-util",
 		"diffutils",
 		"dmg2img",
 		"dos2unix",
