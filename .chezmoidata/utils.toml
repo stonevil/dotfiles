@@ -1,0 +1,15 @@
+[packages.utils]
+	darwin = [
+		"smartmontools"
+	]
+
+[packages.utils.apps]
+	darwin = [
+		"coconutbattery",
+		"google-chrome",
+		"keycastr",
+		"onyx",
+		"pacifist",
+		"qutebrowser",
+		"waterfox"
+	]

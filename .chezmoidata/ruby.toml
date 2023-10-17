@@ -1,0 +1,15 @@
+[ruby]
+	alpine = [
+		"ruby",
+		"ruby-dev"
+	]
+	darwin = [
+		"ruby"
+	]
+	fedora = [
+		"ruby",
+		"ruby-devel",
+		"ruby-libs",
+		"rubygems",
+		"rubygems-devel",
+	]

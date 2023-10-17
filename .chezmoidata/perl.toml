@@ -1,0 +1,10 @@
+[perl]
+	alpine = [
+		"perl",
+	]
+	darwin = [
+		"perl"
+	]
+	fedora = [
+		"perl",
+	]

@@ -1,0 +1,7 @@
+[containers]
+	dependencies = [
+		"go"
+	]
+	go = [
+		"github.com/wagoodman/dive@latest"
+	]

@@ -1,0 +1,13 @@
+[tmux]
+	alpine = [
+		"tmux"
+	]
+	darwin = [
+		"tmux"
+	]
+	fedora = [
+		"tmux"
+	]
+	go = [
+		"github.com/arl/gitmux@latest",
+	]

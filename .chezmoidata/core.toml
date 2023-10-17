@@ -1,8 +1,10 @@
 [packages.core]
+	dependencies = [
+		"rust",
+	]
 	apine = [
 		"automake",
 		"bash",
-		"cargo",
 		"ctags",
 		"curl",
 		"dos2unix",
@@ -14,36 +16,19 @@
 		"htop",
 		"imagemagick",
 		"jq",
-		"libffi",
-		"libffi-dev",
 		"libgcc",
 		"linux-headers",
-		"lua5.3",
-		"lua5.3-dev",
-		"luajit",
-		"luarocks5.3",
 		"make",
 		"mkcert",
 		"musl",
 		"musl-dev",
 		"ncurses",
-		"npm",
-		"nodejs",
-		"nodejs-dev",
 		"openssh",
 		"openssl",
 		"openssl-dev",
 		"parallel",
-		"perl",
 		"pwgen",
-		"py3-apipkg",
-		"py3-pip",
-		"python3",
-		"python3-dev",
 		"ripgrep",
-		"ruby",
-		"ruby-dev",
-		"rust",
 		"shadow",
 		"source-highlight",
 		"the_silver_searcher",
@@ -69,7 +54,6 @@
 		"dmg2img",
 		"dos2unix",
 		"eslint",
-		"esolitos/ipa/sshpass",
 		"fd",
 		"findutils",
 		"fish",
@@ -91,29 +75,19 @@
 		"jid",
 		"jpeg",
 		"jq",
-		"libffi",
 		"libpng",
-		"lua",
 		"lua-language-server",
-		"luajit",
-		"luarocks",
 		"make",
 		"makedepend",
 		"mkcert",
 		"mkdocs",
 		"ninja",
 		"nmap",
-		"node",
 		"parallel",
 		"pwgen",
-		"python3",
 		"readline",
 		"ripgrep",
-		"ruby",
-		"rust",
-		"samba",
 		"screen",
-		"smartmontools",
 		"source-highlight",
 		"sqlite",
 		"ssh-copy-id",
@@ -131,7 +105,6 @@
 	fedora = [
 		"automake",
 		"bash",
-		"cargo",
 		"ctags",
 		"curl",
 		"dos2unix",
@@ -143,29 +116,10 @@
 		"htop",
 		"ImageMagick",
 		"jq",
-		"libffi",
-		"libffi-devel",
 		"ua",
-		"lua-libs",
-		"luajit",
-		"luarocks",
 		"make",
-		"nodejs",
-		"nodejs-devel",
-		"nodejs-libs",
-		"perl",
 		"pwgen",
-		"python3",
-		"python3-devel",
-		"python3-pip",
-		"python3-wheel",
 		"ripgrep",
-		"ruby",
-		"ruby-devel",
-		"ruby-libs",
-		"rubygems",
-		"rubygems-devel",
-		"rust",
 		"source-highlight",
 		"the_silver_searcher",
 		"unzip",
@@ -174,187 +128,8 @@
 		"zsh"
 	]
 	cargo = [
-		"cargo-update",
-		"cargo-cache",
 		"starship",
 		"bat",
 		"spacer",
 		"watchexec-cli"
-	]
-	pip3 = []
-
-[packages.core.apps]
-	darwin = [
-		"firefox"
-	]
-
-[packages.social.apps]
-	darwin = [
-		"caprine",
-		"discord"
-	]
-
-[packages.media]
-	darwin = [
-		"ffmpeg"
-	]
-	pip3 = [
-		"yt-dlp"
-	]
-
-[packages.media.apps]
-	darwin = [
-		"gimp",
-		"inkscape",
-		"imageoptim",
-		"iina",
-		"handbrake",
-		"kid3"
-	]
-
-[packages.books.apps]
-	darwin = [
-		"calibre"
-	]
-
-[packages.utils.apps]
-	darwin = [
-		"coconutbattery",
-		"google-chrome",
-		"keycastr",
-		"onyx",
-		"pacifist",
-		"qutebrowser",
-		"waterfox"
-	]
-
-[packages.tor.apps]
-	darwin = [
-		"onionshare",
-		"qbittorrent",
-		"tor-browser"
-	]
-
-[packages.dev]
-	alpine = [
-	]
-	darwin = [
-		"google-cloud-sdk",
-		"lima",
-	]
-	darwin_head = [
-		"universal-ctags/universal-ctags/universal-ctags"
-	]
-	fedora = [
-	]
-	cargo = [
-		"bat",
-		"watchexec-cli",
-		"spacer"
-	]
-	go = [
-		"github.com/arl/gitmux@latest",
-		"github.com/tomwright/dasel/v2/cmd/dasel@master"
-	]
-	pip3 = []
-
-[packages.dev.apps]
-	darwin = [
-		"alacritty",
-		"dbeaver-community",
-		"coteditor",
-		"kitty",
-		"macdown",
-		"meld",
-		"wezterm"
-	]
-
-[nvim]
-	alpine = [
-		"neovim",
-	]
-	darwin = [
-		"neovim"
-	]
-	fedora = [
-		"neovim"
-	]
-	cargo = [
-		"stylua"
-	]
-	go = [
-		"github.com/sachaos/viddy@latest",
-		"github.com/danielgatis/imgcat@latest",
-		"github.com/go-delve/delve/cmd/dlv@latest",
-		"github.com/charmbracelet/glow@latest",
-		"github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2",
-		"github.com/mgechev/revive@latest"
-	]
-	pip3 = [
-		"neovim",
-		"flake8",
-		"yamllint",
-		"gitlint",
-		"ruff"
-	]
-	gem = [
-		"neovim",
-		"rubocop"
-	]
-	npm = [
-		"neovim",
-		"cspell",
-		"@commitlint/cli",
-		"@commitlint/config-conventional"
-	]
-
-[containers]
-	go = [
-		"github.com/wagoodman/dive@latest"
-	]
-
-[k8s]
-	go = [
-		"github.com/danielgatis/imgcat@latest",
-		"github.com/stern/stern@latest"
-	]
-	krew = [
-		"ctx",
-		"exec-as",
-		"fuzzy",
-		"krew",
-		"mtail",
-		"node-admin",
-		"node-restart",
-		"node-shell",
-		"restart",
-		"view-allocations",
-		"view-secret",
-		"view-utilization"
-	]
-
-[tmux]
-	alpine = [
-		"tmux"
-	]
-	darwin = [
-		"tmux"
-	]
-	fedora = [
-		"tmux"
-	]
-	go = [
-		"github.com/arl/gitmux@latest",
-	]
-
-[vagrant]
-	darwin = [
-		"virtualbox",
-		"vagrant"
-	]
-	fedora = []
-	plugins = [
-		"vagrant-libvirt",
-		"vagrant-vbguest",
-		"vagrant-reload"
 	]

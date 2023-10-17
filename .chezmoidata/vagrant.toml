@@ -1,0 +1,13 @@
+[vagrant]
+	dependencies = [
+		"virtualbox"
+	]
+	darwin = [
+		"vagrant"
+	]
+	fedora = []
+	plugins = [
+		"vagrant-libvirt",
+		"vagrant-vbguest",
+		"vagrant-reload"
+	]

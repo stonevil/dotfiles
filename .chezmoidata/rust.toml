@@ -1,0 +1,16 @@
+[rust]
+	apine = [
+		"rust",
+		"cargo"
+	]
+	darwin = [
+		"rust"
+	]
+	fedora = [
+		"rust",
+		"cargo"
+	]
+	cargo = [
+		"cargo-update",
+		"cargo-cache",
+	]

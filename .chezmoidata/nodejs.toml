@@ -1,0 +1,14 @@
+[nodejs]
+	apine = [
+		"npm",
+		"nodejs",
+		"nodejs-dev"
+	]
+	darwin = [
+		"node"
+	]
+	fedora = [
+		"nodejs",
+		"nodejs-devel",
+		"nodejs-libs"
+	]

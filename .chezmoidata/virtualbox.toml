@@ -1,0 +1,8 @@
+[virtualbox]
+	dependencies = [
+		""
+	]
+	darwin = [
+		"virtualbox"
+	]
+	fedora = []

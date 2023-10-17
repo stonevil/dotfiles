@@ -1,0 +1,23 @@
+[lua]
+	alpine = [
+		"lua5.3",
+		"lua5.3-dev",
+		"luajit",
+		"luarocks5.3",
+		"libffi",
+		"libffi-dev",
+	]
+	darwin = [
+		"libffi",
+		"lua",
+		"luajit",
+		"luarocks",
+	]
+	fedora = [
+		"libffi",
+		"libffi-devel",
+		"lua"?,
+		"lua-libs",
+		"luajit",
+		"luarocks",
+	]

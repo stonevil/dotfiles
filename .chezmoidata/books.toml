@@ -1,0 +1,4 @@
+[packages.books.apps]
+	darwin = [
+		"calibre"
+	]

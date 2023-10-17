@@ -1,0 +1,36 @@
+[packages.dev]
+	dependencies = [
+		"nvim",
+	]
+	alpine = [
+	]
+	darwin = [
+		"google-cloud-sdk",
+		"lima",
+	]
+	darwin_head = [
+		"universal-ctags/universal-ctags/universal-ctags"
+	]
+	fedora = [
+	]
+	cargo = [
+		"bat",
+		"watchexec-cli",
+		"spacer"
+	]
+	go = [
+		"github.com/arl/gitmux@latest",
+		"github.com/tomwright/dasel/v2/cmd/dasel@master"
+	]
+	pip3 = []
+
+[packages.dev.apps]
+	darwin = [
+		"alacritty",
+		"dbeaver-community",
+		"coteditor",
+		"kitty",
+		"macdown",
+		"meld",
+		"wezterm"
+	]

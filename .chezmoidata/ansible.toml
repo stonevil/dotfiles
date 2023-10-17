@@ -1,0 +1,13 @@
+[ansible]
+	dependencies = [
+		"python"
+	]
+	apine = [
+		"sshpass"
+	]
+	darwin = [
+		"esolitos/ipa/sshpass"
+	]
+	pip3 = [
+		"ansible"
+	]

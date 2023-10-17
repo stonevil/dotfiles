@@ -1,0 +1,18 @@
+[packages.media]
+	darwin = [
+		"ffmpeg",
+		"python3"
+	]
+	pip3 = [
+		"yt-dlp"
+	]
+
+[packages.media.apps]
+	darwin = [
+		"gimp",
+		"inkscape",
+		"imageoptim",
+		"iina",
+		"handbrake",
+		"kid3"
+	]
