@@ -16,7 +16,8 @@
 	fedora = [
 		"libffi",
 		"libffi-devel",
-		"lua"?,
+		"lua",
+		"lua-devel"
 		"lua-libs",
 		"luajit",
 		"luarocks",
