@@ -10,15 +10,15 @@
 		"neovim",
 	]
 	darwin = [
-		"neovim"
+		"neovim",
 		"eslint",
 		"lua-language-server",
 	]
 	fedora = [
-		"neovim"
+		"neovim",
 	]
 	cargo = [
-		"stylua"
+		"stylua",
 	]
 	go = [
 		"github.com/sachaos/viddy@latest",
@@ -26,22 +26,22 @@
 		"github.com/go-delve/delve/cmd/dlv@latest",
 		"github.com/charmbracelet/glow@latest",
 		"github.com/golangci/golangci-lint/cmd/golangci-lint@latest",
-		"github.com/mgechev/revive@latest"
+		"github.com/mgechev/revive@latest",
 	]
 	pip3 = [
 		"neovim",
 		"flake8",
 		"yamllint",
 		"gitlint",
-		"ruff"
+		"ruff",
 	]
 	gem = [
 		"neovim",
-		"rubocop"
+		"rubocop",
 	]
 	npm = [
 		"neovim",
 		"cspell",
 		"@commitlint/cli",
-		"@commitlint/config-conventional"
+		"@commitlint/config-conventional",
 	]
