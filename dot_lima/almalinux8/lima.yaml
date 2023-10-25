@@ -1,0 +1,26 @@
+# This template requires Lima v0.8.3 or later.
+
+# NOTE: EL8-based distros are known not to work on M1 chips: https://github.com/lima-vm/lima/issues/841
+# EL9-based distros are known to work.
+
+images:
+- location: "https://repo.almalinux.org/almalinux/8.8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-UEFI-8.8-20230524.x86_64.qcow2"
+  arch: "x86_64"
+  digest: "sha256:6933e2436b7c6f5324937ea6699f00297b21f8758d1a51cab80fbb8a8926877f"
+- location: "https://repo.almalinux.org/almalinux/8.8/cloud/aarch64/images/AlmaLinux-8-GenericCloud-8.8-20230524.aarch64.qcow2"
+  arch: "aarch64"
+  digest: "sha256:ea6058be50597b7a54904a47c0b4a83eb4bff040301376ac828a6ac0932399a0"
+# Fallback to the latest release image.
+# Hint: run `limactl prune` to invalidate the cache
+- location: "https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2"
+  arch: "x86_64"
+- location: "https://repo.almalinux.org/almalinux/8/cloud/aarch64/images/AlmaLinux-8-GenericCloud-latest.aarch64.qcow2"
+  arch: "aarch64"
+mounts:
+- location: "~"
+- location: "/tmp/lima"
+  writable: true
+cpuType:
+  # Workaround for "vmx_write_mem: mmu_gva_to_gpa XXXXXXXXXXXXXXXX failed" on Intel Mac
+  # https://bugs.launchpad.net/qemu/+bug/1838390
+  x86_64: "Haswell-v4"

@@ -13,12 +13,18 @@ rosetta:
 {{- end }}
 
 images:
-- location: "https://download.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
+- location: "https://repo.almalinux.org/almalinux/9.2/cloud/x86_64/images/AlmaLinux-9-GenericCloud-9.2-20230513.x86_64.qcow2"
   arch: "x86_64"
-  digest: "sha256:d334670401ff3d5b4129fcc662cf64f5a6e568228af59076cc449a4945318482"
-- location: "https://download.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/aarch64/images/Fedora-Cloud-Base-38-1.6.aarch64.qcow2"
+  digest: "sha256:207d885ca8140e3106098e946cfc04088b0e21f50d24815051520d452eae0a50"
+- location: "https://repo.almalinux.org/almalinux/9.2/cloud/aarch64/images/AlmaLinux-9-GenericCloud-9.2-20230513.aarch64.qcow2"
   arch: "aarch64"
-  digest: "sha256:ad71d22104a16e4f9efa93e61e8c7bce28de693f59c802586abbe85e9db55a65"
+  digest: "sha256:a4cbd35010ae0ce7437b2855e5f6f6f03124784ca2aaa5c111563f64e03301e4"
+# Fallback to the latest release image.
+# Hint: run `limactl prune` to invalidate the cache
+- location: "https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"
+  arch: "x86_64"
+- location: "https://repo.almalinux.org/almalinux/9/cloud/aarch64/images/AlmaLinux-9-GenericCloud-latest.aarch64.qcow2"
+  arch: "aarch64"
 
 # Builtin default: min(4, host CPU cores)
 cpus: null
@@ -29,7 +35,6 @@ disk: null
 
 mounts:
 - location: "~"
-  writable: true
 - location: "/tmp/lima"
   writable: true
 
@@ -38,18 +43,8 @@ provision:
   script: |
     #!/bin/bash
     set -eux -o pipefail
-    dnf install -y sudo bash zsh curl wget git containerd neovim python3-neovim
-    systemctl enable --now containerd
-    nerdctl run --privileged --rm tonistiigi/binfmt --install all
+    dnf install -y sudo bash zsh curl wget git neovim python3-neovim
     dnf autoremove -y
-- mode: user
-  script: |
-    #!/bin/bash
-    mkdir -p "$HOME/.local/bin"
-    export BINDIR="$HOME/.local/bin"
-    sh -c "$(curl -fsLS get.chezmoi.io)"
-    mkdir -p "$HOME/.local/share/"
-    [ ! -d "$HOME/.local/share/chezmoi" ] && git clone https://github.com/stonevil/dotfiles.git "$HOME/.local/share/chezmoi"
 
 probes:
 - script: |
@@ -83,10 +78,6 @@ networks:
 #   macAddress: ""
 #   # Interface name, defaults to "lima0", "lima1", etc.
 #   interface: ""
-
-portForwards:
-- guestSocket: "/run/user/{{`{{.UID}}`}}/containerd/containerd.sock"
-  hostSocket: "{{`{{.Dir}}`}}/sock/containerd.sock"
 
 env:
   CODESPACES: true

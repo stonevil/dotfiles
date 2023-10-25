@@ -45,6 +45,7 @@ provision:
     apt-get install -y sudo bash zsh curl wget git neovim python3-neovim
     systemctl enable --now containerd
     nerdctl run --privileged --rm tonistiigi/binfmt --install all
+
 probes:
 - script: |
     #!/bin/bash
