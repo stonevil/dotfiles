@@ -2,6 +2,8 @@ add_newline = false
 format = """$directory$character"""
 right_format = """$all"""
 
+command_timeout = 800
+
 [directory]
 style = 'bold blue'
 # truncation_length = 2
