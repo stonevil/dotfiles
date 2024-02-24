@@ -11,13 +11,13 @@ vim:ft=bash.gotexttmpl
 		echo "Python 3. Install or update pip3 packages"
 		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 		{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
-			pip3 install --disable-pip-version-check --no-cache-dir --upgrade --force-reinstall --ignore-installed install pip || exit 1
+		python3 -m pip install --disable-pip-version-check --no-cache-dir --upgrade --force-reinstall --ignore-installed install pip || exit 1
 		{{ end }}
 		{{ if (eq .chezmoi.os "linux") }}
-			pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed --user -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
+		python3 -m pip install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed --user -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
 		{{ end }}
 		{{ if (eq .chezmoi.os "darwin") }}
-			pip3 install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
+		python3 -m pip install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
 		{{ end }}
 	fi
 {{ end }}
