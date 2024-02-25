@@ -14,8 +14,8 @@ echo "Prepare system. Install essential packages like bash, etc"
 	{{ else if (or (eq .chezmoi.osRelease.id "centos") (eq .chezmoi.osRelease.id "fedora")) }}
 		{{ template "fedora.tmpl" . }}
 		sudo dnf install -y bash curl git tar wget || exit 1
-	{{ end }}
 	{{ else if eq .chezmoi.osRelease.id "debian" }}
 		{{ template "debian.tmpl" . }}
 		(sudo apt install -y bash base-devel curl git tar wget) || exit 1
+	{{ end }}
 {{ end }}
