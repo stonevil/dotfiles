@@ -1,0 +1,52 @@
+# This template requires Lima v0.7.0 or later
+images:
+# Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
+- location: "https://cloud.debian.org/images/cloud/bookworm/20240102-1614/debian-12-genericcloud-amd64-20240102-1614.qcow2"
+  arch: "x86_64"
+  digest: "sha512:49cbcfdb3d5401e8c731d33211cff5e1ef884f179a936c7378eeab00c582ace45dd7154ac9e4c059f1bd6c7ae2ce805879cb381a12a1cc493e3a58c847e134c7"
+- location: "https://cloud.debian.org/images/cloud/bookworm/20240102-1614/debian-12-genericcloud-arm64-20240102-1614.qcow2"
+  arch: "aarch64"
+  digest: "sha512:93f09b9271441f66bb4f0e42c27f60538b42715c6a90161ac462655c76c2e007f882b05de8a99f841ae75c4925a1e7110d9eb5c4dddccb78d9a3c4b1bc91ade5"
+# Fallback to the latest release image.
+# Hint: run `limactl prune` to invalidate the cache
+- location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
+  arch: "x86_64"
+- location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2"
+  arch: "aarch64"
+
+mounts:
+- location: "~"
+  writable: true
+- location: "/tmp/lima"
+  writable: true
+
+provision:
+- mode: system
+  script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    apt install -y sudo bash zsh curl wget git neovim python3-neovim
+- mode: user
+  script: |
+    #!/bin/bash
+    mkdir -p "$HOME/.local/bin"
+    export BINDIR="$HOME/.local/bin"
+    sh -c "$(curl -fsLS get.chezmoi.io)"
+    mkdir -p "$HOME/.local/share/"
+    [ ! -d "$HOME/.local/share/chezmoi" ] && git clone https://github.com/stonevil/dotfiles.git "$HOME/.local/share/chezmoi"
+
+probes:
+- script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    if ! timeout 30s bash -c "until command -v zsh >/dev/null 2>&1; do sleep 3; done"; then
+      echo >&2 "zsh is not installed yet"
+      exit 1
+    fi
+  hint: See "/var/log/cloud-init-output.log" in the guest
+
+# The "vzNAT" IP address is accessible from the host, but not from other guests.
+- vzNAT: true
+
+env:
+  CODESPACES: true

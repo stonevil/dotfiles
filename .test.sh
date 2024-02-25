@@ -7,7 +7,7 @@ _help() {
 	echo -e "./.test.sh [distro] [version]\n"
 	echo "Example with Alpine Edge Linux:"
 	echo -e "./.test.sh alpine edge\n"
-	echo -e "Supported distro: Fedora Linux v38 and newer, Alpine Linux Edge\n"
+	echo -e "Supported distro: Fedora Linux v38 and newer, Alpine Linux Edge, Debian 12 and newer\n"
 }
 
 _check() {
@@ -46,6 +46,10 @@ arch | centos)
 	else
 		IMAGE="$DISTRO"
 	fi
+	;;
+debian)
+	export IMAGE="$DISTRO"
+	export IMAGE_TAG="${2:-latest}"
 	;;
 fedora)
 	export IMAGE="$DISTRO"

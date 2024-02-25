@@ -23,6 +23,10 @@ centos)
 	fi
 	(yum update -y && yum install -y sudo bash curl git) || exit 1
 	;;
+debain)
+	echo "Debian. Install bare minimal packages"
+	(apt update -y && apt install -y sudo bash curl git) || exit 1
+	;;
 fedora)
 	echo "Fedora. Install bare minimal packages"
 	(dnf update -y && dnf install -y sudo bash curl git) || exit 1
