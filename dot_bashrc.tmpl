@@ -19,8 +19,6 @@ vim:ft=bash.gotexttmpl
 {{ template "gui-env.tmpl" . }}
 {{ end }}
 
-{{ template "shellrc-prompt.tmpl" . }}
-
 if command -v starship >/dev/null 2>&1; then
 	export starship_config="$home/.config/starship.toml"
 	eval "$(starship init bash)"
