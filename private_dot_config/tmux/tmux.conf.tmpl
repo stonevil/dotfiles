@@ -81,6 +81,8 @@ set -g @resurrect-processes 'ssh psql mysql sqlite3 man more less ansible-vault'
 set -g @resurrect-save 'S'
 set -g @resurrect-restore 'R'
 
+# tmux-sessionx
+set -g @sessionx-bind 'o'
 
 # NeoVim, WezTerm, tmux integration and unification
 version_pat='s/^tmux[^0-9]*([.0-9]+).*/\1/p'
@@ -294,16 +296,17 @@ set -g @tpm_plugins '                \
   tmux-plugins/tmux-copycat          \
   tmux-plugins/tmux-resurrect        \
   tmux-plugins/tmux-prefix-highlight \
-	thuanOwa/tmux-fzf-session-switch   \
-  roosta/tmux-fuzzback               \
+  omerxx/tmux-sessionx               \
 '
 # List of disabled plugins
-#  tmux-plugins/tmux-battery         \
-#  tmux-plugins/tmux-pain-control    \
-#  stonevil/tmux-vm-status           \
-#  stonevil/tmux-hostname-status     \
-#  stonevil/tmux-wan-status          \
-#  stonevil/tmux-lan-status          \
+#	thuanOwa/tmux-fzf-session-switch   \
+# roosta/tmux-fuzzback               \
+# tmux-plugins/tmux-battery          \
+# tmux-plugins/tmux-pain-control     \
+# stonevil/tmux-vm-status            \
+# stonevil/tmux-hostname-status      \
+# stonevil/tmux-wan-status           \
+# stonevil/tmux-lan-status           \
 
 # Initializes TMUX plugin manager.
 # Keep this line at the very bottom of tmux.conf.

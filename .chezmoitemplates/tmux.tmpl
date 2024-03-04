@@ -6,8 +6,8 @@ vim:ft=bash.gotexttmpl
 
 if command -v tmux >/dev/null 2>&1; then
 	echo "TMUX. Update plugins"
-	{{ if stat (joinPath .chezmoi.homeDir ".tmux/plugins") }}
-		for plugin in "$HOME"/.tmux/plugins/*; do
+	{{ if stat (joinPath .chezmoi.homeDir ".config/tmux/plugins") }}
+		for plugin in "$HOME"/.config/tmux/plugins/*; do
 			if [ -d "$plugin" ]; then
 				cd "$plugin" || exit
 				if [ -d '.git' ]; then
