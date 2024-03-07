@@ -1,3 +1,21 @@
+{{- /*
+	vim:ft=toml.yaml
+*/ -}}
+
+vmType: vz
+os: Linux
+arch: null
+
+networks:
+# The "vzNAT" IP address is accessible from the host, but not from other guests.
+- vzNAT: true
+
+{{- if eq .chezmoi.arch "arm64" -}}
+rosetta:
+  enabled: true
+  binfmt: true
+{{- end }}
+
 # This template requires Lima v0.7.0 or later
 images:
 # Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
@@ -13,6 +31,13 @@ images:
   arch: "x86_64"
 - location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2"
   arch: "aarch64"
+
+# Builtin default: min(4, host CPU cores)
+cpus: null
+# Builtin default: min("4GiB", half of host memory)
+memory: null
+# Builtin default: "100GiB"
+disk: null
 
 mounts:
 - location: "~"
@@ -44,9 +69,6 @@ probes:
       exit 1
     fi
   hint: See "/var/log/cloud-init-output.log" in the guest
-
-# The "vzNAT" IP address is accessible from the host, but not from other guests.
-- vzNAT: true
 
 env:
   CODESPACES: true
