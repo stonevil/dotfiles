@@ -29,17 +29,11 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-{{- if eq .chezmoi.os "darwin" }}
-	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi_{{ $chezmoi_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
-{{- else if eq .chezmoi.os "linux" }}
-	{{ if and (eq .chezmoi.arch "amd64") (eq .libc.platform "musl") }}
-	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi_{{ $chezmoi_v }}_{{ .chezmoi.os }}_{{ .libc.platform }}_{{ .chezmoi.arch }}.tar.gz"
-	{{ end }}
-	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi_{{ $chezmoi_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
-{{ end }}
-	[".local/bin/chezmoi".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "chezmoi"]
+{{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") (eq .libc.platform "musl")) }}
+	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ .libc.platform }}"
+	{{ else }}
+	url = "https://github.com/twpayne/chezmoi/releases/download/v{{ $chezmoi_v }}/chezmoi-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+{{- end }}
 
 {{ $bat_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}
 {{ if eq .chezmoi.os "darwin" -}}
