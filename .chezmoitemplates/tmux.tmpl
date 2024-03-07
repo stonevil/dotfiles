@@ -4,7 +4,7 @@ vim:ft=bash.gotexttmpl
 
 {{ template "path.tmpl" . }}
 
-if command -v tmux >/dev/null 2>&1; then
+{{ if lookPath "tmux" }}
 	echo "TMUX. Update plugins"
 	{{ if stat (joinPath .chezmoi.homeDir ".config/tmux/plugins") }}
 		for plugin in "$HOME"/.config/tmux/plugins/*; do
@@ -19,4 +19,4 @@ if command -v tmux >/dev/null 2>&1; then
 			tmux source-file "$HOME"/.config/tmux/tmux.conf
 		fi
 	{{ end }}
-fi
+{{ end }}

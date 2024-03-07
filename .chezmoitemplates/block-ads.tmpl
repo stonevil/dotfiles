@@ -5,8 +5,8 @@ vim:ft=bash.gotexttmpl
 {{ template "path.tmpl" . }}
 
 {{ if .tags.ads }}
-if command -v hblock >/dev/null 2>&1; then
-	echo "hblock. Generate and update hosts file.\nPlease enter admin password"
-	hblock --color auto
-fi
+	{{ if lookPath "hblock" }}
+		echo "hblock. Generate and update hosts file.\nPlease enter admin password"
+		hblock --color auto
+	{{ end }}
 {{ end }}

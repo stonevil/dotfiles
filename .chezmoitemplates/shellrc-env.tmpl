@@ -35,6 +35,6 @@ export IDF_TOOLS_PATH="$HOME"/.local/espressif
 
 # Set tabs width for terminal
 tabs -{{ .tui.tabs }}
-if command -v setterm >/dev/null 2>&1; then
-	setterm --tabs={{ .tui.tabs }} --blink on
-fi
+{{ if lookPath "setterm" }}
+setterm --tabs={{ .tui.tabs }} --blink on
+{{ end }}

@@ -31,22 +31,15 @@ tm-cleanup() {
 }
 {{ end }}
 
-if command -v limactl >/dev/null 2>&1; then
-	toolbox() {
-		if [[ $(limactl list toolbox --format {{`'{{ .Status }}'`}}) == "Stopped" ]]; then
-			limactl start toolbox
-		fi 
-		limactl shell --shell /bin/zsh toolbox
-		echo "You left Toolbox Universei\n\n"
-	}
-	nerdy() {
-		if [[ $(limactl list nerdy --format {{`'{{ .Status }}'`}}) == "Stopped" ]]; then
-			limactl start nerdy
-		fi 
-		limactl shell --shell /bin/zsh nerdy
-		echo "You left Nerdy Universei\n\n"
-	}
-fi
+{{ if lookPath "limactl" }}
+toolbox() {
+	if [[ $(limactl list toolbox --format {{`'{{ .Status }}'`}}) == "Stopped" ]]; then
+		limactl start toolbox
+	fi 
+	limactl shell --shell /bin/zsh toolbox
+	echo "You left Toolbox Universei\n\n"
+}
+{{ end }}
 
 f2iso() {
 	if [[ -f "$(basename $@)".iso ]]; then

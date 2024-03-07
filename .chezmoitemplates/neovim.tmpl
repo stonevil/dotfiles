@@ -4,7 +4,7 @@ vim:ft=bash.gotexttmpl
 
 {{ template "path.tmpl" . }}
 
-if command -v nvim >/dev/null 2>&1; then
+{{ if lookPath "nvim" }}
 	echo "Nvim. Lazy plugin and dependencies"
 	nvim --headless "+Lazy! sync" +qall! || exit 1
-fi
+{{ end }}

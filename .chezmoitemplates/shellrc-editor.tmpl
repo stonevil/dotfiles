@@ -2,11 +2,11 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-if command -v nvim >/dev/null 2>&1; then
-	export EDITOR="$(command -v nvim)"
-else
-	export EDITOR="$(command -v vim)"
-fi
+{{ if lookPath "nvim" }}
+export EDITOR="$(command -v nvim)"
+{{ else }}
+export EDITOR="$(command -v vim)"
+{{ end }}
 
 # VIM/NVIM session file
 export VIM_SESSION_FILENAME=".session.vim"

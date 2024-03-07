@@ -7,10 +7,10 @@ vim:ft=bash.gotexttmpl
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/gem.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/gem.packages")).size 0) }}
 	# gem.packages hash: {{ include ".packagefiles/gem.packages" | sha256sum }}
 
-	if command -v gem >/dev/null 2>&1; then
+	{{ if lookPath "gem" }}
 		echo "Ruby. Install or update gem packages"
 		export GEM_HOME="$HOME"/.local/gem-packages
 		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/gem.packages" | quote }} gem install --no-suggestions --no-lock --no-document --env-shebang --bindir "$HOME"/.local/bin
 		gem cleanup
-	fi
+	{{ end }}
 {{ end }}

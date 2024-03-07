@@ -4,7 +4,7 @@ vim:ft=bash.gotexttmpl
 
 {{ template "path.tmpl" . }}
 
-if command -v cargo >/dev/null 2>&1; then
+{{ if lookPath "cargo" }}
 	echo "Rust. Install or update cargo packages"
 	cargo install-update -a
-fi
+{{ end }}

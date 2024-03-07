@@ -7,7 +7,7 @@ vim:ft=bash.gotexttmpl
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages")).size 0) }}
 	# pip3.packages hash: {{ include ".packagefiles/pip3.packages" | sha256sum }}
 
-	if command -v pip3 >/dev/null 2>&1; then
+	{{ if lookPath "python3" }}
 		echo "Python 3. Install or update pip3 packages"
 		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 		{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
@@ -19,5 +19,5 @@ vim:ft=bash.gotexttmpl
 		{{ if (eq .chezmoi.os "darwin") }}
 		python3 -m pip install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed -r {{ joinPath .chezmoi.sourceDir ".packagefiles/pip3.packages" | quote }} || exit 1
 		{{ end }}
-	fi
+	{{ end }}
 {{ end }}

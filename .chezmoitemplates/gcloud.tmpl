@@ -4,7 +4,7 @@ vim:ft=bash.gotexttmpl
 
 {{ template "path.tmpl" . }}
 
-if command -v gcloud >/dev/null 2>&1; then
+{{ if lookPath "gcloud" }}
 	echo "GCP tools. Update components"
 	yes Y | gcloud components update
-fi
+{{ end }}

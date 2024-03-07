@@ -4,7 +4,7 @@ vim:ft=bash.gotexttmpl
 
 {{ template "path.tmpl" . }}
 
-if command -v zsh >/dev/null 2>&1; then
+{{ if lookPath "zsh" }}
 	echo "ZSH Antigen. Install or update plugins"
 	/usr/bin/env zsh -c "source $HOME/.zshrc && antigen apply && antigen update"
-fi
+{{ end }}

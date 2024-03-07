@@ -7,12 +7,12 @@ vim:ft=bash.gotexttmpl
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/go.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/go.packages")).size 0) }}
 	# go.packages hash: {{ include ".packagefiles/go.packages" | sha256sum }}
 
-	if command -v go >/dev/null 2>&1; then
-			echo "Go. Install or update tools and libs"
-			export GOPATH=$HOME/.local/golang-packages
-			export GOBIN=$HOME/.local/bin
-			while IFS= read -r line; do
-				go install "$line"
-			done <{{ joinPath .chezmoi.sourceDir ".packagefiles/go.packages" | quote }}
-	fi
+	{{ if lookPath "go" }}
+		echo "Go. Install or update tools and libs"
+		export GOPATH=$HOME/.local/golang-packages
+		export GOBIN=$HOME/.local/bin
+		while IFS= read -r line; do
+			go install "$line"
+		done <{{ joinPath .chezmoi.sourceDir ".packagefiles/go.packages" | quote }}
+	{{ end }}
 {{ end }}
