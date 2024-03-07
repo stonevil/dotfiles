@@ -6,6 +6,29 @@ vmType: vz
 os: Linux
 arch: null
 
+networks:
+# - lima: shared
+#   # MAC address of the instance; lima will pick one based on the instance name,
+#   # so DHCP assigned ip addresses should remain constant over instance restarts.
+#   macAddress: ""
+#   # Interface name, defaults to "lima0", "lima1", etc.
+#   interface: ""
+
+# - socket: "/var/run/socket_vmnet"
+
+# The "vzNAT" IP address is accessible from the host, but not from other guests.
+- vzNAT: true
+
+# - vnl: "vde:///var/run/vde.ctl"
+#   # VDE Switch port number (not TCP/UDP port number). Set to 65535 for PTP mode.
+#   # Builtin default: 0
+#   switchPort: 0
+#   # MAC address of the instance; lima will pick one based on the instance name,
+#   # so DHCP assigned ip addresses should remain constant over instance restarts.
+#   macAddress: ""
+#   # Interface name, defaults to "lima0", "lima1", etc.
+#   interface: ""
+
 {{- if eq .chezmoi.arch "arm64" -}}
 rosetta:
   enabled: true
@@ -60,29 +83,6 @@ probes:
       exit 1
     fi
   hint: See "/var/log/cloud-init-output.log" in the guest
-
-networks:
-# - lima: shared
-#   # MAC address of the instance; lima will pick one based on the instance name,
-#   # so DHCP assigned ip addresses should remain constant over instance restarts.
-#   macAddress: ""
-#   # Interface name, defaults to "lima0", "lima1", etc.
-#   interface: ""
-
-# - socket: "/var/run/socket_vmnet"
-
-# The "vzNAT" IP address is accessible from the host, but not from other guests.
-- vzNAT: true
-
-# - vnl: "vde:///var/run/vde.ctl"
-#   # VDE Switch port number (not TCP/UDP port number). Set to 65535 for PTP mode.
-#   # Builtin default: 0
-#   switchPort: 0
-#   # MAC address of the instance; lima will pick one based on the instance name,
-#   # so DHCP assigned ip addresses should remain constant over instance restarts.
-#   macAddress: ""
-#   # Interface name, defaults to "lima0", "lima1", etc.
-#   interface: ""
 
 portForwards:
 - guestSocket: "/run/user/{{`{{.UID}}`}}/containerd/containerd.sock"
