@@ -38,7 +38,7 @@ export PATH=$BINDIR:$PATH
 sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply stonevil
 ```
 
-For containers and other temporal environments:
+For containers and other temporary environments:
 
 ```shell
 export CODESPACES=true
