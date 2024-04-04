@@ -95,3 +95,8 @@ alias idf-env='. "$HOME"/.local/esp-idf/export.sh'
 
 # Maybe rework required. Terminal Notification
 alias ip-external='dig +short myip.opendns.com @resolver1.opendns.com'
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Remove quarantine from executable binary
+alias unquarantine='xattr -r -d com.apple.quarantine'
+{{- end }}
