@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-cd "$HOME" || exit 1
+cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/npm.modules")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/npm.modules")).size 0) }}
 	# npm.modules hash: {{ include ".packagefiles/npm.modules" | sha256sum }}
 	{{ template "path.tmpl" . }}
-	if command -v npm >/dev/null 2>&1; then
+	{{ if lookPath "npm" }}
 		echo "Install NodeJS modules"
-		npm config set prefix "$HOME"/.local
-		export NPM_PACKAGES="$HOME"/.local
+		npm config set prefix {{ (joinPath .chezmoi.homeDir ".local") | quote }}
+		export NPM_PACKAGES={{ (joinPath .chezmoi.homeDir ".local") | quote }}
 		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/npm.modules" | quote }} npm install -g
-	fi
+	{{ end }}
 {{ end }}

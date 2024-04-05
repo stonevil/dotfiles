@@ -1,14 +1,14 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-cd "$HOME" || exit 1
+cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 echo "Prepare system. Install essential packages like brew, etc"
 {{ if eq .chezmoi.os "darwin" }}
 	{{ if stat .path.homebrew }}
 		rm -Rf {{ .path.homebrew | quote }}
 	{{ end }}
-	export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications --no-quarantine"
+	export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") | quote }} --no-quarantine"
 
 	git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
 	{{ template "darwin.tmpl" . }}

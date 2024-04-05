@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-cd "$HOME" || exit 1
+cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
 	{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id)) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.osRelease.id)).size 0) }}

@@ -3,11 +3,12 @@
 
 # .chezmoidata/k8s.toml hash: {{ include ".chezmoidata/k8s.toml" | sha256sum }}
 
-cd "$HOME" || exit 1
+cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "path.tmpl" . }}
 
-if command -v krew >/dev/null 2>&1; then
+{{ if lookPath "krew" }}
 	echo "Krew. Install kubectl krew packages"
+	export KREW_ROOT={{ (joinPath .chezmoi.homeDir ".local/krew") | quote }}
 	krew install {{ join " " (.k8s.krew | sortAlpha | uniq) }}
-fi
+{{ end }}

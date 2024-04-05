@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-cd "$HOME" || exit 1
+cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ if eq .chezmoi.os "darwin" }}
 	{{ template "darwin.tmpl" . }}
-	export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications --no-quarantine"
+	export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") | quote }} --no-quarantine"
 
 	{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os)) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os )).size 0) }}
 		# {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}

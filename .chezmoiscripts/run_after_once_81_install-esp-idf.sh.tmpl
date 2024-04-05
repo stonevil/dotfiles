@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-cd "$HOME" || exit 1
+cd {{ .chezmoi.homeDir | quote }} || exit 1
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") }}
+{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") | quote }}
 	# {{ .chezmoi.homeDir}}.local/esp-idf hash: {{ include (joinPath .chezmoi.homeDir ".local/esp-idf/.git/packed-refs") | sha256sum }}
 	{{ template "path.tmpl" . }}
-	export IDF_TOOLS_PATH="$HOME"/.local/espressif
+	export IDF_TOOLS_PATH={{ (joinPath .chezmoi.homeDir ".local/espressif") | quote }}
 	echo "ESP-IDF. Install"
-	(cd "$HOME"/.local/esp-idf && ./install.sh all) || exit 1
+	(cd {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | quote }} && ./install.sh all) || exit 1
 {{ end }}

@@ -1,2 +1,14 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
+
+{{ if stat (joinPath .chezmoi.homeDir ".local/share/nvim") | quote }}
+	rm -rf {{ (joinPath .chezmoi.homeDir ".local/share/nvim") | quote }}
+{{ end }}
+
+{{ if stat (joinPath .chezmoi.homeDir ".local/state/nvim") | quote }}
+	rm -rf {{ (joinPath .chezmoi.homeDir ".local/state/nvim") | quote }}
+{{ end }}
+
+{{ if stat (joinPath .chezmoi.homeDir ".cache/nvim") | quote }}
+	rm -rf {{ (joinPath .chezmoi.homeDir ".cache/nvim") | quote }}
+{{ end }}

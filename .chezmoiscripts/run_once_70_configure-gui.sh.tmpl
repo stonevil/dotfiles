@@ -82,7 +82,7 @@ defaults write com.apple.finder CreateDesktop -bool false
 
 # Finder: set Documents as the default location for new Finder windows
 defaults write com.apple.finder NewWindowTarget -string "PfDo"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Documents/"
+defaults write com.apple.finder NewWindowTargetPath -string "file://{{ .chezmoi.homeDir | quote }}/Documents/"
 
 # Finder: hide icons for hard drives, servers, and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
@@ -189,7 +189,7 @@ defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
 # Keyboard: show language menu in the top right corner of the boot screen
-sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
+#sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Keyboard: enable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
@@ -370,7 +370,7 @@ defaults -currentHost write com.apple.screensaver showClock -int 1
 defaults -currentHost write com.apple.screensaver idleTime -int 600
 
 # macOS: save screenshots to the Downloads
-defaults write com.apple.screencapture location -string "${HOME}/Downloads"
+defaults write com.apple.screencapture location -string "{{ .chezmoi.homeDir | quote }}/Downloads"
 
 # macOS: save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-cd "$HOME" || exit 1
+cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ if eq .chezmoi.os "darwin" }}
 	{{ template "resources-alacritty.tmpl" . }}
