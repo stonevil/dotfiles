@@ -6,5 +6,5 @@ vim:ft=bash.gotexttmpl
 
 {{ if lookPath "zsh" }}
 	echo "ZSH Antigen. Install or update plugins"
-	/usr/bin/env zsh -c "source $HOME/.zshrc && antigen apply && antigen update"
+	/usr/bin/env zsh -c "source {{ (joinPath .chezmoi.homeDir ".zshrc") }} && antigen apply && antigen update"
 {{ end }}

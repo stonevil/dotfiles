@@ -3,8 +3,8 @@ vim:ft=bash.gotexttmpl
 */ -}}
 
 {{ if eq .chezmoi.os "darwin" }}
-export PATH="$HOME"/.cargo/bin:"$HOME"/.local/bin:{{ .path.homebrew | quote }}/sbin:{{ .path.homebrew | quote }}/bin:"$PATH"
+export PATH={{ .chezmoi.homeDir | quote }}/.cargo/bin:{{ .chezmoi.homeDir | quote }}/.local/bin:{{ .path.homebrew | quote }}/sbin:{{ .path.homebrew | quote }}/bin:"$PATH"
 [ -d {{ .path.homebrew | quote }}/Cellar/ruby ] && export PATH={{ .path.homebrew | quote }}/Cellar/ruby/$(ls {{ .path.homebrew }}/Cellar/ruby | tail -n 1)/bin:"$PATH"
 {{ else if eq .chezmoi.os "linux" }}
-export PATH="$HOME"/.cargo/bin:"$HOME"/.local/bin:"$PATH"
+export PATH={{ .chezmoi.homeDir | quote }}/.cargo/bin:{{ .chezmoi.homeDir | quote }}/.local/bin:"$PATH"
 {{- end }}

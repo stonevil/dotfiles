@@ -16,7 +16,7 @@ vim:ft=bash.gotexttmpl
 			fi
 		done
 		if tmux info &> /dev/null; then
-			tmux source-file "$HOME"/.config/tmux/tmux.conf
+			tmux source-file {{ (joinPath .chezmoi.homeDir ".config/tmux/tmux.conf") | quote }}
 		fi
 	{{ end }}
 {{ end }}

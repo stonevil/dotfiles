@@ -8,7 +8,7 @@ alias more='less'
 alias ports='netstat -a | grep -i "listen"'
 alias path='echo -e ${PATH//:/\\n}'
 
-alias ctags-check='ctags --options="$HOME"/.local/share/chezmoi/dot_ctags'
+alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
 
 alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
 
@@ -90,7 +90,7 @@ alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform 
 {{ end }}
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
-alias idf-env='. "$HOME"/.local/esp-idf/export.sh'
+alias idf-env='. (joinPath .chezmoi.homeDir ".local/esp-idf/export.sh")'
 {{- end }}
 
 # Maybe rework required. Terminal Notification

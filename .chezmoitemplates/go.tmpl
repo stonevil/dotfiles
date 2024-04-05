@@ -9,8 +9,8 @@ vim:ft=bash.gotexttmpl
 
 	{{ if lookPath "go" }}
 		echo "Go. Install or update tools and libs"
-		export GOPATH=$HOME/.local/golang-packages
-		export GOBIN=$HOME/.local/bin
+		export GOPATH={{ (joinPath .chezmoi.homeDir ".local/golang-packages") | quote }}
+		export GOBIN={{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}
 		while IFS= read -r line; do
 			go install "$line"
 		done <{{ joinPath .chezmoi.sourceDir ".packagefiles/go.packages" | quote }}

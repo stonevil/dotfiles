@@ -6,6 +6,6 @@ vim:ft=bash.gotexttmpl
 
 {{ if lookPath "krew" }}
 	echo "Kubectl. Update plugins"
-	export KREW_ROOT="$HOME"/.local/krew
-	(krew update && krew upgrade) || exit 1
+	export KREW_ROOT={{ (joinPath .chezmoi.homeDir ".local/krew") | quote }}
+	(krew update && krew upgrade) || exit 0
 {{ end }}

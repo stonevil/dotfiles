@@ -14,23 +14,23 @@ export AZURE_LOGGING_ENABLE_LOG_FILE=FALSE
 export HOMEBREW_ANALYTICS_DEBUG=1
 {{- end }}
 
-npm config set prefix "$HOME"/.local
-export NPM_PACKAGES="$HOME"/.local
+npm config set prefix {{ (joinPath .chezmoi.homeDir ".local") | quote }}
+export NPM_PACKAGES={{ (joinPath .chezmoi.homeDir ".local") | quote }}
 
-export GOPATH=$HOME/.local/golang-packages
-export GOBIN=$HOME/.local/bin
+export GOPATH={{ (joinPath .chezmoi.homeDir ".local/golang-packages") | quote }}
+export GOBIN={{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}
 
 export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 
-export KREW_ROOT="$HOME"/.local/bin
+export KREW_ROOT={{ (joinPath .chezmoi.homeDir ".local/krew") | quote }}
 
-export PACKER_CACHE_DIR="$HOME"/.packer.d/cache
-export PACKER_ISO_DIR="$HOME"/.packer.d/iso
-export PACKER_BOX_DIR="$HOME"/.packer.d/box
-export PACKER_LOG_PATH="$HOME"/.packer.d/log
+export PACKER_CACHE_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/cache") | quote }}
+export PACKER_ISO_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/iso") | quote }}
+export PACKER_BOX_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/box") | quote }}
+export PACKER_LOG_PATH={{ (joinPath .chezmoi.homeDir ".packer.d/log") | quote }}
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
-export IDF_TOOLS_PATH="$HOME"/.local/espressif
+export IDF_TOOLS_PATH={{ (joinPath .chezmoi.homeDir ".local/espressif") | quote }}
 {{- end }}
 
 # Set tabs width for terminal

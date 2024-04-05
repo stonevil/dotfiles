@@ -9,8 +9,8 @@ vim:ft=bash.gotexttmpl
 
 	{{ if lookPath "gem" }}
 		echo "Ruby. Install or update gem packages"
-		export GEM_HOME="$HOME"/.local/gem-packages
-		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/gem.packages" | quote }} gem install --no-suggestions --no-lock --no-document --env-shebang --bindir "$HOME"/.local/bin
+		export GEM_HOME={{ (joinPath .chezmoi.homeDir ".local/gem-packages") | quote }}
+		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/gem.packages" | quote }} gem install --no-suggestions --no-lock --no-document --env-shebang --bindir {{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}
 		gem cleanup
 	{{ end }}
 {{ end }}

@@ -2,7 +2,7 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-source "$HOME"/.local/antigen.zsh
+source {{ (joinPath .chezmoi.homeDir ".local/antigen.zsh") | quote }}
 
 # Load the oh-my-zsh's library
 antigen use oh-my-zsh
