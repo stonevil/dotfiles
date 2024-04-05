@@ -4,13 +4,14 @@
 		"go",
 		"npm",
 		"ruby",
-		"python"
+		"python",
+		"lua"
 	]
 	alpine = [
 		"neovim",
 	]
 	darwin = [
-		"neovim",
+		"nvim",
 		"eslint",
 		"lua-language-server",
 	]
