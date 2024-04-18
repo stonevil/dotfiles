@@ -8,6 +8,7 @@ alpine)
 	sed -i 's/v3.\b[0-9]\{2\}\b/edge/g' /etc/apk/repositories || exit 1
 	(echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories) || exit 1
 	(apk update && apk add sudo bash curl git) || exit 1
+	(apk upgrade libssl3 libcrypto3) || exit 1
 	;;
 arch)
 	echo "Arch Linux. Install bare minimal packages"
