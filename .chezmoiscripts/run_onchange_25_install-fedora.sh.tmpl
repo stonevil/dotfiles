@@ -39,7 +39,7 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 		{{ end }}
 	{{ end }}
 
-	{{ if and (or .tags.devops .tags.dev) (or (eq .session.type "wayland") (eq .session.type "x11") (eq .session.type "xorg")) }}
+	{{ if and (and (or .tags.devops .tags.dev) (eq .chezmoi.arch "amd64")) (or (eq .session.type "wayland") (eq .session.type "x11") (eq .session.type "xorg")) }}
 		sudo dnf install -y https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly-{{ .chezmoi.osRelease.id }}{{ .chezmoi.osRelease.versionID }}.rpm
 	{{ end }}
 {{ end }}
