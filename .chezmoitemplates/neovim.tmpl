@@ -6,10 +6,11 @@ vim:ft=bash.gotexttmpl
 
 {{ if lookPath "nvim" }}
 	echo "Nvim. Lazy plugin and dependencies"
-	nvim --headless "+Lazy! sync" +qall! || exit 0
+	nvim --headless "+Lazy! sync" +qall! || true
 	{{ if stat (joinPath .chezmoi.homeDir ".local/share/nvim/lazy/telescope-fzf-native.nvim/Makefile") | quote }}
 		echo "Force build telescope-fzf-native C module. Fails to build automatically"
 		cd {{ (joinPath .chezmoi.homeDir ".local/share/nvim/lazy/telescope-fzf-native.nvim") | quote }} || exit 1
 		make || exit 0
 	{{ end }}
+	nvim --headless "+Lazy! sync" +qall! || exit 0
 {{ end }}
