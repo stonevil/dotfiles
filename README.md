@@ -2,11 +2,11 @@ dotFiles
 ----
 My collection of dot and config files. dotFiles in active redevelopment right now.
 
-Build in mind for macOS 12.x and higher and Linux.
+Build in mind for macOS 14.x and higher and Linux.
 
 #### Supported platforms:
 
-- macOS Sonoma 14.0. In use everyday both on amd64 and arm64 MacBook Pro
+- macOS 14 Sonoma. In use everyday both on amd64 and arm64 MacBook Pro.
 - Alpine Linux Edge.
 - Fedora 39.
 - Debian 12. VM's, Toolbox container, and my Linux laptop.
@@ -16,13 +16,13 @@ Build in mind for macOS 12.x and higher and Linux.
 
 Testing
 ----
-```shell
+```bash
 ./.test.sh [distro] [version]
 ```
 
 Example for Alpine Linux
 
-```shell
+```bash
 ./.test.sh alpine edge
 ```
 
@@ -31,7 +31,7 @@ Installation
 ----
 In ``bash`` OR your favourite one terminal session execute commands:
 
-```shell
+```bash
 export BINDIR="$HOME/.local/bin"
 export PATH=$BINDIR:$PATH
 
@@ -40,7 +40,7 @@ sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply stonevil
 
 For containers and other temporary environments:
 
-```shell
+```bash
 export CODESPACES=true
 
 export BINDIR="$HOME/.local/bin"
