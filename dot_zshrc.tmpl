@@ -21,11 +21,11 @@ vim:ft=zsh.gotexttmpl
 {{ template "gui-env.tmpl" . }}
 {{ end }}
 
-if command -v starship >/dev/null 2>&1; then
-	export starship_config="$home/.config/starship.toml"
-	eval "$(starship init zsh)"
-fi
+{{- if lookPath "starship" }}
+export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
+eval "$(starship init zsh)"
+{{ end -}}
 
-if command -v zoxide >/dev/null 2>&1; then
-	eval "$(zoxide init zsh)"
-fi
+{{ if lookPath "zoxide" }}
+eval "$(zoxide init zsh)"
+{{ end -}}
