@@ -108,6 +108,7 @@ notify() {
 
 stmux() { ssh "$@" -t bash -l -c 'tmux attach-session -dv'; }
 
+{{- if lookPath "vagrant" }}
 # Vagrant and VirtualBox and other Virtualisation dead in the water on the ARM platform for now
 {{- if eq .chezmoi.arch "amd64" }}
 export VAGRANT_PROVIDER_GUI="false"
@@ -122,4 +123,5 @@ vagrant_update_all_plugins() {
 		vagrant plugin update "$plugin"
 	done
 }
+{{- end }}
 {{- end }}
