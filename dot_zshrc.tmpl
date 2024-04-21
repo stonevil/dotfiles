@@ -29,3 +29,7 @@ eval "$(starship init zsh)"
 {{ if lookPath "zoxide" }}
 eval "$(zoxide init zsh)"
 {{ end -}}
+
+{{ if lookPath "limactl" }}
+eval "$(limactl completion zsh)"
+{{ end -}}
