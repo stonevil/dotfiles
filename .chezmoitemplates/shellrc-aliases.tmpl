@@ -14,7 +14,9 @@ alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
 
 alias removex='find . -type f -exec chmod a-x "{}" \;'
 
+{{ if lookPath "ansible-lint" }}
 alias ansible-lint='ansible-lint -c ~/.ansible-lint'
+{{ end }}
 
 {{ if lookPath "xplr" }}
 alias x='xplr'

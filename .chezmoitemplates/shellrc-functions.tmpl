@@ -6,13 +6,13 @@ vim:ft=bash.gotexttmpl
 darkmode() {
 	# shellcheck disable=SC2046,SC2145
 	defaults write $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance -bool FALSE
-	notify "Embrace the Dark Side, Luke" ""Use your $@"
+	notify "Embrace the Dark Side, Luke" "Use your $@"
 }
 
 darkmodeoff() {
 	# shellcheck disable=SC2046,SC2145
 	defaults delete $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance
-	notify "I felt a great disturbance in the Force" ""Use your $@"
+	notify "I felt a great disturbance in the Force" "Use your $@"
 }
 
 tn() {
@@ -53,11 +53,19 @@ f2iso() {
 	notify "f2iso" "$(basename $@).iso image created"
 }
 
+{{ if lookPath "qemu-img" }}
 qcow2vhd() {
 	qemu-img convert -O vhdx -o subformat=fixed "$@" "$(basename $@)".vhd
 	notify "qemu-img" "$(basename $@).vhd image converted"
 }
 
+raw2qcow2() {
+	qemu-img convert -O qcow2 "$@" "$(basename $@)".qcow2
+	notify "qemu-img" "$(basename $@).qcow2 image converted"
+}
+{{ end }}
+
+{{ if lookPath "bat" }}
 dbat() {
 	if [ $# -eq 2 ]; then
 		diff -t -y --color "$1" "$2" | bat -l rs
@@ -73,7 +81,9 @@ tfbat() {
 		echo "bat tail -f function requires at least one arguments"
 	fi
 }
+{{ end }}
 
+{{ if lookPath "yt-dlp" }}
 ydl() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
@@ -93,6 +103,7 @@ ymdl() {
 		notify "Video Download Failed" "$video_title"
 	fi
 }
+{{ end }}
 
 passgen() {
 	openssl rand -base64 "$1"
@@ -106,22 +117,23 @@ notify() {
 	{{- end }}
 }
 
+{{ if lookPath "tmux" }}
 stmux() { ssh "$@" -t bash -l -c 'tmux attach-session -dv'; }
+{{ end }}
 
 {{- if lookPath "vagrant" }}
-# Vagrant and VirtualBox and other Virtualisation dead in the water on the ARM platform for now
-{{- if eq .chezmoi.arch "amd64" }}
 export VAGRANT_PROVIDER_GUI="false"
 vagrant_ip() {
 	vagrant ssh -c "ip address show eth0 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//'"
 }
+
 vagrant_install_all_plugins() {
 	vagrant plugin install vagrant-vbguest
 }
+
 vagrant_update_all_plugins() {
 	for plugin in $(vagrant plugin list | cut -f1 -d' '); do
 		vagrant plugin update "$plugin"
 	done
 }
-{{- end }}
 {{- end }}

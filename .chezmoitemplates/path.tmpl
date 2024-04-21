@@ -3,8 +3,12 @@ vim:ft=bash.gotexttmpl
 */ -}}
 
 {{ if eq .chezmoi.os "darwin" }}
-export PATH={{ .chezmoi.homeDir | quote }}/.cargo/bin:{{ .chezmoi.homeDir | quote }}/.local/bin:{{ .path.homebrew | quote }}/sbin:{{ .path.homebrew | quote }}/bin:"$PATH"
-[ -d {{ .path.homebrew | quote }}/Cellar/ruby ] && export PATH={{ .path.homebrew | quote }}/Cellar/ruby/$(ls {{ .path.homebrew }}/Cellar/ruby | tail -n 1)/bin:"$PATH"
+export PATH={{ (joinPath .chezmoi.homeDir ".cargo/bin") | quote }}:{{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}:{{ (joinPath .path.homebrew "sbin") | quote }}:{{ (joinPath .path.homebrew "bin") | quote }}:"$PATH"
+
+{{ if stat (joinPath .path.homebrew "Cellar/ruby") }}
+export PATH={{ .path.homebrew }}/Cellar/ruby/$(ls {{ (joinPath .path.homebrew "Cellar/ruby") }} | tail -n 1)/bin:"$PATH"
+{{ end }}
+
 {{ else if eq .chezmoi.os "linux" }}
-export PATH={{ .chezmoi.homeDir | quote }}/.cargo/bin:{{ .chezmoi.homeDir | quote }}/.local/bin:"$PATH"
+export PATH={{ (joinPath .chezmoi.homeDir ".cargo/bin") | quote }}:{{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}:"$PATH"
 {{- end }}
