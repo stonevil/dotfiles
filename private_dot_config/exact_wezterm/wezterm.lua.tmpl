@@ -95,41 +95,6 @@ local SUB_IDX = {
 	"₂₀",
 }
 
--- Get status for path
-local function get_git_status(cwd)
-	local success, stdout, _ = wezterm.run_child_process({
-		"git",
-		"--git-dir",
-		string.format("%s/.git", cwd),
-		"branch",
-		"--show-current",
-	})
-	local gst = success and string.format("  %s ", string.gsub(stdout, "^(.+)\n$", "%1")) or ""
-	return gst
-end
-
--- Get path for pane
-local function get_cwd(pane)
-	local cwd = ""
-	local hostname = ""
-	local cwd_uri = pane:get_current_working_dir()
-	if cwd_uri then
-		cwd_uri = cwd_uri:sub(8)
-		local slash = cwd_uri:find("/")
-		if slash then
-			hostname = cwd_uri:sub(1, slash - 1)
-			-- Remove the domain name portion of the hostname
-			local dot = hostname:find("[.]")
-			if dot then
-				hostname = hostname:sub(1, dot - 1)
-			end
-			-- and extract the cwd from the uri
-			cwd = cwd_uri:sub(slash)
-		end
-	end
-	return hostname, cwd
-end
-
 -- Pane management. Intergration with NeoVim
 local function isViProcess(pane)
 	return pane:get_foreground_process_name():find("n?vim") ~= nil
@@ -248,19 +213,6 @@ end)
 wezterm.on("update-right-status", function(window, pane)
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
-
-	-- Directory path
-	local hostname, cwd = get_cwd(pane)
-	table.insert(cells, cwd)
-	if not isempty(hostname) then
-		table.insert(cells, hostname)
-	end
-
-	-- Directory git status
-	local gst = get_git_status(cwd)
-	if not isempty(gst) then
-		table.insert(cells, gst)
-	end
 
 	-- date/time in style: "Wed Mar 3 08:14"
 	local date = wezterm.strftime("%a %b %-d %H:%M")
