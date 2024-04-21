@@ -16,6 +16,10 @@ alias removex='find . -type f -exec chmod a-x "{}" \;'
 
 alias ansible-lint='ansible-lint -c ~/.ansible-lint'
 
+{{ if lookPath "xplr" }}
+alias x='xplr'
+{{ end }}
+
 {{ if lookPath "limactl" }}
 # lima-vm to support genuine docker
 alias docker='limactl shell docker docker'
