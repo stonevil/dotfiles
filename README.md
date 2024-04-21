@@ -1,5 +1,6 @@
 dotFiles
 ----
+
 My collection of dot and config files. dotFiles in active redevelopment right now.
 
 Build in mind for macOS 14.x and higher and Linux.
@@ -11,7 +12,8 @@ Build in mind for macOS 14.x and higher and Linux.
 - Fedora 39.
 - Debian 12. VM's, Toolbox container, and my Linux laptop.
 
-> Never tested in any ``Windows`` ``WSL``. Never used ``Windows`` for anything except gaming.  Use at your own risk.
+> [!WARNING]
+> Never tested in any ``Windows WSL``. Never used ``Windows`` for anything except gaming.  Use at your own risk.
 
 
 Testing
