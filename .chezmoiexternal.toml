@@ -149,7 +149,7 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://storage.googleapis.com/kubernetes-release/release/v1.28.2/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
+	url = "https://storage.googleapis.com/kubernetes-release/release/v1.28.9/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
 
 [".local/bin/krew"]
 	type = "file"
