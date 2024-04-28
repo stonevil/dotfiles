@@ -122,6 +122,16 @@
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zellij"]
 
 
+{{ $github_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/cli/cli/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/gh"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/cli/cli/releases/download/v{{ $github_v }}/gh_{{ $github_v }}_{{ if eq .chezmoi.os "darwin"}}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}.{{ if eq .chezmoi.os "darwin"}}zip{{ else if eq .chezmoi.os "linux" }}tar.gz{{ end }}"
+	[".local/bin/gh".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ $github_v }}_{{ if eq .chezmoi.os "darwin"}}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}/bin/gh"]
+
 # DevOps
 {{ $helm_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/helm/helm/releases/latest" | trim | base | trimPrefix "v" }}
 {{ if .tags.devops -}}
