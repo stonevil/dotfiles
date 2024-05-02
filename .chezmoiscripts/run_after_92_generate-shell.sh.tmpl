@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+cd {{ .chezmoi.homeDir | quote }} || exit 1
+
+{{ template "path.tmpl" . }}
+
+{{ template "shell-completions.tmpl" . }}

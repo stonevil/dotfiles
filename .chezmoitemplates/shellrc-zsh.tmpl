@@ -2,19 +2,26 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+
+{{ if stat (joinPath .chezmoi.homeDir ".local/antigen.zsh") }}
 source {{ (joinPath .chezmoi.homeDir ".local/antigen.zsh") | quote }}
 
 # Load the oh-my-zsh's library
 antigen use oh-my-zsh
 
 antigen bundle colored-man-pages
-antigen bundle kubectl
 antigen bundle rsync
 antigen bundle sudo
-{{- if eq .chezmoi.arch "amd64" }}
+antigen bundle ssh
+antigen bundle podman
+{{- if lookPath "terraform" }}
+antigen bundle terraform
+{{ end }}
+{{- if lookPath "vagrant" }}
 antigen bundle vagrant
 {{- end }}
-#antigen bundle Aloxaf/fzf-tab
+# antigen bundle Aloxaf/fzf-tab
+# antigen bundle fzf
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
@@ -22,12 +29,9 @@ antigen bundle zsh-users/zsh-completions
 
 antigen bundle jeffreytse/zsh-vi-mode
 
-# Load the theme
-# https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#antigen theme robbyrussell
-
 # Tell Antigen that you're done
 antigen apply
+{{ end }}
 
 CASE_SENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"

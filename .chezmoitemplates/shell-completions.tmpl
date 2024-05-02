@@ -1,0 +1,21 @@
+{{- /*
+vim:ft=zsh.gotexttmpl
+*/ -}}
+
+# vim:ft=zsh :
+# shellcheck source=/dev/null
+
+{{ $m := dict
+	"starship" "init"
+	"zoxide" "init"
+	"limactl" "completion"
+	"kubectl" "completion"
+}}
+
+{{ range $k, $v := $m }}
+	{{- if lookPath $k }}
+		echo "Generate completion file for {{ $k }} for zsh/bash"
+		{{ $k }} {{ $v }} zsh > {{ print $.chezmoi.homeDir "/.config/zsh/completions/" $k ".zsh" }}
+		{{ $k }} {{ $v }} bash > {{ print $.chezmoi.homeDir "/.config/bash/completions/" $k ".bash" }}
+	{{ end }}
+{{ end }}
