@@ -2,9 +2,11 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-export PATH={{ if stat (joinPath .chezmoi.homeDir ".cargo") }}{{ (joinPath .chezmoi.homeDir ".cargo/bin") | quote }}:{{ end }}{{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}{{- if eq .chezmoi.os "darwin" }}{{ if stat (joinPath .path.homebrew "Cellar/ruby") }}:{{ (joinPath ((glob (print $.path.homebrew "/Cellar/ruby/*")) | last ) "bin") | quote }}{{ end }}:{{ (joinPath .path.homebrew "sbin") | quote }}:{{ (joinPath .path.homebrew "bin") | quote }}{{ end }}:"$PATH"
+export PATH={{ if stat (joinPath .chezmoi.homeDir ".cargo") }}{{ (joinPath .chezmoi.homeDir ".cargo/bin") | quote }}:{{ end }}{{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}{{ if eq .chezmoi.os "darwin" }}{{ if stat (joinPath .path.homebrew "Cellar/ruby") }}:{{ (joinPath ((glob (print $.path.homebrew "/Cellar/ruby/*")) | last ) "bin") | quote }}{{ end }}:{{ (joinPath .path.homebrew "sbin") | quote }}:{{ (joinPath .path.homebrew "bin") | quote }}{{ end }}:"$PATH"
 
+{{ if eq .chezmoi.os "darwin" }}
 export MANPATH={{ (joinPath .path.homebrew "share/man") | quote }}:"$MANPATH"
+{{ end }}
 
 export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") }}"
 
