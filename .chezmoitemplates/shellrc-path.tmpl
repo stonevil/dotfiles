@@ -2,14 +2,11 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{- if eq .chezmoi.os "darwin" }}
-export PATH={{ .path.homebrew | quote }}/sbin:{{ .path.homebrew | quote }}/bin:"$PATH"
-export MANPATH="{{ .path.homebrew | quote }}/share/man":"$MANPATH"
+export PATH={{ if stat (joinPath .chezmoi.homeDir ".cargo") }}{{ (joinPath .chezmoi.homeDir ".cargo/bin") | quote }}:{{ end }}{{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}{{- if eq .chezmoi.os "darwin" }}{{ if stat (joinPath .path.homebrew "Cellar/ruby") }}:{{ (joinPath ((glob (print $.path.homebrew "/Cellar/ruby/*")) | last ) "bin") | quote }}{{ end }}:{{ (joinPath .path.homebrew "sbin") | quote }}:{{ (joinPath .path.homebrew "bin") | quote }}{{ end }}:"$PATH"
+
+export MANPATH={{ (joinPath .path.homebrew "share/man") | quote }}:"$MANPATH"
 
 export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") }}"
-
-[ -d {{ .path.homebrew | quote }}/Cellar/ruby ] && export PATH={{ .path.homebrew | quote }}/Cellar/ruby/$(ls {{ .path.homebrew }}/Cellar/ruby | tail -n 1)/bin:"$PATH"
-{{ end }}
 
 {{- if stat (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") }}
 export XTENSA_PATH={{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") | quote }}
@@ -20,13 +17,7 @@ export PATH="$PATH":{{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf/bin")
 export IDF_PATH={{ (joinPath .chezmoi.homeDir ".local/esp-idf") | quote }}
 {{ end }}
 
-{{- if stat (joinPath .chezmoi.homeDir ".local/krew") }}
+{{ if stat (joinPath .chezmoi.homeDir ".local/krew") }}
 export KREW_ROOT={{ (joinPath .chezmoi.homeDir ".local/krew") | quote }}
-export PATH={{ (joinPath .chezmoi.homeDir ".local/krew/bin") | quote }}:{{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}:"$PATH"
-{{ end }}
-
-{{- if stat (joinPath .chezmoi.homeDir ".cargo") }}
-export PATH={{ (joinPath .chezmoi.homeDir ".cargo/bin") | quote }}:"$PATH"
+export PATH={{ (joinPath .chezmoi.homeDir ".local/krew/bin") | quote }}:"$PATH"
 {{- end }}
-
-export PATH={{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}:"$PATH"
