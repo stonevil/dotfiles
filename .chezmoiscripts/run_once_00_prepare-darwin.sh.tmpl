@@ -13,7 +13,7 @@ echo "Prepare system. Install essential packages like brew, etc"
 	git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
 	{{ template "darwin.tmpl" . }}
 	brew tap --force homebrew/core || exit 1
-	brew install --force bash curl git gnu-tar wget ruby || exit 1
+	brew install --force bash curl git gnu-tar wget || exit 1
 
 	# Bypass gettext dependencies issues
 	brew unlink --quiet gettext
