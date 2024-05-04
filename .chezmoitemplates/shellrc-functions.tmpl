@@ -29,7 +29,19 @@ tm-cleanup() {
 	done <<<"$tm_list"
 	notify "tmutil" "Snapshots deleted"
 }
+
+# Remove quarantine from executable binary
+unquarantine() {
+	xattr -r -d com.apple.quarantine "$@"
+	notify "macOS quarantine removed" "$@"
+}
 {{ end }}
+
+ip-external() {
+	ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
+	echo $ip
+	notify "External IP" "$ip"
+}
 
 {{ if lookPath "limactl" }}
 toolbox() {
