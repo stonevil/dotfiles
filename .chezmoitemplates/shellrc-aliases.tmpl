@@ -2,45 +2,14 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-alias less='less -R --tabs={{ .tui.tabs }}'
-alias more='less'
 
-alias ports='netstat -a | grep -i "listen"'
-alias path='echo -e ${PATH//:/\\n}'
-
-alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
-
-alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
-
-alias removex='find . -type f -exec chmod a-x "{}" \;'
-
-{{ if lookPath "ansible-lint" }}
-alias ansible-lint='ansible-lint -c ~/.ansible-lint'
-{{ end }}
-
-{{ if lookPath "xplr" }}
-alias x='xplr'
-{{ end }}
-
-{{ if lookPath "limactl" }}
-# lima-vm to support genuine docker
-alias docker='limactl shell docker docker'
-alias docker-stop-all='docker stop $(docker ps -a -q)'
-alias docker-rm-all='docker rm -f $(docker ps -a -q)'
-alias docker-rmi-all='docker rmi -f $(docker images --no-trunc=false -a -q)'
-
-# lima-vm to support genuine podman
-alias podman='limactl shell podman podman'
-alias podman-stop-all='podman stop $(podman ps -a -q)'
-alias podman-rm-all='podman rm -f $(podman ps -a -q)'
-alias podman-rmi-all='podman rmi -f $(podman images --no-trunc=false -a -q)'
-
-# lima-vm to support genuine nerdctl
-alias nerdctl='limactl shell nerdy nerdctl'
-alias nerdctl-stop-all='nerdctl stop $(nerdctl ps -a -q)'
-alias nerdctl-rm-all='nerdctl rm -f $(nerdctl ps -a -q)'
-alias nerdctl-rmi-all='nerdctl rmi -f $(nerdctl images --no-trunc=false -a -q)'
-{{ end }}
+if [[ -o interactive ]]; then
+	{{ if lookPath "eza" }}
+	alias ls='eza --icons=always'
+	alias l='ls -lhF'
+	alias ll='ls -lahF'
+	{{ end }}
+fi
 
 {{ if lookPath "git" }}
 alias gad='git add'
@@ -77,8 +46,6 @@ alias glogout='git credential-cache exit'
 
 # review all files in a git-managed directory that are not yet added to git
 alias gv='vim $(git ls-files -o -X .gitignore)'
-# cleanup credentials cache
-alias glogout='git credential-cache exit'
 
 git_submodule_remove() {
 	git config -f .git/config --remove-section submodule."$1"
@@ -93,6 +60,49 @@ git_submodule_remove() {
 {{ if lookPath "oauth2l" }}
 # Configure gcurl alias
 alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform userinfo.email)" -H "Content-Type: application/json" '
+{{ end }}
+
+alias path='echo -e ${PATH//:/\\n}'
+
+{{ if eq .chezmoi.os "darwin" }}
+# Cleanup .DS_Store files
+alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
+{{ end }}
+
+# Remove executable
+alias removex='find . -type f -exec chmod a-x "{}" \;'
+
+alias less='less -R --tabs={{ .tui.tabs }}'
+alias more='less'
+
+alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
+
+{{ if lookPath "ansible-lint" }}
+alias ansible-lint='ansible-lint -c ~/.ansible-lint'
+{{ end }}
+
+{{ if lookPath "xplr" }}
+alias x='xplr'
+{{ end }}
+
+{{ if lookPath "limactl" }}
+# lima-vm to support genuine docker
+alias docker='limactl shell docker docker'
+alias docker-stop-all='docker stop $(docker ps -a -q)'
+alias docker-rm-all='docker rm -f $(docker ps -a -q)'
+alias docker-rmi-all='docker rmi -f $(docker images --no-trunc=false -a -q)'
+
+# lima-vm to support genuine podman
+alias podman='limactl shell podman podman'
+alias podman-stop-all='podman stop $(podman ps -a -q)'
+alias podman-rm-all='podman rm -f $(podman ps -a -q)'
+alias podman-rmi-all='podman rmi -f $(podman images --no-trunc=false -a -q)'
+
+# lima-vm to support genuine nerdctl
+alias nerdctl='limactl shell nerdy nerdctl'
+alias nerdctl-stop-all='nerdctl stop $(nerdctl ps -a -q)'
+alias nerdctl-rm-all='nerdctl rm -f $(nerdctl ps -a -q)'
+alias nerdctl-rmi-all='nerdctl rmi -f $(nerdctl images --no-trunc=false -a -q)'
 {{ end }}
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}

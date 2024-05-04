@@ -18,12 +18,6 @@
 	{{ end }}
 {{ end }}
 
-[".local/antigen.zsh"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	url = "https://git.io/antigen"
-
 {{ $chezmoi_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/twpayne/chezmoi/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/chezmoi"]
 	type = "file"
@@ -60,6 +54,30 @@
 	refreshPeriod = "168h"
 	executable = true
 	url = "https://raw.githubusercontent.com/junegunn/fzf/master/bin/fzf-tmux"
+
+[".config/zsh/completions/completion.zsh"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
+
+[".config/zsh/completions/key-bindings.zsh"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
+
+[".config/bash/completions/completion.bash"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash"
+
+[".config/bash/completions/key-bindings.bash"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash"
 
 [".local/bin/xplr"]
 	type = "file"

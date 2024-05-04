@@ -2,6 +2,7 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+
 {{- if eq .chezmoi.os "darwin" }}
 darkmode() {
 	# shellcheck disable=SC2046,SC2145
@@ -22,6 +23,7 @@ tn() {
 	notify "Job is done, Sir!" "$@"
 }
 
+# Cleanup macOS drive snapshots
 tm-cleanup() {
 	tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
 	while IFS= read -r l; do
@@ -95,6 +97,10 @@ tfbat() {
 }
 {{ end }}
 
+passgen() {
+	openssl rand -base64 "$1"
+}
+
 {{ if lookPath "yt-dlp" }}
 ydl() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
@@ -116,10 +122,6 @@ ymdl() {
 	fi
 }
 {{ end }}
-
-passgen() {
-	openssl rand -base64 "$1"
-}
 
 notify() {
 	{{ if eq .chezmoi.os "darwin" -}}

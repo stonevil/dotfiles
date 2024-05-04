@@ -2,43 +2,30 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+autoload -Uz compinit
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/antigen.zsh") }}
-source {{ (joinPath .chezmoi.homeDir ".local/antigen.zsh") | quote }}
+# VI mode
+zle -N zle-line-finish
+bindkey -v
 
-# Load the oh-my-zsh's library
-antigen use oh-my-zsh
+# Allow vv to edit the command line (standard behaviour)
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'vv' edit-command-line
 
-antigen bundle colored-man-pages
-antigen bundle rsync
-antigen bundle sudo
-antigen bundle ssh
-antigen bundle podman
-{{- if lookPath "terraform" }}
-antigen bundle terraform
-{{ end }}
-{{- if lookPath "vagrant" }}
-antigen bundle vagrant
-{{- end }}
-# antigen bundle Aloxaf/fzf-tab
-# antigen bundle fzf
+# Allow ctrl-p, ctrl-n for navigate history (standard behaviour)
+bindkey '^P' up-history
+bindkey '^N' down-history
 
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
+# Allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
 
-antigen bundle jeffreytse/zsh-vi-mode
+# Allow ctrl-r and ctrl-s to search the history
+bindkey '^r' history-incremental-search-backward
+bindkey '^s' history-incremental-search-forward
 
-# Tell Antigen that you're done
-antigen apply
-{{ end }}
-
-CASE_SENSITIVE="true"
-DISABLE_AUTO_UPDATE="true"
-export UPDATE_ZSH_DAYS=2
-# DISABLE_LS_COLORS="true"
-DISABLE_AUTO_TITLE="true"
-ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-# HIST_STAMPS="mm/dd/yyyy"
+# Allow ctrl-a and ctrl-e to move to beginning/end of line
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
