@@ -2,10 +2,9 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-autoload -Uz compinit
+autoload -Uz compinit && compinit
 
 # VI mode
-zle -N zle-line-finish
 bindkey -v
 
 # Allow vv to edit the command line (standard behaviour)
