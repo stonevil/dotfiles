@@ -13,10 +13,11 @@ vim:ft=zsh.gotexttmpl
 	"kubectl" "completion"
 }}
 
-{{ range $k, $v := $m }}
-	{{- if lookPath $k }}
-		echo "Generate completion file for {{ $k }} for zsh/bash"
-		{{ $k }} {{ $v }} zsh > {{ print $.chezmoi.homeDir "/.config/zsh/completions/" $k ".zsh" }}
-		{{ $k }} {{ $v }} bash > {{ print $.chezmoi.homeDir "/.config/bash/completions/" $k ".bash" }}
-	{{ end }}
-{{ end }}
+{{ range $s := list "bash" "zsh" }}
+	{{ range $k, $v := $m }}
+		{{ if lookPath $k }}
+echo "Generate completion file for {{ $k }} for {{ $s }}"
+{{ $k }} {{ $v }} {{ $s }} > {{ print $.chezmoi.homeDir "/.config/" $s "/plugins/" $k "." $s }}
+		{{- end }}
+	{{- end }}
+{{- end }}
