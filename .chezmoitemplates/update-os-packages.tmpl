@@ -12,7 +12,7 @@ echo "System update and cleanup after all this mess"
 		{{ template "alpine.tmpl" . }}
 	{{ else if eq .chezmoi.osRelease.id "arch" }}
 		{{ template "arch.tmpl" . }}
-	{{ else if (or (eq .chezmoi.osRelease.id "centos") (eq .chezmoi.osRelease.id "fedora")) }}
+	{{ else if eq .chezmoi.osRelease.id "fedora" }}
 		{{ template "fedora.tmpl" . }}
 	{{ end }}
 {{ end }}

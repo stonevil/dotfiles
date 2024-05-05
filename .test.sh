@@ -39,7 +39,7 @@ alpine)
 	export IMAGE="$DISTRO"
 	export IMAGE_TAG="${2:-3.19}"
 	;;
-arch | centos)
+arch)
 	export IMAGE_TAG="${2:-latest}"
 	if [[ $DISTRO == "arch" ]]; then
 		IMAGE="archlinux"

@@ -3,16 +3,7 @@
 
 cd {{ .chezmoi.homeDir | quote }} || exit 1
 
-{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "centos")) }}
-	echo "Fix {{ .chezmoi.osRelease.id | title }} repositories url, ruby, etc"
-	sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-	sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
-	sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm || exit 1
-	{{ template "fedora.tmpl" . }}
-	sudo dnf module reset ruby -y || exit 1
-{{ end }}
-
-{{ if (and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "fedora") (eq .chezmoi.osRelease.id "centos"))) }}
+{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
 	echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
 	{{ template "fedora.tmpl" . }}
 
