@@ -2,17 +2,18 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+# UTF-8 everywhere
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# Colours everywhere
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+
+# Stop M$ from spying on you
 export AZURE_CORE_COLLECT_TELEMETRY=FALSE
 export AZURE_LOGGING_ENABLE_LOG_FILE=FALSE
-
-{{ if eq .chezmoi.os "darwin" -}}
-export HOMEBREW_ANALYTICS_DEBUG=1
-{{- end }}
 
 npm config set prefix {{ (joinPath .chezmoi.homeDir ".local") | quote }}
 export NPM_PACKAGES={{ (joinPath .chezmoi.homeDir ".local") | quote }}
