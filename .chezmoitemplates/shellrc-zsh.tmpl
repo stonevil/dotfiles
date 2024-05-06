@@ -2,6 +2,12 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+setopt append_history
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 autoload -Uz colors && colors
 
