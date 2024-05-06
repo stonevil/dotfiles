@@ -30,8 +30,6 @@ export GOBIN={{ (joinPath .chezmoi.homeDir ".local/bin") | quote }}
 
 export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 
-export KREW_ROOT={{ (joinPath .chezmoi.homeDir ".local/krew") | quote }}
-
 export PACKER_CACHE_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/cache") | quote }}
 export PACKER_ISO_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/iso") | quote }}
 export PACKER_BOX_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/box") | quote }}
