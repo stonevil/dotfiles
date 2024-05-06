@@ -11,6 +11,13 @@ export LC_ALL=en_US.UTF-8
 # Colours everywhere
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
+# Web browser
+{{ if eq .chezmoi.os "darwin" }}
+export BROWSER="open -a Safari"
+{{ else }}
+export BROWSER="firefox"
+{{ end }}
+
 # Stop M$ from spying on you
 export AZURE_CORE_COLLECT_TELEMETRY=FALSE
 export AZURE_LOGGING_ENABLE_LOG_FILE=FALSE
