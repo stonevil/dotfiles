@@ -75,6 +75,19 @@
 	executable = false
 	url = "https://raw.githubusercontent.com/mrjohannchang/zsh-interactive-cd/master/zsh-interactive-cd.plugin.zsh"
 
+{{ $zsh_p := dict
+"zsh-users" "zsh-syntax-highlighting.zsh"
+"zsh-users" "zsh-autosuggestions"
+}}
+
+{{ range $k, $v := $zsh_p }}
+[".config/zsh/plugins/{{ $v }}.zsh"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = false
+	url = "https://raw.githubusercontent.com/{{ $k }}/{{ $v }}/master/{{ $v }}.zsh"
+{{ end }}
+
 [".local/bin/xplr"]
 	type = "file"
 	refreshPeriod = "168h"
