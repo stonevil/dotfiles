@@ -1,0 +1,9 @@
+"query:Unread:unread = \"yes\""
+"query:Blogs:tags # \"blog\""
+"query:YouTube:tags # \"youtube\""
+
+# Blogs
+http://ua.censor.net.ua/includes/news_uk.xml blog Ukraine
+
+# YouTube
+https://www.youtube.com/feeds/videos.xml?channel_id=UCz_8iGBzwwJ2bOAqJJJxomA youtube #A Tergo Lupi
