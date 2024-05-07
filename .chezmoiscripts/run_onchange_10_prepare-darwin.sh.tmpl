@@ -18,5 +18,4 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 		echo "Install {{ .chezmoi.os | title }} packages with HEAD options"
 		brew install --HEAD --force $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head" | quote }}) || exit 1
 	{{ end }}
-	brew cleanup --quiet --prune=120 || true
 {{ end }}
