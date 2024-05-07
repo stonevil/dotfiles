@@ -64,11 +64,16 @@ call plug#end()
 
 
 "" Global settings override
-"let mapleader="\"
+nnoremap <space> <nop>
+map <space> <leader>
 set guioptions=
 
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+{{ if eq .chezmoi.os "darwin" }}
+set clipboard^=unnamed
+{{ else }}
 set clipboard^=unnamedplus
+{{- end  }}
 
 set nocompatible								" Enables us Vim specific features
 syntax on												" Enable syntax highlighting
@@ -464,6 +469,9 @@ set colorcolumn=0
 set background=dark
 silent do ColorScheme
 
+" Set background to transparent
+hi NonText ctermbg=none
+hi Normal guibg=NONE ctermbg=NONE
 
 """"""""""
 "" Reopen last position
