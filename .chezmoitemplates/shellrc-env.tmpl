@@ -14,9 +14,12 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 # Web browser
 {{ if eq .chezmoi.os "darwin" }}
 export BROWSER="open -a Safari"
+export MEDIAPLAYER="open -a mpv"
 {{ else }}
 export BROWSER="firefox"
+export MEDIAPLAYER="mpv"
 {{ end }}
+export MEDIADOWNLOADER="ydl"
 
 # Stop M$ from spying on you
 export AZURE_CORE_COLLECT_TELEMETRY=FALSE
