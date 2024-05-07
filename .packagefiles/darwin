@@ -51,6 +51,7 @@ makedepend
 mkcert
 mkdocs
 ninja
+newsboat
 nmap
 parallel
 lima
@@ -68,6 +69,7 @@ the_silver_searcher
 tmux
 tree
 unzip
+universal-ctags
 watch
 wget
 wimlib
