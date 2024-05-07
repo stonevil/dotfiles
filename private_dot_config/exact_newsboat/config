@@ -1,18 +1,18 @@
-# Instead of updating from newsboat, I run the update process as an hourly cron job:
-# 0 * * * * newsboat -x reload
-
-unbind-key H
-unbind-key L
-unbind-key c
-unbind-key ,
-browser "$BROWSER %u"
-
 # Feed settings
+auto-reload yes
+reload-time 120
 prepopulate-query-feeds yes
 download-full-page yes
 display-article-progress yes
+keep-articles-days 30
+scrolloff 3
 
 # Bindings
+unbind-key H
+unbind-key L
+unbind-key c
+unbind-key y
+
 bind-key SPACE macro-prefix
 bind-key LEFT quit
 bind-key DOWN down
@@ -27,6 +27,15 @@ bind-key u pageup
 bind-key a toggle-article-read
 bind-key c toggle-show-read-feeds
 
+# Browsers
+browser "$BROWSER %u"
+macro m set browser "$MEDIAPLAYER %u &"; open-in-browser-noninteractively; toggle-article-read "read"; set browser "$BROWSER %u"
+macro y set browser "$MEDIADOWNLOADER %u &"; open-in-browser-noninteractively; toggle-article-read "read"; set browser "$BROWSER %u"
+
+# Rules of Engagement
+ignore-mode "display"
+ignore-article "*" "tags !# \"youtube\" and (title # \"(lgbtq|LGBTQ|lgbt|LGBT|transgender)\")"
+
 # Colors
 color background default default
 color listnormal default default
@@ -35,6 +44,8 @@ color listfocus black yellow standout bold
 color listnormal_unread blue default
 color article default default
 color info blue default bold
+
+highlight all "---*---" default
 
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default
