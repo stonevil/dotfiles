@@ -5,6 +5,6 @@ vim:ft=bash.gotexttmpl
 {{ template "path.tmpl" . }}
 
 echo "Darwin. Update brew packages"
-export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") }}"
+export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") }} --no-quarantine"
 brew analytics off || exit 0
-(brew update && brew upgrade && brew upgrade --cask && brew cleanup --quiet --prune=30 && brew autoremove) || exit 0
+(brew update && brew upgrade && brew upgrade --cask && brew cleanup --quiet --prune=120 && brew autoremove) || exit 0
