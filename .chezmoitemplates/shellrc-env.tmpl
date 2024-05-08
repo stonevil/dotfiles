@@ -16,11 +16,12 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export BROWSER="open -a Safari"
 	{{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS") | quote }}
 export MEDIAPLAYER="{{ (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") }} --terminal=no --mute=no"
-	{{ end -}}
-{{ else }}
+	{{ end }}
+{{ else if eq .chezmoi.os "linux"}}
 export BROWSER="firefox"
 export MEDIAPLAYER="mpv --terminal=no --mute=no"
 {{ end }}
+
 {{- if lookPath "yt-dlp" }}
 export MEDIADOWNLOADER="ydl"
 {{ end }}
