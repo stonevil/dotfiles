@@ -73,7 +73,7 @@ alias more='less'
 alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
 
 {{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/") | quote }}
-alias mpv='(joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") --terminal=no --mute=no'
+alias mpv='{{ (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") }} --terminal=no --mute=no'
 {{ end -}}
 
 {{ if lookPath "ansible-lint" }}

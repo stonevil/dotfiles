@@ -15,7 +15,7 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 {{ if eq .chezmoi.os "darwin" }}
 export BROWSER="open -a Safari"
 	{{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS") | quote }}
-export MEDIAPLAYER="(joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") --terminal=no --mute=no"
+export MEDIAPLAYER="{{ (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") }} --terminal=no --mute=no"
 	{{ end -}}
 {{ else }}
 export BROWSER="firefox"
