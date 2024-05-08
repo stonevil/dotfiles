@@ -77,6 +77,7 @@
 
 {{ $zsh_p := dict
 "zsh-users" "zsh-syntax-highlighting"
+"zsh-users" "zsh-autosuggestions"
 }}
 
 {{ range $k, $v := $zsh_p }}
