@@ -1,0 +1,10 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if stat (joinPath .chezmoi.homeDir "Applications/WezTerm.app/Contents/MacOS/wezterm") }}
+	# wezterm hash: {{ include (joinPath .chezmoi.homeDir "Applications/WezTerm.app/Contents/MacOS/wezterm") | sha256sum }}
+	echo "WezTerm. Update icon to something useful. Original ugly as hell"
+	cp -f {{ (joinPath .chezmoi.sourceDir ".resources/wezterm/terminal.icns") | quote }} {{ (joinPath .chezmoi.homeDir "Applications/WezTerm.app/Contents/Resources/terminal.icns") | quote }}
+	xattr -r -d com.apple.quarantine {{ (joinPath .chezmoi.homeDir "Applications/WezTerm.app") | quote }}
+{{ end }}
