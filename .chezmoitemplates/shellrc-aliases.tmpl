@@ -72,17 +72,17 @@ alias more='less'
 
 alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
 
-{{- if stat ((joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") | quote) }}
+{{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/") | quote }}
 alias mpv='(joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") --terminal=no --mute=no'
-{{ end }}
+{{ end -}}
 
 {{ if lookPath "ansible-lint" }}
 alias ansible-lint='ansible-lint -c ~/.ansible-lint'
-{{ end }}
+{{ end -}}
 
 {{ if lookPath "xplr" }}
 alias -g X=' $(xplr)'
-{{ end }}
+{{ end -}}
 alias -g L=' | $PAGER'
 alias -g G="| grep"
 
@@ -104,8 +104,8 @@ alias nerdctl='limactl shell nerdy nerdctl'
 alias nerdctl-stop-all='nerdctl stop $(nerdctl ps -a -q)'
 alias nerdctl-rm-all='nerdctl rm -f $(nerdctl ps -a -q)'
 alias nerdctl-rmi-all='nerdctl rmi -f $(nerdctl images --no-trunc=false -a -q)'
-{{ end }}
+{{ end -}}
 
 {{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
 alias idf-env='. {{ (joinPath .chezmoi.homeDir ".local/esp-idf/export.sh") | quote }}'
-{{- end }}
+{{ end -}}
