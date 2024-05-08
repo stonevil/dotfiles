@@ -76,8 +76,7 @@
 	url = "https://raw.githubusercontent.com/mrjohannchang/zsh-interactive-cd/master/zsh-interactive-cd.plugin.zsh"
 
 {{ $zsh_p := dict
-"zsh-users" "zsh-syntax-highlighting.zsh"
-"zsh-users" "zsh-autosuggestions"
+"zsh-users" "zsh-syntax-highlighting"
 }}
 
 {{ range $k, $v := $zsh_p }}
