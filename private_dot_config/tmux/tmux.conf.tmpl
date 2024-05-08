@@ -101,27 +101,6 @@ set -g @sessionx-custom-paths '{{ .chezmoi.homeDir }}/Documents,{{ .chezmoi.home
 # C-t "tree": reloads the preview with the tree of sessions+windows familiar from the native session manager (C-S)
 # ? toggles the preview pane
 
-# NeoVim, WezTerm, tmux integration and unification
-version_pat='s/^tmux[^0-9]*([.0-9]+).*/\1/p'
-
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
-bind-key -n M-h if-shell "$is_vim" "send-keys M-h" "select-pane -L"
-bind-key -n M-j if-shell "$is_vim" "send-keys M-j" "select-pane -D"
-bind-key -n M-k if-shell "$is_vim" "send-keys M-k" "select-pane -U"
-bind-key -n M-l if-shell "$is_vim" "send-keys M-l" "select-pane -R"
-tmux_version="$(tmux -V | sed -En "$version_pat")"
-setenv -g tmux_version "$tmux_version"
-
-if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' "bind-key -n 'M-p' if-shell \"$is_vim\" 'send-keys M-p'  'select-pane -l'"
-if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' "bind-key -n 'M-p' if-shell \"$is_vim\" 'send-keys M-p'  'select-pane -l'"
-
-bind-key -T copy-mode-vi M-h select-pane -L
-bind-key -T copy-mode-vi M-j select-pane -D
-bind-key -T copy-mode-vi M-k select-pane -U
-bind-key -T copy-mode-vi M-l select-pane -R
-bind-key -T copy-mode-vi M-p select-pane -l
-
-
 ## Manage sessions
 #bind C-s choose-session
 unbind-key "Q"
@@ -159,30 +138,24 @@ bind-key "Q" confirm-before kill-session
 # <prefix> &          kill the current window
 
 
-## Manage panes
-# Kill pane
-unbind-key "T"
-bind-key "T" kill-pane -a
+# NeoVim, WezTerm, tmux integration and unification
+# navigation
+set -g @tmux-nvim-navigation true
+set -g @tmux-nvim-navigation-cycle true
+set -g @tmux-nvim-navigation-keybinding-left 'M-Left'
+set -g @tmux-nvim-navigation-keybinding-down 'M-Down'
+set -g @tmux-nvim-navigation-keybinding-up 'M-Up'
+set -g @tmux-nvim-navigation-keybinding-right 'M-Right'
 
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+# resize
+set -g @tmux-nvim-resize true
+set -g @tmux-nvim-resize-step-x 4
+set -g @tmux-nvim-resize-step-y 4
+set -g @tmux-nvim-resize-keybinding-left 'M-S-Left'
+set -g @tmux-nvim-resize-keybinding-down 'M-S-Down'
+set -g @tmux-nvim-resize-keybinding-up 'M-S-Up'
+set -g @tmux-nvim-resize-keybinding-right 'M-S-Right'
 
-bind-key -n "C-h" if-shell "$is_vim" 'send-keys C-h' { if -F '#{pane_at_left}' '' 'select-pane -L' }
-bind-key -n "C-j" if-shell "$is_vim" 'send-keys C-j' { if -F '#{pane_at_bottom}' '' 'select-pane -D' }
-bind-key -n "C-k" if-shell "$is_vim" 'send-keys C-k' { if -F '#{pane_at_top}' '' 'select-pane -U' }
-bind-key -n "C-l" if-shell "$is_vim" 'send-keys C-l' { if -F '#{pane_at_right}' '' 'select-pane -R' }
-bind-key -T copy-mode-vi "C-h" if -F '#{pane_at_left}' '' 'select-pane -L'
-bind-key -T copy-mode-vi "C-j" if -F '#{pane_at_bottom}' '' 'select-pane -D'
-bind-key -T copy-mode-vi "C-k" if -F '#{pane_at_top}' '' 'select-pane -U'
-bind-key -T copy-mode-vi "C-l" if -F '#{pane_at_right}' '' 'select-pane -R'
-bind-key "h" select-pane -L
-bind-key "j" select-pane -D
-bind-key "k" select-pane -U
-bind-key "l" select-pane -R
-
-bind-key -r "H" resize-pane -L 5
-bind-key -r "J" resize-pane -D 5
-bind-key -r "K" resize-pane -U 5
-bind-key -r "L" resize-pane -R 5
 
 bind-key "|" split-window -h -c '#{pane_current_path}'
 bind-key "\\" split-window -fh -c '#{pane_current_path}'
@@ -314,6 +287,7 @@ set -g @tpm_plugins '                \
   tmux-plugins/tmux-resurrect        \
   tmux-plugins/tmux-prefix-highlight \
   omerxx/tmux-sessionx               \
+	aserowy/tmux.nvim                  \
 '
 # List of disabled plugins
 # tmux-plugins/tmux-battery          \
