@@ -1,23 +1,22 @@
 "query:Unread:unread = \"yes\""
 "query:Blogs:tags # \"blog\""
-"query:Blogs Ukraine:tags # \"blog\" \"Ukraine\""
+"query:Blogs Ukraine:tags # \"blog\" and tags # \"Ukraine\""
 "query:YouTube:tags # \"youtube\""
-"query:YouTube Music:tags # \"youtube\" \"music\""
+"query:YouTube Music:tags # \"youtube\" and tags # \"music\""
 
-# Blogs
+"---Blogs Ukraine---"
 http://ua.censor.net.ua/includes/news_uk.xml blog Ukraine
 http://tverezo.info/feed blog Ukraine
 http://glavcom.ua/rss.xml blog Ukraine
 
-
-# YouTube Podcast
+"---YouTube Podcast---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCgEvEKgmQ-CHPIeOSaGCffw youtube podcast # Amala Ekpunobi
 
-# YouTube Music
+"---YouTube Music---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCz_8iGBzwwJ2bOAqJJJxomA youtube music # A Tergo Lupi
 
-# YouTube Humor
+"---YouTube Humor---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC0kyWT2BAgiZiBs-7svl37Q youtube humor # BEczKA
 
-# YouTube Farmers
+"---YouTube Farmers---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC60fxBZhfGR0yYtveRmPJNg youtube farmer # Yanasa TV

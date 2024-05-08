@@ -8,16 +8,34 @@ keep-articles-days 30
 scrolloff 3
 
 # Bindings
+unbind-key SPACE
+
+unbind-key ESC
+unbind-key LEFT
+unbind-key DOWN
+unbind-key UP
+unbind-key RIGHT
+unbind-key h
+unbind-key j
+unbind-key k
+unbind-key l
 unbind-key H
 unbind-key L
 unbind-key c
 unbind-key y
 
 bind-key SPACE macro-prefix
+
+bind-key ESC quit
 bind-key LEFT quit
 bind-key DOWN down
 bind-key UP up
 bind-key RIGHT open
+bind-key h quit
+bind-key j down
+bind-key k up
+bind-key l open
+
 bind-key H prev-feed
 bind-key L next-feed
 bind-key G end
@@ -45,7 +63,9 @@ color listnormal_unread blue default
 color article default default
 color info blue default bold
 
-highlight all "---*---" default
+highlight all "--.*---" default
+
+highlight feedlist ".*(0/0))" black
 
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default
