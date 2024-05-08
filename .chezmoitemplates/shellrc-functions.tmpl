@@ -98,7 +98,11 @@ tfbat() {
 {{ end }}
 
 passgen() {
-	openssl rand -base64 "$1"
+	if [ -n "$1" ]; then
+		openssl rand -base64 "$1"
+	else 
+		openssl rand -base64 "14"
+	fi
 }
 
 {{ if lookPath "yt-dlp" }}
