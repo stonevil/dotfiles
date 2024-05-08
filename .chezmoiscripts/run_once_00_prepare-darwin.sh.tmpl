@@ -11,10 +11,9 @@ echo "Prepare system. Install essential packages like brew, etc"
 	export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") | quote }} --no-quarantine"
 
 	git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
-	{{ template "darwin.tmpl" . }}
 
 	# Stop Homebrew from spying on you
-	brew analytics off
+	brew analytics off || exit 1
 
 	# brew tap --force homebrew/core || exit 1
 	brew install --force curl git gnu-tar || exit 1
