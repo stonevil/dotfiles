@@ -6,6 +6,11 @@ setopt append_history
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
+setopt share_history
+
+setopt extendedglob nomatch interactive_comments
+
+unsetopt beep
 
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
@@ -62,3 +67,7 @@ for m in visual viopp; do
     bindkey -M $m $c select-bracketed
   done
 done
+
+{{ if lookPath "xplr" }}
+bindkey -s '^x' ' $(xplr)^M'
+{{- end }}

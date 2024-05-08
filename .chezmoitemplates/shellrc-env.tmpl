@@ -14,12 +14,16 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 # Web browser
 {{ if eq .chezmoi.os "darwin" }}
 export BROWSER="open -a Safari"
-export MEDIAPLAYER="open -a mpv"
+	{{- if stat ((joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") | quote) }}
+export MEDIAPLAYER="(joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") --terminal=no --mute=no"
+	{{ end }}
 {{ else }}
 export BROWSER="firefox"
-export MEDIAPLAYER="mpv"
+export MEDIAPLAYER="mpv --terminal=no --mute=no"
 {{ end }}
+{{- if lookPath "yt-dlp" }}
 export MEDIADOWNLOADER="ydl"
+{{ end }}
 
 # Stop M$ from spying on you
 export AZURE_CORE_COLLECT_TELEMETRY=FALSE
