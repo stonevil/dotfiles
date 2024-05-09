@@ -56,7 +56,8 @@ bind-key c toggle-show-read-feeds
 
 # Browsers
 browser "$BROWSER %u"
-macro p set browser "nohup $BROWSER %u & disown -a"; open-in-browser-noninteractively; toggle-article-read "read"
+macro o set browser "nohup $BROWSER %u & disown -a"; open-in-browser-noninteractively; toggle-article-read "read"
+macro p set browser "nohup $MEDIAPLAYER %u & disown -a"; open-in-browser-noninteractively; toggle-article-read "read"; set browser "$BROWSER %u"
 macro d set browser "nohup yd.sh -d %u & disown -a"; open-in-browser-noninteractively; toggle-article-read "read"; set browser "$BROWSER %u"
 macro m set browser "nohup yd.sh -m %u & disown -a"; open-in-browser-noninteractively; toggle-article-read "read"; set browser "$BROWSER %u"
 macro c set browser "nohup echo %u | {{ if eq .chezmoi.os "darwin" }}pbcopy{{ else if eq .chezmoi.os "linux" }}wl-copy{{ end }} & disown -a"; open-in-browser-noninteractively; toggle-article-read "read"; set browser "$BROWSER %u"
