@@ -69,5 +69,11 @@ for m in visual viopp; do
 done
 
 {{ if lookPath "xplr" }}
+alias -g X=' $(xplr)'
+{{ end -}}
+alias -g L=' | $PAGER'
+alias -g G="| grep"
+
+{{ if lookPath "xplr" }}
 bindkey -s '^x' ' $(xplr)^M'
 {{- end }}
