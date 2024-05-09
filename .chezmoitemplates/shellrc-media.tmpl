@@ -1,0 +1,27 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if lookPath "yt-dlp" }}
+ydl() {
+	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
+	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
+	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
+		notify "Video Download Finished" "$video_title"
+	else
+		notify "Video Download Failed" "$video_title"
+	fi
+}
+
+ymdl() {
+	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
+	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
+	if yt-dlp -x --audio-format m4a --embed-thumbnail "$@"; then
+		notify "Video Download Finished" "$video_title"
+	else
+		notify "Video Download Failed" "$video_title"
+	fi
+}
+
+export MEDIADOWNLOADER="ydl --quiet --no-progress"
+{{ end }}

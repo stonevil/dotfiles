@@ -22,10 +22,6 @@ export BROWSER="firefox"
 export MEDIAPLAYER="mpv --terminal=no --mute=no"
 {{ end }}
 
-{{- if lookPath "yt-dlp" }}
-export MEDIADOWNLOADER="ydl"
-{{ end }}
-
 # Stop M$ from spying on you
 export AZURE_CORE_COLLECT_TELEMETRY=FALSE
 export AZURE_LOGGING_ENABLE_LOG_FILE=FALSE

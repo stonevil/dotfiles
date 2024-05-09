@@ -13,6 +13,10 @@ vim:ft=bash.gotexttmpl
 
 {{ template "shellrc-functions.tmpl" . }}
 
+{{ template "shellrc-media.tmpl" . }}
+
+{{ template "shellrc-notify.tmpl" . }}
+
 {{ template "shellrc-editor.tmpl" . }}
 
 {{ if eq .chezmoi.os "linux" }}

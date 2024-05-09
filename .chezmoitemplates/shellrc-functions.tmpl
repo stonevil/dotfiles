@@ -2,7 +2,6 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-
 {{- if eq .chezmoi.os "darwin" }}
 darkmode() {
 	# shellcheck disable=SC2046,SC2145
@@ -103,36 +102,6 @@ passgen() {
 	else 
 		openssl rand -base64 "14"
 	fi
-}
-
-{{ if lookPath "yt-dlp" }}
-ydl() {
-	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
-	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
-		notify "Video Download Finished" "$video_title"
-	else
-		notify "Video Download Failed" "$video_title"
-	fi
-}
-
-ymdl() {
-	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
-	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp -x --audio-format m4a --embed-thumbnail "$@"; then
-		notify "Video Download Finished" "$video_title"
-	else
-		notify "Video Download Failed" "$video_title"
-	fi
-}
-{{ end }}
-
-notify() {
-	{{ if eq .chezmoi.os "darwin" -}}
-		osascript -e "display notification \"$2\" with title \"$1\""
-	{{- else if eq .chezmoi.os "linux" }}
-		notify-send "$2" "$1"
-	{{- end }}
 }
 
 {{ if lookPath "tmux" }}
