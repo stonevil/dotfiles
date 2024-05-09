@@ -5,4 +5,5 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ if eq .chezmoi.os "darwin" }}
 	{{ template "resources-alacritty.tmpl" . }}
+	{{ template "resources-wezterm.tmpl" . }}
 {{ end }}
