@@ -23,6 +23,6 @@ vim:ft=bash.gotexttmpl
 export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
 {{ end -}}
 
-for f in {{ joinPath .chezmoi.homeDir ".config/bash/completions"}}/*.bash; do
+for f in {{ joinPath .chezmoi.homeDir ".config/bash/plugins"}}/*.bash; do
 	source $f
 done
