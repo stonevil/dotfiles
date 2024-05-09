@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# vim:ft=bash
+
+# Variables to change colour of text on terminal
+g="\e[1;32m"
+y="\e[0;93m"
+r="\e[0m"
+
+_help () {
+echo -e "Usage:\yd-boat [option]\noptions:\n\
+d download                Downloads video for mobile use\n\
+m music                   Downloads mp4 music\n\
+h help                    Shows this help message\n\
+\n\
+"
+}
+
+{{ template "shellrc-media.tmpl" . }}
+
+{{ template "shellrc-notify.tmpl" . }}
+
+# Options
+while test "$#" -gt 0; do
+	case "$1" in
+		d|download|-d|--download)
+			shift
+				ydl --quiet --no-progress "$@" > /tmp/newsboat_ydl.log 2>&1
+			;;
+
+		m|music|-m|--music)
+			shift
+				ymdl --quiet --no-progress "$@" > /tmp/newsboat_ydl.log 2>&1
+			;;
+
+		*)
+			echo -e "${y}'${r}${1}${y}' is not a valid option${r}"
+			_help
+			;;
+	esac
+	shift
+done
