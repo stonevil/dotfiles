@@ -8,9 +8,9 @@ r="\e[0m"
 
 _help () {
 echo -e "Usage:\yd-boat [option]\noptions:\n\
-d download                Downloads video for mobile use\n\
-m music                   Downloads mp4 music\n\
-h help                    Shows this help message\n\
+b best                    Best Quality Download\n\
+d download                mp4 720p Download for iPhone or Android\n\
+m music                   m4a Music/Podcast Download for iPhone or Android\n\
 \n\
 "
 }
@@ -24,18 +24,19 @@ while test "$#" -gt 0; do
 	case "$1" in
 		d|download|-d|--download)
 			shift
-				ydl --quiet --no-progress "$@" > /tmp/newsboat_ydl.log 2>&1
+				ydl --quiet --no-progress "$@"
 			;;
 
 		m|music|-m|--music)
 			shift
-				ymdl --quiet --no-progress "$@" > /tmp/newsboat_ydl.log 2>&1
+				ydm --quiet --no-progress "$@"
 			;;
 
-		*)
-			echo -e "${y}'${r}${1}${y}' is not a valid option${r}"
-			_help
+		b|best|-b|--best|*)
+			shift
+				yd --quiet --no-progress "$@"
 			;;
+
 	esac
 	shift
 done

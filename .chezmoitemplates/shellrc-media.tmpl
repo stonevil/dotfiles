@@ -3,25 +3,35 @@ vim:ft=bash.gotexttmpl
 */ -}}
 
 {{ if lookPath "yt-dlp" }}
+yd() {
+	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
+	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
+	if yt-dlp --no-update -f 'bestvideo+bestaudio/best' "$@"; then
+		notify "Best Quality Video Download Finished" "$video_title"
+	else
+		notify "Best Quality Video Download Failed" "$video_title"
+	fi
+}
+
 ydl() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
 	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
-		notify "Video Download Finished" "$video_title"
+		notify "MP4 Video Download Finished" "$video_title"
 	else
-		notify "Video Download Failed" "$video_title"
+		notify "MP4 Video Download Failed" "$video_title"
 	fi
 }
 
-ymdl() {
+ydm() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
 	if yt-dlp -x --audio-format m4a --embed-thumbnail "$@"; then
-		notify "Video Download Finished" "$video_title"
+		notify "M4A Music/Podcast Download Finished" "$video_title"
 	else
-		notify "Video Download Failed" "$video_title"
+		notify "M4A Music/Podcast Download Failed" "$video_title"
 	fi
 }
 
-export MEDIADOWNLOADER="ydl --quiet --no-progress"
+export MEDIADOWNLOADER="yd-boat.sh --quiet --no-progress"
 {{ end }}
