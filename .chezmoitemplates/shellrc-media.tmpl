@@ -6,7 +6,7 @@ vim:ft=bash.gotexttmpl
 yd() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp --no-update -f 'bestvideo+bestaudio/best' "$@"; then
+	if yt-dlp -f 'bestvideo+bestaudio/best' --embed-metadata "$@"; then
 		notify "Best Quality Video Download Finished" "$video_title"
 	else
 		notify "Best Quality Video Download Failed" "$video_title"
@@ -16,7 +16,7 @@ yd() {
 ydl() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
+	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --embed-metadata --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
 		notify "MP4 Video Download Finished" "$video_title"
 	else
 		notify "MP4 Video Download Failed" "$video_title"
@@ -26,7 +26,7 @@ ydl() {
 ydm() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp -x --audio-format m4a --embed-thumbnail "$@"; then
+	if yt-dlp -x --audio-format m4a --embed-metadata --embed-thumbnail "$@"; then
 		notify "M4A Music/Podcast Download Finished" "$video_title"
 	else
 		notify "M4A Music/Podcast Download Failed" "$video_title"
