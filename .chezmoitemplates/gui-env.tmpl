@@ -4,6 +4,29 @@ vim:ft=bash.gotexttmpl
 
 # Check for Wayland
 if [[ -z "$XDG_SESSION_TYPE" && "$XDG_SESSION_TYPE" == "wayland" ]]; then
-	# Enable Wayland for Firefox
-	export MOZ_ENABLE_WAYLAND=1
+# QT5 Fix
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
+# Wayland Fix
+export QT_QPA_PLATFORM=wayland
+export XDG_CURRENT_DESKTOP=hyprland
+export XDG_SESSION_DESKTOP=hyprland
+export XDG_CURRENT_SESION_TYPE=wayland
+export GDK_BACKEND="wayland,x11"
+
+# Enable Wayland for Firefox
+export MOZ_ENABLE_WAYLAND=1
+
+# GUI Scaling
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR=1
+export QT_SCREEN_SCALE_FACTORS="1;1;1"
+export GDK_SCALE=1
+export GDK_DPI_SCALE=1
+
+# Enable truecolour
+export COLORTERM="truecolor"
+
+# WM
+export WM="Hyprland"
 fi
