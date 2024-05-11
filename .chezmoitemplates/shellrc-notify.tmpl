@@ -3,9 +3,9 @@ vim:ft=bash.gotexttmpl
 */ -}}
 
 notify() {
-	{{ if eq .chezmoi.os "darwin" -}}
-		osascript -e "display notification \"$2\" with title \"$1\""
+	{{- if eq .chezmoi.os "darwin" }}
+	osascript -e "display notification \"$2\" with title \"$1\""
 	{{- else if eq .chezmoi.os "linux" }}
-		notify-send "$2" "$1"
-	{{- end }}
+	notify-send "$2" "$1"
+	{{- end -}}
 }

@@ -2,22 +2,19 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{- $p := list
-((joinPath .chezmoi.homeDir ".local/bin") | quote)
-((joinPath .chezmoi.homeDir ".cargo/bin") | quote)
-}}
+{{- $p := list ((joinPath .chezmoi.homeDir ".local/bin") | quote) ((joinPath .chezmoi.homeDir ".cargo/bin") | quote) -}}
 
 {{- if eq .chezmoi.os "darwin" }}
 	{{- if stat (joinPath .path.homebrew "Cellar/ruby") }}
 		{{ $p = append $p ((joinPath ((glob (print $.path.homebrew "/Cellar/ruby/*")) | last ) "bin") | quote) }}
-	{{ end }}
-	{{ $p = append $p ((joinPath .path.homebrew "sbin") | quote) }}
-	{{ $p = append $p ((joinPath .path.homebrew "bin") | quote) }}
-{{ end }}
+	{{- end }}
+	{{- $p = append $p ((joinPath .path.homebrew "sbin") | quote) }}
+	{{- $p = append $p ((joinPath .path.homebrew "bin") | quote) }}
+{{- end }}
 
 {{- if stat (joinPath .chezmoi.homeDir ".local/krew") }}
 export KREW_ROOT={{ (joinPath .chezmoi.homeDir ".local/krew") | quote }}
 	{{ $p = append $p ((joinPath .chezmoi.homeDir ".local/krew/bin") | quote) }}
-{{ end }}
+{{ end -}}
 
 export PATH={{ join ":" ($p | compact | uniq) }}:"$PATH"

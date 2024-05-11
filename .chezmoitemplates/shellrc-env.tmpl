@@ -11,8 +11,8 @@ export LC_ALL=en_US.UTF-8
 # Colours everywhere
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
-# Web browser
-{{ if eq .chezmoi.os "darwin" }}
+# Web browser and Media player
+{{- if eq .chezmoi.os "darwin" }}
 export BROWSER="open -a Safari"
 	{{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS") | quote }}
 export MEDIAPLAYER="{{ (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") }} --terminal=no --mute=no"
@@ -20,7 +20,7 @@ export MEDIAPLAYER="{{ (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents
 {{ else if eq .chezmoi.os "linux"}}
 export BROWSER="firefox"
 export MEDIAPLAYER="mpv --terminal=no --mute=no"
-{{ end }}
+{{ end -}}
 
 # Stop M$ from spying on you
 export AZURE_CORE_COLLECT_TELEMETRY=FALSE
@@ -39,12 +39,12 @@ export PACKER_ISO_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/iso") | quote }}
 export PACKER_BOX_DIR={{ (joinPath .chezmoi.homeDir ".packer.d/box") | quote }}
 export PACKER_LOG_PATH={{ (joinPath .chezmoi.homeDir ".packer.d/log") | quote }}
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
+{{- if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
 export IDF_TOOLS_PATH={{ (joinPath .chezmoi.homeDir ".local/espressif") | quote }}
 {{- end }}
 
 # Set tabs width for terminal
 tabs -{{ .tui.tabs }}
-{{ if lookPath "setterm" }}
+{{- if lookPath "setterm" }}
 setterm --tabs={{ .tui.tabs }} --blink on
-{{ end }}
+{{ end -}}

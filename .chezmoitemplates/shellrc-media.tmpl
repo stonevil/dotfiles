@@ -2,7 +2,7 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if lookPath "yt-dlp" }}
+{{- if lookPath "yt-dlp" }}
 yd() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
@@ -34,4 +34,4 @@ ydm() {
 }
 
 export MEDIADOWNLOADER="yd-boat.sh --quiet --no-progress"
-{{ end }}
+{{- end -}}

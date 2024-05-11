@@ -7,17 +7,17 @@ vim:ft=bash.gotexttmpl
 
 {{ template "shellrc-path.tmpl" . }}
 
-{{ template "shellrc-aliases.tmpl" . }}
-
 {{ template "shellrc-env.tmpl" . }}
 
-{{ template "shellrc-functions.tmpl" . }}
+{{ template "shellrc-editor.tmpl" . }}
 
 {{ template "shellrc-media.tmpl" . }}
 
 {{ template "shellrc-notify.tmpl" . }}
 
-{{ template "shellrc-editor.tmpl" . }}
+{{ template "shellrc-aliases.tmpl" . }}
+
+{{ template "shellrc-functions.tmpl" . }}
 
 {{ if eq .chezmoi.os "linux" }}
 {{ template "gui-env.tmpl" . }}
