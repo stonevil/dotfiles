@@ -68,14 +68,16 @@ macro c set browser "nohup echo %u | {{ if eq .chezmoi.os "darwin" }}pbcopy{{ el
 ignore-mode "display"
 ignore-article "*" "tags !# \"youtube\" and (title # \"(lgbtq|LGBTQ|lgbt|LGBT|transgender)\")"
 
-# Colors
+# Colours
 color background default default
 color listnormal default default
 color listfocus_unread black red standout bold
 color listfocus black red standout bold
 color listnormal_unread blue default
 color article default default
-color info blue default bold
+color info blue default dim
+color hint-keys-delimiter yellow default dim
+color hint-separator red default dim
 
 highlight all "--.*---" default
 
