@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+		{
+			"label": "Chezmoi Execute Template",
+			"type": "shell",
+			"command": "chezmoi",
+			"args": [ "execute-template", "<", "${file}"]
+		},
+		{
+			"label": "Chezmoi Update",
+			"type": "shell",
+			"command": "chezmoi",
+			"args": ["update"]
+		}
+ ]
+}
