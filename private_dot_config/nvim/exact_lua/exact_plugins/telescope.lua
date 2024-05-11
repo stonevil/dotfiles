@@ -31,7 +31,6 @@ return {
 					width = 0.9,
 					prompt_position = "top",
 					preview_cutoff = 60,
-					preview_width = 0.6,
 					horizontal = { mirror = false },
 					vertical = { mirror = false },
 				},
