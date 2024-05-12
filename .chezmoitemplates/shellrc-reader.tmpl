@@ -1,0 +1,27 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{- if lookPath "reader" }}
+export ARTICLEREADER_WIDTH="72"
+
+ar() {
+	reader --terminal-width $ARTICLEREADER_WIDTH "$@" | less -R
+}
+
+{{- if lookPath "wezterm" }}
+wnwar() {
+	wezterm cli spawn --new-window -- bash -c "reader --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+}
+
+wslar() {
+	wezterm cli split-pane --left -- bash -c "reader --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+}
+
+wsrar() {
+	wezterm cli split-pane --right -- bash -c "reader --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+}
+{{ end -}}
+
+export ARTICLEREADER="ar-boat.sh"
+{{- end -}}

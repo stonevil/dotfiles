@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# vim:ft=bash
+
+_help () {
+echo -e "Usage:\ar-boat [option]\noptions:\n\
+a                         read article\n\
+{{ if lookPath "wezterm" }}
+l                         read article in WezTerm split pane to left\n\
+r                         read article in WezTerm split pane to right\n\
+w                         read article in new WezTerm window\n\
+{{ end }}
+\n\
+"
+}
+
+{{ template "shellrc-reader.tmpl" . }}
+
+# Options
+while test "$#" -gt 0; do
+	case "$1" in
+		h|help|-h|--help)
+			shift
+				_help
+			;;
+
+{{ if lookPath "wezterm" }}
+		l|-l)
+			shift
+				wslar "$@"
+			;;
+
+		r|-r)
+			shift
+				wsrar "$@"
+			;;
+
+		w|-w)
+			shift
+				wnwar "$@"
+			;;
+{{ end }}
+
+		a|-a|*)
+			shift
+				ar "$@"
+			;;
+
+	esac
+	shift
+done

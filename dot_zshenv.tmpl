@@ -13,6 +13,8 @@ vim:ft=zsh.gotexttmpl
 
 {{ template "shellrc-media.tmpl" . }}
 
+{{ template "shellrc-reader.tmpl" . }}
+
 {{ template "shellrc-notify.tmpl" . }}
 
 {{ if eq .chezmoi.os "linux" }}
