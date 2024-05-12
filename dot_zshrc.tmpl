@@ -15,6 +15,8 @@ vim:ft=zsh.gotexttmpl
 export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
 {{ end -}}
 
-for f in {{ joinPath .chezmoi.homeDir ".config/zsh/plugins"}}/*.zsh; do
+{{- if stat (joinPath .chezmoi.homeDir ".config/zsh/plugins") }}
+for f in {{ joinPath .chezmoi.homeDir ".config/zsh/plugins" }}/*.zsh; do
 	source $f
 done
+{{ end -}}
