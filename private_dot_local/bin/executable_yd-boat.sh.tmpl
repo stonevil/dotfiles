@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 # vim:ft=bash
 
-# Variables to change colour of text on terminal
-g="\e[1;32m"
-y="\e[0;93m"
-r="\e[0m"
-
 _help () {
 echo -e "Usage:\yd-boat [option]\noptions:\n\
 b best                    Best Quality Download\n\
@@ -22,6 +17,11 @@ m music                   m4a Music/Podcast Download for iPhone or Android\n\
 # Options
 while test "$#" -gt 0; do
 	case "$1" in
+		h|help|-h|--help)
+			shift
+				_help
+			;;
+
 		d|download|-d|--download)
 			shift
 				ydl --quiet --no-progress "$@"
