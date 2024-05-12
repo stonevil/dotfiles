@@ -12,7 +12,7 @@ vim:ft=zsh.gotexttmpl
 	"kubectl" "completion"
 }}
 
-{{ range $s := list "bash" "zsh" }}
+{{ range $s := list "bash" "zsh" "fish" }}
 	{{ range $k, $v := $m }}
 		{{ if lookPath $k }}
 echo "Generate completion file for {{ $k }} for {{ $s }}"
