@@ -44,7 +44,6 @@ https://www.reutersagency.com/feed/?best-topics=political-general&post_type=best
 http://www.politico.com/rss/politicopicks.xml blog politics
 http://recode.net/feed/ blog politics
 https://www.military.com/rss-feeds/content blog politics
-http://www.npr.org/rss/podcast.php?id=1090 blog politics
 http://thediplomat.com/feed/atom/ blog politics
 http://www.economist.com/rss/full_print_edition_rss.xml blog politics
 https://bariweiss.substack.com/feed/ blog politics
@@ -55,6 +54,16 @@ http://feeds.skynews.com/feeds/rss/uk.xml blog politics
 http://www.washingtonpost.com/wp-dyn/rss/metro/index.xml blog politics
 http://washingtonexaminer.com/rss/washington-secrets blog politics
 https://www.profgalloway.com/feed blog politics
+http://www.tnr.com/toc/topstories.rss blog politics
+http://spectator.org/feed blog politics
+https://prospect.org/api/rss/content.rss blog politics
+https://www.newsweek.com blog politics
+http://motherjones.com/politics/feed blog politics
+https://harpers.org blog politics
+http://www.nationalreview.com/rss.xml blog politics
+
+"---Blogs Political Humor---"
+http://www.private-eye.co.uk/rss/rss.php blog politics humor
 
 "---Blogs Technology---"
 http://appleinsider.com/appleinsider.rss blog tech
