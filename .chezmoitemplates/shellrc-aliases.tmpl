@@ -2,9 +2,13 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+alias ls='ls --color=auto'
 alias l='ls -lhF'
 alias la='ls -lhF'
 alias ll='ls -lahF'
+
+alias grep='grep --colour=auto'
+alias diff='diff --colour=auto'
 
 {{ if lookPath "git" }}
 alias gad='git add'
