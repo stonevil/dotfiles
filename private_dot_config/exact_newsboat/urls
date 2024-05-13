@@ -1,8 +1,14 @@
-"query:Unread:unread = \"yes\""
 "query:Blogs:tags # \"blog\""
-"query:Blogs Ukraine:tags # \"blog\" and tags # \"Ukraine\""
-"query:YouTube:tags # \"youtube\""
-"query:YouTube Music:tags # \"youtube\" and tags # \"music\""
+"query:Github:tags # \"github\""
+"query:YouTube:tags # \"youtube\"
+
+"---UNREAD---"
+"query:Blogs:unread = \"yes\" and (tags # \"blog\") and (tags !# \"Ukraine\") and (tags !# \"github\")"
+"query:Blogs Ukraine:unread = \"yes\" and (tags # \"blog\") and (tags # \"Ukraine\") and (tags !# \"github\")"
+"query:Github:unread = \"yes\" and (tags # \"github\")"
+"query:YouTube:unread = \"yes\" and (tags # \"youtube\") and ( tags !# \"Ukraine\") and (tags !# \"music\")"
+"query:YouTube Ukraine:unread = \"yes\" and (tags # \"youtube\") and (tags # \"Ukraine\") and (tags !# \"music\")"
+"query:YouTube Music:unread = \"yes\" and (tags # \"youtube\") and (tags # \"music\")"
 
 "---Blogs Ukraine---"
 http://ua.censor.net.ua/includes/news_uk.xml blog Ukraine
@@ -107,6 +113,9 @@ http://warontherocks.com/feed/ blog military
 "---Blogs Adventure---"
 http://expeditionportal.com/feed/ blog travel
 https://www.treadmagazine.com/feed/ blog travel
+
+"---Github---"
+https://github.com/lwthiker/curl-impersonate/releases.atom github curl-impersonate
 
 "---YouTube Ukraine---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCUg_ruwI2OSJ0gssUC17B5A youtube Ukraine # Ростислав Шапошніков
