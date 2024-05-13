@@ -70,10 +70,7 @@ done
 
 {{ if lookPath "xplr" }}
 alias -g X=' $(xplr)'
+bindkey -s '^x' ' $(xplr)^M'
 {{ end -}}
 alias -g L=' | $PAGER'
 alias -g G="| grep"
-
-{{ if lookPath "xplr" }}
-bindkey -s '^x' ' $(xplr)^M'
-{{- end }}
