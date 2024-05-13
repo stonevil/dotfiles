@@ -67,9 +67,16 @@ https://www.newsweek.com blog politics
 http://motherjones.com/politics/feed blog politics
 https://harpers.org blog politics
 http://www.nationalreview.com/rss.xml blog politics
+http://feeds.guardian.co.uk/theguardian/world/china/rss blog politics China
+http://www.guardian.co.uk/world/india/rss blog politics India
+http://www.guardian.co.uk/world/iran/rss blob politics Iran
+http://feeds.guardian.co.uk/theguardian/politics/rss blog politics
 
 "---Blogs Political Humor---"
 http://www.private-eye.co.uk/rss/rss.php blog politics humor
+
+"---Blogs Science---"
+http://feeds.guardian.co.uk/theguardian/science/rss blog science
 
 "---Blogs Technology---"
 http://appleinsider.com/appleinsider.rss blog tech
@@ -93,6 +100,7 @@ http://www.theverge.com/rss/full.xml blog tech
 https://www.tomshardware.com/feeds/all blog tech
 http://www.wired.com/feed/ blog tech
 http://www.wonderhowto.com/rss.xml blog tech
+http://www.theguardian.com/technology/rss blog tech
 
 "---Blogs Development---"
 https://alediaferia.com/feed/ blog dev
