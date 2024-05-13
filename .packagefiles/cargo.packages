@@ -1,6 +1,7 @@
 cargo-update
 bat
 watchexec-cli
+dua-cli
 spacer
 stylua
 starship
