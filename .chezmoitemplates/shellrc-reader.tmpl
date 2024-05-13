@@ -2,7 +2,7 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{- if lookPath "reader" }}
+{{- if and (lookPath "reader") (lookPath "curl-impersonate-chrome") }}
 export ARTICLEREADER_WIDTH="72"
 
 ar() {
@@ -11,17 +11,19 @@ ar() {
 
 {{- if lookPath "wezterm" }}
 wnwar() {
-	wezterm cli spawn --new-window -- bash -c "reader --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+	wezterm cli spawn --new-window -- bash -c "curl-impersonate-chrome -s -o - '$@' | reader --terminal-width $ARTICLEREADER_WIDTH - | less -R"
 }
 
 wslar() {
-	wezterm cli split-pane --left -- bash -c "reader --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+	wezterm cli split-pane --left -- bash -c "curl-impersonate-chrome -s -o - '$@' | reader --terminal-width $ARTICLEREADER_WIDTH - | less -R"
 }
 
 wsrar() {
-	wezterm cli split-pane --right -- bash -c "reader --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+	wezterm cli split-pane --right -- bash -c "curl-impersonate-chrome -s -o - '$@' | reader --terminal-width $ARTICLEREADER_WIDTH - | less -R"
 }
 {{ end -}}
 
 export ARTICLEREADER="ar-boat.sh"
+{{ else }}
+# Tools like curl-impersonate (https://github.com/lwthiker/curl-impersonate) and reader (https://github.com/mrusme/reader) required for article reader
 {{- end -}}
