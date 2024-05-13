@@ -75,10 +75,6 @@ alias removex='find . -type f -exec chmod a-x "{}" \;'
 
 alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
 
-# python pip
-alias pip='python3 -m pip install --no-warn-script-location --disable-pip-version-check --no-cache-dir --upgrade --use-pep517 --force-reinstall --ignore-installed --user'
-alias pip3='pip'
-
 {{ if eq .chezmoi.os "darwin" }}
 	{{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/") | quote }}
 alias mpv='{{ (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") }} --terminal=no --mute=no'
