@@ -5,6 +5,18 @@ vim:ft=zsh.gotexttmpl
 # vim:ft=zsh :
 # shellcheck source=/dev/null
 
+{{ template "shellrc-path.tmpl" . }}
+
+{{ template "shellrc-env.tmpl" . }}
+
+{{ template "shellrc-editor.tmpl" . }}
+
+{{ template "shellrc-media.tmpl" . }}
+
+{{ template "shellrc-reader.tmpl" . }}
+
+{{ template "shellrc-notify.tmpl" . }}
+
 {{ template "shellrc-zsh.tmpl" . }}
 
 {{ template "shellrc-aliases.tmpl" . }}
@@ -21,4 +33,8 @@ export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") |
 for f in {{ joinPath .chezmoi.homeDir ".config/zsh/plugins" }}/*.zsh; do
 	source $f
 done
+{{ end -}}
+
+{{ if eq .chezmoi.os "linux" }}
+{{ template "gui-env.tmpl" . }}
 {{ end -}}

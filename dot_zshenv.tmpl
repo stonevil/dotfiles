@@ -4,19 +4,3 @@ vim:ft=zsh.gotexttmpl
 
 # vim:ft=zsh :
 # shellcheck source=/dev/null
-
-{{ template "shellrc-path.tmpl" . }}
-
-{{ template "shellrc-env.tmpl" . }}
-
-{{ template "shellrc-editor.tmpl" . }}
-
-{{ template "shellrc-media.tmpl" . }}
-
-{{ template "shellrc-reader.tmpl" . }}
-
-{{ template "shellrc-notify.tmpl" . }}
-
-{{ if eq .chezmoi.os "linux" }}
-{{ template "gui-env.tmpl" . }}
-{{ end -}}
