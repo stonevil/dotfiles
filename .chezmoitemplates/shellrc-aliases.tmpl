@@ -70,6 +70,8 @@ alias removex='find . -type f -exec chmod a-x "{}" \;'
 alias less='less -R --tabs={{ .tui.tabs }}'
 alias more='less'
 
+alias grep='grep --color=auto'
+
 alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
 
 {{ if eq .chezmoi.os "darwin" }}
