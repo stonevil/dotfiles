@@ -18,37 +18,44 @@ autoload -Uz colors && colors
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
-# Auto complete with case insenstivity
+# auto complete with case insenstivity
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 zmodload zsh/complist && compinit
 _comp_options+=(globdots)
 
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
 # VI mode
 bindkey -v
 
-# Allow ctrl-v to edit the command line
+# allow ctrl-v to edit the command line
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^v' edit-command-line
 bindkey -M vicmd "^v" edit-command-line
 
-# Allow ctrl-p, ctrl-n for navigate history (standard behaviour)
+# allow ctrl-p, ctrl-n for navigate history (standard behaviour)
 bindkey '^p' up-history
 bindkey '^n' down-history
 
-# Allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
+# allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 
-# Allow ctrl-r and ctrl-s to search the history
+# allow ctrl-r and ctrl-s to search the history
 bindkey '^r' history-incremental-search-backward
 bindkey '^s' history-incremental-search-forward
 
-# Allow ctrl-a and ctrl-e to move to beginning/end of line
+# allow ctrl-a and ctrl-e to move to beginning/end of line
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
+
+# exapand history reference when command starts with ! (or ^)
+bindkey " " magic-space
 
 # ci", ci', ci`, di", etc
 autoload -U select-quoted
