@@ -78,7 +78,7 @@ macro c set browser "nohup echo %u | {{ if eq .chezmoi.os "darwin" }}pbcopy{{ el
 
 # Rules of Engagement
 ignore-mode "display"
-ignore-article "*" "tags !# \"youtube\" and (title # \"(lgbtq|LGBTQ|lgbt|LGBT|transgender|gay)\")"
+ignore-article "*" "tags !# \"youtube\" and title =~ \"lgbtq|LGBTQ|lgbt|LGBT|transgender|gay\""
 
 # Colours
 color background default default
