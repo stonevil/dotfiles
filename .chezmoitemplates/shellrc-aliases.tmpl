@@ -15,7 +15,7 @@ alias diff='diff --colour=auto'
 alias less='less -R --tabs={{ .tui.tabs }}'
 alias more='less'
 
-alias t2s='sed -i 's/{{ repeat (int .tui.tabs) " " }}/\t/g''
+alias s2t='sed -i 's/{{ repeat (int .tui.tabs) " " }}/\t/g''
 
 {{ if lookPath "git" }}
 alias gad='git add'
