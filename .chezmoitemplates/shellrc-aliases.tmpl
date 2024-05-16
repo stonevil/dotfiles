@@ -4,13 +4,18 @@ vim:ft=bash.gotexttmpl
 
 alias ls='ls --color=auto'
 alias l='ls -lhF'
-alias la='ls -AlhF'
+alias ll='ls -AlhF'
+alias la='ls -alhF'
+
+alias ..='cd ..'
 
 alias grep='grep --colour=auto'
 alias diff='diff --colour=auto'
 
 alias less='less -R --tabs={{ .tui.tabs }}'
 alias more='less'
+
+alias t2s='sed -i 's/{{ repeat (int .tui.tabs) " " }}/\t/g''
 
 {{ if lookPath "git" }}
 alias gad='git add'
@@ -40,13 +45,13 @@ alias glg2='git lg2'
 alias glg='git lg'
 
 # review all files in a git-managed directory that are not yet added to git
-alias gv='vim $(git ls-files -o -X .gitignore)'
+alias gv='$EDITOR $(git ls-files -o -X .gitignore)'
 
 # cleanup credentials cache
 alias glogout='git credential-cache exit'
 
 # review all files in a git-managed directory that are not yet added to git
-alias gv='vim $(git ls-files -o -X .gitignore)'
+alias gv='$EDITOR $(git ls-files -o -X .gitignore)'
 
 git_submodule_remove() {
 	git config -f .git/config --remove-section submodule."$1"
