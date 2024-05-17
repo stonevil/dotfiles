@@ -124,6 +124,13 @@ https://www.treadmagazine.com/feed/ blog travel
 
 "---Github---"
 https://github.com/lwthiker/curl-impersonate/releases.atom github curl-impersonate
+https://github.com/chase/awrit/releases.atom github awrit
+https://github.com/twpayne/chezmoi/releases.atom github chezmoi
+https://github.com/context-labs/mactop/releases.atom github mactop
+https://github.com/meli/meli/releases.atom github meli
+https://github.com/mrusme/reader/releases.atom github reader
+https://github.com/tramhao/termusic/releases.atom github termusic
+https://github.com/dortania/OpenCore-Legacy-Patcher/releases.atom github OCLP
 
 "---YouTube Ukraine---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCUg_ruwI2OSJ0gssUC17B5A youtube Ukraine # Ростислав Шапошніков
@@ -262,6 +269,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC3c8H4Tlnm5M6pXsVMGnmNg you
 https://www.youtube.com/feeds/videos.xml?channel_id=UCe8NdltqOzR34ulJFKb3-dw youtube apple # Jessie's Flying
 https://www.youtube.com/feeds/videos.xml?channel_id=UCpZy-Hfqcxf-R7nQzlv9Bvw youtube apple # Brandon Butch
 https://www.youtube.com/feeds/videos.xml?channel_id=UCJ-hl32h5CokBhlGu95C1Xg youtube apple # Andrew Tsai
+https://www.youtube.com/feeds/videos.xml?channel_id=UCptwuAv0XQHo1OQUSaO6NHw youtube apple # Max Tech
 
 "---YouTube Linux---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg youtube linux # DistroTube
@@ -359,3 +367,6 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UChEONq3ofXZ9XB7uEdzFTmg you
 "---YouTube English---"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCz4tgANd4yy8Oe0iXCdSWfA youtube english # English with Lucy
 https://www.youtube.com/feeds/videos.xml?channel_id=UCIiFsAO2Gh_vu8OStpjl16A youtube english # Business English - Learn with Business English Pod
+
+"---YouTube Gaming---"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCRYOj4DmyxhBVrdvbsUwmAA youtube gaming # optimum
