@@ -7,6 +7,8 @@ if vim.fn.has "nvim-0.9" == 1 then
   vim.opt.diffopt:append "linematch:60" -- enable linematch diff algorithm
 end
 
+vim.g.deprecation_warnings = true
+
 vim.g.transparency = true
 
 vim.opt.laststatus = 2
