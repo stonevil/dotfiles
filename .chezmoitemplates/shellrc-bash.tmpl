@@ -2,13 +2,17 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-setopt append_history
-setopt sharehistory
-setopt hist_ignore_dups hist_ignore_all_dups hist_ignore_space hist_find_no_dups hist_verify
+export HISTCONTROL=erasedups:ignoredups:ignorespace
 
-HISTSIZE=10000
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
+export HISTFILESIZE=10000
+export HISTSIZE=500
+
+# Causes bash to append to history instead of overwriting it so if you start a new terminal, you have old session history
+shopt -s histappend
+PROMPT_COMMAND='history -a'
+
+# Ignore case on auto-completion
+if [[ $iatest -gt 0 ]]; then bind "set completion-ignore-case on"; fi
 
 setopt extendedglob nomatch interactive_comments
 

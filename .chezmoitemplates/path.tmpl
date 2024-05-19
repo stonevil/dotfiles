@@ -10,7 +10,14 @@ vim:ft=bash.gotexttmpl
 	{{- end }}
 	{{- $p = append $p ((joinPath .path.homebrew "sbin") | quote) }}
 	{{- $p = append $p ((joinPath .path.homebrew "bin") | quote) }}
-{{- end }}
+
+export HOMEBREW_PREFIX={{ .path.homebrew | quote }}
+export HOMEBREW_CELLAR={{ (joinPath .path.homebrew "Cellar") | quote }}
+export HOMEBREW_REPOSITORY={{ .path.homebrew | quote }}
+export INFOPATH={{ (joinPath .path.homebrew "share/info") | quote }}:"$INFOPATH"
+export MANPATH={{ (joinPath .path.homebrew "share/man") | quote }}:"$MANPATH"
+export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") }}"
+{{ end }}
 
 {{- if stat (joinPath .chezmoi.homeDir ".local/krew") }}
 export KREW_ROOT={{ (joinPath .chezmoi.homeDir ".local/krew") | quote }}

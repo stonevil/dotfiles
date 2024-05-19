@@ -4,12 +4,6 @@ vim:ft=bash.gotexttmpl
 
 {{ template "path.tmpl" . }}
 
-{{- if eq .chezmoi.os "darwin" }}
-export MANPATH={{ (joinPath .path.homebrew "share/man") | quote }}:"$MANPATH"
-{{ end }}
-
-export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") }}"
-
 {{- if stat (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") }}
 export XTENSA_PATH={{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") | quote }}
 export PATH="$PATH":{{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf/bin") | quote }}
