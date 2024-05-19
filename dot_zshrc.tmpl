@@ -29,10 +29,25 @@ vim:ft=zsh.gotexttmpl
 export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
 {{ end -}}
 
-{{- if stat (joinPath .chezmoi.homeDir ".config/zsh/plugins") }}
-for f in {{ joinPath .chezmoi.homeDir ".config/zsh/plugins" }}/*.zsh; do
-	source $f
-done
+{{- if stat (joinPath .chezmoi.homeDir ".local/zsh/completions") }}
+	{{- range glob (print $.chezmoi.homeDir "/.local/zsh/completions/*") }}
+source {{ . | quote -}}
+	{{ end -}}
+{{ end }}
+
+{{ if stat (joinPath $.chezmoi.homeDir ".local/zsh/plugins") }}
+	{{- if and (lookPath "fzf") (stat (joinPath .chezmoi.homeDir ".local/zsh/plugins/fzf-tab")) }}
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+source {{ (joinPath .chezmoi.homeDir ".local/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh") | quote }}
+	{{ end -}}
+
+	{{ range $k, $v := omit $.zsh.pluginsList "fzf-tab" }}
+		{{- if stat (joinPath $.chezmoi.homeDir ".local/zsh/plugins" $k ) }}
+source {{ (print $.chezmoi.homeDir "/.local/zsh/plugins/" $k "/" $k ".plugin.zsh") | quote -}}
+		{{ end -}}
+	{{ end -}}
 {{ end -}}
 
 {{ if eq .chezmoi.os "linux" }}
