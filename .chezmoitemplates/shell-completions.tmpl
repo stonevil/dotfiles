@@ -13,12 +13,13 @@ vim:ft=zsh.gotexttmpl
 }}
 
 {{ range $s := list "bash" "zsh" "fish" }}
+mkdir -p {{ joinPath $.chezmoi.homeDir ".local" $s "completions" }}
 	{{ range $k, $v := $m }}
 		{{ if lookPath $k }}
 echo "Generate completion file for {{ $k }} for {{ $s }}"
-{{ $k }} {{ $v }} {{ $s }} > {{ print $.chezmoi.homeDir "/.config/" $s "/plugins/" $k "." $s }}
+{{ $k }} {{ $v }} {{ $s }} > {{ print $.chezmoi.homeDir "/.local/" $s "/completions/" $k "." $s }}
 		{{- end }}
 	{{- end }}
 
-fzf --{{ $s }} > {{ print $.chezmoi.homeDir "/.config/" $s "/plugins/fzf." $s }}
+fzf --{{ $s }} > {{ print $.chezmoi.homeDir "/.local/" $s "/completions/fzf." $s }}
 {{- end }}
