@@ -37,10 +37,14 @@ source {{ . | quote -}}
 
 {{ if stat (joinPath $.chezmoi.homeDir ".local/zsh/plugins") }}
 	{{- if and (lookPath "fzf") (stat (joinPath .chezmoi.homeDir ".local/zsh/plugins/fzf-tab")) }}
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:*' switch-group '<' '>'
 source {{ (joinPath .chezmoi.homeDir ".local/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh") | quote }}
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=auto $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+export FZF_DEFAULT_OPTS='--bind ctrl-p:toggle-preview,ctrl-f:page-down,ctrl-b:page-up,alt-f:preview-page-down,alt-b:preview-page-up,q:abort --border --preview-window bottom:hidden --height 80% --layout=reverse --preview "[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || ({{ if lookPath "bat" }}bat --style=numbers,changes --color=always {}{{ else }}cat -b {}{{ end }} || head -100 {}) 2> /dev/null | head -100"'
+		{{- if eq .chezmoi.os "darwin" }}
+bindkey 'ç' fzf-cd-widget
+		{{ end -}}
 	{{ end -}}
 
 	{{ range $k, $v := omit $.zsh.pluginsList "fzf-tab" }}
