@@ -1,7 +1,11 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = $EDITOR
+	{{ if lookPath "delta" }}
+	pager = delta --tabs {{ .tui.tabs }}
+	{{ else }}
 	pager = less -R --tabs={{ .tui.tabs }}
+	{{ end }}
 	autocrlf = false
 	safecrlf = true
 	whitespace = fix, indent-with-non-tab, space-before-tab, trailing-space, cr-at-eol, blank-at-eol, blank-at-eof, tabwidth = 2
@@ -10,9 +14,20 @@
 	name = Myroslav Rys
 	email = "{{ .email }}"
 
+{{- if lookPath "delta" }}
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+{{ end -}}
+
 [diff]
 	renames = copy
 	tool = vimdiff
+	colorMoved = default
 
 [difftool]
 	prompt = 0
@@ -198,4 +213,4 @@
 	process = git-lfs filter-process
 
 [include]
-    path = ~/.gitconfig.d/*
+	path = ~/.gitconfig.d/*
