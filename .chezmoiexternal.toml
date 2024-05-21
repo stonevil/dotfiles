@@ -28,17 +28,6 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "chezmoi"]
 
-{{ $bat_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}
-[".local/bin/bat"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	stripComponents = 1
-	url = "https://github.com/sharkdp/bat/releases/download/v{{ $bat_v }}/bat-v{{ $bat_v }}-{{ if eq .chezmoi.os "darwin" }}x86_64-apple-darwin{{ else if eq .chezmoi.os "linux" }}{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}{{ end }}.tar.gz"
-	[".local/bin/bat".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ $bat_v }}-{{ if eq .chezmoi.os "darwin" }}x86_64-apple-darwin{{ else if eq .chezmoi.os "linux" }}{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-{{ .libc.platform }}{{ end }}/bat"]
-
 {{ $fzf_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/fzf"]
 	type = "file"
@@ -62,15 +51,6 @@
 	executable = true
 	url = "https://github.com/{{ $v }}/{{ $k }}.git"
 {{ end }}
-
-[".local/bin/xplr"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	url = "https://github.com/sayanarijit/xplr/releases/latest/download/xplr-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}{{ if eq .chezmoi.arch "arm64" }}-{{ .arch.opt2 }}{{ else if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") (eq .chezmoi.osRelease.id "alpine") }}-musl{{ end }}.tar.gz"
-	[".local/bin/xplr".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "xplr"]
 
 [".local/bin/zellij"]
 	type = "file"
