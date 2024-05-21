@@ -1,0 +1,15 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{- if lookPath "fzf" }}
+export FZF_DEFAULT_OPTS='--bind ctrl-p:toggle-preview,ctrl-f:page-down,ctrl-b:page-up,alt-f:preview-page-down,alt-b:preview-page-up,q:abort --border --preview-window bottom:hidden --height 80% --layout=reverse --preview "if [[ -d {} ]]; then tree -C {} | head -100; else if [[ $(file --mime {}) =~ binary ]]; then echo {} is a binary file; else {{ if lookPath "bat" }}bat --style=numbers,changes --color=always --line-range :100 {}{{ else }}cat -b {} | head -100{{ end }}; fi; fi"'
+
+	{{- if lookPath "fd" }}
+export FZF_DEFAULT_COMMAND_IGNORE="--exclude .git --exclude .svn --exclude node_modules --exclude .undodir --exclude .session.vim --exclude .DS_Store"
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix $FZF_DEFAULT_COMMAND_IGNORE"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix $FZF_DEFAULT_COMMAND_IGNORE"
+	{{ end -}}
+{{ end -}}
