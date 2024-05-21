@@ -75,7 +75,6 @@
 		"spacer"
 	]
 	go = [
-		"github.com/arl/gitmux@latest",
 		"github.com/tomwright/dasel/v2/cmd/dasel@master"
 	]
 	pip3 = []

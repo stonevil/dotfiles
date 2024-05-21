@@ -104,10 +104,6 @@ passgen() {
 	fi
 }
 
-{{ if lookPath "tmux" }}
-stmux() { ssh "$@" -t bash -l -c 'tmux attach-session -dv'; }
-{{ end }}
-
 {{- if lookPath "vagrant" }}
 export VAGRANT_PROVIDER_GUI="false"
 vagrant_ip() {
