@@ -281,10 +281,10 @@ return {
 	},
 	window_frame = {
 		font = wezterm.font({
-			family = "{{ .gui.font }}",
+			family = "{{ .terminal.font }}",
 			weight = "Bold",
 		}),
-		-- font_size = {{ .gui.fontSize }},
+		-- font_size = {{ .terminal.fontSize }},
 		active_titlebar_bg = "#000000",
 		inactive_titlebar_bg = "#000000",
 	},
@@ -311,24 +311,24 @@ return {
 	-- Color scheme
 	-- https://wezfurlong.org/wezterm/colorschemes/index.html
 	color_scheme = "nordfox",
-	window_background_opacity = {{ .gui.opacity }},
-	macos_window_background_blur = {{ .gui.blur }},
+	window_background_opacity = {{ .terminal.opacity }},
+	macos_window_background_blur = {{ .terminal.blur }},
 	window_decorations = "RESIZE",
 	enable_scroll_bar = false,
 	text_blink_rate = 0,
 	native_macos_fullscreen_mode = true,
 	quit_when_all_windows_are_closed = true,
 	enable_wayland = enable_wayland(),
-	initial_cols = {{ .gui.cols }},
-	initial_rows = {{ .gui.rows }},
+	initial_cols = {{ .terminal.cols }},
+	initial_rows = {{ .terminal.rows }},
 	inactive_pane_hsb = {
 		saturation = 0.3,
 		brightness = 0.3,
 	},
 	-- Font configuration
 	-- https://wezfurlong.org/wezterm/config/fonts.html
-	font = wezterm.font("{{ .gui.font }}"),
-	font_size = {{ .gui.fontSize }},
+	font = wezterm.font("{{ .terminal.font }}"),
+	font_size = {{ .terminal.fontSize }},
 	max_fps = 120,
 	line_height = 1.1,
 	-- Cursor style

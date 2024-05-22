@@ -12,7 +12,7 @@ shell={{ .tui.shellPath }} --login
 # title=foot
 # locked-title=no
 
-font={{ .gui.font | quote }}:size={{ .gui.fontSize }}
+font={{ .terinal.font | quote }}:size={{ .terinal.fontSize }}
 # font-bold=<bold variant of regular font>
 # font-italic=<italic variant of regular font>
 # font-bold-italic=<bold+italic variant of regular font>
@@ -27,7 +27,7 @@ font={{ .gui.font | quote }}:size={{ .gui.fontSize }}
 dpi-aware=auto
 
 # initial-window-size-pixels=700x500  # Or,
-initial-window-size-chars={{ .gui.cols }}x{{ .gui.rows }}
+initial-window-size-chars={{ .terinal.cols }}x{{ .terinal.rows }}
 initial-window-mode=windowed
 # pad=0x0                             # optionally append 'center'
 # resize-delay-ms=100
@@ -74,7 +74,7 @@ blink=yes
 # alternate-scroll-mode=yes
 
 [colors]
-alpha={{ .gui.opacity }}
+alpha={{ .terinal.opacity }}
 background=000000
 foreground=cdcecf
 

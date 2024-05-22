@@ -6,12 +6,12 @@ vim:ft=conf.gotexttmpl
 
 #: Fonts
 
-font_family      {{ .gui.font }}
+font_family      {{ .terminal.font }}
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
 
-font_size {{ .gui.fontSize }}
+font_size {{ .terminal.fontSize }}
 
 # force_ltr no
 
@@ -268,7 +268,7 @@ tab_powerline_style angled
 
 include themes/darkfox.conf
 
-background_opacity {{ .gui.opacity }}
+background_opacity {{ .terminal.opacity }}
 
 # background_image none
 

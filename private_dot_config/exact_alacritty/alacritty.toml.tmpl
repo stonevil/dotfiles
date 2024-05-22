@@ -69,7 +69,7 @@ TERM = "xterm-256color"
 
 [font]
 builtin_box_drawing = true
-size = {{ .gui.fontSize }}
+size = {{ .terminal.fontSize }}
 
 [font.offset]
 x = 0
@@ -80,14 +80,14 @@ x = 0
 y = 0
 
 [font.normal]
-family = "{{ .gui.font }}"
-style = "{{ .gui.fontNormal }}"
+family = "{{ .terminal.font }}"
+style = "{{ .terminal.fontNormal }}"
 
 [font.bold]
-style = "{{ .gui.fontBold }}"
+style = "{{ .terminal.fontBold }}"
 
 [font.italic]
-style = "{{ .gui.fontItalic }}"
+style = "{{ .terminal.fontItalic }}"
 
 [[keyboard.bindings]]
 action = "Paste"
