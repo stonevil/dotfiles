@@ -15,9 +15,10 @@ set output-meta on
 # To allow the use of 8bit-characters like the german umlauts
 set convert-meta off
 
+# Set vi mode
+set keymap vi
 # Enable vi editing mode
 set editing-mode vi
-
 # Keymaps for when we're in insert
 set keymap vi-insert
 # Keymaps for when we're in command mode
