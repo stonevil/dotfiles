@@ -1,0 +1,25 @@
+{{- /*
+	vim:ft=toml.gotexttmpl
+*/ -}}
+
+{{ if eq .chezmoi.os "darwin" }}
+[data.path]
+	homebrew = {{ (joinPath .chezmoi.homeDir ".brew" | quote) }}
+{{ end }}
+
+[data.gui]
+{{ if eq .chezmoi.os "darwin" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
+{{ else if eq .chezmoi.os "linux" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir ".local/share/fonts") | quote }}
+{{ end }}
+
+[data.zsh.pluginsList]
+	zsh-syntax-highlighting = "zsh-users"
+	zsh-autosuggestions = "zsh-users"
+
+[data.shell.completionsList]
+	starship = "init"
+	chezmoi = "completion"
+	limactl = "completion"
+	kubectl = "completion"

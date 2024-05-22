@@ -2,19 +2,15 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
-
-# Detect if this VM/Containers/Codespaces
-{{ $codespaces:= env "CODESPACES" | not | not }}
-
 # Detect GUI Session Type
-{{ $session := env "XDG_SESSION_TYPE" | quote }}
-{{ $wsl := (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
-
-# Set for Linux Session Type
 {{ if eq .chezmoi.os "linux" }}
 [data.session]
-	type = {{ $session }}
-	wsl = {{ $wsl }}
+	type = {{ env "XDG_SESSION_TYPE" | quote }}
+	wsl = {{ (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+{{ else if eq .chezmoi.os "darwin" }}
+[data.session]
+	type = "darwin"
+	wsl = false
 {{ end }}
 
 # Detect Desktop OR Laptop
@@ -34,6 +30,11 @@
 {{ end }}
 
 # Boring with some questions
+{{ if eq .chezmoi.username "root" }}
+	{{ $sudoAccess := true }}
+{{ else }}
+	{{ $sudoAccess := promptBool "Do you have sudo access?" false }}
+{{ end }}
 {{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
 {{ $dev := promptBool "Is this DEV workstation" false }}
 {{ $devops := promptBool "Is this DevOps workstation" false }}
@@ -44,45 +45,8 @@
 {{ $opacity := promptString "Windows opacity" "1.0" }}
 {{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
 
-{{- writeToStdout "email address is set to: " $email "\n" -}}
-{{ if $dev }}
-	{{- writeToStdout "is DEV workstation?: true\n" -}}
-{{ else }}
-	{{- writeToStdout "is DEV workstation?: false\n" -}}
-{{ end }}
-{{ if $devops }}
-	{{- writeToStdout "is DevOps workstation?: true\n" -}}
-{{ else }}
-	{{- writeToStdout "is DevOps workstation?: false\n" -}}
-{{ end }}
-{{ if $embedded }}
-	{{- writeToStdout "is Embedded DEV workstation?: true\n" -}}
-{{ else }}
-	{{- writeToStdout "is Embedded DEV workstation?: false\n" -}}
-{{ end }}
-{{ if $media }}
-	{{- writeToStdout "install basic tools for media manipulation?: true\n" -}}
-{{ else }}
-	{{- writeToStdout "install basic tools for media manipulation?: false\n" -}}
-{{ end }}
-{{ if $ads }}
-	{{- writeToStdout "block ads?: true\n" -}}
-{{ else }}
-	{{- writeToStdout "block ads?: false\n" -}}
-{{ end }}
-{{- writeToStdout "tabs wight set to: " ($tabs | toString) " spaces" "\n" -}}
-{{- writeToStdout "terminal window opacity set to: " $opacity "\n" -}}
-{{- writeToStdout "shell command set to: " $shellPath "\n" }}
-
-
 [data]
 	email = {{ $email | quote }}
-	codespaces = {{ $codespaces }}
-
-{{ if eq .chezmoi.os "darwin" }}
-[data.path]
-	homebrew = {{ (joinPath .chezmoi.homeDir ".brew" | quote) }}
-{{ end }}
 
 [data.tags]
 	dev = {{ $dev }}
@@ -90,31 +54,6 @@
 	embedded = {{ $embedded }}
 	media = {{ $media }}
 	ads = {{ $ads }}
-
-[data.tui]
-	shellPath = {{ $shellPath | quote }}
-	tabs = {{ $tabs }}
-
-[data.gui]
-	font = "Iosevka Nerd Font"
-	fontNormal = "Light"
-	fontBold = "Light"
-	fontItalic = "Light Italic"
-	fontBoldItalic = "Light Italic"
-	fontSize = 15
-	cols = 120
-	rows = 28
-	opacity = {{ $opacity }}
-{{ if lt ($opacity | float64) 1.0 }}
-	blur = 20
-{{ else }}
-	blur = 0
-{{ end}}
-{{ if eq .chezmoi.os "darwin" }}
-	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
-{{ else if eq .chezmoi.os "linux" }}
-	fontDir = {{ (joinPath .chezmoi.homeDir ".local/share/fonts") | quote }}
-{{ end }}
 
 [data.libc]
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
@@ -132,15 +71,23 @@
 	opt2 = "aarch64"
 {{ end }}
 
-[data.fonts.nerd]
+[data.tui]
+	shellPath = {{ $shellPath | quote }}
+	tabs = {{ $tabs }}
+
+[data.terminal]
 	fontsList = ["FiraCode", "Iosevka", "Monoid", "ProggyClean", "RobotoMono", "ZedMono"]
-
-[data.zsh.pluginsList]
-	zsh-syntax-highlighting = "zsh-users"
-	zsh-autosuggestions = "zsh-users"
-
-[data.shell.completionsList]
-	starship = "init"
-	chezmoi = "completion"
-	limactl = "completion"
-	kubectl = "completion"
+	font = "Iosevka Nerd Font"
+	fontNormal = "Light"
+	fontBold = "Light"
+	fontItalic = "Light Italic"
+	fontBoldItalic = "Light Italic"
+	fontSize = 15
+	cols = 120
+	rows = 28
+	opacity = {{ $opacity }}
+{{ if lt ($opacity | float64) 1.0 }}
+	blur = 20
+{{ else }}
+	blur = 0
+{{ end}}
