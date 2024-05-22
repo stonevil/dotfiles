@@ -25,6 +25,7 @@ fedora)
 esac
 
 export CODESPACES=true
+export EPHEMERAL=true
 
 export BINDIR="$HOME/.local/bin"
 export PATH=$BINDIR:$PATH
