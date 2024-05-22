@@ -5,21 +5,16 @@ vim:ft=zsh.gotexttmpl
 # vim:ft=zsh :
 # shellcheck source=/dev/null
 
-{{ $m := dict
-	"starship" "init"
-	"chezmoi" "completion"
-	"limactl" "completion"
-	"kubectl" "completion"
-}}
-
 {{ range $s := list "bash" "zsh" "fish" }}
 mkdir -p {{ joinPath $.chezmoi.homeDir ".local" $s "completions" }}
-	{{ range $k, $v := $m }}
+	{{ range $k, $v := $.shell.completionsList }}
 		{{ if lookPath $k }}
 echo "Generate completion file for {{ $k }} for {{ $s }}"
 {{ $k }} {{ $v }} {{ $s }} > {{ print $.chezmoi.homeDir "/.local/" $s "/completions/" $k "." $s }}
 		{{- end }}
-	{{- end }}
+	{{ end }}
 
+	{{ if lookPath "fzf" }}
 fzf --{{ $s }} > {{ print $.chezmoi.homeDir "/.local/" $s "/completions/fzf." $s }}
-{{- end }}
+	{{ end }}
+{{ end }}
