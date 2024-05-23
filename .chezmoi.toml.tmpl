@@ -35,12 +35,14 @@
 {{ else }}
 	{{ $sudoAccess := promptBool "Do you have sudo access?" false }}
 {{ end }}
+{{ $privateComputer := promptBool "Is this private computer" true }}
 {{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
 {{ $dev := promptBool "Is this DEV workstation" false }}
 {{ $devops := promptBool "Is this DevOps workstation" false }}
 {{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
 {{ $media := promptBool "Do you require basic tools for media manipulation" false }}
 {{ $ads := promptBool "Do you want to block ads" false }}
+
 {{ $tabs := promptInt "Configure default tabs width" 2 }}
 {{ $opacity := promptString "Windows opacity" "1.0" }}
 {{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
@@ -54,6 +56,24 @@
 	embedded = {{ $embedded }}
 	media = {{ $media }}
 	ads = {{ $ads }}
+
+
+# [data.tags]
+# 	private = {{ $privateComputer }}
+# 	core = true
+# 	dev = false
+# 	devops = false
+# 	esp = false
+# 	media = false
+# 	adblock = false
+# 	laptop = false
+# 	books = false
+# 	news = false
+# 	torrent = false
+# 	tor = false
+
+
+
 
 [data.libc]
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
@@ -71,9 +91,28 @@
 	opt2 = "aarch64"
 {{ end }}
 
+[data.zsh.pluginsList]
+	zsh-syntax-highlighting = "zsh-users"
+	zsh-autosuggestions = "zsh-users"
+
+[data.shell.completionsList]
+	starship = "init "
+	chezmoi = "completion "
+	limactl = "completion "
+	kubectl = "completion "
+	fzf = "--"
+
+
 [data.tui]
 	shellPath = {{ $shellPath | quote }}
 	tabs = {{ $tabs }}
+
+[data.gui]
+{{ if eq .chezmoi.os "darwin" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
+{{ else if eq .chezmoi.os "linux" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir ".local/share/fonts") | quote }}
+{{ end }}
 
 [data.terminal]
 	fontsList = ["FiraCode", "Iosevka", "Monoid", "ProggyClean", "RobotoMono", "ZedMono"]
@@ -91,3 +130,8 @@
 {{ else }}
 	blur = 0
 {{ end}}
+
+{{ if eq .chezmoi.os "darwin" }}
+[data.path]
+	homebrew = {{ (joinPath .chezmoi.homeDir ".brew" | quote) }}
+{{ end }}

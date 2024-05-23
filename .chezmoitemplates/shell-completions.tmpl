@@ -10,11 +10,7 @@ mkdir -p {{ joinPath $.chezmoi.homeDir ".local" $s "completions" }}
 	{{ range $k, $v := $.shell.completionsList }}
 		{{ if lookPath $k }}
 echo "Generate completion file for {{ $k }} for {{ $s }}"
-{{ $k }} {{ $v }} {{ $s }} > {{ print $.chezmoi.homeDir "/.local/" $s "/completions/" $k "." $s }}
+{{ $k }} {{ $v }}{{ $s }} > {{ print $.chezmoi.homeDir "/.local/" $s "/completions/" $k "." $s }}
 		{{- end }}
-	{{ end }}
-
-	{{ if lookPath "fzf" }}
-fzf --{{ $s }} > {{ print $.chezmoi.homeDir "/.local/" $s "/completions/fzf." $s }}
 	{{ end }}
 {{ end }}
