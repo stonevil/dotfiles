@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
+{{ template "path.tmpl" . }}
+
 cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "update-os-packages.tmpl" . }}

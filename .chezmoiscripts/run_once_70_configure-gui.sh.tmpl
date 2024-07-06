@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
+{{ template "path.tmpl" . }}
+
 echo "Configure User Environment"
 {{ if eq .chezmoi.os "darwin" }}
 # Activity Monitor

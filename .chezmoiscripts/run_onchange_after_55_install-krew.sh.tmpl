@@ -3,6 +3,8 @@
 
 # .chezmoidata/k8s.toml hash: {{ include ".chezmoidata/k8s.toml" | sha256sum }}
 
+{{ template "path.tmpl" . }}
+
 cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "path.tmpl" . }}
