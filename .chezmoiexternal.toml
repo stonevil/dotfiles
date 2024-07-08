@@ -33,7 +33,7 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://github.com/junegunn/fzf/releases/download/{{ $fzf_v }}/fzf-{{ $fzf_v }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.{{ if eq .chezmoi.os "darwin" }}zip{{ else if eq .chezmoi.os "linux" }}tar.gz{{ end }}"
+	url = "https://github.com/junegunn/fzf/releases/download/v{{ $fzf_v }}/fzf-{{ $fzf_v }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.{{ if eq .chezmoi.os "darwin" }}zip{{ else if eq .chezmoi.os "linux" }}tar.gz{{ end }}"
 	[".local/bin/fzf".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
