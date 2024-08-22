@@ -41,6 +41,7 @@
 {{ $devops := promptBool "Is this DevOps workstation" false }}
 {{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
 {{ $media := promptBool "Do you require basic tools for media manipulation" false }}
+{{ $deck := promptBool "Do you require TUI presentation tools" false }}
 {{ $ads := promptBool "Do you want to block ads" false }}
 
 {{ $tabs := promptInt "Configure default tabs width" 2 }}
@@ -55,6 +56,7 @@
 	devops = {{ $devops }}
 	embedded = {{ $embedded }}
 	media = {{ $media }}
+	deck = {{ $deck }}
 	ads = {{ $ads }}
 
 

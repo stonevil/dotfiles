@@ -67,6 +67,17 @@
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ $github_v }}_{{ if eq .chezmoi.os "darwin"}}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}/bin/gh"]
 
 
+{{ $xplr_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sayanarijit/xplr/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/xplr"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/sayanarijit/xplr/releases/download/v{{ $xplr_v }}/xplr-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}{{ if eq .chezmoi.arch "arm64" }}-aarch64{{ end }}{{ if and (eq .chezmoi.os "linux") (eq .libc.platform "musl") }}-musl{{ end }}.tar.gz"
+	[".local/bin/xplr".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "xplr"]
+
+
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
 {{ $lazygit_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}
@@ -123,6 +134,32 @@
 
 {{ if eq .tags.dev true -}}
 # TODO
+{{- end }}
+
+
+{{ if eq .tags.deck true -}}
+# Presentation tools
+{{ $slides_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/maaslalani/slides/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/slides"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	url = "https://github.com/maaslalani/slides/releases/download/v{{ $slides_v }}/slides_{{ $slides_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/slides".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "slides"]
+
+{{ $presenterm_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/mfontanini/presenterm/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/presenterm"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	url = "https://github.com/mfontanini/presenterm/releases/download/v{{ $presenterm_v }}/presenterm-{{ $presenterm_v }}-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else if eq .chezmoi.arch "arm64" }}aarch64{{ end }}{{ if eq .chezmoi.os "darwin" }}-apple-darwin{{ else if eq .chezmoi.os "linux" }}-unknown-linux{{ if eq .libc.platform "musl" }}-musl{{ else }}-gnu{{ end }}{{ end }}.tar.gz"
+	[".local/bin/presenterm".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "presenterm-{{ $presenterm_v }}/presenterm"]
 {{- end }}
 
 
