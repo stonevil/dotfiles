@@ -67,7 +67,6 @@
 		"zsh"
 	]
 	cargo = [
-		"starship",
 		"bat",
 		"spacer",
 		"watchexec-cli"

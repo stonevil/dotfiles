@@ -25,9 +25,9 @@ vim:ft=zsh.gotexttmpl
 
 {{ template "shellrc-functions.tmpl" . }}
 
-{{- if lookPath "starship" }}
-export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
-{{ end -}}
+# {{- if lookPath "starship" }}
+# export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
+# {{ end -}}
 
 {{- if stat (joinPath .chezmoi.homeDir ".local/zsh/completions") }}
 	{{- range glob (print $.chezmoi.homeDir "/.local/zsh/completions/*") }}
@@ -50,8 +50,10 @@ bindkey 'ç' fzf-cd-widget
 source {{ (print $.chezmoi.homeDir "/.local/zsh/plugins/" $k "/" $k ".plugin.zsh") | quote -}}
 		{{ end -}}
 	{{ end -}}
-{{ end -}}
+{{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
 {{ template "gui-env.tmpl" . }}
 {{ end -}}
+
+{{ template "shellrc-prompt.tmpl" . }}

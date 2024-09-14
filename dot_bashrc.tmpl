@@ -26,7 +26,7 @@ vim:ft=bash.gotexttmpl
 {{ template "shellrc-functions.tmpl" . }}
 
 {{- if lookPath "starship" }}
-export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
+# export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
 {{ end -}}
 
 {{- if stat (joinPath .chezmoi.homeDir ".local/bash/completions") }}
@@ -40,3 +40,5 @@ source {{ . | quote -}}
 {{ if eq .chezmoi.os "linux" }}
 {{ template "gui-env.tmpl" . }}
 {{ end -}}
+
+{{ template "shellrc-prompt.tmpl" . }}
