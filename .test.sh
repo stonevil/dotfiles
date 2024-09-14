@@ -5,9 +5,9 @@ _help() {
 	# Display Help
 	echo "Command syntax:"
 	echo -e "./.test.sh [distro] [version]\n"
-	echo "Example with Alpine Edge Linux:"
-	echo -e "./.test.sh alpine edge\n"
-	echo -e "Supported distro: Fedora Linux v39 and newer, Alpine Linux Edge, Debian 12 and newer\n"
+	echo "Example with Fedora Linux:"
+	echo -e "./.test.sh fedora 40\n"
+	echo -e "Supported distro: Fedora Linux v40 and higher, Debian 12 and higher\n"
 }
 
 _check() {
@@ -35,10 +35,6 @@ export DISTRO=$1
 
 # Detect OS distro and version
 case "$DISTRO" in
-alpine)
-	export IMAGE="$DISTRO"
-	export IMAGE_TAG="${2:-3.19}"
-	;;
 arch)
 	export IMAGE_TAG="${2:-latest}"
 	if [[ $DISTRO == "arch" ]]; then
@@ -60,9 +56,9 @@ help | '--help' | '-h')
 	exit 0
 	;;
 *)
-	export DISTRO="alpine"
+	export DISTRO="fedora"
 	IMAGE="$DISTRO"
-	IMAGE_TAG="3.19"
+	IMAGE_TAG="latest"
 	;;
 esac
 

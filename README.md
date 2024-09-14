@@ -8,8 +8,7 @@ Build in mind for macOS 14.x and higher and Linux.
 #### Supported platforms:
 
 - macOS 14 Sonoma. In use everyday both on amd64 and arm64 MacBook Pro.
-- Alpine Linux Edge.
-- Fedora 39.
+- Fedora 40 and higher.
 - Debian 12. VM's, Toolbox container, and my Linux laptop.
 
 > [!WARNING]
@@ -22,10 +21,10 @@ Testing
 ./.test.sh [distro] [version]
 ```
 
-Example for Alpine Linux
+Example for Fedora Linux
 
 ```bash
-./.test.sh alpine edge
+./.test.sh fedora
 ```
 
 

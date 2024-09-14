@@ -2,14 +2,6 @@
 # vim:ft=sh
 
 case "$DISTRO" in
-alpine)
-	echo "Alpine. Install bare minimal packages"
-	echo "Fix repositories version"
-	sed -i 's/v3.\b[0-9]\{2\}\b/edge/g' /etc/apk/repositories || exit 1
-	(echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories) || exit 1
-	(apk update && apk add sudo bash curl git) || exit 1
-	(apk upgrade libssl3 libcrypto3) || exit 1
-	;;
 arch)
 	echo "Arch Linux. Install bare minimal packages"
 	(pacman --noconfirm -Syy && pacman --noconfirm -Syu && pacman --noconfirm --needed -Syu sudo bash curl git) || exit 1
@@ -31,8 +23,8 @@ export BINDIR="$HOME/.local/bin"
 export PATH=$BINDIR:$PATH
 
 sh -c "$(curl -fsLS git.io/chezmoi)"
-chezmoi init --promptString email='fu@bar.org',opacity='1.0',shellPath='/bin/zsh' --promptBool dev=true,devops=true,embedded=true,media=true,ads=true --promptInt tabs=2 && \
-chezmoi apply --force
+chezmoi init --promptString email='fu@bar.org',opacity='1.0',shellPath='/bin/zsh' --promptBool dev=true,devops=true,embedded=true,media=true,ads=true --promptInt tabs=2 &&
+	chezmoi apply --force
 
 if command -v zsh >/dev/null 2>&1; then
 	RPROMPT="$DISTRO/$IMAGE_TAG" zsh
