@@ -36,6 +36,24 @@
 --exclude=*/doc/*
 --exclude=doc/*
 
+--exclude=.terraform
+
+--exclude=\*.min.\*
+--exclude=\*.map
+--exclude=\*.swp
+--exclude=\*.bak
+--exclude=\*.pyc
+--exclude=\*.class
+--exclude=\*.sln
+--exclude=\*.Master
+--exclude=\*.csproj
+--exclude=\*.csproj.user
+--exclude=\*.cache
+--exclude=\*.dll
+--exclude=\*.pdb
+--exclude=tags
+--exclude=cscope.\*
+--exclude=\*.tar.\*
 --exclude=*.war
 --exclude=*.jar
 --exclude=*.class
