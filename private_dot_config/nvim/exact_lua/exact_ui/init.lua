@@ -40,16 +40,32 @@ return {
 		end,
 	},
 
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha", -- latte, frappe, macchiato, mocha
+				background = { -- :h background
+					light = "latte",
+					dark = "mocha",
+				},
+				transparent_background = true,
+			})
+		end,
+	},
+
 	-- Configure LazyVim to load colorscheme
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "nordfox",
+			colorscheme = "catppuccin-mocha",
 		},
 	},
 
 	-- Disable Catppuccin
-	{ "catppuccin/nvim", name = "catppuccin", enabled = false },
+	-- { "catppuccin/nvim", name = "catppuccin", enabled = false },
 	-- Disable Tokyonight
-	{ "folke/tokyonight.nvim", name = "tokyonight", enabled = false },
+	-- { "folke/tokyonight.nvim", name = "tokyonight", enabled = false },
 }
