@@ -29,12 +29,13 @@ if-shell '[[ ! -d $HOME/.tmux/plugins/tpm ]]' {
 }
 
 
+## True colour
+set -as terminal-features ",xterm-256color:RGB"
+
+
 ## Configuration
 # Address vim mode switching delay (http://superuser.com/a/252717/65504)
 set -s escape-time 0
-
-# Improve colors
-set-option -a terminal-overrides ",*256col*:RGB"
 
 # Automatically set window title
 set -g set-titles on
