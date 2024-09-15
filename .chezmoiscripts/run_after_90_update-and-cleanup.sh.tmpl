@@ -21,4 +21,6 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "neovim.tmpl" . }}
 
+{{ template "tmux.tmpl" . }}
+
 {{ template "block-ads.tmpl" . }}

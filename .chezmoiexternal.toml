@@ -38,6 +38,12 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
 
+[".local/bin/fzf-tmux"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://raw.githubusercontent.com/junegunn/fzf/master/bin/fzf-tmux"
+
 {{ range $k, $v := $.zsh.pluginsList }}
 [".local/zsh/plugins/{{ $k }}"]
 	type = "git-repo"
