@@ -1,5 +1,5 @@
 return {
-	-- Transparense everywhere
+	-- Transparency everywhere
 	{
 		"xiyaowong/transparent.nvim",
 		cmd = { "TransparentEnable", "TransparentDisable", "TransparentToggle" },
@@ -12,7 +12,7 @@ return {
 		end,
 	},
 
-	-- Colour Scheme
+	-- Colour schemes
 	{
 		"EdenEast/nightfox.nvim",
 		lazy = false,
