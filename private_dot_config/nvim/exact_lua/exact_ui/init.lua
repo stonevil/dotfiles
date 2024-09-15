@@ -12,7 +12,7 @@ return {
 		end,
 	},
 
-	-- Color Scheme
+	-- Colour Scheme
 	{
 		"EdenEast/nightfox.nvim",
 		lazy = false,
@@ -41,6 +41,17 @@ return {
 	},
 
 	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("kanagawa").setup({
+				transparent = vim.g.transparency,
+			})
+		end,
+	},
+
+	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
@@ -51,7 +62,7 @@ return {
 					light = "latte",
 					dark = "mocha",
 				},
-				transparent_background = true,
+				transparent_background = vim.g.transparency,
 			})
 		end,
 	},
