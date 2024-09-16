@@ -233,7 +233,7 @@ bind-key "P" choose-buffer # choose which buffer to paste from
 set -g status-interval 5
 
 # Pane
-set -g pane-border-status top
+set -g pane-border-status off
 set -g pane-border-style fg=colour7
 set -g pane-active-border-style fg=colour4
 set -g pane-border-format "#{pane_index} /#{pane_current_command} #{pane_current_path}"
@@ -255,7 +255,7 @@ set -g message-command-style fg=colour7,bg=default
 # Status
 set -g status on
 set -g status-justify left
-set -g status-position bottom
+set -g status-position top
 set -g status-style fg=default,bg=default
 
 set -g status-left-length 100
@@ -265,10 +265,10 @@ time_format="%R"
 date_format="%d/%m/%Y"
 
 set -g status-left-style fg=colour7,bg=default
-set -g status-left "#[fg=colour0,bg=colour4,bold] #S #[fg=colour4,bg=default,nobold,nounderscore,noitalics]  #[fg=colour3,bg=default]"
+set -g status-left "#[fg=default,bg=colour4,bold] #S #[fg=colour4,bg=default,nobold,nounderscore,noitalics]  #[fg=colour3,bg=default]"
 
 set -g status-right-style fg=colour7,bg=default
-set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #[fg=colour4,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour4,nounderscore,noitalics] ${time_format} "
+set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour3,bg=default,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] #{pane_current_path}#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] #[fg=colour4,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour4,nounderscore,noitalics] ${time_format} "
 
 
 ## tmux plugins manager
