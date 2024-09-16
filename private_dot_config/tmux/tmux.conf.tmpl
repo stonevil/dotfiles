@@ -83,6 +83,10 @@ set -g @resurrect-restore 'R'
 
 # tmux-sessionx
 set -g @sessionx-bind 'o'
+set -g @sessionx-window-mode 'on'
+set -g @sessionx-layout 'reverse'
+set -g @sessionx-preview-enabled 'true'
+set -g @sessionx-preview-location 'bottom'
 set -g @sessionx-custom-paths '{{ .chezmoi.homeDir }}/Documents,{{ .chezmoi.homeDir }}/Development'
 # alt+backspace will delete the selected session
 # C-u scroll preview up
@@ -166,7 +170,7 @@ bind-key "s" choose-tree
 
 bind-key "c" new-window -c '#{pane_current_path}'
 
-bind-key -r "z" resize-pane -y 40
+bind-key -r "Z" resize-pane -y 40
 
 
 ## FZF
@@ -265,10 +269,10 @@ time_format="%R"
 date_format="%d/%m/%Y"
 
 set -g status-left-style fg=colour7,bg=default
-set -g status-left "#[fg=default,bg=colour4,bold] #S #[fg=colour4,bg=default,nobold,nounderscore,noitalics]  #[fg=colour3,bg=default]"
+set -g status-left "#[fg=colour0,bg=colour12,bold] #S #[fg=colour12,bg=default,nobold,nounderscore,noitalics]  #[fg=colour11,bg=default]"
 
 set -g status-right-style fg=colour7,bg=default
-set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour3,bg=default,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] #{pane_current_path}#[fg=colour0,bg=colour3,nobold,nounderscore,noitalics] #[fg=colour4,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour4,nounderscore,noitalics] ${time_format} "
+set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour11,bg=default,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour11,bold,nounderscore,noitalics] #{pane_current_path}#[fg=colour0,bg=colour11,nobold,nounderscore,noitalics] #[fg=colour12,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour12,nobold,nounderscore,noitalics] ${time_format} "
 
 
 ## tmux plugins manager
