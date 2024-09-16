@@ -13,6 +13,10 @@ Bin
 .config/astronvim
 .homebrew
 .brew/bin/*.lima
+.local/zsh/plugins/starship.zsh
+.local/zsh/completions/starship.zsh
+.local/bash/plugins/starship.bash
+.local/bash/completions/starship.bash
 {{ if and (eq .chezmoi.os "linux") (or (ne .session.type "wayland") (ne .session.type "x11") (ne .session.type "xorg")) }}
 .config/nvim/lua/plugins/wezterm.lua
 {{ end }}
