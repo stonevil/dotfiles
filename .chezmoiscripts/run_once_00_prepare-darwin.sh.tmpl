@@ -7,6 +7,9 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 echo "Prepare system. Install essential packages like brew, etc"
 {{ if eq .chezmoi.os "darwin" }}
+	{{ if stat (joinPath .chezmoi.homeDir ".terminfo") }}
+		rm -Rf {{ (joinPath .chezmoi.homeDir ".terminfo") | quote }}
+	{{ end }}
 	{{ if stat .path.homebrew }}
 		rm -Rf {{ .path.homebrew | quote }}
 	{{ end }}
@@ -16,6 +19,9 @@ echo "Prepare system. Install essential packages like brew, etc"
 
 	# Stop Homebrew from spying on you
 	brew analytics off || exit 1
+
+	# Cleanup cache. Cache can cause issues like: "Error: Couldn't find manifest matching bottle checksum."
+	rm -rf "$(brew --cache)"
 
 	# brew tap --force homebrew/core || exit 1
 	brew install --force curl git gnu-tar || exit 1
