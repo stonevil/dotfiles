@@ -10,12 +10,11 @@ echo "Prepare system. Install essential packages like brew, etc"
 	{{ if stat (joinPath .chezmoi.homeDir ".terminfo") }}
 		rm -Rf {{ (joinPath .chezmoi.homeDir ".terminfo") | quote }}
 	{{ end }}
-	{{ if stat .path.homebrew }}
-		rm -Rf {{ .path.homebrew | quote }}
-	{{ end }}
 	export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") | quote }} --no-quarantine"
 
-	git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
+	{{ if not (stat .path.homebrew) }}
+		git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
+	{{ end }}
 
 	# Stop Homebrew from spying on you
 	brew analytics off || exit 1
