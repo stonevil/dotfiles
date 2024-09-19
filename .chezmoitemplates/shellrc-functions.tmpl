@@ -36,11 +36,6 @@ unquarantine() {
 	xattr -r -d com.apple.quarantine "$@"
 	notify "macOS quarantine removed" "$@"
 }
-
-dmg2iso() {
-	hdiutil convert "$@" -format UDTO -o "$(basename $@)".iso && \
-	notify "dmg2iso" "$(basename $@).iso image created"
-}
 {{ end }}
 
 ip-external() {
