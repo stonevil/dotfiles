@@ -8,9 +8,7 @@ echo "System update and cleanup after all this mess"
 {{ if eq .chezmoi.os "darwin" }}
 	{{ template "darwin.tmpl" . }}
 {{ else if eq .chezmoi.os "linux" }}
-	{{ if eq .chezmoi.osRelease.id "alpine" }}
-		{{ template "alpine.tmpl" . }}
-	{{ else if eq .chezmoi.osRelease.id "arch" }}
+	{{ if eq .chezmoi.osRelease.id "arch" }}
 		{{ template "arch.tmpl" . }}
 	{{ else if eq .chezmoi.osRelease.id "fedora" }}
 		{{ template "fedora.tmpl" . }}

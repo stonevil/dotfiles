@@ -49,7 +49,7 @@ debian)
 	;;
 fedora)
 	export IMAGE="$DISTRO"
-	export IMAGE_TAG="${2:-39}"
+	export IMAGE_TAG="${2:-40}"
 	;;
 help | '--help' | '-h')
 	_help

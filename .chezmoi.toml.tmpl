@@ -75,15 +75,6 @@
 # 	tor = false
 
 
-
-
-[data.libc]
-{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "alpine")) }}
-	platform = "musl"
-{{ else }}
-	platform = "gnu"
-{{ end }}
-
 [data.arch]
 {{ if eq .chezmoi.arch "amd64" }}
 	opt1 = "{{ .chezmoi.arch }}"
