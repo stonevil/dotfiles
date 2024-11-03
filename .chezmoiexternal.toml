@@ -80,16 +80,6 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "xplr"]
 
-{{ $carapace_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/carapace-sh/carapace-bin/releases/latest" | trim | base | trimPrefix "v" }}
-[".local/bin/carapace"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	url = "https://github.com/carapace-sh/carapace-bin/releases/download/v{{ $carapace_v }}/carapace-bin_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
-	[".local/bin/carapace".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "carapace"]
-
 
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
