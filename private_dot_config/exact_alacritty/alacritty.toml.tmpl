@@ -2,6 +2,7 @@
 vim:ft=toml.gotexttmpl
 */ -}}
 
+[general]
 live_config_reload = true
 working_directory = {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
 
@@ -687,12 +688,12 @@ multiplier = 3
 [selection]
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "{{ .tui.shellPath }}"
 
 [window]
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 decorations = "none"
 {{ else if eq .chezmoi.os "darwin" }}
 decorations = "buttonless"
