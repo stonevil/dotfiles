@@ -17,6 +17,8 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "ruby.tmpl" . }}
 
+{{ template "update-cargo.tmpl" . }}
+
 {{ template "go.tmpl" . }}
 
 {{ template "neovim.tmpl" . }}

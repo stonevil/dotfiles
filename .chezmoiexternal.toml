@@ -70,15 +70,16 @@
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ $github_v }}_{{ if eq .chezmoi.os "darwin"}}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}/bin/gh"]
 
 
-{{ $xplr_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sayanarijit/xplr/releases/latest" | trim | base | trimPrefix "v" }}
-[".local/bin/xplr"]
+{{ $binstall_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/cargo-bins/cargo-binstall/releases/latest" | trim | base | trimPrefix "v" }}
+[".cargo/bin/cargo-binstall"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://github.com/sayanarijit/xplr/releases/download/v{{ $xplr_v }}/xplr-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}{{ if eq .chezmoi.arch "arm64" }}-aarch64{{ end }}.tar.gz"
-	[".local/bin/xplr".filter]
+	url = "https://github.com/cargo-bins/cargo-binstall/releases/download/v{{ $binstall_v }}/cargo-binstall-{{ if eq .chezmoi.arch "arm64" }}aarch64-{{ else if eq .chezmoi.arch "amd64" }}x86_64-{{ end }}{{ if eq .chezmoi.os "darwin" }}apple-darwin.zip{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu.gz{{ end }}"
+	[".cargo/bin/cargo-binstall".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "xplr"]
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "cargo-binstall"]
+
 
 
 {{ if (or .tags.dev .tags.devops) -}}

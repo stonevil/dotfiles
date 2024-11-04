@@ -1,0 +1,8 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if lookPath "cargo" }}
+	echo "Rust. Install or update cargo packages"
+	cargo binstall --no-confirm --disable-telemetry --force $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles/cargo.packages" | quote }}) || exit 1
+{{ end }}
