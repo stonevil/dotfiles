@@ -61,6 +61,11 @@ git_submodule_remove() {
 }
 {{ end }}
 
+{{ if lookPath "direnv" }}
+# wrap tmux to avoid issues with environment loading
+alias tmux='direnv exec / tmux'
+{{ end }}
+
 {{ if lookPath "oauth2l" }}
 # configure gcurl alias
 alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform userinfo.email)" -H "Content-Type: application/json" '
