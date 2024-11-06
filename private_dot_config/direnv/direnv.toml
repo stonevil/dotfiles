@@ -1,2 +1,2 @@
 [whitelist]
-prefix = [ "~/Development" ]
+prefix = [ "~/Development", "~/Projects" ]
