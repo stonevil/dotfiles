@@ -36,6 +36,13 @@ unquarantine() {
 	xattr -r -d com.apple.quarantine "$@"
 	notify "macOS quarantine removed" "$@"
 }
+
+# Codesign local app/binary
+unosign() {
+	codesign --remove-signature "$@"
+	codesign --force --deep --sign - "$@"
+	notify "macOS codesign added" "$@"
+}
 {{ end }}
 
 ip-external() {
