@@ -248,6 +248,9 @@ bind-key "b" list-buffers  # list paste buffers
 bind-key "p" paste-buffer  # paste from the top paste buffer
 bind-key "P" choose-buffer # choose which buffer to paste from
 
+# Pevent yank from scrolling to the bottom of your buffer after copying
+set -g @yank_action "copy-pipe"
+
 
 ## Themes
 # Status update interval
