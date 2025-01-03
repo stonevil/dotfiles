@@ -1,11 +1,6 @@
 return {
 	{
 		"chrisgrieser/nvim-genghis",
-		dependencies = {
-			"stevearc/dressing.nvim",
-			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-omni",
-		},
 		config = function()
 			local keymap = vim.keymap.set
 			local genghis = require("genghis")
