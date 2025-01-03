@@ -126,16 +126,6 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "reader"]
 
-{{ $imgcat_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/danielgatis/imgcat/releases/latest" | trim | base | trimPrefix "v" }}
-[".local/bin/imgcat"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	url = "https://github.com/danielgatis/imgcat/releases/download/v{{ $imgcat_v }}/imgcat_{{ $imgcat_v }}_{{ .chezmoi.os | title }}_{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else if eq .chezmoi.arch "arm64" }}arm64{{ end }}.tar.gz"
-[".local/bin/imgcat".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "imgcat"]
-
 
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
