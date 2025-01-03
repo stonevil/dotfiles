@@ -116,6 +116,26 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "viddy"]
 
+{{ $reader_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/mrusme/reader/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/reader"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/mrusme/reader/releases/download/v{{ $reader_v }}/reader_{{ $reader_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".local/bin/reader".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "reader"]
+
+{{ $imgcat_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/danielgatis/imgcat/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/imgcat"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/danielgatis/imgcat/releases/download/v{{ $imgcat_v }}/imgcat_{{ $imgcat_v }}_{{ .chezmoi.os | title }}_{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else if eq .chezmoi.arch "arm64" }}arm64{{ end }}.tar.gz"
+[".local/bin/imgcat".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "imgcat"]
+
 
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
@@ -139,6 +159,36 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazydocker"]
 {{- end }}
+
+{{ $dive_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/wagoodman/dive/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/dive"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/wagoodman/dive/releases/download/v{{ $dive_v }}/dive_{{ $dive_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".local/bin/dive".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "dive"]
+
+{{ $revive_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/mgechev/revive/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/revive"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/mgechev/revive/releases/download/v{{ $revive_v }}/revive_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".local/bin/revive".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "revive"]
+
+{{ $stern_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/stern/stern/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/stern"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/stern/stern/releases/download/v{{ $stern_v }}/stern_{{ $stern_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".local/bin/stern".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "stern"]
 
 
 {{ if .tags.devops -}}
