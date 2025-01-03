@@ -11,19 +11,6 @@ return {
         desc = "Find Plugin File",
       },
 		},
-		require("telescope").setup({
-			pickers = {
-				find_files = {
-					hidden = true,
-				},
-				grep_string = {
-					additional_args = { "--hidden" },
-				},
-				live_grep = {
-					additional_args = { "--hidden" },
-				},
-			},
-		}),
 		-- change some options
 		opts = {
 			defaults = {
@@ -39,6 +26,17 @@ return {
 				winblend = 0,
 				path_display = { "smart" },
 				file_ignore_patterns = { ".git/", "node_modules" },
+				pickers = {
+					find_files = {
+						hidden = true,
+					},
+					grep_string = {
+						additional_args = { "--hidden" },
+					},
+					live_grep = {
+						additional_args = { "--hidden" },
+					},
+				},
 			},
 		},
 	},
