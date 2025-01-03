@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+{{ template "path.tmpl" . }}
+
+cd {{ .chezmoi.homeDir | quote }} || exit 1
+
+{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/luarocks.modules")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/luarocks.modules")).size 0) }}
+	# luarocks.modules hash: {{ include ".packagefiles/luarocks.modules" | sha256sum }}
+	{{ if lookPath "luarocks" }}
+		echo "Install luarocks"
+		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/luarocks.modules" | quote }} luarocks install --force
+	{{ end }}
+{{ end }}
