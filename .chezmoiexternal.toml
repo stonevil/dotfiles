@@ -49,16 +49,6 @@
 	url = "https://github.com/{{ $v }}/{{ $k }}.git"
 {{ end }}
 
-[".local/bin/zellij"]
-	type = "file"
-	refreshPeriod = "168h"
-	executable = true
-	url = "https://github.com/zellij-org/zellij/releases/latest/download/zellij-{{ .arch.opt2 }}-{{ if eq .chezmoi.os "darwin" }}apple-{{ .chezmoi.os }}{{ else if eq .chezmoi.os "linux" }}unknown-{{ .chezmoi.os }}-musl{{ end }}.tar.gz"
-	[".local/bin/zellij".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zellij"]
-
-
 {{ $github_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/cli/cli/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/gh"]
 	type = "file"
@@ -68,7 +58,6 @@
 	[".local/bin/gh".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ $github_v }}_{{ if eq .chezmoi.os "darwin"}}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}/bin/gh"]
-
 
 {{ $binstall_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/cargo-bins/cargo-binstall/releases/latest" | trim | base | trimPrefix "v" }}
 [".cargo/bin/cargo-binstall"]
@@ -80,7 +69,6 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "cargo-binstall"]
 
-
 {{ $stylua_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/JohnnyMorganz/StyLua/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/stylua"]
 	type = "file"
@@ -90,7 +78,6 @@
 	[".local/bin/stylua".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "stylua"]
-
 
 {{ $delta_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/dandavison/delta/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/delta"]
@@ -102,7 +89,6 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "delta-{{ $delta_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}/delta"]
 
-
 {{ $watchexec_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/watchexec/watchexec/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/watchexec"]
 	type = "file"
@@ -113,7 +99,6 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "watchexec-{{ $watchexec_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}/watchexec"]
 
-
 {{ $direnv_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/direnv/direnv/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/direnv"]
 	type = "file"
@@ -121,6 +106,15 @@
 	executable = true
 	url = "https://github.com/direnv/direnv/releases/download/v{{ $direnv_v }}/direnv.{{ .chezmoi.os }}-{{.chezmoi.arch }}"
 
+{{ $viddy_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sachaos/viddy/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/viddy"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/sachaos/viddy/releases/download/v{{ $viddy_v }}/viddy-v{{ $viddy_v }}-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else if eq .chezmoi.arch "arm64" }}arm64{{ end }}.tar.gz"
+[".local/bin/viddy".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "viddy"]
 
 
 {{ if (or .tags.dev .tags.devops) -}}
