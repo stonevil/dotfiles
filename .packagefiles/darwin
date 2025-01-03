@@ -2,6 +2,7 @@ python3
 node
 nvim
 go
+ast-grep
 autoconf
 autoconf-archive
 automake
