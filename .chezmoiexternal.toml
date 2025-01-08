@@ -64,7 +64,7 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://github.com/cargo-bins/cargo-binstall/releases/download/v{{ $binstall_v }}/cargo-binstall-{{ if eq .chezmoi.arch "arm64" }}aarch64-{{ else if eq .chezmoi.arch "amd64" }}x86_64-{{ end }}{{ if eq .chezmoi.os "darwin" }}apple-darwin.zip{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu.gz{{ end }}"
+	url = "https://github.com/cargo-bins/cargo-binstall/releases/download/v{{ $binstall_v }}/cargo-binstall-{{ if eq .chezmoi.arch "arm64" }}aarch64-{{ else if eq .chezmoi.arch "amd64" }}x86_64-{{ end }}{{ if eq .chezmoi.os "darwin" }}apple-darwin.zip{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu.tgz{{ end }}"
 	[".cargo/bin/cargo-binstall".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "cargo-binstall"]
