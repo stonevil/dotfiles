@@ -1,0 +1,38 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+theme = catppuccin-mocha
+background = 000000
+
+font-family = {{ .terminal.font | quote }}
+font-size = {{ .terminal.fontSize }}
+
+bold-is-bright = false
+
+cursor-style = block
+cursor-style-blink = true
+
+background-opacity = {{ .terminal.opacity }}
+{{- if lt .terminal.opacity 1.0 }}
+background-blur-radius = 20
+{{ end }}
+
+window-decoration = true
+macos-titlebar-style = hidden
+
+copy-on-select = true
+
+macos-option-as-alt = right
+
+macos-icon = custom-style
+macos-icon-ghost-color = ffffff
+macos-icon-screen-color = 000000
+
+confirm-close-surface = false
+
+auto-update = download
+
+shell-integration = detect
+
+keybind = global:cmd+option+/=toggle_quick_terminal
