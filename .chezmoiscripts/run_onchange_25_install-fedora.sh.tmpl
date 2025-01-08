@@ -5,6 +5,8 @@
 
 cd {{ .chezmoi.homeDir | quote }} || exit 1
 
+(sudo dnf install -y glibc-langpack-en) || exit 1
+
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora")) }}
 	echo "Install {{ .chezmoi.osRelease.id | title }} Linux packages"
 	{{ template "fedora.tmpl" . }}
