@@ -6,8 +6,8 @@ _help() {
 	echo "Command syntax:"
 	echo -e "./.test.sh [distro] [version]\n"
 	echo "Example with Fedora Linux:"
-	echo -e "./.test.sh fedora 40\n"
-	echo -e "Supported distro: Fedora Linux v40 and higher, Debian 12 and higher\n"
+	echo -e "./.test.sh fedora 41\n"
+	echo -e "Supported distro: Arc Linux, Fedora Linux v41 and higher, Debian 12 and higher\n"
 }
 
 _check() {
@@ -49,7 +49,7 @@ debian)
 	;;
 fedora)
 	export IMAGE="$DISTRO"
-	export IMAGE_TAG="${2:-40}"
+	export IMAGE_TAG="${2:-41}"
 	;;
 help | '--help' | '-h')
 	_help
