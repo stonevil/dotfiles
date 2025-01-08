@@ -1,0 +1,26 @@
+theme = catppuccin-mocha
+background = 000000
+
+font-family = "Iosevka Nerd Font"
+font-size = 15
+
+bold-is-bright = false
+
+cursor-style = block
+cursor-style-blink = true
+
+background-opacity = 0.8
+background-blur-radius = 20
+
+window-decoration = true
+macos-titlebar-style = hidden
+
+copy-on-select = true
+
+macos-option-as-alt = right
+
+auto-update = download
+
+shell-integration = detect
+
+keybind = global:cmd+/=toggle_quick_terminal
