@@ -97,7 +97,7 @@
 	url = "https://github.com/watchexec/watchexec/releases/download/v{{ $watchexec_v }}/watchexec-{{ $watchexec_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}.tar.xz"
 	[".local/bin/watchexec".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "watchexec-{{ $watchexec_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}/watchexec"]
+		args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "watchexec-{{ $watchexec_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}/watchexec"]
 
 {{ $direnv_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/direnv/direnv/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/direnv"]
