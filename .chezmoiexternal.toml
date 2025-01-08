@@ -194,11 +194,22 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "{{ .chezmoi.os }}-{{ .chezmoi.arch }}/helm"]
 
+{{ $k9s_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/derailed/k9s/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/k9s"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	url =  "https://github.com/derailed/k9s/releases/download/v{{ $k9s_v }}/k9s_{{ .chezmoi.os | title }}_{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/k9s".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "k9s"]
+
 [".local/bin/kubectl"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://storage.googleapis.com/kubernetes-release/release/v1.32.0/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
+	url = "https://storage.googleapis.com/kubernetes-release/release/v1.31.0/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
 
 [".local/bin/krew"]
 	type = "file"
