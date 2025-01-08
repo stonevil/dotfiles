@@ -16,7 +16,6 @@ tags
 .resources
 {{- if ne .chezmoi.os "darwin" }}
 Library
-private_Library
 {{ else if ne .chezmoi.os "linux" }}
 .Xresources
 .config/autostart*
@@ -45,6 +44,7 @@ private_Library
 .config/Trolltech.conf
 .config/user-dirs*
 .config/ghostty*
+.config/k9s*
 .gtk*
 .themes
 .icons

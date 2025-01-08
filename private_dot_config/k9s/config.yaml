@@ -1,0 +1,1 @@
+{{- template "k9s-config.tmpl" . -}}
