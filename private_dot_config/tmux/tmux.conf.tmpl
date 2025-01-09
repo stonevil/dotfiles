@@ -229,19 +229,17 @@ set -g @shell_mode 'vi'
 bind-key -T copy-mode-vi v send -X begin-selection
 bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
 
-# Copy to X11 clipboard
-if-shell '[[ $(uname -s) = "Linux" ]]' {
-  if-shell '[[ $(XDG_SESSION_TYPE) = wayland ]' {
-    set -s copy-command 'wl-copy -n'
-  } {
-      set -s copy-command 'xclip'
-    }
-}
-
+{{ if eq .chezmoi.os "darwin" }}
 # Copy to macOS clipboard
-if-shell '[[ $(uname -s) = "Darwin" ]' {
-  set -s copy-command 'pbcopy'
+set -s copy-command 'pbcopy'
+{{ else if eq .chezmoi.os "linux" }}
+# Copy to X11/Wayland clipboard
+if-shell '[[ $(XDG_SESSION_TYPE) = wayland ]' {
+	set -s copy-command 'wl-copy -n'
+} {
+	set -s copy-command 'xclip'
 }
+{{ end -}}
 
 # Buffers
 bind-key "b" list-buffers  # list paste buffers
