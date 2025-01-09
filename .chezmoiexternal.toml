@@ -71,13 +71,11 @@
 
 {{ $stylua_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/JohnnyMorganz/StyLua/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/stylua"]
-	type = "file"
+	type = "archive-file"
 	refreshPeriod = "168h"
 	executable = true
+	path = "stylua"
 	url = "https://github.com/JohnnyMorganz/StyLua/releases/download/v{{ $stylua_v }}/stylua-{{ if eq .chezmoi.os "linux" }}linux-{{ else if eq .chezmoi.os "darwin" }}macos-{{ end }}{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}.zip"
-	[".local/bin/stylua".filter]
-		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "stylua"]
 
 {{ $delta_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/dandavison/delta/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/delta"]
