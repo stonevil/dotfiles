@@ -25,4 +25,6 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "tmux.tmpl" . }}
 
+{{ template "bat.tmpl" . }}
+
 {{ template "block-ads.tmpl" . }}

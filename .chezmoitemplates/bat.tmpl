@@ -1,0 +1,10 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ template "path.tmpl" . }}
+
+{{ if lookPath "bat" }}
+	echo "bat. Update bat cache"
+	bat cache --build
+{{ end }}
