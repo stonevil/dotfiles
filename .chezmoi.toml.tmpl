@@ -100,6 +100,8 @@
 [data.tui]
 	shellPath = {{ $shellPath | quote }}
 	tabs = {{ $tabs }}
+	theme = "catppuccin"
+	themeVariant = "mocha"
 
 [data.gui]
 {{ if eq .chezmoi.os "darwin" }}
