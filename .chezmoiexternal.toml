@@ -90,6 +90,15 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "delta-{{ $delta_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}/delta"]
 
+{{ $yazi_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sxyazi/yazi/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/yazi"]
+	type = "archive-file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	path = "yazi"
+	url = "https://github.com/sxyazi/yazi/releases/download/v{{ $yazi_v }}/yazi-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}.zip"
+
 {{ $watchexec_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/watchexec/watchexec/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/watchexec"]
 	type = "file"
