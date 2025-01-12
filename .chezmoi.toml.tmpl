@@ -36,6 +36,7 @@
 	{{ $sudoAccess := promptBool "Do you have sudo access?" false }}
 {{ end }}
 {{ $privateComputer := promptBool "Is this private computer" true }}
+{{ $uname := promptStringOnce . "Full Name" "What is your full name" "fubar" }}
 {{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
 {{ $dev := promptBool "Is this DEV workstation" false }}
 {{ $devops := promptBool "Is this DevOps workstation" false }}
@@ -50,6 +51,7 @@
 
 [data]
 	email = {{ $email | quote }}
+	uname = {{ $uname | quote }}
 
 [data.tags]
 	dev = {{ $dev }}
