@@ -1,6 +1,14 @@
+{{- /*
+	vim:ft=yml.gotexttmpl
+*/ -}}
+
 gui:
   showIcons: true
   border: "single"
+
 git:
   paging:
     colorArg: always
+{{- if lookPath "delta" }}
+    pager: delta --paging=never -s
+{{ end -}}
