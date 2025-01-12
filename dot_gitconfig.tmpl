@@ -73,18 +73,23 @@
 	c = commit -v
 	ph = push
 	pl = pull
+	cp = cherry-pick
+
+	done = !git push origin HEAD #push changes to upstream
 
 	co = checkout
+	cob = checkout -b #create new branch and switch
+	del = branch -D #delete branch
 	cl = clone
 	br = branch
-	cp = cherry-pick
+	bra = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate #list all branches
 
 	df = diff
 	diff = diff --word-diff
 	dc = diff --cached
 
-	st = status -sb
-	stu = status -sb --untracked-files=no
+	s = status -sb
+	su = status -sb --untracked-files=no
 
 	l = log
 	lh = log --graph
@@ -93,6 +98,7 @@
 	lba = !git lb --all
 
 	# resets without explanation
+	undo = reset HEAD~1 --mixed
 	r = reset
 	r1 = reset HEAD^
 	r2 = reset HEAD^^
