@@ -28,6 +28,10 @@ git-submodule-remove() {
 }
 {{ end }}
 
+{{ if lookPath "yazi" }}
+alias y='yazi'
+{{ end -}}
+
 {{ if lookPath "direnv" }}
 # wrap tmux to avoid issues with environment loading
 alias tmux='direnv exec / tmux'
