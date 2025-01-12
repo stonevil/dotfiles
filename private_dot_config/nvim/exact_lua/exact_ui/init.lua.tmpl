@@ -1,3 +1,7 @@
+{{- /*
+	vim:ft=lua.gotexttmpl
+*/ -}}
+
 return {
 	-- Transparency everywhere
 	{
@@ -71,7 +75,7 @@ return {
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "catppuccin-mocha",
+			colorscheme = {{ (print .tui.theme "-" .tui.themeVariant) | quote }},
 		},
 	},
 
