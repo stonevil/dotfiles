@@ -1,5 +1,5 @@
 {{- /*
-vim:ft=lua.gotexttmpl
+	vim:ft=lua.gotexttmpl
 */ -}}
 
 -- WezTerm
@@ -8,22 +8,7 @@ vim:ft=lua.gotexttmpl
 local wezterm = require("wezterm")
 local act = wezterm.action
 
--- Wayland support
-local function enable_wayland()
-	local wayland = os.getenv("XDG_SESSION_TYPE")
-	if wayland == "wayland" then
-		return true
-	end
-	return false
-end
-
-local function isempty(s)
-	return s == nil or s == ""
-end
-
-local function basename(s)
-	return string.gsub(s, "(.*[/\\])(.*)", "%2")
-end
+local detect = require("utils.detect")
 
 local SOLID_LEFT_ARROW = utf8.char(0xe0ba)
 local SOLID_LEFT_MOST = utf8.char(0x2588)
@@ -50,59 +35,11 @@ local NODE_ICON = utf8.char(0xe74e)
 local DENO_ICON = utf8.char(0xe628)
 local LAMBDA_ICON = utf8.char(0xfb26)
 
-local SUP_IDX = {
-	"¹",
-	"²",
-	"³",
-	"⁴",
-	"⁵",
-	"⁶",
-	"⁷",
-	"⁸",
-	"⁹",
-	"¹⁰",
-	"¹¹",
-	"¹²",
-	"¹³",
-	"¹⁴",
-	"¹⁵",
-	"¹⁶",
-	"¹⁷",
-	"¹⁸",
-	"¹⁹",
-	"²⁰",
-}
-local SUB_IDX = {
-	"₁",
-	"₂",
-	"₃",
-	"₄",
-	"₅",
-	"₆",
-	"₇",
-	"₈",
-	"₉",
-	"₁₀",
-	"₁₁",
-	"₁₂",
-	"₁₃",
-	"₁₄",
-	"₁₅",
-	"₁₆",
-	"₁₇",
-	"₁₈",
-	"₁₉",
-	"₂₀",
-}
-
--- Pane management. Intergration with NeoVim
-local function isViProcess(pane)
-	return pane:get_foreground_process_name():find("n?vim") ~= nil
-	-- return pane:get_title():find("n?vim") ~= nil
-end
+local customschema = wezterm.color.get_builtin_schemes()[{{ (print ( .tui.theme | title) "-" ( .tui.themeVariant | title)) | quote }}]
+customschema.background = "#000000"
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
-	if isViProcess(pane) then
+	if detect.vi(pane) then
 		window:perform_action(
 			-- This should match the keybinds you set in Neovim.
 			act.SendKey({ key = vim_direction, mods = "META" }),
@@ -112,17 +49,6 @@ local function conditionalActivatePane(window, pane, pane_direction, vim_directi
 		window:perform_action(act.ActivatePaneDirection(pane_direction), pane)
 	end
 end
-
-local function scheme_for_appearance(appearance)
-	if appearance:find("Dark") then
-		return "Catppuccin Mocha"
-	else
-		return "Catppuccin Latte"
-	end
-end
-
-local customschema = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
-customschema.background = "#000000"
 
 wezterm.on("ActivatePaneDirection-left", function(window, pane)
 	conditionalActivatePane(window, pane, "Left", "LeftArrow")
@@ -137,112 +63,26 @@ wezterm.on("ActivatePaneDirection-down", function(window, pane)
 	conditionalActivatePane(window, pane, "Down", "DownArrow")
 end)
 
--- Tab left part
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local edge_background = "#000000"
-	local background = "#4e4e4e"
-	local foreground = "#000000"
-	local dim_foreground = "#3a3a3a"
-
-	if tab.is_active then
-		background = "#a3be8c"
-		foreground = "#000000"
-	elseif hover then
-		background = "#ebcb8b"
-		foreground = "#000000"
-	end
-
-	local edge_foreground = background
-	local process_name = tab.active_pane.foreground_process_name
-	local pane_title = tab.active_pane.title
-	local exec_name = basename(process_name):gsub("%.exe$", "")
-	local title_with_icon
-
-	if exec_name == "nu" then
-		title_with_icon = NU_ICON .. " NuShell"
-	elseif exec_name == "pwsh" then
-		title_with_icon = PS_ICON .. " PS"
-	elseif exec_name == "cmd" then
-		title_with_icon = CMD_ICON .. " CMD"
-	elseif exec_name == "elvish" then
-		title_with_icon = ELV_ICON .. " Elvish"
-	elseif exec_name == "wsl" or exec_name == "wslhost" then
-		title_with_icon = WSL_ICON .. " WSL"
-	elseif exec_name == "nyagos" then
-		title_with_icon = NYA_ICON .. " " .. pane_title:gsub(".*: (.+) %- .+", "%1")
-	elseif exec_name == "yori" then
-		title_with_icon = YORI_ICON .. " " .. pane_title:gsub(" %- Yori", "")
-	elseif exec_name == "nvim" then
-		title_with_icon = VIM_ICON .. pane_title:gsub("^(%S+)%s+(%d+/%d+) %- nvim", " %2 %1")
-	elseif exec_name == "bat" or exec_name == "less" or exec_name == "moar" then
-		title_with_icon = PAGER_ICON .. " " .. exec_name:upper()
-	elseif exec_name == "fzf" or exec_name == "hs" or exec_name == "peco" then
-		title_with_icon = FUZZY_ICON .. " " .. exec_name:upper()
-	elseif exec_name == "btm" or exec_name == "ntop" then
-		title_with_icon = SUNGLASS_ICON .. " " .. exec_name:upper()
-	elseif exec_name == "python" or exec_name == "hiss" then
-		title_with_icon = PYTHON_ICON .. " " .. exec_name
-	elseif exec_name == "node" then
-		title_with_icon = NODE_ICON .. " " .. exec_name:upper()
-	elseif exec_name == "deno" then
-		title_with_icon = DENO_ICON .. " " .. exec_name:upper()
-	elseif exec_name == "bb" or exec_name == "cmd-clj" or exec_name == "janet" or exec_name == "hy" then
-		title_with_icon = LAMBDA_ICON .. " " .. exec_name:gsub("bb", "Babashka"):gsub("cmd%-clj", "Clojure")
-	else
-		title_with_icon = HOURGLASS_ICON .. " " .. exec_name
-	end
-	if pane_title:match("^Administrator: ") then
-		title_with_icon = title_with_icon .. " " .. ADMIN_ICON
-	end
-	local left_arrow = SOLID_LEFT_ARROW
-	if tab.tab_index == 0 then
-		left_arrow = SOLID_LEFT_MOST
-	end
-	local id = SUB_IDX[tab.tab_index + 1]
-	local pid = SUP_IDX[tab.active_pane.pane_index + 1]
-	local title = " " .. wezterm.truncate_right(title_with_icon, max_width - 6) .. " "
-
-	return {
-		{ Attribute = { Intensity = "Bold" } },
-		{ Background = { Color = edge_background } },
-		{ Foreground = { Color = edge_foreground } },
-		{ Text = left_arrow },
-		{ Background = { Color = background } },
-		{ Foreground = { Color = foreground } },
-		{ Text = id },
-		{ Text = title },
-		{ Foreground = { Color = dim_foreground } },
-		{ Text = pid },
-		{ Background = { Color = edge_background } },
-		{ Foreground = { Color = edge_foreground } },
-		{ Text = SOLID_RIGHT_ARROW },
-		{ Attribute = { Intensity = "Normal" } },
-	}
-end)
-
 -- Tab right part
 wezterm.on("update-right-status", function(window, pane)
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
 
+	local repo_status = detect.repo(pane)
+	table.insert(cells, repo_status)
+
+	local pane_path = detect.cwd(pane)
+	table.insert(cells, pane_path)
+
 	-- date/time in style: "Wed Mar 3 08:14"
 	local date = wezterm.strftime("%a %b %-d %H:%M")
 	table.insert(cells, date)
 
-	-- An entry for each battery (typically 0 or 1 battery)
-	for _, b in ipairs(wezterm.battery_info()) do
-		table.insert(cells, string.format("%.0f%%", b.state_of_charge * 100))
-	end
-
 	-- Color palette for the backgrounds of each cell
 	local colors = {
-		"#000000",
-		"#14161a",
-		"#1f2328",
-		"#353a43",
-		"#424954",
-		"#545c6b",
-		"#656f81",
+		"black",
+		"black",
+		"black",
 	}
 
 	-- Foreground color for the text across the fade
@@ -281,7 +121,7 @@ return {
 	audible_bell = "Disabled",
 	-- Smart tab bar [distraction-free mode]
 	show_new_tab_button_in_tab_bar = false,
-	hide_tab_bar_if_only_one_tab = true,
+	hide_tab_bar_if_only_one_tab = false,
 	use_fancy_tab_bar = true,
 	tab_bar_at_bottom = false,
 	window_padding = {
@@ -292,38 +132,19 @@ return {
 	},
 	window_frame = {
 		font = wezterm.font({
-			family = "{{ .terminal.font }}",
-			weight = "Bold",
+			family = {{ .terminal.font | quote }},
 		}),
-		-- font_size = {{ .terminal.fontSize }},
+		font_size = {{ .terminal.fontSize }},
 		active_titlebar_bg = "#000000",
 		inactive_titlebar_bg = "#000000",
 	},
-	-- https://github.com/EdenEast/nightfox.nvim/blob/main/extra/nordfox/nightfox_wezterm.toml
 	color_schemes = {
-		["nordfox"] = {
-			foreground = "#cdcecf",
-			background = "#000000",
-			cursor_bg = "#cdcecf",
-			cursor_border = "#cdcecf",
-			cursor_fg = "#2e3440",
-			compose_cursor = "#c9826b",
-			selection_bg = "#3e4a5b",
-			selection_fg = "#cdcecf",
-			scrollbar_thumb = "#7e8188",
-			split = "#232831",
-			visual_bell = "#cdcecf",
-			ansi = { "#3b4252", "#bf616a", "#a3be8c", "#ebcb8b", "#81a1c1", "#b48ead", "#88c0d0", "#e5e9f0" },
-			brights = { "#465780", "#d06f79", "#b1d196", "#f0d399", "#8cafd2", "#c895bf", "#93ccdc", "#e7ecf4" },
-			indexed = { [16] = "#bf88bc", [17] = "#c9826b" },
-		},
-		["darkppuccin"] = customschema,
+		["schema_in_use"] = customschema,
 	},
 	-- Color scheme
 	-- https://wezfurlong.org/wezterm/colorschemes/index.html
-	-- color_scheme = "nordfox",
 	-- color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
-	color_scheme = "darkppuccin",
+	color_scheme = "schema_in_use",
 	window_background_opacity = {{ .terminal.opacity }},
 	macos_window_background_blur = {{ .terminal.blur }},
 	window_decorations = "RESIZE",
@@ -331,7 +152,7 @@ return {
 	text_blink_rate = 0,
 	native_macos_fullscreen_mode = true,
 	quit_when_all_windows_are_closed = true,
-	enable_wayland = enable_wayland(),
+	enable_wayland = detect.wayland(),
 	initial_cols = {{ .terminal.cols }},
 	initial_rows = {{ .terminal.rows }},
 	inactive_pane_hsb = {
@@ -340,7 +161,7 @@ return {
 	},
 	-- Font configuration
 	-- https://wezfurlong.org/wezterm/config/fonts.html
-	font = wezterm.font("{{ .terminal.font }}"),
+	font = wezterm.font({{ .terminal.font | quote }}),
 	font_size = {{ .terminal.fontSize }},
 	max_fps = 120,
 	line_height = 1.1,
@@ -396,11 +217,6 @@ return {
 		{ key = "RightArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-right") },
 		{ key = "UpArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-up") },
 		{ key = "DownArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-down") },
-
-		-- { key = "LeftArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Left") },
-		-- { key = "DownArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Down") },
-		-- { key = "UpArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Up") },
-		-- { key = "RightArrow", mods = "META", action = wezterm.action.ActivatePaneDirection("Right") },
 
 		-- Nightly builds only
 		-- { key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },

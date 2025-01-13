@@ -1,8 +1,66 @@
--- get_os_name(), funtion to return current OS name and architecture
+{{- /*
+	vim:ft=lua.gotexttmpl
+*/ -}}
 
-local M = {}
+local wezterm = require("wezterm")
 
-function M.get_os_name()
+local detect = {}
+
+function detect.wayland()
+	-- Wayland support
+	local wayland = os.getenv("XDG_SESSION_TYPE")
+	if wayland == "wayland" then
+		return true
+	end
+	return false
+end
+
+function detect.vi(pane)
+	return pane:get_foreground_process_name():find("n?vim") ~= nil
+end
+
+function detect.basename(s)
+	return string.gsub(s, "(.*[/\\])(.*)", "%2")
+end
+
+function detect.isempty(s)
+	return s == nil or s == ""
+end
+
+function detect.cwd(pane)
+	local cwd = ""
+	local cwd_uri = pane:get_current_working_dir()
+	if cwd_uri then
+		cwd = cwd_uri.file_path
+	end
+	return cwd
+end
+
+function detect.hostname(pane)
+	local hostname = ""
+	local cwd_uri = pane:get_current_working_dir()
+	if cwd_uri then
+		hostname = cwd_uri.host or wezterm.hostname()
+	end
+	return hostname
+end
+
+function detect.repo(pane)
+	local cwd = detect.cwd(pane)
+	local success, gs, stderr = wezterm.run_child_process({
+		{{ (joinPath .chezmoi.homeDir ".loca/bin/gitmux") | quote }},
+		"-cfg",
+		{{ (joinPath .chezmoi.homeDir ".config/gitmux/weztewrm.conf") | quote }},
+		cwd,
+	})
+	if success then
+		return gs
+	else
+		return ""
+	end
+end
+
+function detect.os()
 	-- Return two strings describing the OS name and OS architecture.
 	-- For Windows, the OS identification is based on environment variables, on unix, a call to uname is used.
 	--
@@ -80,10 +138,4 @@ function M.get_os_name()
 	return os_name, arch_name
 end
 
--- heuristic for detecting standalone script
-if ... ~= "get_os_name" then
-	-- main
-	print(("%q %q"):format(M.get_os_name()))
-end
-
-return M
+return detect
