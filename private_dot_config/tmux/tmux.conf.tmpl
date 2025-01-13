@@ -72,6 +72,8 @@ setw -g aggressive-resize on
 setw -g mode-keys vi
 setw -g status-keys vi
 
+# Allow programs in the pane to bypass tmux using a terminal escape sequence
+set -gq allow-passthrough on
 
 # Manage tmux sessions resurection
 set -g @resurrect-strategy-vim 'session'
