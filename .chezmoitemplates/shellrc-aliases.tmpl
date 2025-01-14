@@ -56,6 +56,7 @@ alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/c
 
 {{ if lookPath "timg" }}
 alias preview='timg -p k'
+alias pv=preview
 {{ end }}
 
 {{ if eq .chezmoi.os "darwin" }}
