@@ -54,7 +54,7 @@ alias removex='find . -type f -exec chmod a-x "{}" \;'
 
 alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
 
-alias preview='viu --transparent'
+alias preview='timg -p k'
 
 {{ if eq .chezmoi.os "darwin" }}
 	{{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/") | quote }}
