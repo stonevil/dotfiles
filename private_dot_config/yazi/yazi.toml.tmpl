@@ -1,0 +1,17 @@
+{{- /*
+vim:ft=toml.gotexttmpl
+*/ -}}
+
+[manager]
+show_hidden = true
+show_symlink = true
+
+[preview]
+wrap = "yes"
+tab_size = {{ .tui.tabs }}
+
+[input]
+cursor_blink = true
+
+[log]
+enabled = false
