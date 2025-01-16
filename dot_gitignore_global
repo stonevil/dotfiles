@@ -1,4 +1,4 @@
-## Compiled source
+# Compiled source
 *.com
 *.class
 *.dll
@@ -6,7 +6,7 @@
 *.o
 *.so
 
-## Packages
+# Packages
 *.7z
 *.dmg
 *.gz
@@ -16,15 +16,15 @@
 *.tar
 *.zip
 
-## Logs and databases
+# Logs and databases
 *.log
 *.sql
 *.sqlite
 
-## Temp files
+# Temp files
 *.swp
 
-## OS generated files
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -34,6 +34,27 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-## Vim artifacts
+# Vim artifacts
 .session.vim
 .undodir
+
+# Brew artifacts
+Brewfile.lock.json
+package-lock.json
+
+# Node.js artifacts
+node_modules
+yarn.lock
+
+# Ctags/tags artifacts
+tags
+
+# Vagrant temp directory
+.vagrant
+
+# Nvim plugin artifacts
+lazy-lock.json
+.neoconf.json
+
+# Direnv artifacts
+.envrc

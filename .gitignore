@@ -22,3 +22,6 @@ bin/
 # Nvim plugin artifacts
 lazy-lock.json
 .neoconf.json
+
+# Direnv
+.envrc
