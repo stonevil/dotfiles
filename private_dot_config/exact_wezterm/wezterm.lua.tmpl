@@ -6,37 +6,21 @@
 -- vim:ft=lua
 
 local wezterm = require("wezterm")
+local config = wezterm.config_builder()
 local act = wezterm.action
 
 local detect = require("utils.detect")
 
-local SOLID_LEFT_ARROW = utf8.char(0xe0ba)
-local SOLID_LEFT_MOST = utf8.char(0x2588)
-local SOLID_RIGHT_ARROW = utf8.char(0xe0bc)
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 
-local ADMIN_ICON = utf8.char(0xf49c)
+-- Schemas
+local dark_scheme = wezterm.color.get_builtin_schemes()[{{ (print ( .tui.theme | title) " " ( .tui.themeVariant | title)) | quote }}]
+local light_scheme = wezterm.color.get_builtin_schemes()["Catppuccin Latte"]
+-- Override Dark Schema Background
+dark_scheme.background = "#000000"
 
-local CMD_ICON = utf8.char(0xe62a)
-local NU_ICON = utf8.char(0xe7a8)
-local PS_ICON = utf8.char(0xe70f)
-local ELV_ICON = utf8.char(0xfc6f)
-local WSL_ICON = utf8.char(0xf83c)
-local YORI_ICON = utf8.char(0xf1d4)
-local NYA_ICON = utf8.char(0xf61a)
-
-local VIM_ICON = utf8.char(0xe62b)
-local PAGER_ICON = utf8.char(0xf718)
-local FUZZY_ICON = utf8.char(0xf0b0)
-local HOURGLASS_ICON = utf8.char(0xf252)
-local SUNGLASS_ICON = utf8.char(0xf9df)
-
-local PYTHON_ICON = utf8.char(0xf820)
-local NODE_ICON = utf8.char(0xe74e)
-local DENO_ICON = utf8.char(0xe628)
-local LAMBDA_ICON = utf8.char(0xfb26)
-
-local customschema = wezterm.color.get_builtin_schemes()[{{ (print ( .tui.theme | title) "-" ( .tui.themeVariant | title)) | quote }}]
-customschema.background = "#000000"
+-- TODO add system appearance detect
+local scheme_current = dark_scheme
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
 	if detect.vi(pane) then
@@ -63,67 +47,41 @@ wezterm.on("ActivatePaneDirection-down", function(window, pane)
 	conditionalActivatePane(window, pane, "Down", "DownArrow")
 end)
 
--- Tab right part
-wezterm.on("update-right-status", function(window, pane)
-	-- Each element holds the text for a cell in a "powerline" style << fade
-	local cells = {}
+tabline.setup({
+	options = {
+		icons_enabled = true,
+		theme = scheme_current,
+		tabs_enabled = true,
+	},
+	sections = {
+		tabline_a = { "mode" },
+		tabline_b = { "workspace" },
+		tabline_c = { " " },
+		tab_active = {
+			"index",
+			{ "parent", padding = 0 },
+			"/",
+			{ "cwd", padding = { left = 0, right = 1 } },
+			{ "zoomed", padding = 0 },
+		},
+		tab_inactive = { "index", { "process", padding = { left = 0, right = 1 } } },
 
-	local repo_status = detect.repo(pane)
-	table.insert(cells, repo_status)
+		tabline_x = { "" },
+		tabline_y = { "datetime" },
+		tabline_z = { "domain" },
+	},
+})
 
-	local pane_path = detect.cwd(pane)
-	table.insert(cells, pane_path)
-
-	-- date/time in style: "Wed Mar 3 08:14"
-	local date = wezterm.strftime("%a %b %-d %H:%M")
-	table.insert(cells, date)
-
-	-- Color palette for the backgrounds of each cell
-	local colors = {
-		"black",
-		"black",
-		"black",
-	}
-
-	-- Foreground color for the text across the fade
-	local text_fg = "#cdcecf"
-
-	-- The elements to be formatted
-	local elements = {}
-	-- How many cells have been formatted
-	local num_cells = 0
-
-	-- Translate a cell into elements
-	local function push(text, is_last)
-		local cell_no = num_cells + 1
-		table.insert(elements, { Foreground = { Color = text_fg } })
-		table.insert(elements, { Background = { Color = colors[cell_no] } })
-		table.insert(elements, { Text = " " .. text .. " " })
-		if not is_last then
-			table.insert(elements, { Foreground = { Color = colors[cell_no + 1] } })
-			table.insert(elements, { Text = SOLID_LEFT_ARROW })
-		end
-		num_cells = num_cells + 1
-	end
-
-	while #cells > 0 do
-		local cell = table.remove(cells, 1)
-		push(cell, #cells == 0)
-	end
-
-	window:set_right_status(wezterm.format(elements))
-end)
-
-return {
+config = {
 	default_prog = { '{{ .tui.shellPath }}', '--login' },
 	window_close_confirmation = "NeverPrompt",
 	exit_behavior = "Close",
 	audible_bell = "Disabled",
-	-- Smart tab bar [distraction-free mode]
 	show_new_tab_button_in_tab_bar = false,
 	hide_tab_bar_if_only_one_tab = false,
-	use_fancy_tab_bar = true,
+	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = false,
+
 	window_padding = {
 		left = "1cell",
 		right = "1cell",
@@ -135,16 +93,9 @@ return {
 			family = {{ .terminal.font | quote }},
 		}),
 		font_size = {{ .terminal.fontSize }},
-		active_titlebar_bg = "#000000",
-		inactive_titlebar_bg = "#000000",
+		-- active_titlebar_bg = "#000000",
+		-- inactive_titlebar_bg = "#000000",
 	},
-	color_schemes = {
-		["schema_in_use"] = customschema,
-	},
-	-- Color scheme
-	-- https://wezfurlong.org/wezterm/colorschemes/index.html
-	-- color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
-	color_scheme = "schema_in_use",
 	window_background_opacity = {{ .terminal.opacity }},
 	macos_window_background_blur = {{ .terminal.blur }},
 	window_decorations = "RESIZE",
@@ -159,8 +110,6 @@ return {
 		saturation = 0.3,
 		brightness = 0.3,
 	},
-	-- Font configuration
-	-- https://wezfurlong.org/wezterm/config/fonts.html
 	font = wezterm.font({{ .terminal.font | quote }}),
 	font_size = {{ .terminal.fontSize }},
 	max_fps = 120,
@@ -175,75 +124,87 @@ return {
 	send_composed_key_when_left_alt_is_pressed = true,
 	send_composed_key_when_right_alt_is_pressed = false,
 	key_map_preference = "Physical",
-	keys = {
-		{ key = "mapped:#", mods = "META", action = "DisableDefaultAssignment" },
-		{ key = "mapped:≠", mods = "META", action = "DisableDefaultAssignment" },
-		{ key = "mapped:€", mods = "META", action = "DisableDefaultAssignment" },
-		{ key = "mapped:´", mods = "META", action = "DisableDefaultAssignment" },
-		{ key = "mapped:…", mods = "META", action = "DisableDefaultAssignment" },
-		{ key = "mapped:≈", mods = "META", action = "DisableDefaultAssignment" },
-		{ key = "q", mods = "SUPER", action = "QuitApplication" },
-		{ key = "w", mods = "SUPER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
-		{ key = "t", mods = "SUPER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
-		{ key = "}", mods = "SUPER|SHIFT", action = wezterm.action({ ActivateTabRelative = 1 }) },
-		{ key = "{", mods = "SUPER|SHIFT", action = wezterm.action({ ActivateTabRelative = -1 }) },
-		{ key = "f", mods = "SUPER|CTRL", action = wezterm.action.ToggleFullScreen },
-		{ key = "m", mods = "SUPER", action = wezterm.action.Hide },
-		{ key = "h", mods = "SUPER", action = wezterm.action.HideApplication },
-		{
-			key = "\\",
-			mods = "META",
-			action = wezterm.action({
-				SplitHorizontal = { domain = "CurrentPaneDomain" },
-			}),
-		},
-		{
-			key = "-",
-			mods = "META",
-			action = wezterm.action({
-				SplitVertical = { domain = "CurrentPaneDomain" },
-			}),
-		},
-		{
-			key = "w",
-			mods = "META",
-			action = wezterm.action({ CloseCurrentPane = { confirm = false } }),
-		},
-		{ key = "LeftArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Left", 1 }) },
-		{ key = "DownArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Down", 1 }) },
-		{ key = "UpArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "RightArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Right", 1 }) },
-		{ key = "LeftArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-left") },
-		{ key = "RightArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-right") },
-		{ key = "UpArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-up") },
-		{ key = "DownArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-down") },
+}
 
-		-- Nightly builds only
-		-- { key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
-
-		{
-			key = "l",
-			mods = "SUPER",
-			action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS", title = "LAUNCHER" }),
-		},
-
-		{ key = "s", mods = "SUPER", action = wezterm.action.QuickSelect },
-		{ key = "d", mods = "SUPER|SHIFT", action = wezterm.action.ShowDebugOverlay },
-		{ key = "\\", mods = "SUPER", action = act.PaneSelect({ alphabet = "1234567890" }) },
-		{ key = "z", mods = "META|SHIFT", action = wezterm.action.TogglePaneZoomState },
-		{ key = "l", mods = "META|SHIFT", action = wezterm.action.ActivateLastTab },
-		{ key = "?", mods = "META|SHIFT", action = wezterm.action.ActivateCopyMode },
-		{ key = "0", mods = "SUPER", action = wezterm.action.ResetFontSize },
-		{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
-		{ key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
-		{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
-		{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
+config.keys = {
+	{ key = "mapped:#", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "mapped:≠", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "mapped:€", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "mapped:´", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "mapped:…", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "mapped:≈", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "q", mods = "SUPER", action = "QuitApplication" },
+	{ key = "w", mods = "SUPER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
+	{ key = "t", mods = "SUPER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
+	{ key = "}", mods = "SUPER|SHIFT", action = wezterm.action({ ActivateTabRelative = 1 }) },
+	{ key = "{", mods = "SUPER|SHIFT", action = wezterm.action({ ActivateTabRelative = -1 }) },
+	{ key = "f", mods = "SUPER|CTRL", action = wezterm.action.ToggleFullScreen },
+	{ key = "m", mods = "SUPER", action = wezterm.action.Hide },
+	{ key = "h", mods = "SUPER", action = wezterm.action.HideApplication },
+	{
+		key = "\\",
+		mods = "META",
+		action = wezterm.action({
+			SplitHorizontal = { domain = "CurrentPaneDomain" },
+		}),
 	},
-	mouse_bindings = {
-		{
-			event = { Up = { streak = 1, button = "Left" } },
-			mods = "SUPER",
-			action = wezterm.action.OpenLinkAtMouseCursor,
-		},
+	{
+		key = "-",
+		mods = "META",
+		action = wezterm.action({
+			SplitVertical = { domain = "CurrentPaneDomain" },
+		}),
+	},
+	{
+		key = "w",
+		mods = "META",
+		action = wezterm.action({ CloseCurrentPane = { confirm = false } }),
+	},
+	{ key = "LeftArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Left", 1 }) },
+	{ key = "DownArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Down", 1 }) },
+	{ key = "UpArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Up", 1 }) },
+	{ key = "RightArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Right", 1 }) },
+	{ key = "LeftArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-left") },
+	{ key = "RightArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-right") },
+	{ key = "UpArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-up") },
+	{ key = "DownArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-down") },
+
+	-- Nightly builds only
+	-- { key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
+
+	{
+		key = "l",
+		mods = "SUPER",
+		action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS", title = "LAUNCHER" }),
+	},
+
+	{ key = "s", mods = "SUPER", action = wezterm.action.QuickSelect },
+	{ key = "d", mods = "SUPER|SHIFT", action = wezterm.action.ShowDebugOverlay },
+	{ key = "\\", mods = "SUPER", action = act.PaneSelect({ alphabet = "1234567890" }) },
+	{ key = "z", mods = "META|SHIFT", action = wezterm.action.TogglePaneZoomState },
+	{ key = "l", mods = "META|SHIFT", action = wezterm.action.ActivateLastTab },
+	{ key = "?", mods = "META|SHIFT", action = wezterm.action.ActivateCopyMode },
+	{ key = "0", mods = "SUPER", action = wezterm.action.ResetFontSize },
+	{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
+	{ key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
+	{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
+	{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
+}
+
+config.mouse_bindings = {
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "SUPER",
+		action = wezterm.action.OpenLinkAtMouseCursor,
 	},
 }
+
+config.color_schemes = {
+	["My Light Scheme"] = light_scheme,
+	["My Dark Scheme"] = dark_scheme,
+}
+
+-- this scheme becomes default
+config.color_scheme = "My Dark Scheme"
+
+return config

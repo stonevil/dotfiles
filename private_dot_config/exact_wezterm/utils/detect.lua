@@ -1,7 +1,3 @@
-{{- /*
-	vim:ft=lua.gotexttmpl
-*/ -}}
-
 local wezterm = require("wezterm")
 
 local detect = {}
@@ -13,6 +9,46 @@ function detect.wayland()
 		return true
 	end
 	return false
+end
+
+function detect.appearance()
+	if wezterm.gui then
+		return wezterm.gui.get_appearance()
+	end
+	return "Dark"
+end
+
+function detect.colours(theme)
+	return {
+		colour12 = theme.colour12,
+		window_frame_colors = {
+			active_titlebar_bg = theme.background,
+			inactive_titlebar_bg = wezterm.color.parse(theme.background):darken(0.8),
+		},
+		tab_bar_colors = {
+			inactive_tab_edge = wezterm.color.parse(theme.background):darken(0.8),
+			active_tab = {
+				bg_color = theme.brights[3],
+				fg_color = theme.background,
+			},
+			inactive_tab = {
+				bg_color = theme.background,
+				fg_color = theme.foreground,
+			},
+			inactive_tab_hover = {
+				bg_color = wezterm.color.parse(theme.background):lighten(0.1),
+				fg_color = wezterm.color.parse(theme.foreground):lighten(0.2),
+			},
+			new_tab = {
+				bg_color = theme.background,
+				fg_color = theme.foreground,
+			},
+			new_tab_hover = {
+				bg_color = theme.brights[3],
+				fg_color = theme.background,
+			},
+		},
+	}
 end
 
 function detect.vi(pane)
@@ -43,21 +79,6 @@ function detect.hostname(pane)
 		hostname = cwd_uri.host or wezterm.hostname()
 	end
 	return hostname
-end
-
-function detect.repo(pane)
-	local cwd = detect.cwd(pane)
-	local success, gs, stderr = wezterm.run_child_process({
-		{{ (joinPath .chezmoi.homeDir ".loca/bin/gitmux") | quote }},
-		"-cfg",
-		{{ (joinPath .chezmoi.homeDir ".config/gitmux/weztewrm.conf") | quote }},
-		cwd,
-	})
-	if success then
-		return gs
-	else
-		return ""
-	end
 end
 
 function detect.os()
