@@ -20,7 +20,6 @@ end
 
 function detect.colours(theme)
 	return {
-		colour12 = theme.colour12,
 		window_frame_colors = {
 			active_titlebar_bg = theme.background,
 			inactive_titlebar_bg = wezterm.color.parse(theme.background):darken(0.8),
