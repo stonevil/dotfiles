@@ -6,22 +6,36 @@ vim:ft=bash.gotexttmpl
 export ARTICLEREADER_WIDTH="72"
 
 ar() {
-	reader --terminal-width $ARTICLEREADER_WIDTH "$@" | less -R
+	reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH "$@"; sleep 5m
 }
 
-{{- if lookPath "wezterm" }}
-wnwar() {
-	wezterm cli spawn --new-window -- bash -c "curl-impersonate-chrome -s -o - '$@' | reader --terminal-width $ARTICLEREADER_WIDTH - | less -R"
-}
-
-wslar() {
-	wezterm cli split-pane --left -- bash -c "curl-impersonate-chrome -s -o - '$@' | reader --terminal-width $ARTICLEREADER_WIDTH - | less -R"
-}
-
-wsrar() {
-	wezterm cli split-pane --right -- bash -c "curl-impersonate-chrome -s -o - '$@' | reader --terminal-width $ARTICLEREADER_WIDTH - | less -R"
-}
-{{ end -}}
+case "$TERM_PROGRAM" in
+	WezTerm)
+		nwar() {
+			wezterm cli spawn --new-window -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
+		}
+		slar() {
+			wezterm cli split-pane --left -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
+		}
+		srar() {
+			wezterm cli split-pane --right -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
+		}
+	;;
+	tmux)
+		nwar() {
+			tmux popup -d "#{pane_current_path}" -xC -yC -w60% -h90% "reader --image-mode ansi --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+		}
+		slar() {
+			tmux split-window -h "reader --image-mode ansi --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+		}
+		srar() {
+			tmux split-window -h "reader --image-mode ansi --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+		}
+	;;
+	*)
+		echo "TODO: Add support without mux"
+	;;
+esac
 
 export ARTICLEREADER="ar-boat.sh"
 {{ else }}
