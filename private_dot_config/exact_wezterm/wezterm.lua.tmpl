@@ -12,6 +12,7 @@ local act = wezterm.action
 local detect = require("utils.detect")
 
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
 
 -- Schemas
 local dark_scheme = wezterm.color.get_builtin_schemes()[{{ (print ( .tui.theme | title) " " ( .tui.themeVariant | title)) | quote }}]
@@ -21,6 +22,14 @@ dark_scheme.background = "#000000"
 
 -- TODO add system appearance detect
 local scheme_current = dark_scheme
+
+-- resurrect.wezterm periodic save every 5 minutes
+resurrect.periodic_save({
+    interval_seconds = 300,
+    save_tabs = true,
+    save_windows = true,
+    save_workspaces = true,
+})
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
 	if detect.vi(pane) then
@@ -118,7 +127,6 @@ config = {
 	default_cursor_style = "BlinkingBlock",
 	check_for_updates = true,
 	-- check_for_updates_interval_seconds = 86400,
-	show_update_window = true,
 	disable_default_key_bindings = true,
 	pane_focus_follows_mouse = false,
 	send_composed_key_when_left_alt_is_pressed = true,
@@ -160,6 +168,13 @@ config.keys = {
 		mods = "META",
 		action = wezterm.action({ CloseCurrentPane = { confirm = false } }),
 	},
+	{
+		key = "t",
+		mods = "META|SUPER",
+		action = wezterm.action_callback(function(_, pane)
+			local _, _ = pane:move_to_new_tab()
+		end),
+	},
 	{ key = "LeftArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Left", 1 }) },
 	{ key = "DownArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Down", 1 }) },
 	{ key = "UpArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Up", 1 }) },
@@ -169,11 +184,10 @@ config.keys = {
 	{ key = "UpArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-up") },
 	{ key = "DownArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-down") },
 
-	-- Nightly builds only
-	-- { key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
+	{ key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
 
 	{
-		key = "l",
+		key = "f",
 		mods = "SUPER",
 		action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|TABS", title = "LAUNCHER" }),
 	},
@@ -189,6 +203,42 @@ config.keys = {
 	{ key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
 	{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
 	{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
+
+	{
+		key = "s",
+		mods = "META|SUPER",
+		action = wezterm.action_callback(function(win, pane)
+				resurrect.save_state(resurrect.workspace_state.get_workspace_state())
+				resurrect.window_state.save_window_action()
+			end),
+	},
+
+	{
+		key = "r",
+		mods = "META|SUPER",
+		action = wezterm.action_callback(function(win, pane)
+			resurrect.fuzzy_load(win, pane, function(id, label)
+				local type = string.match(id, "^([^/]+)")
+				id = string.match(id, "([^/]+)$")
+				id = string.match(id, "(.+)%..+$")
+				local opts = {
+					relative = true,
+					restore_text = true,
+					on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+				}
+				if type == "workspace" then
+					local state = resurrect.load_state(id, "workspace")
+					resurrect.workspace_state.restore_workspace(state, opts)
+				elseif type == "window" then
+					local state = resurrect.load_state(id, "window")
+					resurrect.window_state.restore_window(pane:window(), state, opts)
+				elseif type == "tab" then
+					local state = resurrect.load_state(id, "tab")
+					resurrect.tab_state.restore_tab(pane:tab(), state, opts)
+				end
+			end)
+		end),
+	},
 }
 
 config.mouse_bindings = {
