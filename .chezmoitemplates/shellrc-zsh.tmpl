@@ -78,10 +78,3 @@ for m in visual viopp; do
 done
 
 alias s2t='sed -ie 's/{{ repeat (int .tui.tabs) " " }}/\t/g''
-
-{{ if lookPath "xplr" }}
-alias -g X=' $(xplr)'
-bindkey -s '^x' ' $(xplr)^M'
-{{ end -}}
-alias -g L=' | $PAGER'
-alias -g G="| grep"
