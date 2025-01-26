@@ -4,16 +4,45 @@
 _help () {
 echo -e "Usage:\ar-boat [option]\noptions:\n\
 a                         read article\n\
-{{ if lookPath "wezterm" }}
-l                         read article in WezTerm split pane to left\n\
-r                         read article in WezTerm split pane to right\n\
-w                         read article in new WezTerm window\n\
-{{ end }}
+l                         read article in split pane to left\n\
+r                         read article in split pane to right\n\
+w                         read article in new window\n\
 \n\
 "
 }
 
-{{ template "shellrc-reader.tmpl" . }}
+export ARTICLEREADER_WIDTH="72"
+
+ar() {
+	reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH "$@"; sleep 5m
+}
+
+case "$TERM_PROGRAM" in
+	WezTerm)
+		nwar() {
+			wezterm cli spawn --new-window -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
+		}
+		slar() {
+			wezterm cli split-pane --left -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
+		}
+		srar() {
+			wezterm cli split-pane --right -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
+		}
+	;;
+	tmux)
+		nwar() {
+			tmux popup -d "#{pane_current_path}" -xC -yC -w60% -h90% "reader --image-mode ansi --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+		}
+		slar() {
+			tmux split-window -h "reader --image-mode ansi --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+		}
+		srar() {
+			tmux split-window -h "reader --image-mode ansi --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"
+		}
+	;;
+	*)
+	;;
+esac
 
 # Options
 while test "$#" -gt 0; do
@@ -22,29 +51,22 @@ while test "$#" -gt 0; do
 			shift
 				_help
 			;;
-
-{{ if lookPath "wezterm" }}
 		l|-l)
 			shift
 				wslar "$@"
 			;;
-
 		r|-r)
 			shift
 				wsrar "$@"
 			;;
-
 		w|-w)
 			shift
 				wnwar "$@"
 			;;
-{{ end }}
-
 		a|-a|*)
 			shift
 				ar "$@"
 			;;
-
 	esac
 	shift
 done
