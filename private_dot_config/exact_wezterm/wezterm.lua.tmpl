@@ -11,7 +11,8 @@ local act = wezterm.action
 
 local detect = require("utils.detect")
 
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+-- local tabline = wezterm.plugin.require("file://" .. wezterm.home_dir .. "/Development/tabline.wez")
+local tabline = wezterm.plugin.require("https://github.com/stonevil/tabline.wez")
 local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
 
 -- Schemas
@@ -59,7 +60,7 @@ end)
 tabline.setup({
 	options = {
 		icons_enabled = true,
-		theme = scheme_current,
+		-- theme = scheme_current,
 		tabs_enabled = true,
 	},
 	sections = {
@@ -75,11 +76,12 @@ tabline.setup({
 		},
 		tab_inactive = { "index", { "process", padding = { left = 0, right = 1 } } },
 
-		tabline_x = { "" },
+		tabline_x = { "cwd" },
 		tabline_y = { "datetime" },
 		tabline_z = { "domain" },
 	},
 })
+tabline.apply_to_config(config)
 
 config = {
 	default_prog = { '{{ .tui.shellPath }}', '--login' },
