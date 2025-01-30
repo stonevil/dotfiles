@@ -303,11 +303,30 @@ listen_on unix:/tmp/mykitty
 listen_on unix:@mykitty
 {{- end }}
 
-map alt+left kitten pass_keys.py neighboring_window left alt+left
-map alt+down kitten pass_keys.py neighboring_window bottom alt+down
-map alt+up kitten pass_keys.py neighboring_window top alt+up
-map alt+right kitten pass_keys.py neighboring_window right alt+right
-map alt+p kitten pass_keys.py neighboring_window prev alt+p
+map alt+left neighboring_window down
+map alt+down neighboring_window up
+map alt+up neighboring_window left
+map alt+right neighboring_window right
+
+# Unset the mapping to pass the keys to neovim
+map --when-focus-on var:IS_NVIM alt+left
+map --when-focus-on var:IS_NVIM alt+down
+map --when-focus-on var:IS_NVIM alt+up
+map --when-focus-on var:IS_NVIM alt+right
+
+# the 3 here is the resize amount, adjust as needed
+map alt+shift+left kitten relative_resize.py down  3
+map alt+shift+down kitten relative_resize.py up    3
+map alt+shift+up kitten relative_resize.py left  3
+map alt+shift+right kitten relative_resize.py right 3
+
+map --when-focus-on var:IS_NVIM alt+shift+left
+map --when-focus-on var:IS_NVIM alt+shift+down
+map --when-focus-on var:IS_NVIM alt+shift+up
+map --when-focus-on var:IS_NVIM alt+shift+right
+
+# TODO: sync with NVim and WezTerm
+# map alt+p kitten pass_keys.py neighboring_window prev alt+p
 
 # env
 
