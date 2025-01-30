@@ -32,30 +32,33 @@ resurrect.periodic_save({
     save_workspaces = true,
 })
 
-local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
-	if detect.vi(pane) then
-		window:perform_action(
-			-- This should match the keybinds you set in Neovim.
-			act.SendKey({ key = vim_direction, mods = "META" }),
-			pane
-		)
-	else
-		window:perform_action(act.ActivatePaneDirection(pane_direction), pane)
-	end
-end
+local direction_keys = {
+	LeftArrow = "Left",
+	DownArrow = "Down",
+	UpArrow = "Up",
+	RightArrow = "Right",
+}
 
-wezterm.on("ActivatePaneDirection-left", function(window, pane)
-	conditionalActivatePane(window, pane, "Left", "LeftArrow")
-end)
-wezterm.on("ActivatePaneDirection-right", function(window, pane)
-	conditionalActivatePane(window, pane, "Right", "RightArrow")
-end)
-wezterm.on("ActivatePaneDirection-up", function(window, pane)
-	conditionalActivatePane(window, pane, "Up", "UpArrow")
-end)
-wezterm.on("ActivatePaneDirection-down", function(window, pane)
-	conditionalActivatePane(window, pane, "Down", "DownArrow")
-end)
+local function split_nav(resize_or_move, key)
+	return {
+		key = key,
+		mods = resize_or_move == "resize" and "META|SHIFT" or "META",
+		action = wezterm.action_callback(function(win, pane)
+			if detect.vi(pane) then
+				-- pass the keys through to vim/nvim
+				win:perform_action({
+					SendKey = { key = key, mods = resize_or_move == "resize" and "META|SHIFT" or "META" },
+				}, pane)
+			else
+				if resize_or_move == "resize" then
+					win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
+				else
+					win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+				end
+			end
+		end),
+	}
+end
 
 tabline.setup({
 	options = {
@@ -138,12 +141,32 @@ config = {
 }
 
 config.keys = {
+	{ key = "LeftArrow", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "DownArrow", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "UpArrow", mods = "META", action = "DisableDefaultAssignment" },
+	{ key = "RightArrow", mods = "META", action = "DisableDefaultAssignment" },
+
+	{ key = "LeftArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
+	{ key = "DownArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
+	{ key = "UpArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
+	{ key = "RightArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
+
 	{ key = "mapped:#", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:≠", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:€", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:´", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:…", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:≈", mods = "META", action = "DisableDefaultAssignment" },
+
+	split_nav("move", "LeftArrow"),
+	split_nav("move", "DownArrow"),
+	split_nav("move", "UpArrow"),
+	split_nav("move", "RightArrow"),
+	split_nav("resize", "LeftArrow"),
+	split_nav("resize", "DownArrow"),
+	split_nav("resize", "UpArrow"),
+	split_nav("resize", "RightArrow"),
+
 	{ key = "q", mods = "SUPER", action = "QuitApplication" },
 	{ key = "w", mods = "SUPER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	{ key = "t", mods = "SUPER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },

@@ -137,36 +137,38 @@ bind-key "Q" confirm-before kill-session
 # <prefix> ,          rename the current window
 # <prefix> &          kill the current window
 
+# Smart pane switching with awareness of Neovim splits.
+bind-key -n C-h if -F "#{@pane-is-vim}" 'send-keys M-Left'  'select-pane -L'
+bind-key -n C-j if -F "#{@pane-is-vim}" 'send-keys M-Down'  'select-pane -D'
+bind-key -n C-k if -F "#{@pane-is-vim}" 'send-keys M-Up'  'select-pane -U'
+bind-key -n C-l if -F "#{@pane-is-vim}" 'send-keys M-Right'  'select-pane -R'
 
-# NeoVim, WezTerm, tmux integration and unification
-# navigation
-set -g @tmux-nvim-navigation true
-set -g @tmux-nvim-navigation-cycle true
-set -g @tmux-nvim-navigation-keybinding-left 'M-Left'
-set -g @tmux-nvim-navigation-keybinding-down 'M-Down'
-set -g @tmux-nvim-navigation-keybinding-up 'M-Up'
-set -g @tmux-nvim-navigation-keybinding-right 'M-Right'
+# Smart pane resizing with awareness of Neovim splits.
+bind-key -n M-h if -F "#{@pane-is-vim}" 'send-keys M-S-Left' 'resize-pane -L 3'
+bind-key -n M-j if -F "#{@pane-is-vim}" 'send-keys M-S-Down' 'resize-pane -D 3'
+bind-key -n M-k if -F "#{@pane-is-vim}" 'send-keys M-S-Up' 'resize-pane -U 3'
+bind-key -n M-l if -F "#{@pane-is-vim}" 'send-keys M-S-Right' 'resize-pane -R 3'
 
-# resize
-set -g @tmux-nvim-resize true
-set -g @tmux-nvim-resize-step-x 4
-set -g @tmux-nvim-resize-step-y 4
-set -g @tmux-nvim-resize-keybinding-left 'M-S-Left'
-set -g @tmux-nvim-resize-keybinding-down 'M-S-Down'
-set -g @tmux-nvim-resize-keybinding-up 'M-S-Up'
-set -g @tmux-nvim-resize-keybinding-right 'M-S-Right'
+bind-key -T copy-mode-vi 'M-Left' select-pane -L
+bind-key -T copy-mode-vi 'M-Down' select-pane -D
+bind-key -T copy-mode-vi 'M-Up' select-pane -U
+bind-key -T copy-mode-vi 'M-Right' select-pane -R
+#bind-key -T copy-mode-vi 'M-\' select-pane -l
 
-
+# Split
 bind-key "|" split-window -h -c '#{pane_current_path}'
 bind-key "\\" split-window -fh -c '#{pane_current_path}'
 bind-key "-" split-window -v -c '#{pane_current_path}'
 bind-key "_" split-window -fv -c '#{pane_current_path}'
 
+# TODO: sync with NVim and WezTerm
 bind-key ";" last-window
 
+# TODO: sync with NVim and WezTerm
 bind-key -r "<" swap-window -t -
 bind-key -r ">" swap-window -t +
 
+# TODO: sync with NVim and WezTerm
 unbind-key "s"
 bind-key "s" choose-tree
 
