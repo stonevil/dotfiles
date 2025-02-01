@@ -1,12 +1,12 @@
 name: catppuccin-mocha
-primary: '#4e78c4'  # buttons, fixed table columns
-secondary: '#f39c12'  # method selector, some minor labels
-accent: '#e74c3c'  # header text, scrollbars, cursors, focus highlights
+primary: '#c45aff'
+secondary: '#a684e8'
+accent: '#ff69b4'
 background: '#000000'
-surface: '#17202a'  # panels, etc
-error: '#e74c3c'  # error messages
-success: '#2ecc71'  # success messages
-warning: '#f1c40f'  # warning messages
+surface: '#1e1e3f'
+error: '#ff4500'
+success: '#00fa9a'
+warning: '#ffd700'
 
 author: stonevil
 description: A dark theme with a pastel colours.
