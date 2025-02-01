@@ -51,7 +51,7 @@ function detect.colours(theme)
 end
 
 function detect.vi(pane)
-	return pane:get_foreground_process_name():find("n?vim") ~= nil
+	return pane:get_user_vars().IS_NVIM == "true"
 end
 
 function detect.basename(s)
