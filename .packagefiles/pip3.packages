@@ -4,3 +4,5 @@ yamllint
 yt-dlp
 ruff
 gitlint
+wheel
+httpie
