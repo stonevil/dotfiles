@@ -145,6 +145,27 @@
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "reader"]
 
 
+{{ $uv_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/astral-sh/uv/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/uv"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/astral-sh/uv/releases/download/{{ $uv_v }}/uv-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-gnu{{ end }}.tar.gz"
+[".local/bin/uv".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "uv-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-gnu{{ end }}/uv"]
+
+{{ $uvx_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/astral-sh/uv/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/uvx"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/astral-sh/uv/releases/download/{{ $uvx_v }}/uv-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-gnu{{ end }}.tar.gz"
+[".local/bin/uvx".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "uv-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-gnu{{ end }}/uvx"]
+
+
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
 {{ $lazygit_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}
