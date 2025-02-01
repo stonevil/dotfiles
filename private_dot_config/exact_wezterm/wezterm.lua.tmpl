@@ -16,20 +16,16 @@ local tabline = wezterm.plugin.require("https://github.com/stonevil/tabline.wez"
 local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
 
 -- Schemas
-local dark_scheme = wezterm.color.get_builtin_schemes()[{{ (print ( .tui.theme | title) " " ( .tui.themeVariant | title)) | quote }}]
-local light_scheme = wezterm.color.get_builtin_schemes()["Catppuccin Latte"]
+local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print ( .tui.theme | title) " " ( .tui.themeVariant | title)) | quote }}]
 -- Override Dark Schema Background
-dark_scheme.background = "#000000"
-
--- TODO add system appearance detect
-local scheme_current = dark_scheme
+scheme_current.background = "#000000"
 
 -- resurrect.wezterm periodic save every 5 minutes
 resurrect.periodic_save({
-    interval_seconds = 300,
-    save_tabs = true,
-    save_windows = true,
-    save_workspaces = true,
+	interval_seconds = 300,
+	save_tabs = true,
+	save_windows = true,
+	save_workspaces = true,
 })
 
 local direction_keys = {
@@ -210,7 +206,7 @@ config.keys = {
 	{ key = "UpArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-up") },
 	{ key = "DownArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-down") },
 
-	{ key = 'p', mods = 'SUPER', action = wezterm.action.ActivateCommandPalette },
+	{ key = "p", mods = "SUPER", action = wezterm.action.ActivateCommandPalette },
 
 	{
 		key = "f",
@@ -276,11 +272,8 @@ config.mouse_bindings = {
 }
 
 config.color_schemes = {
-	["My Light Scheme"] = light_scheme,
-	["My Dark Scheme"] = dark_scheme,
+	["scheme_current"] = scheme_current,
 }
-
--- this scheme becomes default
-config.color_scheme = "My Dark Scheme"
+config.color_scheme = "scheme_current"
 
 return config
