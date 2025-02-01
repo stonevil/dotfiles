@@ -16,9 +16,11 @@ local tabline = wezterm.plugin.require("https://github.com/stonevil/tabline.wez"
 local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
 
 -- Schemas
-local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print ( .tui.theme | title) " " ( .tui.themeVariant | title)) | quote }}]
+local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.tui.theme | title) " " (.tui.themeVariant | title)) | quote }}]
+{{ if (.tui.osTheme | contains "dark") }}
 -- Override Dark Schema Background
 scheme_current.background = "#000000"
+{{ end }}
 
 -- resurrect.wezterm periodic save every 5 minutes
 resurrect.periodic_save({
