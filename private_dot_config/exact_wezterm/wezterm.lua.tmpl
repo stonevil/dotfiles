@@ -197,14 +197,6 @@ config.keys = {
 			local _, _ = pane:move_to_new_tab()
 		end),
 	},
-	{ key = "LeftArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Left", 1 }) },
-	{ key = "DownArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Down", 1 }) },
-	{ key = "UpArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Up", 1 }) },
-	{ key = "RightArrow", mods = "META|SHIFT", action = wezterm.action.AdjustPaneSize({ "Right", 1 }) },
-	{ key = "LeftArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-left") },
-	{ key = "RightArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-right") },
-	{ key = "UpArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-up") },
-	{ key = "DownArrow", mods = "META", action = act.EmitEvent("ActivatePaneDirection-down") },
 
 	{ key = "p", mods = "SUPER", action = wezterm.action.ActivateCommandPalette },
 
