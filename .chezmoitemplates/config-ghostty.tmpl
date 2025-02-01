@@ -4,8 +4,10 @@ vim:ft=yaml.gotexttmpl
 
 #custom-shader = shaders/glitchy.glsl
 
-theme = catppuccin-mocha
+theme = {{ (print (.tui.theme | lower) "-" (.tui.themeVariant | lower)) }}
+{{- if (.tui.osTheme | contains "dark") }}
 background = 000000
+{{ end }}
 
 font-family = {{ .terminal.font | quote }}
 font-size = {{ .terminal.fontSize }}
