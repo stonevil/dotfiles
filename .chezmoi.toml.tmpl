@@ -13,9 +13,11 @@
 	wsl = false
 {{ end }}
 
-# Detect Desktop OR Laptop
+# Detect Desktop OR Laptop. And OS Theme
+{{ $osTheme := "dark" }}
 {{ $chassisType := "desktop" }}
 {{ if eq .chezmoi.os "darwin" }}
+	{{ $osTheme = ((output "defaults" "read" "-g" "AppleInterfaceStyle") | default "light") | lower }}
 	{{ if contains "MacBook" (output "sysctl" "-n" "hw.model") }}
 		{{ $chassisType = "laptop" }}
 	{{ else }}
@@ -98,12 +100,23 @@
 	direnv = "hook "
 	fzf = "--"
 
+[data.themes.dark]
+	name = "catppuccin"
+	variant = "mocha"
+[data.themes.light]
+	name = "catppuccin"
+	variant = "latte"
 
 [data.tui]
 	shellPath = {{ $shellPath | quote }}
 	tabs = {{ $tabs }}
-	theme = "catppuccin"
-	themeVariant = "mocha"
+{{ if eq $osTheme "dark" }}
+	theme = {{ .data.theme.dark.name | quote }}
+	themeVariant = {{ .data.theme.dark.variant | quote }}
+{{ else if eq $osTheme "light" }}
+	theme = {{ .data.theme.light.name | quote }}
+	themeVariant = {{ .data.theme.light.variant | quote }}
+{{ end }}
 
 [data.gui]
 {{ if eq .chezmoi.os "darwin" }}
