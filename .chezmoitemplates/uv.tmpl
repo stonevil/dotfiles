@@ -1,0 +1,15 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ template "path.tmpl" . }}
+
+{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles/uv.packages")) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles/uv.packages")).size 0) }}
+	# uv.packages hash: {{ include ".packagefiles/uv.packages" | sha256sum }}
+
+	{{ if lookPath "uv" }}
+		echo "Python 3. Install or update uv packages"
+		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
+		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/uv.packages" | quote }} uv tool install --python
+	{{ end -}}
+{{ end -}}
