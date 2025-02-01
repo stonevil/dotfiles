@@ -144,7 +144,6 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "reader"]
 
-
 {{ $uv_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/astral-sh/uv/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/uv"]
 	type = "file"
@@ -218,6 +217,16 @@
 [".local/bin/stern".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "stern"]
+
+{{ $curlie_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/rs/curlie/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/curlie"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/rs/curlie/releases/download/v{{ $curlie_v }}/curlie_{{ $curlie_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".local/bin/curlie".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "curlie"]
 
 
 {{ if .tags.devops -}}
