@@ -112,6 +112,9 @@
 	ss = stash save
 	sr = stash apply --index
 
+	# search for TODO
+	td = grep TODO
+
 	# show all prfiles
 	ls = !git rev-parse --abbrev-ref HEAD | xargs git ls-tree -r --full-tree --full-name --name-only
 
@@ -135,7 +138,6 @@
 
 	# pull from remote repository
 	fork = !git config --get remote.origin.url | xargs git pull
-
 
 [help]
 	autocorrect = 1
