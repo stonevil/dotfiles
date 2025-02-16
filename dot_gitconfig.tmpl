@@ -69,17 +69,28 @@
 
 [alias]
 	a = add
-	ap = add -p
+	aa = commit --amend --no-edit
+	ap = add --patch
+	au = add --update
 	c = commit -v
 	ph = push
 	p = pull
+	pr = pull --rebase
+	p-to-all-remotes = !git remote | xargs -I% -n1 git push %
 	cp = cherry-pick
 	s = switch
 
 	f = fetch
 	fa = fetch --all
 
-	r = rebase
+	# rebase - forward-port local commits to the updated upstream head.
+  rb = rebase
+
+  # rebase - continue the rebasing process after resolving a conflict manually and updating the index with the resolution.
+  rbc = rebase --continue
+
+  # rebase - restart the rebasing process by skipping the current patch.
+  rbs = rebase --skip
 
 	rename = branch -m
 
@@ -93,8 +104,12 @@
 	cob = checkout -b #create new branch and switch
 	del = branch -D #delete branch
 	cl = clone
+
 	br = branch
-	bra = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate #list all branches
+	br-name = rev-parse --abbrev-ref HEAD
+	br-all = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate #list all branches
+
+	upstream-name = !git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)
 
 	df = diff
 	diff = diff --word-diff
