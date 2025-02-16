@@ -72,9 +72,20 @@
 	ap = add -p
 	c = commit -v
 	ph = push
-	pl = pull
+	p = pull
 	cp = cherry-pick
 	s = switch
+
+	f = fetch
+	fa = fetch --all
+
+	r = rebase
+
+	rename = branch -m
+
+	t = tag
+	tph = push origin --tags
+	td = tag -d
 
 	done = !git push origin HEAD #push changes to upstream
 
@@ -100,7 +111,7 @@
 
 	# resets without explanation
 	undo = reset HEAD~1 --mixed
-	r = reset
+	r0 = reset
 	r1 = reset HEAD^
 	r2 = reset HEAD^^
 	rh = reset --hard
@@ -114,7 +125,7 @@
 	sr = stash apply --index
 
 	# search for TODO
-	td = grep TODO
+	todo = grep TODO
 
 	# show all prfiles
 	ls = !git rev-parse --abbrev-ref HEAD | xargs git ls-tree -r --full-tree --full-name --name-only
