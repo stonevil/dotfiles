@@ -164,6 +164,16 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "uv-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-gnu{{ end }}/uvx"]
 
+{{ $zoxide_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/ajeetdsouza/zoxide/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/zoxide"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/ajeetdsouza/zoxide/releases/download/v{{ $zoxide_v }}/zoxide-{{ $zoxide_v }}-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-musl{{ end }}.tar.gz"
+[".local/bin/zoxide".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zoxide"]
+
 
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
