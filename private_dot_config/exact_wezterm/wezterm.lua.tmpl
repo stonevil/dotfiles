@@ -220,16 +220,6 @@ config.keys = {
 	{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
 	{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
 
-	{ key = "f", mods = "META", action = wezterm.action.Search("CurrentSelectionOrEmptyString") },
-	--\\[\\[ Navigation within search results:
-		Type or paste the search pattern in the bar at the bottom of the screen.
-		Use Enter, UpArrow/CTRL-P, PageUp to move to previous matches, and DownArrow/CTRL-N, PageDown to move to the next matches.
-		CTRL-R cycles through pattern matching modes (case-sensitive, case-insensitive, regex).
-		CTRL-U clears the search pattern.
-		CTRL-SHIFT-C or SUPER-C copies the selected text to the clipboard.
-		Escape cancels the search overlay.
-	--\\]\\]
-
 	{
 		key = "s",
 		mods = "META|SUPER",
