@@ -221,6 +221,13 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "curlie"]
 
+{{ $lslint_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/loeffel-io/ls-lint/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/ls-lint"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/loeffel-io/ls-lint/releases/download/v{{ $lslint_v }}/ls-lint-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+
 
 {{ if .tags.devops -}}
 # DevOps
