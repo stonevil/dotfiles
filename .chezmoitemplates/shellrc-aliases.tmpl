@@ -71,6 +71,14 @@ alias ansible-lint='ansible-lint -c ~/.ansible-lint'
 alias lg='lazygit'
 {{ end -}}
 
+{{ if lookPath "terraform" }}
+alias tf='terraform'
+{{ end -}}
+
+{{ if lookPath "terraform-docs" }}
+alias tfd='terraform-docs markdown table --output-file README.md --output-mode inject .'
+{{ end -}}
+
 {{ if lookPath "limactl" }}
 # lima-vm to support genuine docker
 alias docker='limactl shell docker docker'
