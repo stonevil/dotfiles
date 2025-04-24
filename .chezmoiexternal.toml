@@ -157,6 +157,27 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zoxide"]
 
+{{ if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")}}
+{{ $macmon_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/vladkens/macmon/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/macmon"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/vladkens/macmon/releases/download/v{{ $macmon_v }}/macmon-v{{ $macmon_v }}.tar.gz"
+[".local/bin/macmon".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "macmon"]
+
+{{ $mactop_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/context-labs/mactop/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/mactop"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/context-labs/mactop/releases/download/v{{ $mactop_v }}/mactop_{{ $mactop_v }}_darwin_arm64.tar.gz"
+[".local/bin/mactop".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "mactop"]
+{{ end }}
 
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
