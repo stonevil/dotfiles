@@ -301,6 +301,22 @@
 	refreshPeriod = "168h"
 	executable = true
 	url = "https://github.com/kubernetes/minikube/releases/download/v{{ $minikube_v }}/docker-machine-driver-hyperkit"
+
+{{ $terraform_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/hashicorp/terraform/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/terraform"]
+	type = "archive-file"
+	refreshPeriod = "168h"
+	executable = true
+	path = "terraform"
+	url =  "https://releases.hashicorp.com/terraform/{{ $terraform_v }}/terraform_{{ $terraform_v }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
+
+{{ $terraform_docs_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/terraform-docs/terraform-docs/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/terraform-docs"]
+	type = "archive-file"
+	refreshPeriod = "168h"
+	executable = true
+	path = "terraform-docs"
+	url =  "https://github.com/terraform-docs/terraform-docs/releases/download/v{{ $terraform_docs_v }}/terraform-docs-v{{ $terraform_docs_v }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
 {{- end }}
 
 
