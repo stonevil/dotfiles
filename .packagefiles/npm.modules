@@ -2,3 +2,4 @@ neovim
 cspell
 @commitlint/cli
 @commitlint/config-conventional
+@mermaid-js/mermaid-cli
