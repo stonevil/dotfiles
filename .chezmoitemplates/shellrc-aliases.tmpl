@@ -76,6 +76,10 @@ alias tf='terraform'
 {{ end -}}
 
 {{ if lookPath "terraform-docs" }}
+alias tfd='terraform-docs'
+{{ end -}}
+
+{{ if lookPath "terraform-docs" }}
 alias tfd='terraform-docs markdown table --output-file README.md --output-mode inject .'
 {{ end -}}
 
