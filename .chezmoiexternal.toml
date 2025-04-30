@@ -139,11 +139,11 @@
 {{ $uv_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/astral-sh/uv/releases/latest" | trim | base | trimPrefix "v" }}
 {{ range (list "uv" "uvx") }}
 [".local/bin/{{ . }}"]
-	type = "archive"
+	type = "archive-file"
 	refreshPeriod = "168h"
 	executable = true
 	stripComponents = 1
-	include = ["*/{{ . }}"]
+	path = "{{ . }}"
 	url = "https://github.com/astral-sh/uv/releases/download/{{ $uv_v }}/uv-{{ if eq $.chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq $.chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-gnu{{ end }}.tar.gz"
 {{ end }}
 
