@@ -8,8 +8,8 @@ vim:ft=bash.gotexttmpl
 	# uv.packages hash: {{ include ".packagefiles/uv.packages" | sha256sum }}
 
 	{{ if lookPath "uv" }}
-		echo "Python 3. Install or update uv packages"
+		echo "Python 3. Install \ Update uv Packages"
 		export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
-		xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/uv.packages" | quote }} uv tool install --python
+		(xargs <{{ joinPath .chezmoi.sourceDir ".packagefiles/uv.packages" | quote }} uv tool install --python) || (echo "Install \ Update Python uv Packages Procedure Failed" && exit 1)
 	{{ end -}}
 {{ end -}}
