@@ -122,6 +122,50 @@ function y() {
 }
 {{ end -}}
 
+{{ if lookPath "mmdc" }}
+mpng() {
+	filename="$@"
+	filename="${filename%.*}"
+	if [ -f "$filename.mmd" ]; then
+		mmdc -i "$filename.mmd" -o "$filename.png" -s 10
+		notify "Mermaid Diagram Generated" "Open $filename.png"
+	else
+		echo "File $filename.mmd absent"
+	fi
+}
+msvg() {
+	filename="$@"
+	filename="${filename%.*}"
+	if [ -f "$filename.mmd" ]; then
+		mmdc -i "$filename.mmd" -o "$filename.svg"
+		notify "Mermaid Diagram Generated" "Open $filename.svg"
+	else
+		echo "File $filename.mmd absent"
+	fi
+}
+mwatch() {
+	filename="$@"
+	filename="${filename%.*}"
+
+	if [ -f "$filename.mmd" ]; then
+		hash_current=0
+		hash_new=0
+
+		while true; do
+			hash_new=$(md5 "$filename.mmd")
+			if [[ $hash_new != $hash_current ]]; then
+				mmdc -i "$filename.mmd" -o "filename.png" -s 10 &&
+					timg -p k "$filename.png"
+				hash_current="$hash_new"
+			fi
+			sleep 5
+		done
+	else
+		echo "File $filename.mmd absent"
+	fi
+}
+{{ end -}}
+
 {{- if lookPath "vagrant" }}
 export VAGRANT_PROVIDER_GUI="false"
 vagrant_ip() {
