@@ -9,5 +9,6 @@ export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications"
 brew analytics off || exit 0
 (brew update && brew upgrade && brew upgrade --cask) || (echo "Brew Update and Upgrade Procedure Failed" && exit 1)
 brew unlink --quiet gettext; brew link --force gettext
-(brew link --overwrite python) || (echo "Brew Python Link Procedure Failed" && exit 1)
+(brew unlink --quiet python; brew link --force python) || (echo "Brew Python Link Procedure Failed" && exit 1)
+(brew unlink --quiet python-setuptools; brew link --force python-setuptools) || (echo "Brew Python Setup Tools Link Procedure Failed" && exit 1)
 (brew cleanup --quiet --prune=120 && brew autoremove) || (echo "Brew Cleanup Procedure Fasiled" && exit 1)
