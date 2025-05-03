@@ -323,7 +323,7 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://github.com/quickemu-project/quickemu/blob/master/{{ . }}"
+	url = "https://raw.githubusercontent.com/quickemu-project/quickemu/refs/heads/master/{{ . }}"
 {{ end }}
 {{- end }}
 
