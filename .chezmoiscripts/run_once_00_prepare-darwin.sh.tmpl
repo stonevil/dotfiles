@@ -23,10 +23,10 @@ echo "Prepare system. Install essential packages like brew, etc"
 	rm -rf "$(brew --cache)"
 
 	# brew tap --force homebrew/core || exit 1
-	brew install --force curl git gnu-tar || exit 1
+	brew install --overwrite --force curl git gnu-tar || exit 1
 
 	# Bypass gettext dependencies issues
 	brew unlink --quiet gettext
 	brew reinstall --force gettext || exit 1
-	brew link --force gettext || exit 1
+	brew link --overwrite --force gettext || exit 1
 {{ end }}

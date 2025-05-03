@@ -12,12 +12,17 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 	{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os)) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os )).size 0) }}
 		# {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}
 		echo "Install {{ .chezmoi.os | title }} packages"
-		brew install --force $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }}) || exit 1
+		brew install --overwrite --force $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }}) || exit 1
 	{{ end }}
 
 	{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os ) ".head")).size 0) }}
 		# {{ .chezmoi.os }}.head hash: {{ include (print (joinPath ".packagefiles" .chezmoi.os) ".head" ) | sha256sum }}
 		echo "Install {{ .chezmoi.os | title }} packages with HEAD options"
-		brew install --HEAD --force $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head" | quote }}) || exit 1
+		brew install --overwrite --HEAD --force $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head" | quote }}) || exit 1
 	{{ end }}
+
+	brew unlink --quiet gettext; brew link --overwrite --force gettext
+	(brew unlink --quiet python; brew link --overwrite --force python) || (echo "Brew Python Link Procedure Failed" && exit 1)
+	(brew unlink --quiet python-setuptools; brew link --overwrite --force python-setuptools) || (echo "Brew Python Setup Tools Link Procedure Failed" && exit 1)
+	(brew cleanup --quiet --prune=120 && brew autoremove) || (echo "Brew Cleanup Procedure Fasiled" && exit 1)
 {{ end }}
