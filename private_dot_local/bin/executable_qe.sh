@@ -16,8 +16,8 @@ drive=""
 i=""
 s=""
 
-while getopts ":a:b:c:n:m:d:i:s:o:" o; do
-	case "${o}" in
+while getopts ":a:b:c:n:m:d:i:s:o:" z; do
+	case "${z}" in
 	a)
 		a=${OPTARG}
 		;;
