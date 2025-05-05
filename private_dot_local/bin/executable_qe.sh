@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 usage() {
-	echo "Usage: ${0} [-a <VM CPU architecture: amd64 or arm64>] [-c <CPU core>] [-m <RAM>] [-n <yes/no/restrict>] [-o <yes/no>] [-d <name of .qcow2 image>] [-b <path to block device>] [-i <path to iso image>] [-s <path to shared directory>]" 1>&2
+	echo "Usage: ${0} [-a <VM CPU architecture: amd64 or arm64>] [-c <CPU core>] [-m <RAM>] [-n <on/off/restrict>] [-o <on/off>] [-d <name of .qcow2 image>] [-b <path to block device>] [-i <path to iso image>] [-s <path to shared directory>]" 1>&2
 	exit 1
 }
 
 a="amd64"
 b=""
-n="yes"
-o="no"
+n="on"
+o="off"
 name=""
 c="4"
 m="8G"
@@ -83,12 +83,12 @@ if [[ ${b} != "" ]] && [[ ! -b "${b}" ]]; then
 	exit 1
 fi
 
-if [[ ! ${n} == @(yes|no|restrict) ]]; then
-	n="yes"
+if [[ ! ${n} == @(on|off|restrict) ]]; then
+	n="on"
 fi
 
-if [[ ! ${o} == @(yes|no) ]]; then
-	o="no"
+if [[ ! ${o} == @(on|off) ]]; then
+	o="off"
 fi
 
 if [[ ! -f "${drive}".qcow2 ]]; then
@@ -120,14 +120,14 @@ command="-name "${name}" -machine type=q35 -accel tcg -smp ${c} -m ${m} -rtc bas
 installation_command="-boot menu=on -drive file="${i}",media=cdrom"
 
 case "${n}" in
-no)
+off)
 	network_command="-net none"
 	;;
 restrict)
-	network_command="-netdev user,id=mynet0,restrict=y"
+	network_command="-device virtio-net-pci,netdev=net -netdev user,id=net,ipv6=off,restrict=on -net nic"
 	;;
 *)
-	network_command=""
+	network_command="-device virtio-net-pci,netdev=net -netdev user,id=net,ipv6=off -net nic"
 	;;
 esac
 
@@ -135,7 +135,7 @@ shared_command="-virtfs local,path="${s}",mount_tag=host0,security_model=passthr
 
 block_command="-drive file=${b},format=raw,if=virtio"
 
-if [[ ${o} == "yes" ]]; then
+if [[ ${o} == "on" ]]; then
 	audio_command="-audiodev coreaudio,id=audio0 -device intel-hda -device hda-micro,audiodev=audio0"
 else
 	audio_command="-device intel-hda -device hda-output"
