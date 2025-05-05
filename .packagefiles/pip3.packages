@@ -4,5 +4,5 @@ yamllint
 yt-dlp
 ruff
 gitlint
-wheel
+wheel==0.45.0
 httpie

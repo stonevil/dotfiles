@@ -9,6 +9,8 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 	{{ template "darwin.tmpl" . }}
 	export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") | quote }} --no-quarantine"
 
+	brew install python@3.12 && ln -s {{ .path.homebrew | quote }}/bin/python@3.12 {{ .path.homebrew }}/bin/python && ln -s {{ .path.homebrew | quote }}/bin/pip@3.12 {{ .path.homebrew }}/bin/pip3 && 	brew install python@3.12 && ln -fs {{ .path.homebrew | quote }}/bin/python@3.12 {{ .path.homebrew }}/bin/python && ln -fs {{ .path.homebrew | quote }}/bin/pip@3.12 {{ .path.homebrew }}/bin/pip
+
 	{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os)) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os )).size 0) }}
 		# {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}
 		echo "Install {{ .chezmoi.os | title }} packages"
@@ -22,7 +24,7 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 	{{ end }}
 
 	brew unlink --quiet gettext; brew link --overwrite --force gettext
-	(brew unlink --quiet python; brew link --overwrite --force python) || (echo "Brew Python Link Procedure Failed" && exit 1)
-	(brew unlink --quiet python-setuptools; brew link --overwrite --force python-setuptools) || (echo "Brew Python Setup Tools Link Procedure Failed" && exit 1)
+	# (brew unlink --quiet python; brew link --overwrite --force python) || (echo "Brew Python Link Procedure Failed" && exit 1)
+	# (brew unlink --quiet python-setuptools; brew link --overwrite --force python-setuptools) || (echo "Brew Python Setup Tools Link Procedure Failed" && exit 1)
 	(brew cleanup --quiet --prune=120 && brew autoremove) || (echo "Brew Cleanup Procedure Fasiled" && exit 1)
 {{ end }}
