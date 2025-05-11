@@ -66,6 +66,8 @@ tree
 unzip
 universal-ctags
 watch
+hwatch
+fswatch
 wget
 yarn
 wezterm
