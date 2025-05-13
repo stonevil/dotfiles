@@ -58,3 +58,6 @@ lazy-lock.json
 
 # Direnv artifacts
 .envrc
+
+# Syncthings artifacts
+.stfolder
