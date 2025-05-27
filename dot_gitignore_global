@@ -61,3 +61,4 @@ lazy-lock.json
 
 # Syncthings artifacts
 .stfolder
+.stignore
