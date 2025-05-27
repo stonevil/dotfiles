@@ -1,6 +1,3 @@
 neovim
 cspell
-playwright
-@commitlint/cli
-@commitlint/config-conventional
 @mermaid-js/mermaid-cli
