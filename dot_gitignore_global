@@ -59,6 +59,12 @@ lazy-lock.json
 # Direnv artifacts
 .envrc
 
+# Mise artifacts
+mise.local.toml
+mise.*.local.toml
+.mise.local.toml
+.mise.*.local.toml
+
 # Syncthings artifacts
 .stfolder
 .stignore
