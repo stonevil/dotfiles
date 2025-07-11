@@ -7,7 +7,12 @@ echo "Configure User Environment"
 {{ if eq .chezmoi.os "darwin" }}
 
 # LoginWindow
-# sudo defaults write /Library/Preferences/com.apple.loginwindow DesktopPicture ""
+#sudo defaults write /Library/Preferences/com.apple.loginwindow DesktopPicture ""
+
+# Theme
+defaults write com.apple.universalaccess reduceTransparency -int 1
+#defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
+#defaults write com.apple.universalaccess reduceMotion -int 1
 
 # Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
