@@ -157,6 +157,19 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zoxide"]
 
+[".local/bin/zellij"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+{{- if eq .chezmoi.os "darwin" }}
+	url = "https://github.com/zellij-org/zellij/releases/latest/download/zellij-{{ .arch.opt2 }}-apple-{{ .chezmoi.os }}.tar.gz"
+{{- else if eq .chezmoi.os "linux" }}
+	url = "https://github.com/zellij-org/zellij/releases/latest/download/zellij-{{ .arch.opt2 }}-unknown-{{ .chezmoi.os }}-musl.tar.gz"
+{{- end }}
+	[".local/bin/zellij".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zellij"]
+
 {{ if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")}}
 {{ $macmon_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/vladkens/macmon/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/macmon"]
