@@ -43,10 +43,20 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://github.com/sharkdp/fd/releases/download/v{{ $fd_v }}/fd-v{{ $fd_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu.tar{{ end }}.tar.gz"
+	url = "https://github.com/sharkdp/fd/releases/download/v{{ $fd_v }}/fd-v{{ $fd_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}.tar.gz"
 	[".local/bin/fd".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fd-v{{ $fd_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}/fd"]
+
+{{ $d2_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/terrastruct/d2/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/d2"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/terrastruct/d2/releases/download/v{{ $d2_v }}/d2-v{{ $d2_v }}-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}-{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/d2".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "d2-v{{ $d2_v }}/bin/d2"]
 
 [".local/bin/fzf-tmux"]
 	type = "file"
