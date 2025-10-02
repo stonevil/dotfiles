@@ -137,23 +137,19 @@ bind-key "Q" confirm-before kill-session
 # <prefix> ,          rename the current window
 # <prefix> &          kill the current window
 
-# Smart pane switching with awareness of Neovim splits.
-bind-key -n C-h if -F "#{@pane-is-vim}" 'send-keys M-Left'  'select-pane -L'
-bind-key -n C-j if -F "#{@pane-is-vim}" 'send-keys M-Down'  'select-pane -D'
-bind-key -n C-k if -F "#{@pane-is-vim}" 'send-keys M-Up'  'select-pane -U'
-bind-key -n C-l if -F "#{@pane-is-vim}" 'send-keys M-Right'  'select-pane -R'
+set -g @smart-splits_no_wrap '' # to disable wrapping. (any value disables wrapping)
 
-# Smart pane resizing with awareness of Neovim splits.
-bind-key -n M-h if -F "#{@pane-is-vim}" 'send-keys M-S-Left' 'resize-pane -L 3'
-bind-key -n M-j if -F "#{@pane-is-vim}" 'send-keys M-S-Down' 'resize-pane -D 3'
-bind-key -n M-k if -F "#{@pane-is-vim}" 'send-keys M-S-Up' 'resize-pane -U 3'
-bind-key -n M-l if -F "#{@pane-is-vim}" 'send-keys M-S-Right' 'resize-pane -R 3'
+set -g @smart-splits_move_left_key  'M-Left'
+set -g @smart-splits_move_down_key  'M-Down'
+set -g @smart-splits_move_up_key    'M-Up'
+set -g @smart-splits_move_right_key 'M-Right'
 
-bind-key -T copy-mode-vi 'M-Left' select-pane -L
-bind-key -T copy-mode-vi 'M-Down' select-pane -D
-bind-key -T copy-mode-vi 'M-Up' select-pane -U
-bind-key -T copy-mode-vi 'M-Right' select-pane -R
-#bind-key -T copy-mode-vi 'M-\' select-pane -l
+set -g @smart-splits_resize_left_key  'M-S-Left'
+set -g @smart-splits_resize_down_key  'M-S-Down'
+set -g @smart-splits_resize_up_key    'M-S-Up'
+set -g @smart-splits_resize_right_key 'M-S-Right'
+
+set -g @smart-splits_resize_step_size '3' # change the step-size for resizing.
 
 # Split
 bind-key "|" split-window -h -c '#{pane_current_path}'
@@ -294,7 +290,7 @@ set -g status-left-style fg=colour7,bg=default
 set -g status-left "#[fg=colour0,bg=colour12,bold] #S #[fg=colour12,bg=default,nobold,nounderscore,noitalics]  #[fg=colour11,bg=default]"
 
 set -g status-right-style fg=colour7,bg=default
-set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour7,bg=default,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour7,bold,nounderscore,noitalics] #{pane_current_path}#[fg=colour0,bg=colour7,nobold,nounderscore,noitalics] #[fg=colour12,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour12,nobold,nounderscore,noitalics] ${time_format} "
+set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour4,bg=default,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour4,bold,nounderscore,noitalics] #{pane_current_path}#[fg=colour0,bg=colour4,nobold,nounderscore,noitalics] #[fg=colour12,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour12,nobold,nounderscore,noitalics] ${time_format} "
 
 
 ## tmux plugins manager
@@ -307,6 +303,7 @@ set -g @tpm_plugins '                \
   tmux-plugins/tmux-resurrect        \
   tmux-plugins/tmux-prefix-highlight \
   omerxx/tmux-sessionx               \
+	mrjones2014/smart-splits.nvim      \
 '
 # List of disabled plugins
 # tmux-plugins/tmux-battery          \
