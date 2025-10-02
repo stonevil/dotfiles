@@ -24,8 +24,8 @@ bind-key -r "a" source-file $HOME/.config/tmux/tmux.conf \; display-message ' Co
 #if-shell 'test "$(uname)" = "Darwin" && type reattach-to-user-namespace' set -g default-command "reattach-to-user-namespace -l $SHELL"
 
 # Autoinstall tpm and plugins
-if-shell '[[ ! -d $HOME/.tmux/plugins/tpm ]]' {
-  run-shell "git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm && $HOME/.tmux/plugins/tpm/bindings/install_plugins && tmux source-file $HOME/.config/tmux/tmux.conf"
+if-shell '[[ ! -d $HOME/.config/tmux/plugins/tpm ]]' {
+  run-shell "git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm && $HOME/.config/tmux/plugins/tpm/bindings/install_plugins && tmux source-file $HOME/.config/tmux/tmux.conf"
 }
 
 
@@ -294,7 +294,7 @@ set -g status-left-style fg=colour7,bg=default
 set -g status-left "#[fg=colour0,bg=colour12,bold] #S #[fg=colour12,bg=default,nobold,nounderscore,noitalics]  #[fg=colour11,bg=default]"
 
 set -g status-right-style fg=colour7,bg=default
-set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour11,bg=default,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour11,bold,nounderscore,noitalics] #{pane_current_path}#[fg=colour0,bg=colour11,nobold,nounderscore,noitalics] #[fg=colour12,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour12,nobold,nounderscore,noitalics] ${time_format} "
+set -g status-right "#{prefix_highlight} #[fg=colour0,bg=default,nobold,nounderscore,noitalics] #(gitmux #{pane_current_path}) #[fg=colour7,bg=default,nobold,nounderscore,noitalics]#[fg=colour0,bg=colour7,bold,nounderscore,noitalics] #{pane_current_path}#[fg=colour0,bg=colour7,nobold,nounderscore,noitalics] #[fg=colour12,bg=colour0,nobold,nounderscore,noitalics] ${date_format} #[fg=colour0,bg=colour12,nobold,nounderscore,noitalics] ${time_format} "
 
 
 ## tmux plugins manager
@@ -318,4 +318,4 @@ set -g @tpm_plugins '                \
 
 # Initializes TMUX plugin manager.
 # Keep this line at the very bottom of tmux.conf.
-run-shell '~/.tmux/plugins/tpm/tpm'
+run-shell '~/.config/tmux/plugins/tpm/tpm'
