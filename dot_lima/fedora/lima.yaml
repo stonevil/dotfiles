@@ -1,4 +1,7 @@
-# This template requires Lima v0.7.0 or later.
+base:
+- template://../_default/resources
+- template://../_default/mounts
+
 images:
 - location: "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2"
   arch: "x86_64"
@@ -6,11 +9,6 @@ images:
 - location: "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/aarch64/images/Fedora-Cloud-Base-Generic.aarch64-40-1.14.qcow2"
   arch: "aarch64"
   digest: "sha256:ebdce26d861a9d15072affe1919ed753ec7015bd97b3a7d0d0df6a10834f7459"
-
-mounts:
-- location: "~"
-- location: "/tmp/lima"
-  writable: true
 
 env:
   CODESPACES: true

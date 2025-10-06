@@ -1,0 +1,46 @@
+base:
+- template://../_default/resources
+- template://../_default/mounts
+
+images:
+- location: https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2
+  arch: x86_64
+  digest: sha256:e401a4db2e5e04d1967b6729774faa96da629bcf3ba90b67d8d9cce9906bec0f
+- location: https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/aarch64/images/Fedora-Cloud-Base-Generic-42-1.1.aarch64.qcow2
+  arch: aarch64
+  digest: sha256:e10658419a8d50231037dc781c3155aa94180a8c7a74e5cac2a6b09eaa9342b7
+
+provision:
+- mode: system
+  script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    dnf install -y sudo bash zsh curl wget git containerd neovim python3-neovim
+    systemctl enable --now containerd
+    nerdctl run --privileged --rm tonistiigi/binfmt --install all
+    dnf autoremove -y
+- mode: user
+  script: |
+    #!/bin/bash
+    mkdir -p "$HOME/.local/bin"
+    export BINDIR="$HOME/.local/bin"
+    sh -c "$(curl -fsLS get.chezmoi.io)"
+    mkdir -p "$HOME/.local/share/"
+    [ ! -d "$HOME/.local/share/chezmoi" ] && git clone https://github.com/stonevil/dotfiles.git "$HOME/.local/share/chezmoi"
+
+probes:
+- script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    if ! timeout 30s bash -c "until command -v zsh >/dev/null 2>&1; do sleep 3; done"; then
+      echo >&2 "zsh is not installed yet"
+      exit 1
+    fi
+  hint: See "/var/log/cloud-init-output.log" in the guest
+
+portForwards:
+- guestSocket: "/run/user/{{`{{.UID}}`}}/containerd/containerd.sock"
+  hostSocket: "{{`{{.Dir}}`}}/sock/containerd.sock"
+
+env:
+  CODESPACES: true

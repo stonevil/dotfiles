@@ -10,7 +10,10 @@
 # $ export DOCKER_HOST=$(limactl list podman --format 'unix://{{.Dir}}/sock/podman.sock')
 # $ docker ...
 
-# This template requires Lima v0.8.0 or later
+base:
+- template://../_default/resources
+- template://../_default/mounts
+
 images:
 - location: "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2"
   arch: "x86_64"
@@ -19,13 +22,10 @@ images:
   arch: "aarch64"
   digest: "sha256:ebdce26d861a9d15072affe1919ed753ec7015bd97b3a7d0d0df6a10834f7459"
 
-mounts:
-- location: "~"
-- location: "/tmp/lima"
-  writable: true
 containerd:
   system: false
   user: false
+
 provision:
 - mode: system
   script: |
@@ -38,6 +38,7 @@ provision:
     #!/bin/bash
     set -eux -o pipefail
     systemctl --user enable --now podman.socket
+
 probes:
 - script: |
     #!/bin/bash
@@ -47,6 +48,7 @@ probes:
       exit 1
     fi
   hint: See "/var/log/cloud-init-output.log" in the guest
+
 portForwards:
 - guestSocket: "/run/user/{{.UID}}/podman/podman.sock"
   hostSocket: "{{.Dir}}/sock/podman.sock"
