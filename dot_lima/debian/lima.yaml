@@ -1,6 +1,5 @@
-base:
-- template://../_default/resources
-- template://../_default/mounts
+mounts:
+- location: "~"
 
 images:
 - location: "https://cloud.debian.org/images/cloud/trixie/20250911-2232/debian-13-genericcloud-amd64-20250911-2232.qcow2"

@@ -6,9 +6,8 @@
 # $ export DOCKER_HOST=$(limactl list docker --format 'unix://{{.Dir}}/sock/docker.sock')
 # $ docker ...
 
-base:
-- template://../_default/resources
-- template://../_default/mounts
+mounts:
+- location: "~"
 
 images:
 - location: "https://cloud-images.ubuntu.com/releases/plucky/release-20250701/ubuntu-25.04-server-cloudimg-amd64.img"
