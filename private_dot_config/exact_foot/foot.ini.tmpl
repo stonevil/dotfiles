@@ -5,8 +5,8 @@ vim:ft=dosini.gotexttmpl
 # -*- conf -*-
 
 shell={{ .tui.shellPath }} --login
-# term=foot (or xterm-256color if built with -Dterminfo=disabled)
 # login-shell=no
+# term=foot (or xterm-256color if built with -Dterminfo=disabled)
 
 # app-id=foot
 # title=foot
@@ -29,12 +29,12 @@ dpi-aware=auto
 # initial-window-size-pixels=700x500  # Or,
 initial-window-size-chars={{ .terminal.cols }}x{{ .terminal.rows }}
 initial-window-mode=windowed
-# pad=0x0                             # optionally append 'center'
+pad=5x5                             # optionally append 'center'
 # resize-delay-ms=100
 
 # notify=notify-send -a ${app-id} -i ${app-id} ${title} ${body}
 
-# bold-text-in-bright=no
+bold-text-in-bright=yes
 # word-delimiters=,│`|:"'()[]{}<>
 # selection-target=primary
 # workers=<number of logical CPUs>
@@ -64,13 +64,14 @@ lines=10000
 
 [cursor]
 style=block
+unfocused-style=hollow
 # color=<inverse foreground/background>
 blink=yes
 # beam-thickness=1.5
 # underline-thickness=<font underline thickness>
 
 [mouse]
-# hide-when-typing=no
+hide-when-typing=yes
 # alternate-scroll-mode=yes
 
 [colors]
@@ -131,19 +132,19 @@ bright15=e7ecf4
 # button-close-color=<regular1>
 
 [key-bindings]
-# scrollback-up-page=Shift+Page_Up
+scrollback-up-page=Shift+Page_Up
 # scrollback-up-half-page=none
 # scrollback-up-line=none
-# scrollback-down-page=Shift+Page_Down
+scrollback-down-page=Shift+Page_Down
 # scrollback-down-half-page=none
 # scrollback-down-line=none
 # clipboard-copy=Control+Shift+c XF86Copy
 # clipboard-paste=Control+Shift+v XF86Paste
 # primary-paste=Shift+Insert
 # search-start=Control+Shift+r
-# font-increase=Control+plus Control+equal Control+KP_Add
-# font-decrease=Control+minus Control+KP_Subtract
-# font-reset=Control+0 Control+KP_0
+font-increase=Control+plus Control+equal Control+KP_Add
+font-decrease=Control+minus Control+KP_Subtract
+font-reset=Control+0 Control+KP_0
 # spawn-terminal=Control+Shift+n
 # minimize=none
 # maximize=none
