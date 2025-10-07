@@ -54,6 +54,7 @@ ninja
 nmap
 parallel
 lima
+lima-additional-guestagents
 ripgrep
 rust
 smartmontools
