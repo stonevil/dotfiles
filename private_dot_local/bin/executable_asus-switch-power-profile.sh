@@ -3,4 +3,6 @@
 
 set -eu # Fail on errors or undeclared variables
 
-asusctl profile -n && notify-send --hint=string:desktop-entry:rog-control-center "$(asusctl profile -p)"
+profile=$(kdialog --radiolist "Select Power Profile:" Performance "Performance" on Balanced "Balanced" off Quiet "Quiet" off)
+
+asusctl profile -P $profile && notify-send --hint=string:desktop-entry:rog-control-center $profile
