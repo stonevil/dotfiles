@@ -48,7 +48,7 @@ export IDF_TOOLS_PATH={{ (joinPath .chezmoi.homeDir ".local/espressif") | quote 
 {{- end }}
 
 # Set tabs width for terminal
-tabs -{{ .tui.tabs }}
+tabs {{ .tui.tabs }}
 {{- if lookPath "setterm" }}
 setterm --tabs={{ .tui.tabs }} --blink on
 {{ end -}}
