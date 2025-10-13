@@ -21,6 +21,23 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 		brew install --overwrite --HEAD --force $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head" | quote }}) || exit 1
 	{{ end }}
 
-	brew unlink --quiet gettext; brew link --overwrite --force gettext
+	brew unlink --force --quiet gettext; brew link --overwrite --force gettext
+
+	brew unlink --force --quiet python && brew link --overwrite --force --quiet python
+
+	{{ $python3_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/bin/python3???")) | last) | quote }}
+	{{ $python3_config_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/python3???-config")) | last) | quote }}
+	{{ $python3_pydoc_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/bin/pydoc3???")) | last) | quote }}
+	{{ $python3_wheel_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/bin/wheel3???")) | last) | quote }}
+	{{ $python3_idle_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/bin/idle3???")) | last) | quote }}
+	{{ $python3_pip_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/bin/pip3???")) | last) | quote }}
+
+	ln -sf {{ $python3_path }} {{ (print $.path.homebrew "/bin/python3") | quote }}
+	ln -sf {{ $python3_config_path }} {{ (print $.path.homebrew "/bin/python3-config") | quote }}
+	ln -sf {{ $python3_pydoc_path }} {{ (print $.path.homebrew "/bin/pydoc3") | quote }}
+	ln -sf {{ $python3_wheel_path }} {{ (print $.path.homebrew "/bin/wheel3") | quote }}
+	ln -sf {{ $python3_idle_path }} {{ (print $.path.homebrew "/bin/idle3") | quote }}
+	ln -sf {{ $python3_pip_path }} {{ (print $.path.homebrew "/bin/pip3") | quote }}
+
 	(brew cleanup --quiet --prune=120 && brew autoremove) || (echo "Brew Cleanup Procedure Fasiled" && exit 1)
 {{ end }}
