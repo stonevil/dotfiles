@@ -18,14 +18,20 @@
 {{ $chassisType := "desktop" }}
 {{ if eq .chezmoi.os "darwin" }}
 	{{ $osTheme = ((output "defaults" "read" "-g" "AppleInterfaceStyle") | trimSuffix "\n" | default "light") | lower }}
-	{{ if contains "MacBook" (output "sysctl" "-n" "hw.model") }}
+	{{ if contains "Yes" (output  "/usr/sbin/ioreg" "-c" "AppleSmartBattery" "-r" "|" "awk" "'/built-in/" "{print $3}'") }}
 		{{ $chassisType = "laptop" }}
 	{{ else }}
 		{{ $chassisType = "desktop" }}
 	{{ end }}
 {{ else if eq .chezmoi.os "linux" }}
 	{{ if lookPath "hostnamectl" }}
-		{{ $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis }}
+		{{ if contains "systemd" (output "ps" "-aux") }}
+			{{ $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis }}
+		{{ else }}
+			{{ $chassisType = "desktop" }}
+		{{ end }}
+	{{ else }}
+		{{ $chassisType = "desktop" }}
 	{{ end }}
 {{ else if eq .chezmoi.os "windows" }}
 	{{ $chassisType = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "if ((Get-CimInstance -Class Win32_Battery | Measure-Object).Count -gt 0) { Write-Output 'laptop' } else { Write-Output 'desktop' }") | trim }}
