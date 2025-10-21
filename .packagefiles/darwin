@@ -2,13 +2,11 @@ python@3.12
 node
 nvim
 go
-ast-grep
 autoconf
 autoconf-archive
 automake
 gettext
 bash
-bit-git
 gdbm
 readline
 sqlite
@@ -67,10 +65,7 @@ tree
 unzip
 universal-ctags
 watch
-hwatch
-fswatch
 wget
 yarn
 wezterm
 alacritty
-ghostty
