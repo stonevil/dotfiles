@@ -21,9 +21,9 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 		brew install --overwrite --HEAD --force $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head" | quote }}) || exit 1
 	{{ end }}
 
-	brew unlink --force --quiet gettext; brew link --overwrite --force gettext
+	brew unlink --quiet gettext; brew link --overwrite --force --quiet gettext
 
-	brew unlink --force --quiet python && brew link --overwrite --force --quiet python
+	brew unlink --quiet python; brew link --overwrite --force --quiet python
 
 	{{ $python3_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/bin/python3???")) | last) | quote }}
 	{{ $python3_config_path := ((glob (print $.path.homebrew "/Cellar/python*/*/Frameworks/Python.framework/Versions/*/python3???-config")) | last) | quote }}
