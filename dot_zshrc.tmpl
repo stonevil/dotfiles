@@ -7,8 +7,6 @@ vim:ft=zsh.gotexttmpl
 
 {{ template "shellrc-path.tmpl" . }}
 
-{{ template "shellrc-env.tmpl" . }}
-
 {{ template "shellrc-editor.tmpl" . }}
 
 {{ template "shellrc-media.tmpl" . }}
@@ -57,5 +55,7 @@ source {{ (print $.chezmoi.homeDir "/.local/zsh/plugins/" $k "/" $k ".plugin.zsh
 {{- if eq .chezmoi.os "darwin" }}
 fpath[1,0]={{ (joinPath .path.homebrew "share/zsh/site-functions") | quote }}
 {{ end -}}
+
+{{ template "shellrc-env.tmpl" . }}
 
 {{ template "shellrc-prompt.tmpl" . }}
