@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# vim:ft=bash
+
+media_url="$@"
+
+user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15"
+
+cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
+
+yt-dlp --user-agent "$user_agent" --list-formats "$media_url"
+
+read -p "Enter media format number: " media_number
+
+yt-dlp --user-agent "$user_agent" -f "$media_number" --embed-metadata --embed-thumbnail --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$media_url"

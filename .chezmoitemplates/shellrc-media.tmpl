@@ -2,11 +2,13 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15"
+
 {{- if lookPath "yt-dlp" }}
 yd() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp -f 'bestvideo+bestaudio/best' --embed-metadata "$@"; then
+	if yt-dlp --user-agent "$user_agent" -f 'bestvideo+bestaudio/best' --embed-metadata "$@"; then
 		notify "Best Quality Video Download Finished" "$video_title"
 	else
 		notify "Best Quality Video Download Failed" "$video_title"
@@ -16,7 +18,7 @@ yd() {
 ydl() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --embed-metadata --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
+	if yt-dlp --user-agent "$user_agent" -f 'bestvideo[height<=720]+bestaudio[ext=m4a]/best[height<=720]' --embed-metadata --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$@"; then
 		notify "MP4 Video Download Finished" "$video_title"
 	else
 		notify "MP4 Video Download Failed" "$video_title"
@@ -26,7 +28,7 @@ ydl() {
 ydm() {
 	cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 	video_title=$(yt-dlp --skip-download --get-title --no-warnings "$@" | sed 2d)
-	if yt-dlp -x --audio-format m4a --embed-metadata --embed-thumbnail "$@"; then
+	if yt-dlp --user-agent "$user_agent" -x --audio-format m4a --embed-metadata --embed-thumbnail "$@"; then
 		notify "M4A Music/Podcast Download Finished" "$video_title"
 	else
 		notify "M4A Music/Podcast Download Failed" "$video_title"
