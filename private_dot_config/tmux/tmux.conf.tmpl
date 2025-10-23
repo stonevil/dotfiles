@@ -30,7 +30,11 @@ if-shell '[[ ! -d $HOME/.config/tmux/plugins/tpm ]]' {
 
 
 ## True colour
-set -as terminal-features ",xterm-256color:RGB"
+set -g default-terminal "$TERM"
+set -ag terminal-overrides ",$TERM:Tc"
+# set -as terminal-features ",xterm-256color:RGB"
+# Set to scrolls Vim not tmux history with mouse
+# set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
 
 ## Configuration
@@ -47,9 +51,6 @@ set -g renumber-windows on
 # Set window notifications
 setw -g monitor-activity on
 set -g visual-activity on
-
-# Set to scrolls Vim not tmux history with mouse
-set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
 # Scrollback buffer n lines
 set -g history-limit 100000
