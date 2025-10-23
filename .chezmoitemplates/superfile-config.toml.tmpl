@@ -2,9 +2,9 @@
 vim:ft=toml.gotexttmpl
 */ -}}
 
-{{ if eq .tui.themeVariant "latte" }}
+{{ if eq .tui.themeVariant "latte" -}}
 theme = "catppuccin-latte"
-{{ else }}
+{{ else -}}
 theme = "catppuccin"
 {{ end }}
 transparent_background = true
