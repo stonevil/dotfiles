@@ -1,0 +1,57 @@
+{{- /*
+vim:ft=toml.gotexttmpl
+*/ -}}
+
+{{ if eq .tui.themeVariant "latte" }}
+theme = "catppuccin-latte"
+{{ else }}
+theme = "catppuccin"
+{{ end }}
+transparent_background = true
+
+nerdfont = true
+
+show_select_icons = true
+
+editor = ""
+dir_editor = ""
+code_previewer = ""
+
+file_preview_width = 0
+sidebar_width = 14
+
+default_directory = "."
+default_open_file_preview = true
+
+show_image_preview = true
+show_panel_footer_info = true
+
+ignore_missing_fields = false
+
+file_size_use_si = false
+
+default_sort_type = 0
+sort_order_reversed = false
+case_sensitive_sort = false
+
+shell_close_on_success = false
+
+cd_on_quit = false
+
+metadata = false
+enable_md5_checksum = false
+zoxide_support = false
+
+auto_check_update = false
+debug = false
+
+border_top = '─'
+border_bottom = '─'
+border_left = '│'
+border_right = '│'
+border_top_left = '╭'
+border_top_right = '╮'
+border_bottom_left = '╰'
+border_bottom_right = '╯'
+border_middle_left = '├'
+border_middle_right = '┤'
