@@ -27,7 +27,7 @@ xplr.config.modes.builtin.default.key_bindings.on_key["e"] = {
 	messages = {
 		{
 			BashExec0 = [===[
-              ${EDITOR:-vi} "${XPLR_FOCUS_PATH:?}"
+              ${EDITOR:-vim} "${XPLR_FOCUS_PATH:?}"
             ]===],
 		},
 		"PopMode",
