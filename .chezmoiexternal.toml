@@ -120,6 +120,16 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "delta-{{ $delta_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ else if eq .chezmoi.os "darwin" }}apple-darwin{{ end }}/delta"]
 
+{{ $spf_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/yorukot/superfile/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/spf"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/yorukot/superfile/releases/download/v{{ $spf_v }}/superfile-{{ .chezmoi.os }}-v{{ $spf_v }}-{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/spf".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "dist/superfile-{{ .chezmoi.os }}-v{{ $spf_v }}-{{ .chezmoi.arch }}/spf"]
+
 {{ $yazi_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sxyazi/yazi/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin"]
 	type = "archive"
