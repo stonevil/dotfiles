@@ -1,5 +1,6 @@
 return {
 	"huggingface/llm.nvim",
+	enabled = false,
 	event = "VeryLazy",
 	opts = {
 		backend = "ollama",
