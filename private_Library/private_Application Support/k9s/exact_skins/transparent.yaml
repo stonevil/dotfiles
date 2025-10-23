@@ -2,4 +2,4 @@
 vim:ft=yaml.gotexttmpl
 */ -}}
 
-{{- template "config-k9s-skins-transparents.yaml" . -}}
+{{- template "k9s-skins-transparents.yaml" . -}}

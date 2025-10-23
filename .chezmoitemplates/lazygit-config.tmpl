@@ -1,0 +1,23 @@
+{{- /*
+	vim:ft=yml.gotexttmpl
+*/ -}}
+
+reporting: "off"
+disableStartupPopups: true
+
+gui:
+  showIcons: true
+  border: single
+  expandFocusedSidePanel: true
+  wrapLinesInStagingView: true
+  nerdFontsVersion: 3
+  showFileIcons: true
+  showDivergenceFromBaseBranch: onlyArrow
+  filterMode: fuzzy
+
+git:
+  paging:
+    colorArg: always
+{{- if lookPath "delta" }}
+    pager: delta --paging=never -s
+{{ end -}}

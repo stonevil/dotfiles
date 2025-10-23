@@ -10,9 +10,6 @@ local act = wezterm.action
 
 local detect = require("utils.detect")
 
-local tabline = wezterm.plugin.require("https://github.com/stonevil/tabline.wez")
--- local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
-
 local config = wezterm.config_builder()
 
 -- Schemas
@@ -22,68 +19,13 @@ local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.tui.theme
 scheme_current.background = "#000000"
 {{ end }}
 
-local direction_keys = {
-	LeftArrow = "Left",
-	DownArrow = "Down",
-	UpArrow = "Up",
-	RightArrow = "Right",
-}
-
-local function split_nav(resize_or_move, key)
-	return {
-		key = key,
-		mods = resize_or_move == "resize" and "META|SHIFT" or "META",
-		action = wezterm.action_callback(function(win, pane)
-			if detect.vi(pane) then
-				-- pass the keys through to vim/nvim
-				win:perform_action({
-					SendKey = { key = key, mods = resize_or_move == "resize" and "META|SHIFT" or "META" },
-				}, pane)
-			else
-				if resize_or_move == "resize" then
-					win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
-				else
-					win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
-				end
-			end
-		end),
-	}
-end
-
-tabline.setup({
-	options = {
-		icons_enabled = true,
-		-- theme = scheme_current,
-		tabs_enabled = true,
-	},
-	sections = {
-		tabline_a = { "mode" },
-		tabline_b = { "workspace" },
-		tabline_c = { " " },
-		tab_active = {
-			"index",
-			{ "parent", padding = 0 },
-			"/",
-			{ "cwd", padding = { left = 0, right = 1 } },
-			{ "zoomed", padding = 0 },
-		},
-		tab_inactive = { "index", { "process", padding = { left = 0, right = 1 } } },
-
-		tabline_x = { "cwd" },
-		tabline_y = { "datetime" },
-		tabline_z = { "domain" },
-	},
-})
-tabline.apply_to_config(config)
--- resurrect.apply_to_config(config)
-
 config = {
 	default_prog = { '{{ .tui.shellPath }}', '--login' },
 	window_close_confirmation = "NeverPrompt",
 	exit_behavior = "Close",
 	audible_bell = "Disabled",
 	show_new_tab_button_in_tab_bar = false,
-	hide_tab_bar_if_only_one_tab = false,
+	hide_tab_bar_if_only_one_tab = true,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = false,
 	tab_max_width = 40,
@@ -132,31 +74,12 @@ config = {
 }
 
 config.keys = {
-	{ key = "LeftArrow", mods = "META", action = "DisableDefaultAssignment" },
-	{ key = "DownArrow", mods = "META", action = "DisableDefaultAssignment" },
-	{ key = "UpArrow", mods = "META", action = "DisableDefaultAssignment" },
-	{ key = "RightArrow", mods = "META", action = "DisableDefaultAssignment" },
-
-	{ key = "LeftArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
-	{ key = "DownArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
-	{ key = "UpArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
-	{ key = "RightArrow", mods = "META|SHIFT", action = "DisableDefaultAssignment" },
-
 	{ key = "mapped:#", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:≠", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:€", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:´", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:…", mods = "META", action = "DisableDefaultAssignment" },
 	{ key = "mapped:≈", mods = "META", action = "DisableDefaultAssignment" },
-
-	split_nav("move", "LeftArrow"),
-	split_nav("move", "DownArrow"),
-	split_nav("move", "UpArrow"),
-	split_nav("move", "RightArrow"),
-	split_nav("resize", "LeftArrow"),
-	split_nav("resize", "DownArrow"),
-	split_nav("resize", "UpArrow"),
-	split_nav("resize", "RightArrow"),
 
 	{ key = "q", mods = "SUPER", action = "QuitApplication" },
 	{ key = "w", mods = "SUPER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },

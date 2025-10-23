@@ -1,0 +1,10 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ template "path.tmpl" . }}
+
+{{ if eq .chezmoi.os "linux" }}
+echo "Linux. Update Fonts Cache"
+fc-cache -f -v || (echo "Fonts Cache Build Failed" && exit 1)
+{{ end }}

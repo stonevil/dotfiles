@@ -5,9 +5,9 @@
 
 cd {{ .chezmoi.homeDir | quote }} || exit 1
 
-{{ template "update-os-packages.tmpl" . }}
+{{ template "os-packages-update.tmpl" . }}
 
-{{ template "update-fonts-cache.tmpl" . }}
+{{ template "fonts-cache-update.tmpl" . }}
 
 {{ template "gcloud.tmpl" . }}
 
@@ -19,7 +19,7 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "ruby.tmpl" . }}
 
-{{ template "update-cargo.tmpl" . }}
+{{ template "cargo-update.tmpl" . }}
 
 {{ template "go.tmpl" . }}
 
@@ -29,4 +29,4 @@ cd {{ .chezmoi.homeDir | quote }} || exit 1
 
 {{ template "bat.tmpl" . }}
 
-{{ template "block-ads.tmpl" . }}
+{{ template "ads-block.tmpl" . }}
