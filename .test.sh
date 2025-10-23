@@ -13,7 +13,7 @@ _help() {
 _check() {
 	# Check requirements
 	if command -v limactl >/dev/null 2>&1; then
-		export CLI="limactl shell podman podman"
+		export CLI="limactl shell podman-intel podman"
 	else
 		if command -v podman >/dev/null 2>&1; then
 			export CLI="podman"
@@ -24,8 +24,8 @@ _check() {
 	fi
 	# Detect if limactl podman is running
 	if [[ $OSTYPE == 'darwin'* ]]; then
-		if [[ $(limactl list podman --format "{{.Status}}") == "Stopped" ]]; then
-			echo -e "limactl podman instance is not running\n"
+		if [[ $(limactl list podman-intel --format "{{.Status}}") == "Stopped" ]]; then
+			echo -e "limactl podman-intel instance is not running\n"
 			exit 1
 		fi
 	fi
