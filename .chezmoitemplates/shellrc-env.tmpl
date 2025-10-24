@@ -47,8 +47,8 @@ export PACKER_LOG_PATH={{ (joinPath .chezmoi.homeDir ".packer.d/log") | quote }}
 export IDF_TOOLS_PATH={{ (joinPath .chezmoi.homeDir ".local/espressif") | quote }}
 {{- end }}
 
-# Set tabs width for terminal
+# Set tabs width for terminal.
+# TODO: Disabled for macOS. For unnknown yet reason tab width less than 6 messing up du and other cli outputs on macOS.
+{{- if eq .chezmoi.os "linux" }}
 tabs {{ .tui.tabs }}
-{{- if lookPath "setterm" }}
-setterm --tabs={{ .tui.tabs }} --blink on
 {{ end -}}
