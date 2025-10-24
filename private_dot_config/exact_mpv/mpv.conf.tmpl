@@ -1,3 +1,7 @@
+{{- /*
+vim:ft=ini.gotexttmpl
+*/ -}}
+
 # Start in fullscreen mode by default.
 fs=no
 
@@ -50,7 +54,7 @@ mute=yes
 #loop-file=inf
 
 # Pretend to be a web browser. Might fix playback with some streaming sites, but also will break with shoutcast streams.
-user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15"
+user-agent={{ .web.userAgent | quote }}
 
 # Use a large seekable RAM cache even for local input.
 cache=yes

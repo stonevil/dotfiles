@@ -1,7 +1,7 @@
 neovim
 flake8
 yamllint
-yt-dlp==2025.09.26
+yt-dlp
 ruff
 gitlint
 wheel==0.45.0
