@@ -3,12 +3,34 @@
 
 media_url="$@"
 
+if [[ -z "${media_url}" ]]; then
+	read -p "Please provide URL: " media_url
+fi
+
 user_agent={{ .web.userAgent | quote }}
+
+yt_max_rounds=5
+yt_round=1
+yt_status=false
 
 cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 
-yt-dlp --user-agent "$user_agent" --list-formats "$media_url"
+yt-dlp --no-warnings --user-agent "$user_agent" --list-formats "$media_url"
 
-read -p "Enter media format number: " media_number
+while [ "$yt_round" -le "$yt_max_rounds" ] && [ "$yt_status" = false ]; do
+	read -p "Enter media format number: " media_number
+	yt-dlp --no-warnings --user-agent "$user_agent" -f "$media_number" --embed-metadata --embed-thumbnail --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$media_url"
 
-yt-dlp --user-agent "$user_agent" -f "$media_number" --embed-metadata --embed-thumbnail --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$media_url"
+	if [ $? -eq 0 ]; then
+		yt_status=true
+	else
+		echo "Download failed. Retrying in 5 seconds..."
+		sleep 5
+	fi
+	yt_round=$((yt_round + 1))
+done
+
+if [ "$yt_status" = false ]; then
+	echo "Downloads failed after $yt_max_rounds attempts."
+	exit 1
+fi
