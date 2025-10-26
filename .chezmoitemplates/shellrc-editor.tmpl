@@ -4,8 +4,10 @@ vim:ft=bash.gotexttmpl
 
 {{- if lookPath "nvim" }}
 export EDITOR="$(command -v nvim)"
-{{ else }}
+{{ else if lookPath "vim" }}
 export EDITOR="$(command -v vim)"
+{{ else }}
+export EDITOR="$(command -v vi)"
 {{ end }}
 
 # ENV Variables
