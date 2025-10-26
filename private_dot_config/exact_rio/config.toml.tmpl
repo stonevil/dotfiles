@@ -1,0 +1,155 @@
+{{- /*
+vim:ft=toml.gotexttmpl
+*/ -}}
+
+hide-cursor-when-typing = false
+
+# ignore-selection-foreground-color = false
+
+theme = {{ (print (.tui.theme | lower) "-" (.tui.themeVariant | lower)) | squote }}
+
+# padding-x = 10
+# padding-y = [30, 10]
+
+option-as-alt = 'right'
+
+# line-height = 1.2
+
+# working_directory = {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
+
+# env-vars = []
+
+# use-fork = false
+
+confirm-before-quit = false
+
+draw-bold-text-with-light-colors = true
+
+[cursor]
+shape = 'block'
+blinking = true
+blinking-interval = 800
+
+[bell]
+visual = false
+audio = false
+
+[editor]
+{{ if lookPath "nvim" }}
+program = "nvim"
+{{ else if lookPath "vim" }}
+program = "vim"
+{{ else }}
+program = "vi"
+{{ end }}
+# args = []
+
+[window]
+width = 600
+height = 800
+mode = "windowed"
+opacity = 1.0
+{{ if lt (.terminal.opacity | float64) 1.0 }}
+blur = true
+{{ else }}
+blur = false
+{{ end }}
+decorations = "transparent"
+macos-use-unified-titlebar = false
+macos-use-shadow = true
+# colorspace = "display-p3"
+
+[renderer]
+{{- if eq .chezmoi.os "linux" }}
+performance = "low"
+{{ else if eq .chezmoi.os "darwin" }}
+performance = "high"
+{{- end }}
+backend = "automatic"
+disable-unfocused-render = false
+disable-occluded-render = true
+# level = 1
+# filters = []
+
+# [keyboard]
+# use-kitty-keyboard-protocol = false
+# disable-ctlseqs-alt = false
+# ime-cursor-positioning = true
+
+[fonts]
+use-drawable-chars = true
+family = "{{ .terminal.font }}"
+# extras = [{ family = "Microsoft JhengHei" }]
+# features = ["ss02", "ss03", "ss05", "ss19"]
+# hinting = false
+# symbol-map = [
+#   { start = "2297", end = "2299", font-family = "Cascadia Code NF" }
+# ]
+size = {{ .terminal.fontSize }}
+
+# [fonts.regular]
+# family = "{{ .terminal.font }}"
+# style = "{{ .terminal.fontNormal }}"
+# weight = 400
+
+# [fonts.bold]
+# family = "{{ .terminal.font }}"
+# style = "{{ .terminal.fontBold }}"
+# weight = 800
+
+# [fonts.italic]
+# family = "{{ .terminal.font }}"
+# style = "{{ .terminal.fontItalic }}"
+# weight = 400
+
+# [fonts.bold-italic]
+# family = "{{ .terminal.font }}"
+# style = "{{ .terminal.fontBoldItalic }}"
+# weight = 800
+
+# [scroll]
+# multiplier = 3.0
+# divider = 1.0
+
+[navigation]
+{{- if eq .chezmoi.os "linux" }}
+mode = "Bookmark"
+{{ else if eq .chezmoi.os "darwin" }}
+mode = "NativeTab"
+{{- end }}
+clickable = true
+hide-if-single = true
+use-current-path = true
+# color-automation = []
+use-split = false
+navigation.unfocused-split-opacity = 0.8
+
+[shell]
+program = "{{ .tui.shellPath }}"
+args = ["--login"]
+
+[colors]
+# background = '#000000'
+# foreground = '#F9F4DA'
+# cursor = '#F38BA3'
+# tabs = '#443d40'
+# tabs-active = '#F38BA3'
+# green = '#0BA95B'
+# red = '#ED203D'
+# blue = '#12B5E5'
+# yellow = '#FCBA28'
+
+# [bindings]
+# keys = [
+#   { key = "q", with = "super", action = "Quit" },
+#   # Send escape sequence to clear screen
+#   { key = "l", with = "control", esc = "\u001b[2J\u001b[H" }
+# ]
+
+# [platform]
+# linux.shell.program = "tmux"
+# linux.shell.args = ["new-session", "-c", "/var/www"]
+
+[developer]
+log-level = "OFF"
+enable-log-file = false
