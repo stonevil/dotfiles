@@ -1,5 +1,5 @@
 {{- /*
-vim:ft=yaml.gotexttmpl
+vim:ft=ini.gotexttmpl
 */ -}}
 
 # TODO: sync keys with wezterm, tmux. Impossible for now. No intergration with NeoVim
@@ -15,14 +15,14 @@ background = 000000
 font-family = {{ .terminal.font | quote }}
 font-size = {{ .terminal.fontSize }}
 
-bold-is-bright = false
+bold-is-bright = {{ .terminal.fontBoldBright }}
 
 cursor-style = block
 cursor-style-blink = true
 
 background-opacity = {{ .terminal.opacity }}
 {{- if lt .terminal.opacity 1.0 }}
-background-blur-radius = 20
+background-blur-radius = {{ .terminal.blur }}
 {{ end }}
 
 window-decoration = true
@@ -38,7 +38,7 @@ macos-icon-screen-color = 000000
 
 confirm-close-surface = false
 
-auto-update = download
+auto-update = off
 
 shell-integration = detect
 
