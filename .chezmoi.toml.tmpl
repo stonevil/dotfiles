@@ -17,7 +17,6 @@
 {{ $osTheme := "dark" }}
 {{ $chassisType := "desktop" }}
 {{ if eq .chezmoi.os "darwin" }}
-	{{ $osTheme = ((output "defaults" "read" "-g" "AppleInterfaceStyle" "2>/dev/null" "||" "echo" "light") | trimSuffix "\n" | default "light") | lower }}
 	{{ if contains "Yes" (output  "/usr/sbin/ioreg" "-c" "AppleSmartBattery" "-r" "|" "awk" "'/built-in/" "{print $3}'") }}
 		{{ $chassisType = "laptop" }}
 	{{ else }}
@@ -46,6 +45,7 @@
 {{ $privateComputer := promptBool "Is this private computer" true }}
 {{ $uname := promptStringOnce . "Full Name" "What is your full name" "fubar" }}
 {{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
+{{ $osTheme := promptBool "Enable Dark Mode?" false }}
 {{ $dev := promptBool "Is this DEV workstation" false }}
 {{ $devops := promptBool "Is this DevOps workstation" false }}
 {{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
@@ -113,11 +113,12 @@
 [data.tui]
 	shellPath = {{ $shellPath | quote }}
 	tabs = {{ $tabs }}
-	osTheme = {{ $osTheme | quote }}
-{{ if ($osTheme | contains "dark") }}
+{{ if eq $osTheme true }}
+	osTheme = "dark"
 	theme = "catppuccin"
 	themeVariant = "mocha"
 {{ else }}
+	osTheme = "light"
 	theme = "catppuccin"
 	themeVariant = "latte"
 {{ end }}
