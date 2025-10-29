@@ -302,6 +302,13 @@
 	executable = true
 	url = "https://github.com/loeffel-io/ls-lint/releases/download/v{{ $lslint_v }}/ls-lint-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 
+{{ $jq_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jqlang/jq/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/jq"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/jqlang/jq/releases/download/jq-{{ $jq_v }}/jq-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}-{{ .chezmoi.arch }}"
+
 
 {{ if .tags.devops -}}
 # DevOps
