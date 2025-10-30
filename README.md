@@ -7,12 +7,12 @@ Build in mind for macOS 14.x and higher and Linux.
 
 #### Supported platforms:
 
-- macOS 14 Sonoma. In use everyday both on amd64 and arm64 MacBook Pro.
-- Fedora 42 and higher. Usually using for containers and home servers.
+- macOS 26 Tahoe. In use everyday on arm64 MacBook Pro. Do not have have anymore amd64 Mac for testing. Trying to support as much as possible but have no ability to test anymore.
 - ArchLinux. My Linux laptops.
+- Fedora 42 and higher. Using for containers and home servers.
 
 > [!WARNING]
-> Never tested in any ``Windows WSL``. Never used ``Windows`` for anything except gaming.  Use at your own risk.
+> Never tested in any ``Windows WSL``. Never used ``Windows`` for anything except gaming. Use at your own risk.
 
 
 Testing
