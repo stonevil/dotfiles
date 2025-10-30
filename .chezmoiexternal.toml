@@ -334,7 +334,7 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "k9s"]
 
-{{ k8_v := "1.34.1" }}
+{{ $k8_v := "1.34.1" }}
 [".local/bin/kubectl"]
 	type = "file"
 	refreshPeriod = "168h"
