@@ -8,8 +8,8 @@ Build in mind for macOS 14.x and higher and Linux.
 #### Supported platforms:
 
 - macOS 14 Sonoma. In use everyday both on amd64 and arm64 MacBook Pro.
-- Fedora 40 and higher.
-- Debian 12. VM's, Toolbox container, and my Linux laptop.
+- Fedora 42 and higher. Usually using for containers and home servers.
+- ArchLinux. My Linux laptops.
 
 > [!WARNING]
 > Never tested in any ``Windows WSL``. Never used ``Windows`` for anything except gaming.  Use at your own risk.
