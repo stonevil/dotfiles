@@ -334,11 +334,12 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "k9s"]
 
+{{ k8_v := "1.34.1" }}
 [".local/bin/kubectl"]
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://dl.k8s.io/v1.34.1/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
+	url = "https://dl.k8s.io/v{{ $k8_v }}/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
 
 [".local/bin/krew"]
 	type = "file"
