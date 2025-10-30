@@ -302,7 +302,7 @@
 	executable = true
 	url = "https://github.com/loeffel-io/ls-lint/releases/download/v{{ $lslint_v }}/ls-lint-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 
-{{ $jq_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jqlang/jq/releases/latest" | trim | base | trimPrefix "v" }}
+{{ $jq_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jqlang/jq/releases/latest" | trim | base | trimPrefix "jq-" }}
 [".local/bin/jq"]
 	type = "file"
 	refreshPeriod = "168h"
