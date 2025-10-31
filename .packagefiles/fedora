@@ -12,7 +12,6 @@ golang
 gzip
 htop
 ImageMagick
-jq
 libffi
 libffi-devel
 lua
