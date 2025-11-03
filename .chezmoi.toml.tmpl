@@ -40,12 +40,12 @@
 {{ if eq .chezmoi.username "root" }}
 	{{ $sudoAccess := true }}
 {{ else }}
-	{{ $sudoAccess := promptBool "Do you have sudo access?" false }}
+	{{ $sudoAccess := promptBoolOnce "Do you have sudo access?" false }}
 {{ end }}
-{{ $privateComputer := promptBool "Is this private computer" true }}
+{{ $privateComputer := promptBoolOnce "Is this private computer" true }}
 {{ $uname := promptStringOnce . "Full Name" "What is your full name" "fubar" }}
 {{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
-{{ $osTheme := promptBool "Enable Dark Mode?" false }}
+{{ $osTheme := promptBool "Enable Dark Mode?" true }}
 {{ $dev := promptBool "Is this DEV workstation" false }}
 {{ $devops := promptBool "Is this DevOps workstation" false }}
 {{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
