@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # vim:ft=bash
 
+trap "exit" INT
+
 media_url="$@"
 
 if [[ -z "${media_url}" ]]; then
