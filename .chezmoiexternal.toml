@@ -128,7 +128,7 @@
 	url = "https://github.com/yorukot/superfile/releases/download/v{{ $spf_v }}/superfile-{{ .chezmoi.os }}-v{{ $spf_v }}-{{ .chezmoi.arch }}.tar.gz"
 	[".local/bin/spf".filter]
 		command = "tar"
-		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "dist/superfile-{{ .chezmoi.os }}-v{{ $spf_v }}-{{ .chezmoi.arch }}/spf"]
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "./dist/superfile-{{ .chezmoi.os }}-v{{ $spf_v }}-{{ .chezmoi.arch }}/spf"]
 
 {{ $yazi_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sxyazi/yazi/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin"]
