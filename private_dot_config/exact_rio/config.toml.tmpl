@@ -78,7 +78,7 @@ disable-occluded-render = true
 
 [fonts]
 use-drawable-chars = true
-family = "{{ .terminal.font }}"
+# family = "{{ .terminal.font }}" # disabled for now due Rio issues with fonts in macOS
 # extras = [{ family = "Microsoft JhengHei" }]
 # features = ["ss02", "ss03", "ss05", "ss19"]
 # hinting = false
@@ -115,7 +115,8 @@ size = {{ .terminal.fontSize }}
 {{- if eq .chezmoi.os "linux" }}
 mode = "Bookmark"
 {{ else if eq .chezmoi.os "darwin" }}
-mode = "NativeTab"
+mode = "Bookmark"
+# mode = "NativeTab" # disabled for now due Rio issues
 {{- end }}
 clickable = true
 hide-if-single = true
