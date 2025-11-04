@@ -12,7 +12,11 @@ end
 
 vim.g.deprecation_warnings = true
 
+{{- if eq .tui.osTheme "dark" }}
 vim.g.transparency = true
+{{ else }}
+vim.g.transparency = false
+{{ end -}}
 
 vim.opt.laststatus = 2
 vim.opt.confirm = true
