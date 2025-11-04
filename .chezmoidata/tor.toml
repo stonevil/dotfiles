@@ -1,6 +1,0 @@
-[packages.tor.apps]
-	darwin = [
-		"onionshare",
-		"qbittorrent",
-		"tor-browser"
-	]

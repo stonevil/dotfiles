@@ -240,6 +240,16 @@
 [".local/bin/bat".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ $bat_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}/bat"]
+
+{{ $spacer_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/samwho/spacer/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/spacer"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/samwho/spacer/releases/download/v{{ $spacer_v }}/spacer-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}.tar.gz"
+[".local/bin/spacer".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "spacer"]
 {{ end }}
 
 

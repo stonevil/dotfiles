@@ -1,8 +1,0 @@
-[lua]
-	alpine = [
-	]
-	darwin = [
-		"dfu-util",
-	]
-	fedora = [
-	]

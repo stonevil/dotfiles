@@ -1,5 +1,0 @@
-[packages.social.apps]
-	darwin = [
-		"caprine",
-		"discord"
-	]

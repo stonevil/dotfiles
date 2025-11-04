@@ -1,4 +1,0 @@
-[packages.qemu]
-	darwin = [
-		"lima"
-	]
