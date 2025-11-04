@@ -1,0 +1,19 @@
+[k8s]
+	go = [
+		"github.com/danielgatis/imgcat@latest",
+		"github.com/stern/stern@latest"
+	]
+	krew = [
+		"ctx",
+		"exec-as",
+		"fuzzy",
+		"krew",
+		"mtail",
+		"node-admin",
+		"node-restart",
+		"node-shell",
+		"restart",
+		"view-allocations",
+		"view-secret",
+		"view-utilization"
+	]
