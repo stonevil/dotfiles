@@ -1,8 +1,0 @@
-neovim
-flake8
-yamllint
-yt-dlp
-ruff
-gitlint
-wheel==0.45.0
-httpie

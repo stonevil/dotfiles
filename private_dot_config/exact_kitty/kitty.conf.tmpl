@@ -266,7 +266,7 @@ tab_powerline_style angled
 
 #: Color scheme
 
-include themes/darkfox.conf
+include {{ (print "themes/" (.tui.theme | lower) "-" (.tui.themeVariant | lower) ".conf") | quote }}
 
 background_opacity {{ .terminal.opacity }}
 
