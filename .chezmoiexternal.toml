@@ -230,7 +230,18 @@
 [".local/bin/mactop".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "mactop"]
+
+{{ $bat_v := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/bat/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/bat"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/sharkdp/bat/releases/download/v{{ $bat_v }}/bat-v{{ $bat_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}.tar.gz"
+[".local/bin/bat".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-v{{ $bat_v }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}/bat"]
 {{ end }}
+
 
 {{ if (or .tags.dev .tags.devops) -}}
 # Common Dev and DevOps
