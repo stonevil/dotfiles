@@ -63,7 +63,7 @@ Library
 {{- if eq .tags.ads false }}
 .config/hblock
 {{- end }}
-{{- if or (eq .tags.dev false) (eq .tags.devops false) }}
+{{- if or (eq .tags.dev false) (eq .tags.neovim false) }}
 .config/lazygit
 .config/lazydocker
 {{- end }}
