@@ -85,25 +85,24 @@ alias tfd='terraform-docs markdown table --output-file README.md --output-mode i
 
 {{ if lookPath "limactl" }}
 # lima-vm to support genuine docker
-alias dok='limactl shell docker docker'
+alias dk='limactl shell docker docker'
 alias docker='limactl shell docker docker'
-alias dok-stop-all='docker stop $(docker ps -a -q)'
-alias dok-rm-all='docker rm -f $(docker ps -a -q)'
-alias dok-rmi-all='docker rmi -f $(docker images --no-trunc=false -a -q)'
+alias dk-stop-all='dk stop $(dk ps -a -q)'
+alias dk-rm-all='dk rm -f $(dk ps -a -q)'
+alias dk-rmi-all='dk rmi -f $(dk images --no-trunc=false -a -q)'
 
 # lima-vm to support genuine podman
-alias pod='limactl shell podman podman'
-alias podman='limactl shell podman podman'
-alias pod-stop-all='pod stop $(pod ps -a -q)'
-alias pod-rm-all='pod rm -f $(pod ps -a -q)'
-alias pod-rmi-all='pod rmi -f $(pod images --no-trunc=false -a -q)'
+alias pa='limactl shell podman podman'
+alias pa-stop-all='pa stop $(pa ps -a -q)'
+alias pa-rm-all='pa rm -f $(pa ps -a -q)'
+alias pa-rmi-all='pa rmi -f $(pa images --no-trunc=false -a -q)'
 
 # lima-vm to support genuine podman
-alias podi='limactl shell podman-intel podman'
+alias pi='limactl shell podman-intel podman'
 alias podman-intel='limactl shell podman-intel podman'
-alias podi-stop-all='podi stop $(podi ps -a -q)'
-alias podi-rm-all='podi rm -f $(podi ps -a -q)'
-alias podi-rmi-all='podi rmi -f $(podi images --no-trunc=false -a -q)'
+alias pi-stop-all='pi stop $(pi ps -a -q)'
+alias pi-rm-all='pi rm -f $(pi ps -a -q)'
+alias pi-rmi-all='pi rmi -f $(pi images --no-trunc=false -a -q)'
 
 # lima-vm to support genuine nerdctl
 alias nerdctl='limactl shell nerdy nerdctl'
