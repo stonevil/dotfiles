@@ -1,0 +1,17 @@
+# vim:ft=toml
+
+# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
+
+{{ if or (eq .chezmoi.os "darwin") (and (eq .chezmoi.os "linux") (or (eq .session.type "wayland") (eq .session.type "x11") (eq .session.type "xorg"))) }}
+	{{- range .terminal.fontsList }}
+		{{ if eq $.chezmoi.os "darwin" -}}
+["Library/Fonts/{{ . }}"]
+		{{- else if eq $.chezmoi.os "linux" }}
+[".local/share/fonts/{{ . }}"]
+		{{ end }}
+	type = "archive"
+	refreshPeriod = "24h"
+	url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.zip"
+	include = ["*.ttf", "*.otf"]
+	{{ end }}
+{{ end }}

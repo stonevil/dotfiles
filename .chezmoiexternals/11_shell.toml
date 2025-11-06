@@ -1,0 +1,11 @@
+# vim:ft=toml
+
+# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
+
+{{ range $k, $v := $.zsh.pluginsList }}
+[".local/zsh/plugins/{{ $k }}"]
+	type = "git-repo"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/{{ $v }}/{{ $k }}.git"
+{{ end }}

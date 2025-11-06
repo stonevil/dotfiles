@@ -1,0 +1,27 @@
+# vim:ft=toml
+
+# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
+
+{{ if .tags.deck }}
+{{ $slidesVersion := (gitHubLatestRelease "maaslalani/slides").TagName | trimPrefix "v" }}
+[".local/bin/slides"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	url = "https://github.com/maaslalani/slides/releases/download/v{{ $slidesVersion }}/slides_{{ $slidesVersion }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/slides".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "slides"]
+
+{{ $presentermVersion := (gitHubLatestRelease "mfontanini/presenterm").TagName | trimPrefix "v" }}
+[".local/bin/presenterm"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	url = "https://github.com/mfontanini/presenterm/releases/download/v{{ $presentermVersion }}/presenterm-{{ $presentermVersion }}-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else if eq .chezmoi.arch "arm64" }}aarch64{{ end }}{{ if eq .chezmoi.os "darwin" }}-apple-darwin{{ else if eq .chezmoi.os "linux" }}-unknown-linux-gnu{{ end }}.tar.gz"
+	[".local/bin/presenterm".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "presenterm-{{ $presentermVersion }}/presenterm"]
+{{ end }}

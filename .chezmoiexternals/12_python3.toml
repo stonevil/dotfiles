@@ -1,0 +1,14 @@
+# vim:ft=toml
+
+# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
+
+{{ $uvVersion := (gitHubLatestRelease "astral-sh/uv").TagName | trimPrefix "v" }}
+{{ range (list "uv" "uvx") }}
+[".local/bin/{{ . }}"]
+	type = "archive-file"
+	refreshPeriod = "168h"
+	executable = true
+	stripComponents = 1
+	path = "{{ . }}"
+	url = "https://github.com/astral-sh/uv/releases/download/{{ $uvVersion }}/uv-{{ if eq $.chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq $.chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-gnu{{ end }}.tar.gz"
+{{ end }}

@@ -1,0 +1,21 @@
+# vim:ft=toml
+
+# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
+
+{{ if .tags.tmux }}
+[".local/bin/fzf-tmux"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://raw.githubusercontent.com/junegunn/fzf/master/bin/fzf-tmux"
+
+{{ $gitmuxVersion := (gitHubLatestRelease "arl/gitmux").TagName | trimPrefix "v" }}
+[".local/bin/gitmux"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/arl/gitmux/releases/download/v{{ $gitmuxVersion }}/gitmux_v{{ $gitmuxVersion }}_{{ if eq .chezmoi.os "darwin" }}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/gitmux".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gitmux"]
+{{ end }}

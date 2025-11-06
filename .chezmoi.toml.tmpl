@@ -40,16 +40,19 @@
 {{ if eq .chezmoi.username "root" }}
 	{{ $sudoAccess := true }}
 {{ else }}
-	{{ $sudoAccess := promptBoolOnce "Do you have sudo access?" false }}
+	{{ $sudoAccess := promptBool "Do you have sudo access?" false }}
 {{ end }}
-{{ $privateComputer := promptBoolOnce "Is this private computer" true }}
+{{ $privateComputer := promptBool "Is this private computer" true }}
 {{ $uname := promptStringOnce . "Full Name" "What is your full name" "fubar" }}
 {{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
 {{ $osTheme := promptBool "Enable Dark Mode?" true }}
+{{ $neovim := promptBool "Do you require NeoVIM IDE" false }}
 {{ $dev := promptBool "Is this DEV workstation" false }}
-{{ $devops := promptBool "Is this DevOps workstation" false }}
+{{ $containers := promptBool "Do you need containers tools" false }}
+{{ $k8s := promptBool "Do you need K8S tools" false }}
 {{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
 {{ $media := promptBool "Do you require basic tools for media manipulation" false }}
+{{ $news := promptBool "Do you require news apps" false }}
 {{ $deck := promptBool "Do you require TUI presentation tools" false }}
 {{ $ads := promptBool "Do you want to block ads" false }}
 
@@ -62,10 +65,13 @@
 	uname = {{ $uname | quote }}
 
 [data.tags]
+	neovim = {{ $neovim }}
 	dev = {{ $dev }}
-	devops = {{ $devops }}
+	containers = {{ $containers }}
+	k8s = {{ $k8s }}
 	embedded = {{ $embedded }}
 	media = {{ $media }}
+	news = {{ $news }}
 	deck = {{ $deck }}
 	ads = {{ $ads }}
 
@@ -74,7 +80,7 @@
 # 	private = {{ $privateComputer }}
 # 	core = true
 # 	dev = false
-# 	devops = false
+# 	k8s = false
 # 	esp = false
 # 	media = false
 # 	adblock = false
