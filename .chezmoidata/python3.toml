@@ -1,0 +1,12 @@
+[python3]
+	pip3 = [
+		"certifi",
+		"wheel==0.45.0",
+	]
+	darwin = [
+		"python3"
+	]
+	arch = [
+		"python",
+		"python-pip",
+	]
