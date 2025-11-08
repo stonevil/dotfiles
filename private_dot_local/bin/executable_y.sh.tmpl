@@ -17,7 +17,15 @@ yt_status=false
 
 cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 
-yt-dlp --no-warnings --user-agent "$user_agent" --list-formats "$media_url"
+yt_l=$(yt-dlp --no-warnings --quiet --user-agent "$user_agent" --list-formats "$media_url")
+yt_lr=$(echo $yt_l | grep -v 'video only' | grep -E "en|en_US|uk")
+
+if [[ -n "$yt_lr" ]]; then
+	printf "%s\n" "$yt_lr"
+else
+	yt_lr=$(echo "$yt_l" | grep -v 'video only')
+	printf "%s\n" "$yt_lr"
+fi
 
 while [ "$yt_round" -le "$yt_max_rounds" ] && [ "$yt_status" = false ]; do
 	read -p "Enter media format number: " media_number
