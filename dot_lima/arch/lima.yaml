@@ -10,9 +10,9 @@ containerd:
   user: false
 
 images:
-- location: "https://geo.mirror.pkgbuild.com/images/latest/Arch-Linux-x86_64-cloudimg.qcow2"
+- location: "https://geo.mirror.pkgbuild.com/images/v20251101.445013/Arch-Linux-x86_64-cloudimg-20251101.445013.qcow2"
   arch: "x86_64"
-  digest: "sha256:6c2e68caec414e7c29a2b3b9c4f934ffeb8510cf2320dac98a1939b7316d5a3a"
+  digest: "sha256:40e96c737289557f3937bb225d999e2a36f533930654bb04a6c43f606620be59"
 
 env:
   CODESPACES: true
