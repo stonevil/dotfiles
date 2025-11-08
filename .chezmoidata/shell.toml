@@ -1,0 +1,12 @@
+[shell.completionsList]
+	# starship = "init "
+	chezmoi = "completion "
+	limactl = "completion "
+	kubectl = "completion "
+	zoxide = "init "
+	direnv = "hook "
+	fzf = "--"
+
+[zsh.pluginsList]
+	zsh-syntax-highlighting = "zsh-users"
+	zsh-autosuggestions = "zsh-users"
