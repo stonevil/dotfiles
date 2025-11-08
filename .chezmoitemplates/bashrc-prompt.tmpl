@@ -1,0 +1,9 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if eq .tags.osTheme "dark" }}
+export PS1='\[\e[33m\]\u\[\e[34m\]@\[\e[31m\]\H \[\e[34m\]\W \[\e[00m\]\$ '
+{{ else }}
+export PS1='\[\e[33m\]\u\[\e[34m\]@\[\e[31m\]\H \[\e[34m\]\W \[\e[30m\]\$ '
+{{ end }}
