@@ -1,64 +1,47 @@
 #!/usr/bin/env bash
 # vim:ft=sh
 
+distro=$1
+tag=$2
+
+podman_instance="podman-intel"
+
 _help() {
 	# Display Help
 	echo "Command syntax:"
 	echo -e "./.test.sh [distro] [version]\n"
 	echo "Example with Fedora Linux:"
-	echo -e "./.test.sh fedora 41\n"
-	echo -e "Supported distro: Arc Linux, Fedora Linux v41 and higher, Debian 12 and higher\n"
+	echo -e "./.test.sh fedora 43\n"
+	echo -e "Supported distro: archlinux, fedora\n"
 }
 
 _check() {
-	# Check requirements
-	if command -v limactl >/dev/null 2>&1; then
-		export CLI="limactl shell podman-intel podman"
-	else
-		if command -v podman >/dev/null 2>&1; then
-			export CLI="podman"
-		else
-			echo -e "At least limactl or podman should be installed for testing container environments\n"
-			exit 1
-		fi
-	fi
 	# Detect if limactl podman is running
-	if [[ $OSTYPE == 'darwin'* ]]; then
-		if [[ $(limactl list podman-intel --format "{{.Status}}") == "Stopped" ]]; then
-			echo -e "limactl podman-intel instance is not running\n"
-			exit 1
-		fi
+	if [[ $(limactl list $podman_instance --format "{{.Status}}") == "Stopped" ]]; then
+		echo -e "limactl $podman_instance instance is not running\n"
+		exit 1
 	fi
 }
 
-export DISTRO=$1
-
 # Detect OS distro and version
-case "$DISTRO" in
+case $distro in
 arch)
-	export IMAGE_TAG="${2:-latest}"
-	if [[ $DISTRO == "arch" ]]; then
-		IMAGE="archlinux"
-	else
-		IMAGE="$DISTRO"
+	tag="${tag:-latest}"
+	if [[ $distro == "arch" ]]; then
+		# distro="menci/archlinuxarm"
+		distro="archlinux"
 	fi
 	;;
-debian)
-	export IMAGE="$DISTRO"
-	export IMAGE_TAG="${2:-latest}"
-	;;
 fedora)
-	export IMAGE="$DISTRO"
-	export IMAGE_TAG="${2:-41}"
+	tag="${tag:-43}"
 	;;
 help | '--help' | '-h')
 	_help
 	exit 0
 	;;
 *)
-	export DISTRO="fedora"
-	IMAGE="$DISTRO"
-	IMAGE_TAG="latest"
+	distro="fedora"
+	tag="latest"
 	;;
 esac
 
@@ -67,4 +50,4 @@ _check
 
 # Execute testing environment
 echo "Execute container"
-${CLI} run -it --rm -v "$PWD":/root/.local/share/chezmoi -e DISTRO="$DISTRO" -e IMAGE_TAG="$IMAGE_TAG" "$IMAGE":"$IMAGE_TAG" sh -c "/root/.local/share/chezmoi/.entrypoint.sh"
+limactl shell $podman_instance podman run -it --rm -v "${PWD}":/chezmoi -e DISTRO=$distro -e IMAGE_TAG=$tag $distro:$tag sh -c "/chezmoi/.entrypoint.sh"
