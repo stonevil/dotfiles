@@ -11,7 +11,7 @@
 
 mounts:
 - location: "~"
-  writable: true
+  writable: false
 
 images:
 - location: "https://dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/aarch64/images/Fedora-Cloud-Base-Generic-43-1.6.aarch64.qcow2"
@@ -29,6 +29,7 @@ provision:
     set -eux -o pipefail
     command -v podman >/dev/null 2>&1 && exit 0
     dnf -y install podman
+    dnf -y install https://github.com/wagoodman/dive/releases/download/v0.13.1/dive_0.13.1_linux_arm64.rpm
 - mode: user
   script: |
     #!/bin/bash

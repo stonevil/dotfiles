@@ -1,0 +1,48 @@
+mounts:
+- location: "~"
+  writable: true
+
+# TODO: build XFCE env provision
+
+video:
+  display: "default"
+
+vmType: qemu
+memory: 4GiB
+disk: 24GiB
+
+images:
+- location: "https://dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2"
+  arch: "x86_64"
+  digest: "sha256:846574c8a97cd2d8dc1f231062d73107cc85cbbbda56335e264a46e3a6c8ab2f"
+- location: "https://dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/aarch64/images/Fedora-Cloud-Base-Generic-43-1.6.aarch64.qcow2"
+  arch: aarch64
+  digest: "sha256:66031aea9ec61e6d0d5bba12b9454e80ca94e8a79c913d37ded4c60311705b8b"
+
+provision:
+- mode: system
+  script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    dnf autoremove -y
+    printf 'Section "Device"\nIdentifier "Card0"\nOption "SWcursor"\nEndSection' > /etc/X11/xorg.conf.d/swcursor.conf
+- mode: user
+  script: |
+    #!/bin/bash
+    mkdir -p "$HOME/.local/bin"
+    export BINDIR="$HOME/.local/bin"
+    sh -c "$(curl -fsLS get.chezmoi.io)"
+    mkdir -p "$HOME/.local/share/"
+
+probes:
+- script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    if ! timeout 30s bash -c "until command -v zsh >/dev/null 2>&1; do sleep 3; done"; then
+      echo >&2 "zsh is not installed yet"
+      exit 1
+    fi
+  hint: See "/var/log/cloud-init-output.log" in the guest
+
+env:
+  CODESPACES: true

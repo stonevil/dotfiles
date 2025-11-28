@@ -1,6 +1,6 @@
 mounts:
 - location: "~"
-  writable: true
+  writable: false
 
 display: "vnc"
 vnc: "127.0.0.1:9"
