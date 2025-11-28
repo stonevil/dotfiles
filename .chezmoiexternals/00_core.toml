@@ -1,8 +1,6 @@
 # vim:ft=toml
 
-# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
-
-{{ $chezmoiVersion := (gitHubLatestRelease "twpayne/chezmoi").TagName | trimPrefix "v" }}
+{{ $chezmoiVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/twpayne/chezmoi/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/chezmoi"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -12,7 +10,7 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "chezmoi"]
 
-{{ $fzfVersion := (gitHubLatestRelease "junegunn/fzf").TagName | trimPrefix "v" }}
+{{ $fzfVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/junegunn/fzf/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/fzf"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -22,7 +20,8 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
 
-{{ $fdVersion := (gitHubLatestRelease "sharkdp/fd").TagName | trimPrefix "v" }}
+# A simple, fast and user-friendly alternative to 'find'
+{{ $fdVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sharkdp/fd/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/fd"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -32,7 +31,7 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fd-v{{ $fdVersion }}-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}/fd"]
 
-{{ $direnvVersion := (gitHubLatestRelease "direnv/direnv").TagName | trimPrefix "v" }}
+{{ $direnvVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/direnv/direnv/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/direnv"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -40,7 +39,7 @@
 	url = "https://github.com/direnv/direnv/releases/download/v{{ $direnvVersion }}/direnv.{{ .chezmoi.os }}-{{.chezmoi.arch }}"
 
 {{ if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64")}}
-{{ $macmonVersion := (gitHubLatestRelease "vladkens/macmon").TagName | trimPrefix "v" }}
+{{ $macmonVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/vladkens/macmon/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/macmon"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -50,7 +49,7 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "macmon"]
 
-{{ $mactopVersion := (gitHubLatestRelease "context-labs/mactop").TagName | trimPrefix "v" }}
+{{ $mactopVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/context-labs/mactop/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/mactop"]
 	type = "file"
 	refreshPeriod = "168h"

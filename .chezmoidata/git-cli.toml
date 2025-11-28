@@ -1,0 +1,13 @@
+[gitCli]
+	darwin = [
+		"git",
+		"git-lfs",
+		"hub",
+	]
+	arch = [
+		"git",
+		"git-lfs",
+		"hub",
+	]
+
+[gitCli.tags]

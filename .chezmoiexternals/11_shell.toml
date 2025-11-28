@@ -1,7 +1,5 @@
 # vim:ft=toml
 
-# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
-
 {{ range $k, $v := $.zsh.pluginsList }}
 [".local/zsh/plugins/{{ $k }}"]
 	type = "git-repo"

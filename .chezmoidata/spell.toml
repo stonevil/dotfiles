@@ -1,0 +1,10 @@
+[spell]
+	arch = [
+		"sonnet",
+		"hunspell",
+		"hunspell-en_us",
+		"hunspell-en_gb",
+		"hunspell-uk",
+]
+
+[spell.tags]

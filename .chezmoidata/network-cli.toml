@@ -1,0 +1,9 @@
+[networkCli]
+	darwin = [
+		"nmap",
+	]
+	arch = [
+		"nmap",
+	]
+
+[networkCli.tags]

@@ -1,0 +1,12 @@
+[mail]
+	darwin = [
+		"thunderbird",
+	]
+	arch = [
+		"thunderbird",
+		"thunderbird-i18n-uk",
+		"thunderbird-dark-reader",
+		"thunderbird-ublock-origin",
+	]
+
+[mail.tags]

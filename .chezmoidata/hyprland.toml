@@ -1,0 +1,19 @@
+[hyprland]
+	arch = [
+		"hyprland",
+		"xdg-desktop-portal-hyprland",
+		"xdg-desktop-portal-gtk",
+		"nwg-displays",
+		"hypridle",
+		"hyprlock",
+		"hyprcursor",
+		"hyprpolkitagent",
+		"wl-clipboard",
+]
+
+[hyprland.tags]
+	python3 = true
+	print = true
+	spell = true
+	fonts = true
+	displayManager = true

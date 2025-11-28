@@ -2,140 +2,126 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
-# Detect GUI Session Type
-{{ if eq .chezmoi.os "linux" }}
-[data.session]
-	type = {{ env "XDG_SESSION_TYPE" | quote }}
-	wsl = {{ (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
-{{ else if eq .chezmoi.os "darwin" }}
-[data.session]
-	type = "darwin"
-	wsl = false
-{{ end }}
-
-# Detect Desktop OR Laptop. And OS Theme
-{{ $osTheme := "dark" }}
+# Detect desktop OR laptop. And OS theme
 {{ $chassisType := "desktop" }}
 {{ if eq .chezmoi.os "darwin" }}
 	{{ if contains "Yes" (output  "/usr/sbin/ioreg" "-c" "AppleSmartBattery" "-r" "|" "awk" "'/built-in/" "{print $3}'") }}
-		{{ $chassisType = "laptop" }}
+		{{ $chassisType := "laptop" }}
 	{{ else }}
-		{{ $chassisType = "desktop" }}
+		{{ $chassisType := "desktop" }}
 	{{ end }}
 {{ else if eq .chezmoi.os "linux" }}
 	{{ if lookPath "hostnamectl" }}
 		{{ if contains "systemd" (output "ps" "-aux") }}
-			{{ $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis }}
+			{{ $chassisType := (output "hostnamectl" "--json=short" | mustFromJson).Chassis }}
 		{{ else }}
-			{{ $chassisType = "desktop" }}
+			{{ $chassisType := "desktop" }}
 		{{ end }}
 	{{ else }}
-		{{ $chassisType = "desktop" }}
+		{{ $chassisType := "desktop" }}
 	{{ end }}
-{{ else if eq .chezmoi.os "windows" }}
-	{{ $chassisType = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "if ((Get-CimInstance -Class Win32_Battery | Measure-Object).Count -gt 0) { Write-Output 'laptop' } else { Write-Output 'desktop' }") | trim }}
 {{ end }}
 
-# Boring with some questions
-{{ $sudoAccess := false }}
-{{ $python3 := false }}
+{{ $themeName := "catppuccin" }}
+{{ $themeVariant := "mocha" }}
+{{ $plasma := false }}
+{{ $hyprland := false }}
+{{ $fwupd := false }}
 
-{{ if eq .chezmoi.username "root" }}
-	{{ $sudoAccess = true }}
-{{ else }}
-	{{ $sudoAccess = promptBool "Do you have sudo access?" false }}
+{{ $ownership := (promptStringOnce . "Ownership" "Private or company property" "private") | quote }}
+{{ $uname := (promptStringOnce . "Full Name" "What is your full name" "fubar") | quote }}
+{{ $email := (promptStringOnce . "email" "What is your email address" "fu@bar.org") | quote }}
+
+{{ $themeName = promptChoice "Choose Theme" (list "catppuccin" "rose-pine") "catppuccin" }}
+{{ if eq $themeName "catppuccin" }}
+	{{ $themeVariant = promptChoice "Theme Variant" (list "mocha" "macchiato" "latte" "frappe") "mocha" }}
+{{ else if eq $themeName "rose-pine" }}
+	{{ $themeVariant = promptChoice "Theme mode" (list "default" "moon" "dawn") }}
 {{ end }}
-{{ $privateComputer := promptBool "Is this personal computer" true }}
-{{ $uname := promptStringOnce . "Full Name" "What is your full name" "fubar" }}
-{{ $email := promptStringOnce . "email" "What is your email address" "fu@bar.org" }}
-{{ $osTheme := promptBool "Enable Dark Mode?" true }}
-{{ $tmux := promptBool "Do you need terminal multiplexer" false }}
-{{ $neovim := promptBool "Do you require NeoVIM IDE" false }}
-{{ $dev := promptBool "Is this DEV workstation" false }}
-{{ $containers := promptBool "Do you need containers tools" false }}
-{{ $k8s := promptBool "Do you need K8S tools" false }}
-{{ $embedded := promptBool "Is this Embedded DEV workstation" false }}
-{{ $media := promptBool "Do you require basic tools for media manipulation" false }}
-{{ $news := promptBool "Do you require news apps" false }}
-{{ $deck := promptBool "Do you require TUI presentation tools" false }}
-{{ $ads := promptBool "Do you want to block ads" false }}
+{{ $themeBlackout := promptBool "Do you want to complete black theme background" true }}
 
-{{ $tabs := promptInt "Configure default tabs width" 2 }}
-{{ $opacity := promptString "Windows opacity" "1.0" }}
-{{ $shellPath := promptString "Path to shell" "/bin/zsh" }}
+{{ $neovim := promptBool "NeoVIM IDE" false }}
+{{ $terminalMultiplexer := promptBool "Terminal Mutiplexer, like TMUX" false }}
+{{ $devCore := promptBool "DEV Core CLI tools" false }}
+{{ $limaVm := promptBool "Lima-VM CLI tools" false }}
+{{ $k8sCli := promptBool "K8S CLI tools" false }}
+{{ $espCli := promptBool "ESP DEV tools" false }}
+{{ $mailCli := promptBool "Mail CLI tools" false }}
+{{ $mediaCli := promptBool "Media CLI tools" false }}
+{{ $newsCli := promptBool "News CLI tools" false }}
+{{ $dekCli := promptBool "TUI presentation tools" false }}
+{{ $adsCli := promptBool "Ads block CLI tools" false }}
 
-{{ if or ($neovim) ($dev) }}
-	{{ $tmux = true }}
+{{ $tabs := promptInt "Default tabs width" 2 }}
+{{ $shellPath := (promptString "Path to shell" "/bin/zsh") | quote }}
+{{ $opacity := promptString "Windows opacity, choose between 0.1 and 1.0" "1.0" }}
+
+{{ if eq .chezmoi.os "linux" }}
+	{{ $fwupd = promptBool "Linux update hardware firmware service" false }}
+
+	{{ $plasma = promptBool "KDE Plasma DE" false }}
+	{{ $hyprland = promptBool "Hyprland DE" false }}
 {{ end }}
+{{ $terminalEmulators := promptBool "GUI Terminal Emulators, like WezTerm" false }}
+{{ $dev := promptBool "DEV apps" false }}
+{{ $mail := promptBool "Mail apps" false }}
+{{ $media := promptBool "Media apps" false }}
+{{ $modeling := promptBool "3D modeling apps" false }}
+{{ $graphics := promptBool "Graphics apps" false }}
 
 [data]
-	email = {{ $email | quote }}
-	uname = {{ $uname | quote }}
+	email = {{ $email }}
+	uname = {{ $uname }}
+	ownership = {{ $ownership }}
 
 [data.tags]
-	sudoAccess = {{ $sudoAccess }}
+	asus = false
+	thinkpad = false
+	core = true
 	neovim = {{ $neovim }}
+	terminalMultiplexer = {{ $terminalMultiplexer }}
+	devCore = {{ $devCore }}
 	dev = {{ $dev }}
-	containers = {{ $containers }}
-	k8s = {{ $k8s }}
-	embedded = {{ $embedded }}
+	limaVm = {{ $limaVm }}
+	k8sCli = {{ $k8sCli }}
+	mailCli = {{ $mailCli }}
+	mail = {{ $mail }}
 	media = {{ $media }}
-	news = {{ $news }}
-	deck = {{ $deck }}
-	ads = {{ $ads }}
-	tmux = {{ $tmux }}
-	python3 = {{ $python3 }}
-{{ if eq $osTheme true }}
-	osTheme = "dark"
-{{ else }}
-	osTheme = "light"
-{{ end }}
+	mediaCli = {{ $mediaCli }}
+	newsCli = {{ $newsCli }}
+	dekCli = {{ $dekCli }}
+	espCli = {{ $espCli }}
+	adsCli = {{ $adsCli }}
+	modeling = {{ $modeling }}
+	graphics = {{ $graphics }}
+	plasma = {{ $plasma }}
+	hyprland = {{ $hyprland }}
+	terminalEmulators = {{ $terminalEmulators }}
+	fwupd = {{ $fwupd }}
+	hashicorpCli = false
+	fonts = false
+	python3 = false
+	lua = false
+	go = false
+	rust = false
+	ruby = false
+	nodejs = false
+	gitCli = false
+	books = false
+	displayManager = false
+	networkCli = false
+	print = false
+	sync = false
+	tor = false
+	utilsCli = false
+	virtCli = false
+	virt = false
 
-[data.tui]
-	shellPath = {{ $shellPath | quote }}
-	tabs = {{ $tabs }}
-{{ if eq $osTheme true }}
-	theme = "catppuccin"
-	themeVariant = "mocha"
-{{ else }}
-	theme = "catppuccin"
-	themeVariant = "latte"
-{{ end }}
-
-
-# [data.tags]
-# 	private = {{ $privateComputer }}
-# 	core = true
-# 	dev = false
-# 	k8s = false
-# 	esp = false
-# 	media = false
-# 	adblock = false
-# 	laptop = false
-# 	books = false
-# 	news = false
-# 	torrent = false
-# 	tor = false
-
-
-[data.arch]
-{{ if eq .chezmoi.arch "amd64" }}
-	opt1 = "{{ .chezmoi.arch }}"
-	opt2 = "x86_64"
-{{ else if eq .chezmoi.arch "arm64" }}
-	opt1 = "{{ .chezmoi.arch }}"
-	opt2 = "aarch64"
-{{ end }}
-
-[data.gui]
-{{ if eq .chezmoi.os "darwin" }}
-	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
-{{ else if eq .chezmoi.os "linux" }}
-	fontDir = {{ (joinPath .chezmoi.homeDir ".local/share/fonts") | quote }}
-{{ end }}
+[data.steps]
+	upgrade = false
 
 [data.terminal]
-	fontsList = ["FiraCode", "Iosevka", "Monoid", "ProggyClean", "RobotoMono", "ZedMono"]
+	fontsList = ["FiraCode", "Iosevka", "Monoid", "ProggyClean", "RobotoMono", "ZedMono",]
 	font = "Iosevka Nerd Font"
 	fontNormal = "Light"
 	fontBold = "Light"
@@ -145,12 +131,29 @@
 	fontBoldBright = true
 	cols = 120
 	rows = 28
+	tabs = {{ $tabs }}
+	shellPath = {{ $shellPath }}
 	opacity = {{ $opacity }}
 {{ if lt ($opacity | float64) 1.0 }}
 	blur = 20
 {{ else }}
 	blur = 0
 {{ end}}
+
+[data.theme]
+	themeName = {{ $themeName | quote }}
+	themeVariant = {{ $themeVariant | quote }}
+	themeBlackout = {{ $themeBlackout }}
+{{ if or ($themeBlackout) (eq $themeVariant "mocha") (eq $themeVariant "macchiato") (eq $themeVariant "dark") (eq $themeVariant "moon") }}
+	themeDarkMode = true
+{{ end }}
+
+[data.fonts]
+{{ if eq .chezmoi.os "darwin" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
+{{ else if eq .chezmoi.os "linux" }}
+	fontDir = {{ (joinPath .chezmoi.homeDir ".local/share/fonts") | quote }}
+{{ end }}
 
 {{ if eq .chezmoi.os "darwin" }}
 [data.path]

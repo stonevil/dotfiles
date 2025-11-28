@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}
+
+	cd {{ .chezmoi.homeDir | quote }} || exit 1
+
+	{{ template "sudo-access.tmpl" . }}
+
+	echo "FEDORA: update packages"
+	sudo dnf upgrade -y || exit 1
+
+	echo "FEDORA: install locales"
+	sudo dnf install -y glibc-langpack-en || exit 1
+
+	echo "FEDORA: generate locales"
+	{{ template "locales.tmpl" . }}
+
+	echo "FEDORA: install basic tools"
+	sudo install -y bash less curl tar wget git base-devel go || exit 1
+
+	{{ template "helper.tmpl" . }}
+{{ end }}

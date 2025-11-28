@@ -1,0 +1,13 @@
+[nodejs]
+	darwin = [
+		"node",
+	]
+	arch = [
+		"nodejs",
+		"npm",
+	]
+	npm = [
+		"yarn",
+	]
+
+[nodejs.tags]

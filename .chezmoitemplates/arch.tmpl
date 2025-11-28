@@ -1,9 +1,0 @@
-{{- /*
-vim:ft=bash.gotexttmpl
-*/ -}}
-
-{{ template "path.tmpl" . }}
-
-echo "Arch. Update packages"
-(sudo pacman --noconfirm -Syu "$(pacman -Qq)")
-(sudo pacman --noconfirm -R $(pacman -Qdtq))

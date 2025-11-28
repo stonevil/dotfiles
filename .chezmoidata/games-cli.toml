@@ -1,0 +1,4 @@
+[gamesCli]
+	go = [
+		"github.com/bloznelis/typioca@latest"
+	]

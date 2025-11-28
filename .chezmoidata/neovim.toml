@@ -1,57 +1,42 @@
 [neovim]
-	pip3 = [
-		"certifi",
+	darwin = [
 		"neovim",
+		"lua-language-server",
+	]
+	arch = [
+		"neovim",
+		"lua-language-server",
+	]
+	pip = [
+		"neovim",
+		"pynvim",
 		"flake8",
 		"yamllint",
 		"ruff",
 		"gitlint",
-		"wheel==0.45.0",
-		"httpie",
+	]
+	npm = [
+		"neovim",
+		"cspell",
+	]
+	rocks = [
+		"jsregexp",
 	]
 	go = [
 		"github.com/go-delve/delve/cmd/dlv@latest",
 		"github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2",
 	]
-	brew = [
-		"python3",
-		"node",
-		"eslint",
-		"nvim",
-		"go",
-		"git",
-		"git-lfs",
-		"hub",
-		"lua",
-		"luajit",
-		"luarocks",
-		"lua-language-server",
-		"the_silver_searcher",
-		"universal-ctags",
-		"timg",
-		"ripgrep",
-		"rust",
-		"source-highlight",
-	]
-	arch = [
-		"base-devel",
-		"ctags",
-		"eslint",
-		"git",
-		"git-lfs",
-		"go",
-		"lua",
-		"luajit",
-		"luarocks",
+	gem = [
 		"neovim",
-		"nodejs",
-		"npm",
-		"ninja",
-		"hub",
-		"python",
-		"python-pip",
-		"ripgrep",
-		"rust",
-		"source-highlight",
-		"the_silver_searcher",
 	]
+
+[neovim.tags]
+	python3 = true
+	nodejs = true
+	lua	= true
+	go = true
+	ruby = true
+	rust = true
+	terminalMultiplexer = true
+	gitCli = true
+	devCore = true

@@ -1,0 +1,51 @@
+[plasma]
+	arch = [
+		"NetworkManager",
+		"brightnessctl",
+		"plasma-desktop",
+		"kscreen",
+		"bluedevil",
+		"bluez",
+		"bluez-utils",
+		"okular",
+		"ark",
+		"kate",
+		"kcalc",
+		"dolphin",
+		"dolphin-plugins",
+		"konsole",
+		"kde-gtk-config",
+		"xdg-desktop-portal",
+		"xdg-desktop-portal-kde",
+		"kscreenlocker",
+		"plasma-pa",
+		"plasma-nm",
+		"breeze",
+		"breeze-gtk",
+		"kpipewire",
+		"plasma-disks",
+		"plasma-browser-integration",
+		"plasma-systemmonitor",
+		"plasma-thunderbolt",
+		"powerdevil",
+		"print-manager",
+		"spectacle",
+		"partitionmanager",
+		"konqueror",
+		"marknote",
+		"kdialog",
+		"kdiff3",
+		"kompare",
+		"kommit",
+		"krdc",
+		"krfb",
+		"calligra",
+		"wl-clipboard",
+]
+
+[plasma.tags]
+	python3 = true
+	print = true
+	spell = true
+	fonts = true
+	displayManager = true

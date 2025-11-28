@@ -1,0 +1,23 @@
+[asus]
+	arch = [
+		"asusctl",
+		"power-profiles-daemon",
+		"supergfxctl",
+		"switcheroo-control",
+		"rog-control-center",
+		"linux-g14",
+		"linux-g14-headers",
+		"nvidia-open-dkms",
+		"nvidia-utils",
+		"acpi_call",
+		"aic94xx-firmware",
+		"ast-firmware",
+		"upd72020x-fw",
+		"linux-firmware-qlogic",
+		"wd719x-firmware",
+		"linux-firmware-intel",
+		"iasl",
+		"thermald",
+	]
+
+[asus.tags]

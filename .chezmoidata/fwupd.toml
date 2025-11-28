@@ -1,0 +1,8 @@
+[fwupd]
+	darwin = [
+	]
+	arch = [
+		"fwupd",
+	]
+
+[fwupd.tags]

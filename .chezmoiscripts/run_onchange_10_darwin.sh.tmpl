@@ -1,27 +1,33 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-{{ template "path.tmpl" . }}
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmoidata/*.toml")) }}
+# .chezmoidate/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
 
-cd {{ .chezmoi.homeDir | quote }} || exit 1
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmotemplates/*.tmpl")) }}
+# .chezmoitemplates/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
 
 {{ if eq .chezmoi.os "darwin" }}
-	{{ template "darwin.tmpl" . }}
-	export HOMEBREW_CASK_OPTS="--appdir={{ (joinPath .chezmoi.homeDir "Applications") | quote }} --no-quarantine"
+	cd {{ .chezmoi.homeDir | quote }} || exit 1
 
-	{{ if and (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os)) (gt (stat (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os )).size 0) }}
-		# {{ .chezmoi.os }} hash: {{ include (joinPath ".packagefiles" .chezmoi.os) | sha256sum }}
-		echo "Install {{ .chezmoi.os | title }} packages"
-		brew install --overwrite --force $(paste -s -d ' ' {{ joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os | quote }}) || exit 1
+	{{ if not (stat .path.homebrew) }}
+		echo "DARWIN: clone Homebrew"
+		git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
+
+		echo "DARWIN: stop Homebrew from spying on you"
+		{{ (joinPath .path.homebrew "bin/brew") | quote }} analytics off || exit 0
+
+		echo "DARWIN: cleanup cache. Cache can cause issues like: 'Error: Couldn't find manifest matching bottle checksum'"
+		rm -rf $({{ ((joinPath .path.homebrew "bin/brew") | quote)}} --cache) || exit 0
+
+		{{ joinPath .path.homebrew "bin/brew" }} update && {{ joinPath .path.homebrew "bin/brew" }} upgrade --overwrite && {{ joinPath .path.homebrew "bin/brew" }} upgrade --cask && {{ joinPath .path.homebrew "bin/brew" }} cleanup --quiet --prune=120 && {{ joinPath .path.homebrew "bin/brew" }} autoremove
+
+		echo "DARWIN: bypass gettext dependencies issues"
+		({{ joinPath .path.homebrew "bin/brew" }} unlink --quiet gettext; {{ joinPath .path.homebrew "bin/brew" }} reinstall --force gettext; {{ joinPath .path.homebrew "bin/brew" }} link --overwrite --force --quiet gettext) || exit 1
 	{{ end }}
 
-	{{ if and (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head")) (gt (stat (print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os ) ".head")).size 0) }}
-		# {{ .chezmoi.os }}.head hash: {{ include (print (joinPath ".packagefiles" .chezmoi.os) ".head" ) | sha256sum }}
-		echo "Install {{ .chezmoi.os | title }} packages with HEAD options"
-		brew install --overwrite --HEAD --force $(paste -s -d ' ' {{ print (joinPath .chezmoi.sourceDir ".packagefiles" .chezmoi.os) ".head" | quote }}) || exit 1
-	{{ end }}
+	echo "DARWIN: install basic tools"
+	{{ joinPath .path.homebrew "bin/brew" }} install --overwrite --force bash less curl wget git gnu-tar || exit 1
 
-	brew unlink --quiet gettext; brew link --overwrite --force --quiet gettext
-
-	(brew cleanup --quiet --prune=120 && brew autoremove) || (echo "Brew Cleanup Procedure Fasiled" && exit 1)
+	{{ template "helper.tmpl" . }}
 {{ end }}

@@ -1,0 +1,14 @@
+[lua]
+	darwin = [
+		"lua",
+		"luajit",
+		"luarocks",
+	]
+	arch = [
+		"lua51",
+		"lua",
+		"luajit",
+		"luarocks",
+	]
+
+[lua.tags]

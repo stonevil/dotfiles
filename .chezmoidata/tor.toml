@@ -1,0 +1,9 @@
+[tor]
+	darwin = [
+		"tor-browser",
+	]
+	arch = [
+		"torbrowser-launcher",
+	]
+
+[tor.tags]

@@ -1,0 +1,47 @@
+[devCore]
+	darwin = [
+		"ccache",
+		"ccat",
+		"gcc",
+		"makedepend",
+		"mkcert",
+		"mkdocs",
+		"eslint",
+		"ninja",
+		"the_silver_searcher",
+		"ripgrep",
+		"universal-ctags",
+		"source-highlight",
+		"bat",
+		"jq",
+		"stylua",
+		"git-delta",
+		"curlie",
+	]
+	arch = [
+		"base-devel",
+		"ctags",
+		"eslint",
+		"ninja",
+		"source-highlight",
+		"the_silver_searcher",
+		"ripgrep",
+		"httpie",
+		"bat",
+		"jq",
+		"stylua",
+		"git-delta",
+		"curlie",
+	]
+	pip = [
+		"httpie",
+		"posting",
+	]
+	npm = [
+		"@mermaid-js/mermaid-cli",
+	]
+
+[devCore.tags]
+	python3 = true
+	nodejs = true
+	gitCli = true

@@ -1,9 +1,7 @@
 # vim:ft=toml
 
-# chezmoi.toml hash: {{ include (joinPath ".chezmoi.toml.tmpl") | sha256sum }}
-
 {{ if .tags.neovim }}
-{{ $spfVersion := (gitHubLatestRelease "yorukot/superfile").TagName | trimPrefix "v" }}
+{{ $spfVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/yorukot/superfile/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/spf"]
 	type = "file"
 	refreshPeriod = "168h"
@@ -13,7 +11,7 @@
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "./dist/superfile-{{ .chezmoi.os }}-v{{ $spfVersion }}-{{ .chezmoi.arch }}/spf"]
 
-{{ $yaziVersion := (gitHubLatestRelease "sxyazi/yazi").TagName | trimPrefix "v" }}
+{{ $yaziVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sxyazi/yazi/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin"]
 	type = "archive"
 	refreshPeriod = "168h"

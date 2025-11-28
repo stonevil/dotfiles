@@ -1,0 +1,122 @@
+# vim:ft=toml
+
+{{ if (or .tags.devCore .tags.k8sCli .tags.neovim) }}
+# Stricter, configurable, extensible, and beautiful drop-in replacement for golint
+{{ $reviveVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/mgechev/revive/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/revive"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/mgechev/revive/releases/download/v{{ $reviveVersion }}/revive_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+[".local/bin/revive".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "revive"]
+
+{{ $lazygitVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/jesseduffield/lazygit/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/lazygit"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ $lazygitVersion }}/lazygit_{{ $lazygitVersion }}_{{ .chezmoi.os | title }}_{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else if eq .chezmoi.arch "arm64" }}arm64{{ end }}.tar.gz"
+	[".local/bin/lazygit".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazygit"]
+
+{{ $ghVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/cli/cli/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/gh"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/cli/cli/releases/download/v{{ $ghVersion }}/gh_{{ $ghVersion }}_{{ if eq .chezmoi.os "darwin"}}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}.{{ if eq .chezmoi.os "darwin"}}zip{{ else if eq .chezmoi.os "linux" }}tar.gz{{ end }}"
+	[".local/bin/gh".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ $ghVersion }}_{{ if eq .chezmoi.os "darwin"}}macOS{{ else if eq .chezmoi.os "linux" }}linux{{ end }}_{{ .chezmoi.arch }}/bin/gh"]
+
+# A modern watch command
+{{ $viddyVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/sachaos/viddy/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/viddy"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/sachaos/viddy/releases/download/v{{ $viddyVersion }}/viddy-v{{ $viddyVersion }}-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else if eq .chezmoi.arch "arm64" }}arm64{{ end }}.tar.gz"
+[".local/bin/viddy".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "viddy"]
+
+# A smarter cd command
+{{ $zoxideVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/ajeetdsouza/zoxide/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/zoxide"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/ajeetdsouza/zoxide/releases/download/v{{ $zoxideVersion }}/zoxide-{{ $zoxideVersion }}-{{ if eq .chezmoi.arch "amd64" }}x86_64{{ else }}aarch64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else }}unknown-linux-musl{{ end }}.tar.gz"
+[".local/bin/zoxide".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "zoxide"]
+
+# CLI tool to insert spacers when command output stops
+{{ $spacerVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/samwho/spacer/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/spacer"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/samwho/spacer/releases/download/v{{ $spacerVersion }}/spacer-{{ if eq .chezmoi.arch "arm64" }}aarch64{{ else if eq .chezmoi.arch "amd64" }}x86_64{{ end }}-{{ if eq .chezmoi.os "darwin" }}apple-darwin{{ else if eq .chezmoi.os "linux" }}unknown-linux-gnu{{ end }}.tar.gz"
+[".local/bin/spacer".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "spacer"]
+
+# D2 is a modern diagram scripting language that turns text to diagrams
+{{ $d2Version := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/terrastruct/d2/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/d2"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/terrastruct/d2/releases/download/v{{ $d2Version }}/d2-v{{ $d2Version }}-{{ if eq .chezmoi.os "darwin" }}macos{{ else if eq .chezmoi.os "linux" }}linux{{ end }}-{{ .chezmoi.arch }}.tar.gz"
+	[".local/bin/d2".filter]
+		command = "tar"
+		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "d2-v{{ $d2Version }}/bin/d2"]
+
+# An extremely fast directory and filename linter
+{{ $lslintVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/loeffel-io/ls-lint/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/ls-lint"]
+	type = "file"
+	refreshPeriod = "168h"
+	executable = true
+	url = "https://github.com/loeffel-io/ls-lint/releases/download/v{{ $lslintVersion }}/ls-lint-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+{{ end }}
+
+{{ if .tags.hashicorpCli }}
+{{ $terraformDocsVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/terraform-docs/terraform-docs/releases/latest" | trim | base | trimPrefix "v" }}
+[".local/bin/terraform-docs"]
+	type = "archive-file"
+	refreshPeriod = "168h"
+	executable = true
+	path = "terraform-docs"
+	url =  "https://github.com/terraform-docs/terraform-docs/releases/download/v{{ $terraformDocsVersion }}/terraform-docs-v{{ $terraformDocsVersion }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+{{ end }}
+
+{{ if .tags.limaVm }}
+{{ $limaVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/lima-vm/lima/releases/latest" | trim | base | trimPrefix "v" }}
+
+{{ $limaGuestAgent := "aarch64" }}
+{{ if eq .chezmoi.arch "amd64" }}
+	{{ $limaGuestAgent = "x86_64" }}
+{{ else if eq .chezmoi.arch "arm64" }}
+	{{ $limaGuestAgent = "aarch64" }}
+{{ end }}
+
+{{ range list "bin/lima" "bin/limactl" (print "share/lima/lima-guestagent." "Linux-" ($limaGuestAgent) ".gz") }}
+[".local/{{ . }}"]
+	type = "archive-file"
+	refreshPeriod = "168h"
+	stripComponents = 1
+	path = "{{ . }}"
+	url = "https://github.com/lima-vm/lima/releases/download/v{{ $limaVersion }}/lima-{{ $limaVersion }}-{{ $.chezmoi.os | title }}-{{ if eq $.chezmoi.arch "amd64" }}x86_64{{ else if eq $.chezmoi.os "darwin" }}arm64{{ else if eq $.chezmoi.os "linux" }}arm64{{ end }}.tar.gz"
+{{ end }}
+
+[".local/share/lima"]
+	type = "archive"
+	refreshPeriod = "168h"
+	stripComponents = 3
+	url = "https://github.com/lima-vm/lima/releases/download/v{{ $limaVersion }}/lima-additional-guestagents-{{ $limaVersion }}-{{ $.chezmoi.os | title }}-{{ if eq $.chezmoi.arch "amd64" }}x86_64{{ else if eq $.chezmoi.os "darwin" }}arm64{{ else if eq $.chezmoi.os "linux" }}arm64{{ end }}.tar.gz"
+{{ end }}

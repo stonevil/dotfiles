@@ -1,0 +1,10 @@
+[books]
+	darwin = [
+		"calibre",
+	]
+	arch = [
+		"calibre",
+		"arianna",
+	]
+
+[books.tags]

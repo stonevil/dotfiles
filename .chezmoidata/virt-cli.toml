@@ -1,0 +1,10 @@
+[virtCli]
+	darwin = [
+		"qemu",
+	]
+	arch = [
+		"qemu-full",
+		"virtiofsd",
+	]
+
+[virtCli.tags]

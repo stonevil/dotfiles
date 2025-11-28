@@ -1,0 +1,14 @@
+[media]
+	darwin = [
+		"mpv",
+		"kid3",
+		"xact",
+		"handbrake",
+	]
+	arch = [
+		"mpv",
+		"kid3",
+		"handbrake",
+	]
+
+[media.tags]

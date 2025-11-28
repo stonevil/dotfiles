@@ -1,3 +1,13 @@
+[shell]
+	darwin = [
+		"bash",
+		"zsh",
+	]
+	arch = [
+		"bash",
+		"zsh",
+	]
+
 [shell.completionsList]
 	# starship = "init "
 	chezmoi = "completion "
@@ -10,3 +20,6 @@
 [zsh.pluginsList]
 	zsh-syntax-highlighting = "zsh-users"
 	zsh-autosuggestions = "zsh-users"
+
+[shell.tags]
+	core = true

@@ -1,0 +1,9 @@
+[go]
+	darwin = [
+		"go",
+	]
+	arch = [
+		"go",
+	]
+
+[go.tags]

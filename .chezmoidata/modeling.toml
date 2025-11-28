@@ -1,0 +1,15 @@
+[modeling]
+	darwin = [
+		"freecad",
+		"blender",
+		"handbrake",
+	]
+	arch = [
+		"freecad",
+		"blender",
+		"handbrake",
+	]
+
+[modeling.tags]
+	print = true
+	spell = true

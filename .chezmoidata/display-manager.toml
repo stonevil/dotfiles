@@ -1,0 +1,14 @@
+[displayManager]
+	arch = [
+		"ly",
+		"brightnessctl",
+	]
+	[services]
+		[arch]
+			system = [
+				"ly.service",
+			]
+			user = [
+			]
+
+[displayManager.tags]

@@ -1,0 +1,37 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmoidata/*.toml")) }}
+# .chezmoidate/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmotemplates/*.tmpl")) }}
+# .chezmoitemplates/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
+	cd {{ .chezmoi.homeDir | quote }} || exit 1
+
+	{{ template "sudo-access.tmpl" . }}
+
+	echo "ARCH: disable the debug build with yay"
+	sudo sed -i '/^OPTIONS=(/s/debug/!debug/' /etc/makepkg.conf
+
+	echo "ARCH: update packages"
+	sudo pacman --noconfirm --needed --sync --refresh --sysupgrade || exit 1
+
+	echo "ARCH: install locales"
+	sudo pacman --noconfirm --needed --sync glibc-locales || exit 1
+
+	echo "ARCH: generate locales"
+	{{ template "locales.tmpl" . }}
+
+	echo "ARCH: install basic tools"
+	sudo pacman --noconfirm --needed --sync bash less curl tar wget git base-devel go || exit 1
+
+	echo "ARCH: install yay"
+	(cd /tmp && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -sif --noconfirm && cd /tmp && rm -Rf yay) || exit 1
+
+	{{ template "helper.tmpl" . }}
+{{ end }}

@@ -1,0 +1,17 @@
+[utilsCli]
+	darwin = [
+		"parallel",
+		"smartmontools",
+		"dmg2img",
+	]
+	arch = [
+		"parallel",
+		"smartmontools",
+	]
+	cargo = [
+		"dua-cli",
+		"battop",
+	]
+
+[utilsCli.tags]
+	rust = true

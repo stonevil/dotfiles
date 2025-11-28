@@ -1,0 +1,16 @@
+[mediaCli]
+	darwin = [
+		"jpeg",
+		"imagemagick",
+		"ffmpeg",
+	]
+	arch = [
+		"imagemagick",
+		"ffmpeg",
+	]
+	pip = [
+		"yt-dlp",
+	]
+
+[mediaCli.tags]
+	python3 = true

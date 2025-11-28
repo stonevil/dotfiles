@@ -1,0 +1,11 @@
+[rust]
+	darwin = [
+		"rust",
+		"cargo-binstall",
+	]
+	arch = [
+		"rust",
+		"cargo-binstall",
+	]
+
+[rust.tags]

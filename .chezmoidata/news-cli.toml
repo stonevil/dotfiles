@@ -1,0 +1,11 @@
+[newsCli]
+	darwin = [
+		"newsboat",
+		"stonevil/brew/curl-impersonate",
+	]
+	arch = [
+		"newsboat",
+		"curl-impersonate",
+	]
+
+[newsCli.tags]

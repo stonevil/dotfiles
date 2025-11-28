@@ -1,0 +1,16 @@
+[print]
+	arch = [
+		"print-manager",
+		"cups",
+		"cups-pdf",
+		"system-config-printer",
+		"ghostscript",
+		"gsfonts",
+		"gutenprint",
+		"foomatic-db",
+		"foomatic-db-engine",
+		"foomatic-db-nonfree",
+		"foomatic-db-ppds",
+]
+
+[print.tags]

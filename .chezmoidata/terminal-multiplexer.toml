@@ -1,0 +1,11 @@
+[terminalMultiplexer]
+	darwin = [
+		"tmux",
+	]
+	arch = [
+		"tmux",
+	]
+
+[terminalMultiplexer.tags]
+	python3 = true
+	gitCli = true

@@ -1,0 +1,10 @@
+[sync]
+	darwin = [
+		"syncthing-app",
+	]
+	arch = [
+		"syncthing",
+		"syncthingtray",
+	]
+
+[sync.tags]

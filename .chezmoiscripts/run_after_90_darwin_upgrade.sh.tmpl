@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+{{ if eq .chezmoi.os "darwin" }}
+
+	cd {{ .chezmoi.homeDir | quote }} || exit 1
+
+	{{ $_ := set $.steps "upgrade" true }}
+
+	{{ template "helper.tmpl" . }}
+{{ end }}

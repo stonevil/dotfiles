@@ -1,0 +1,11 @@
+[vagrant]
+	arch = [
+		"vagrant",
+	]
+	vagrant = [
+		"vagrant-libvirt",
+		"vagrant-vbguest",
+		"vagrant-reload",
+	]
+
+[vagrant.tags]
