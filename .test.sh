@@ -49,5 +49,5 @@ if [[ $distro == "arch" ]] then
 else
 	limactl shell $lima_instance sudo dnf install -y rsync
 fi
-limactl shell $lima_instance rsync --exclude ".git/" --exclude ".stignore" -avz /Users/${USER}/.local/share/chezmoi /home/${USER}.linux/.local/share/ && \
+limactl shell $lima_instance rsync --exclude ".git/" --exclude ".stignore" -avz ${PWD}/../chezmoi /home/${USER}.linux/.local/share/ && \
 limactl shell $lima_instance /home/${USER}.linux/.local/share/chezmoi/.entrypoint.sh
