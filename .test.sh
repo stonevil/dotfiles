@@ -2,52 +2,52 @@
 # vim:ft=sh
 
 distro=$1
-tag=$2
+arch=$2
 
-podman_instance="podman-intel"
-
+# Display Help
 _help() {
-	# Display Help
 	echo "Command syntax:"
-	echo -e "./.test.sh [distro] [version]\n"
+	echo -e "./.test.sh [distro] [arch]\n"
 	echo "Example with Fedora Linux:"
-	echo -e "./.test.sh fedora 43\n"
-	echo -e "Supported distro: archlinux, fedora\n"
+	echo -e "./.test.sh fedora amd64\n"
+	echo -e "Supported distro: arch, fedora\n"
+	echo -e "Supported architecture: amd64, arm64\n"
 }
 
-_check() {
-	# Detect if limactl podman is running
-	if [[ $(limactl list $podman_instance --format "{{.Status}}") == "Stopped" ]]; then
-		echo -e "limactl $podman_instance instance is not running\n"
-		exit 1
-	fi
-}
-
-# Detect OS distro and version
+# Detect OS distro and architecture
 case $distro in
 arch)
-	tag="${tag:-latest}"
-	if [[ $distro == "arch" ]]; then
-		# distro="menci/archlinuxarm"
-		distro="archlinux"
-	fi
 	;;
 fedora)
-	tag="${tag:-43}"
 	;;
 help | '--help' | '-h')
 	_help
 	exit 0
 	;;
 *)
-	distro="fedora"
-	tag="latest"
+	echo -e "Unsupported distro\n Archlinux and AMD64 will be used"
+	distro="arch"
+	arch="amd64"
 	;;
 esac
 
-# Check requirements
-_check
+lima_instance="$distro-$arch"
 
-# Execute testing environment
-echo "Execute container"
-limactl shell $podman_instance podman run -it --rm -v "${PWD}":/chezmoi -e DISTRO=$distro -e IMAGE_TAG=$tag $distro:$tag sh -c "/chezmoi/.entrypoint.sh"
+if [[ $(limactl list $lima_instance --format "{{.Status}}") == "Running" ]]; then
+	read -p "Install $lima_instance is running. Do you want to stop and reset instance? (Y/n): " -n 1 -r REPLY
+	if [[ "$REPLY" =~ ^[Yy]$ || "$REPLY" == "" ]]; then
+		limactl stop -f $lima_instance && \
+		limactl factory-reset $lima_instance
+	fi
+fi
+
+limactl start $lima_instance
+
+limactl shell $lima_instance mkdir -p /home/${USER}.linux/.local/share
+if [[ $distro == "arch" ]] then
+	limactl shell $lima_instance sudo pacman --noconfirm --needed --sync --refresh --sysupgrade rsync
+else
+	limactl shell $lima_instance sudo dnf install -y rsync
+fi
+limactl shell $lima_instance rsync --exclude ".git/" --exclude ".stignore" -avz /Users/${USER}/.local/share/chezmoi /home/${USER}.linux/.local/share/ && \
+limactl shell $lima_instance /home/${USER}.linux/.local/share/chezmoi/.entrypoint.sh

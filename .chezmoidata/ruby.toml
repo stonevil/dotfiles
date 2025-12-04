@@ -1,9 +1,0 @@
-[ruby]
-	darwin = [
-		"ruby",
-	]
-	arch = [
-		"ruby",
-	]
-
-[ruby.tags]

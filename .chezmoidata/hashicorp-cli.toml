@@ -1,9 +1,0 @@
-[hashicorpCli]
-	darwin = [
-		"terraform",
-	]
-	arch = [
-		"terraform",
-	]
-
-[hashicorpCli.tags]

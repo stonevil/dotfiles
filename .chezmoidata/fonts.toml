@@ -1,9 +1,0 @@
-[fonts]
-	darwin = [
-		"fontconfig",
-	]
-	arch = [
-		"fontconfig",
-	]
-
-[fonts.tags]

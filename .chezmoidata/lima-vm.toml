@@ -1,8 +1,0 @@
-[limaVm]
-	darwin = [
-	]
-	arch = [
-	]
-
-[limaVm.tags]
-	virtCli = true

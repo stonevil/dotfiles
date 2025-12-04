@@ -1,9 +1,0 @@
-[adsCli]
-	darwin = [
-		"hblock",
-	]
-	arch = [
-		"hblock",
-	]
-
-[adsCli.tags]
