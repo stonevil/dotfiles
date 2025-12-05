@@ -564,6 +564,9 @@
 
 [data.tags.espCli]
 	enabled = {{ $espCli }}
+	pre.darwin = [
+		"python3_relink",
+	]
 	upgrade.darwin = [
 		"python3_relink",
 		"esp_idf_update",
