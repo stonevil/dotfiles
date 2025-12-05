@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
+# trap '' SIGINT
+
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}
 
 	cd {{ .chezmoi.homeDir | quote }} || exit 1
