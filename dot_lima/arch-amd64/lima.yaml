@@ -1,18 +1,20 @@
 vmType: "qemu"
 arch: "x86_64"
 
-# mounts:
-# - location: "~"
+cpus: 6
 
-mounts: []
+mounts:
+- location: "~"
+  writable: false
+
 containerd:
   system: false
   user: false
 
 images:
-- location: "https://geo.mirror.pkgbuild.com/images/v20251101.445013/Arch-Linux-x86_64-cloudimg-20251101.445013.qcow2"
+- location: "https://geo.mirror.pkgbuild.com/images/v20251115.451200/Arch-Linux-x86_64-cloudimg-20251115.451200.qcow2"
   arch: "x86_64"
-  digest: "sha256:40e96c737289557f3937bb225d999e2a36f533930654bb04a6c43f606620be59"
+  digest: "sha256:38327a685289f4e8ab2e646e7866d2d87f9f5efe51d764d08e71ad712969b4c2"
 
 env:
   CODESPACES: true

@@ -2,14 +2,15 @@ mounts:
 - location: "~"
   writable: true
 
+containerd:
+  system: false
+  user: false
+
 # TODO: build XFCE env provision
 
 video:
-  display: "default"
-
-vmType: qemu
-memory: 4GiB
-disk: 24GiB
+  display: "vnc"
+vnc: "127.0.0.1:9"
 
 images:
 - location: "https://dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2"

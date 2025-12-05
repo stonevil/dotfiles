@@ -1,5 +1,6 @@
 mounts:
 - location: "~"
+  writable: false
 
 images:
 - location: "https://dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2"
