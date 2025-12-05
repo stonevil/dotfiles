@@ -32,7 +32,7 @@ vim:ft=bash.gotexttmpl
 	echo "ARCH: install basic tools"
 	sudo pacman --noconfirm --needed --sync bash less curl tar wget git base-devel || exit 1
 
-	{{ if not lookPath "yay" }}
+	{{ if not (lookPath "yay") }}
 		sudo pacman --noconfirm --needed --sync go || exit 1
 		echo "ARCH: install yay"
 		(cd {{ .chezmoi.homeDir }} && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -sif --noconfirm && cd {{ .chezmoi.homeDir }} && rm -Rf yay) || exit 1
