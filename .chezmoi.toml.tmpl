@@ -25,6 +25,7 @@
 # Predefine basic variables
 {{ $themeName := "catppuccin" }}
 {{ $themeVariant := "mocha" }}
+{{ $vagrantCli := false }}
 {{ $plasma := false }}
 {{ $hyprland := false }}
 {{ $fwupdCli := false }}
@@ -58,8 +59,10 @@
 {{ $terminalMultiplexer := promptBool "Terminal Mutiplexer, like TMUX" false }}
 {{ $devCli := promptBool "DEV CLI tools, like jq, bat" false }}
 {{ $dbCli := promptBool "DB management CLI tools, like usql" false }}
-{{ $vagrantCli := promptBool "Vagrant CLI tools" false }}
-{{ $hashicorpCli := promptBool "Hashicorp CLI tools" false }}
+{{ if eq .chezmoi.os "linux" }}
+{{ $vagrantCli = promptBool "HashiCorp Vagrant CLI tools" false }}
+{{ end }}
+{{ $hashicorpCli := promptBool "HashiCorp CLI tools" false }}
 {{ $limaCli := promptBool "Lima-VM CLI tools" false }}
 {{ $k8sCli := promptBool "K8S CLI tools" false }}
 {{ $espCli := promptBool "ESP DEV tools" false }}
