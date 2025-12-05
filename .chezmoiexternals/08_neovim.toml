@@ -1,6 +1,6 @@
 # vim:ft=toml
 
-{{ if .tags.neovim }}
+{{ if .tags.neovimCli.enabled }}
 {{ $spfVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/yorukot/superfile/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/spf"]
 	type = "file"

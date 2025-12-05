@@ -1,6 +1,6 @@
 # vim:ft=toml
 
-{{ if (or .tags.devCore .tags.k8sCli .tags.neovim) }}
+{{ if or .tags.devCli.enabled .tags.k8sCli.enabled .tags.neovimCli.enabled }}
 # Stricter, configurable, extensible, and beautiful drop-in replacement for golint
 {{ $reviveVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/mgechev/revive/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/revive"]
@@ -85,7 +85,7 @@
 	url = "https://github.com/loeffel-io/ls-lint/releases/download/v{{ $lslintVersion }}/ls-lint-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 {{ end }}
 
-{{ if .tags.hashicorpCli }}
+{{ if .tags.hashicorpCli.enabled }}
 {{ $terraformDocsVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/terraform-docs/terraform-docs/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/terraform-docs"]
 	type = "archive-file"
@@ -95,7 +95,7 @@
 	url =  "https://github.com/terraform-docs/terraform-docs/releases/download/v{{ $terraformDocsVersion }}/terraform-docs-v{{ $terraformDocsVersion }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
 {{ end }}
 
-{{ if .tags.limaVm }}
+{{ if .tags.limaCli.enabled }}
 {{ $limaVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/lima-vm/lima/releases/latest" | trim | base | trimPrefix "v" }}
 
 {{ $limaGuestAgent := "aarch64" }}

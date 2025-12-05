@@ -1,6 +1,6 @@
 # vim:ft=toml
 
-{{ if .tags.terminalMultiplexer }}
+{{ if .tags.terminalMultiplexer.enabled }}
 [".local/bin/fzf-tmux"]
 	type = "file"
 	refreshPeriod = "168h"

@@ -1,6 +1,6 @@
 # vim:ft=toml
 
-{{ if .tags.newsCli }}
+{{ if .tags.newsCli.enabled }}
 {{ $readerVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/mrusme/reader/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/reader"]
 	type = "file"
