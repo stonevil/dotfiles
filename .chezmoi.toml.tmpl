@@ -56,26 +56,26 @@
 
 {{ $neovimCli := promptBool "NeoVIM IDE" false }}
 {{ $terminalMultiplexer := promptBool "Terminal Mutiplexer, like TMUX" false }}
-{{ $devCli := promptBool "DEV CLI tools" false }}
+{{ $devCli := promptBool "DEV CLI tools, like jq, bat" false }}
 {{ $dbCli := promptBool "DB management CLI tools, like usql" false }}
 {{ $vagrantCli := promptBool "Vagrant CLI tools" false }}
 {{ $hashicorpCli := promptBool "Hashicorp CLI tools" false }}
 {{ $limaCli := promptBool "Lima-VM CLI tools" false }}
 {{ $k8sCli := promptBool "K8S CLI tools" false }}
 {{ $espCli := promptBool "ESP DEV tools" false }}
-{{ $utilsCli := promptBool "Utils CLI tools" false }}
+{{ $utilsCli := promptBool "Utils CLI tools, like smartmontools" false }}
 {{ $networkCli := promptBool "Network CLI tools" false }}
 {{ $sync := promptBool "Sync CLI / GUI tools, like Syncthing" false }}
-{{ $mailCli := promptBool "Mail CLI tools" false }}
-{{ $mediaCli := promptBool "Media CLI tools" false }}
-{{ $newsCli := promptBool "News CLI tools" false }}
-{{ $dekCli := promptBool "TUI presentation tools" false }}
-{{ $adsCli := promptBool "Ads block CLI tools" false }}
-{{ $gamesCli := promptBool "Some CLI games, typing tutor" false }}
+{{ $mailCli := promptBool "Mail CLI tools, like NeoMutt" false }}
+{{ $mediaCli := promptBool "Media CLI tools, like ffmpeg" false }}
+{{ $newsCli := promptBool "News CLI tools, like NewsBoat" false }}
+{{ $dekCli := promptBool "TUI presentation tools, like presenterm" false }}
+{{ $adsCli := promptBool "Ads block CLI tools, like hblock" false }}
+{{ $gamesCli := promptBool "Some CLI games, like typing tutor" false }}
 
 # Ask questin about environment if GUI env required
 {{ if eq .chezmoi.os "linux" }}
-	{{ $fwupdCli = promptBool "Linux update hardware firmware service" false }}
+	{{ $fwupdCli = promptBool "Linux hardware firmware updater, fwupd" false }}
 
 	{{ $plasma = promptBool "KDE Plasma DE" false }}
 	{{ $hyprland = promptBool "Hyprland DE" false }}
@@ -85,20 +85,20 @@
 {{ if or (or ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" false }}
 	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" false }}
-	{{ $dev = promptBool "DEV apps" false }}
+	{{ $dev = promptBool "DEV apps, like CotEditor" false }}
 	{{ $db = promptBool "DB management tools, like DBeaver" false }}
-	{{ $mail = promptBool "Mail apps" false }}
-	{{ $books = promptBool "Book management apps" false }}
-	{{ $media = promptBool "Media apps" false }}
-	{{ $modeling = promptBool "3D modeling apps" false }}
-	{{ $graphics = promptBool "Graphics apps" false }}
+	{{ $mail = promptBool "Mail apps, like Thunderbird" false }}
+	{{ $books = promptBool "Book management apps, like Calibre" false }}
+	{{ $media = promptBool "Media apps, like mpv, kid3" false }}
+	{{ $modeling = promptBool "3D modeling apps, like Blender, FreeCAD" false }}
+	{{ $graphics = promptBool "Graphics apps, Gimp, Krita" false }}
 	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" false }}
 	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" false }}
 {{ end }}
 
-{{ $tabs := promptInt "Default tabs width" 2 }}
-{{ $shellPath := (promptString "Path to shell" "/bin/zsh") | quote }}
-{{ $opacity := promptString "Windows opacity, choose between 0.1 and 1.0" "1.0" }}
+{{ $tabs := promptInt "WARNING: default tabs width" 2 }}
+{{ $shellPath := (promptString "WARNING: path to shell" "/bin/zsh") | quote }}
+{{ $opacity := promptString "WARNING: windows opacity, choose between 0.1 and 1.0" "1.0" }}
 
 # Set user information
 [data]
@@ -565,10 +565,10 @@
 	enabled = {{ $espCli }}
 	upgrade.darwin = [
 		"python3_relink",
-		"if [[ -d {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} ]]; then cd {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} && ./install.sh all; fi",
+		"esp_idf_update",
 	]
 	upgrade.arch = [
-		"if [[ -d {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} ]]; then cd {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} && ./install.sh all; fi",
+		"esp_idf_update",
 	]
 
 [data.tags.displayManager]
@@ -600,10 +600,10 @@
 		"fontconfig",
 	]
 	upgrade.darwin = [
-		"fc-cache -f -v"
+		"fonts_cache_update"
 	]
 	upgrade.arch = [
-		"fc-cache -f -v"
+		"fonts_cache_update"
 	]
 
 [data.tags.print]
@@ -690,9 +690,9 @@
 		"ungoogled-chromium",
 	]
 	arch = [
-		"librewolf",
-		"waterfox",
-		"ungoogled-chromium",
+		"librewolf-bin",
+		"waterfox-bin",
+		"ungoogled-chromium-bin",
 	]
 
 [data.tags.dev]
