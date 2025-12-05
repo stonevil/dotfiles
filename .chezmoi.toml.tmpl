@@ -210,7 +210,7 @@
 [data.tags.nodejs]
 	enabled = {{ if or ($neovimCli) ($devCli) }} true {{ else }} false {{ end }}
 	darwin = [
-		"node@25", #fixed version due issue with v24 with npm
+		"node",
 	]
 	arch = [
 		"nodejs",
@@ -220,11 +220,14 @@
 		"yarn",
 	]
 	post.darwin = [
-		"npm_update_self",
+		"npm_update_self || true",
 	]
 	upgrade.darwin = [
-		"npm_update_self",
-		"npm_update",
+		"npm_update_self || true",
+		"npm_update || true",
+	]
+	upgrade.darwin = [
+		"npm_update || true",
 	]
 
 [data.tags.lua]
