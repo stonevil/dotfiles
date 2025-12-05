@@ -5,7 +5,5 @@
 
 	cd {{ .chezmoi.homeDir | quote }} || exit 1
 
-	{{ $_ := set $.steps "upgrade" true }}
-
-	{{ template "helper.tmpl" . }}
+	{{ template "helper-darwin-upgrade.tmpl" . }}
 {{ end }}

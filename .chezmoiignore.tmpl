@@ -17,7 +17,7 @@ node_modules
 .resources
 .stfolder
 .stignore
-{{- if ne .chezmoi.os "darwin" }}
+{{ if ne .chezmoi.os "darwin" }}
 Library
 {{ else if ne .chezmoi.os "linux" }}
 .Xresources
@@ -59,17 +59,17 @@ Library
 .gtk*
 .themes
 .icons
-{{- end }}
-{{- if eq .tags.ads false }}
+{{ end }}
+{{ if not .tags.adsCli.enabled }}
 .config/hblock
-{{- end }}
-{{- if or (eq .tags.dev false) (eq .tags.neovim false) }}
+{{ end }}
+{{ if and (not .tags.devCli.enabled) (not .tags.neovimCli.enabled) }}
 .config/lazygit
 .config/lazydocker
-{{- end }}
-{{- if eq .tags.containers false }}
+{{ end }}
+{{ if and (not .tags.limaCli.enabled) (not .tags.k8sCli.enabled) }}
 .lima
 {{ end }}
-{{ if and (eq .chezmoi.os "linux") (or (ne .session.type "wayland") (ne .session.type "x11") (ne .session.type "xorg")) }}
+{{ if or (or (not .tags.plasma.enabled) (not .tags.hyprland.enabled)) (ne .chezmoi.os "darwin") }}
 .config/nvim/lua/plugins/wezterm.lua
 {{ end }}

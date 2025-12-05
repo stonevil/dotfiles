@@ -2,11 +2,11 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
---theme={{ (print .tui.theme "-" .tui.themeVariant) | quote }}
+--theme={{ (print .theme.themeName "-" .theme.themeVariant) | quote }}
 
 --style="numbers,changes,header"
 
---tabs={{ .tui.tabs }}
+--tabs={{ .terminal.tabs }}
 
 #--pager="less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
 

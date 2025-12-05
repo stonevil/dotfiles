@@ -1,0 +1,53 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if index . "cargo" }}
+	echo "RUST: install cargo packages"
+	cargo_install {{ join " " (.cargo | sortAlpha | uniq) }}
+{{ end }}
+
+{{ if index . "go" }}
+	echo "GOLANG: Install go packages"
+	for go_p in {{ join " " (.go | sortAlpha | uniq) }}; do
+		go_install "$go_p"
+	done
+{{ end }}
+
+{{ if index . "uv" }}
+		echo "PYTHON3: install tools packages"
+		uv_install {{ join " " (.uv | sortAlpha | uniq) }}
+{{ end }}
+
+{{ if index . "npm" }}
+	echo "NODEJS: install npm packages"
+	mkdir -p "${HOME}/.local"
+	npm config set prefix "${HOME}/.local"
+	for npm_p in {{ join " " (.npm | sortAlpha | uniq) }}; do
+		npm_install "$npm_p"
+	done
+{{ end }}
+
+{{ if index . "rocks" }}
+	echo "LUA: install luarocks packages"
+	for rocks_p in {{ join " " (.rocks | sortAlpha | uniq) }}; do
+		rocks_install "$rocks_p"
+	done
+{{ end }}
+
+{{ if index . "gem" }}
+	echo "RUBY: install ruby gems"
+	for gem_p in {{ join " " (.gem | sortAlpha | uniq) }}; do
+		gem_install "$gem_p"
+	done
+{{ end }}
+
+{{ if index . "krew" }}
+	echo "K8S: install krew packages"
+	krew_install {{ join " " (.krew | sortAlpha | uniq) }}
+{{ end }}
+
+{{ if index . "vagrant" }}
+	echo "VAGRANT: install vagrant plugins"
+	vagrant_install {{ join " " (.vagrant | sortAlpha | uniq) }}
+{{ end }}

@@ -1,3 +1,6 @@
+# Enabling 256 Colors
+term screen-256color
+
 # Enable mouse scrolling and scroll bar history scrolling
 termcapinfo xterm* ti@:te@
 
@@ -21,6 +24,24 @@ bindkey "^F" next
 # terminfo and termcap for nice 256 color terminal
 # allow bold colors - necessary for some reason
 attrcolor b ".I"
+
+# Catppuccin Mocha Palette
+color0 #000000   # Black/Base
+color1 #f38baaa  # Red/Flamingo
+color2 #a6e3a1   # Green/Green
+color3 #f9e2af   # Yellow/Yellow
+color4 #89b4fa   # Blue/Blue
+color5 #f5c2e7   # Magenta/Mauve
+color6 #94e2d5   # Cyan/Teal
+color7 #cdd6f4   # White/Text
+color8 #585b70   # Bright Black/Surface 1
+color9 #f38baaa  # Bright Red/Flamingo
+color10 #a6e3a1  # Bright Green/Green
+color11 #f9e2af  # Bright Yellow/Yellow
+color12 #89b4fa  # Bright Blue/Blue
+color13 #f5c2e7  # Bright Magenta/Mauve
+color14 #94e2d5  # Bright Cyan/Teal
+color15 #eff1f5  # Bright White/Subtext 0
 
 # tell screen how to set colors. AB = background, AF=foreground
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'

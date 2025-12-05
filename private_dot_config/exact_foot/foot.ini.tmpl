@@ -4,7 +4,7 @@ vim:ft=dosini.gotexttmpl
 
 # -*- conf -*-
 
-shell={{ .tui.shellPath }} --login
+shell={{ .terminal.shellPath }} --login
 # login-shell=no
 # term=foot (or xterm-256color if built with -Dterminfo=disabled)
 
@@ -77,7 +77,7 @@ hide-when-typing=yes
 [colors]
 alpha={{ .terminal.opacity }}
 
-include={{ (print .chezmoi.homeDir "/.config/foot/themes/" (.tui.theme | lower) "-" (.tui.themeVariant | lower) ".ini") | squote }}
+include={{ (print .chezmoi.homeDir "/.config/foot/themes/" (.theme.themeName | lower) "-" (.theme.themeVariant | lower) ".ini") | squote }}
 
 [csd]
 # preferred=server

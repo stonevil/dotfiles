@@ -22,12 +22,26 @@
 	{{ end }}
 {{ end }}
 
+# Predefine basic variables
 {{ $themeName := "catppuccin" }}
 {{ $themeVariant := "mocha" }}
 {{ $plasma := false }}
 {{ $hyprland := false }}
-{{ $fwupd := false }}
+{{ $fwupdCli := false }}
+{{ $browser := false }}
+{{ $terminalEmulators := false }}
+{{ $dev := false }}
+{{ $db := false }}
+{{ $browsers := false }}
+{{ $mail := false }}
+{{ $media := false }}
+{{ $modeling := false }}
+{{ $graphics := false }}
+{{ $books := false }}
+{{ $virt := false }}
+{{ $tor := false }}
 
+# Ask questin about environment
 {{ $ownership := (promptStringOnce . "Ownership" "Private or company property" "private") | quote }}
 {{ $uname := (promptStringOnce . "Full Name" "What is your full name" "fubar") | quote }}
 {{ $email := (promptStringOnce . "email" "What is your email address" "fu@bar.org") | quote }}
@@ -40,86 +54,800 @@
 {{ end }}
 {{ $themeBlackout := promptBool "Do you want to complete black theme background" true }}
 
-{{ $neovim := promptBool "NeoVIM IDE" false }}
+{{ $neovimCli := promptBool "NeoVIM IDE" false }}
 {{ $terminalMultiplexer := promptBool "Terminal Mutiplexer, like TMUX" false }}
-{{ $devCore := promptBool "DEV Core CLI tools" false }}
-{{ $limaVm := promptBool "Lima-VM CLI tools" false }}
+{{ $devCli := promptBool "DEV CLI tools" false }}
+{{ $dbCli := promptBool "DB management CLI tools, like usql" false }}
+{{ $vagrantCli := promptBool "Vagrant CLI tools" false }}
+{{ $hashicorpCli := promptBool "Hashicorp CLI tools" false }}
+{{ $limaCli := promptBool "Lima-VM CLI tools" false }}
 {{ $k8sCli := promptBool "K8S CLI tools" false }}
 {{ $espCli := promptBool "ESP DEV tools" false }}
+{{ $utilsCli := promptBool "Utils CLI tools" false }}
+{{ $networkCli := promptBool "Network CLI tools" false }}
+{{ $sync := promptBool "Sync CLI / GUI tools, like Syncthing" false }}
 {{ $mailCli := promptBool "Mail CLI tools" false }}
 {{ $mediaCli := promptBool "Media CLI tools" false }}
 {{ $newsCli := promptBool "News CLI tools" false }}
 {{ $dekCli := promptBool "TUI presentation tools" false }}
 {{ $adsCli := promptBool "Ads block CLI tools" false }}
+{{ $gamesCli := promptBool "Some CLI games, typing tutor" false }}
+
+# Ask questin about environment if GUI env required
+{{ if eq .chezmoi.os "linux" }}
+	{{ $fwupdCli = promptBool "Linux update hardware firmware service" false }}
+
+	{{ $plasma = promptBool "KDE Plasma DE" false }}
+	{{ $hyprland = promptBool "Hyprland DE" false }}
+{{ end }}
+
+# Ask questin about environment if GUI env enabled
+{{ if or (or ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
+	{{ $browsers = promptBool "Web browsers, like LibreWolf" false }}
+	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" false }}
+	{{ $dev = promptBool "DEV apps" false }}
+	{{ $db = promptBool "DB management tools, like DBeaver" false }}
+	{{ $mail = promptBool "Mail apps" false }}
+	{{ $books = promptBool "Book management apps" false }}
+	{{ $media = promptBool "Media apps" false }}
+	{{ $modeling = promptBool "3D modeling apps" false }}
+	{{ $graphics = promptBool "Graphics apps" false }}
+	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" false }}
+	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" false }}
+{{ end }}
 
 {{ $tabs := promptInt "Default tabs width" 2 }}
 {{ $shellPath := (promptString "Path to shell" "/bin/zsh") | quote }}
 {{ $opacity := promptString "Windows opacity, choose between 0.1 and 1.0" "1.0" }}
 
-{{ if eq .chezmoi.os "linux" }}
-	{{ $fwupd = promptBool "Linux update hardware firmware service" false }}
-
-	{{ $plasma = promptBool "KDE Plasma DE" false }}
-	{{ $hyprland = promptBool "Hyprland DE" false }}
-{{ end }}
-{{ $terminalEmulators := promptBool "GUI Terminal Emulators, like WezTerm" false }}
-{{ $dev := promptBool "DEV apps" false }}
-{{ $mail := promptBool "Mail apps" false }}
-{{ $media := promptBool "Media apps" false }}
-{{ $modeling := promptBool "3D modeling apps" false }}
-{{ $graphics := promptBool "Graphics apps" false }}
-
+# Set user information
 [data]
 	email = {{ $email }}
 	uname = {{ $uname }}
 	ownership = {{ $ownership }}
 
-[data.tags]
-	asus = false
-	thinkpad = false
-	core = true
-	neovim = {{ $neovim }}
-	terminalMultiplexer = {{ $terminalMultiplexer }}
-	devCore = {{ $devCore }}
-	dev = {{ $dev }}
-	limaVm = {{ $limaVm }}
-	k8sCli = {{ $k8sCli }}
-	mailCli = {{ $mailCli }}
-	mail = {{ $mail }}
-	media = {{ $media }}
-	mediaCli = {{ $mediaCli }}
-	newsCli = {{ $newsCli }}
-	dekCli = {{ $dekCli }}
-	espCli = {{ $espCli }}
-	adsCli = {{ $adsCli }}
-	modeling = {{ $modeling }}
-	graphics = {{ $graphics }}
-	plasma = {{ $plasma }}
-	hyprland = {{ $hyprland }}
-	terminalEmulators = {{ $terminalEmulators }}
-	fwupd = {{ $fwupd }}
-	hashicorpCli = false
-	fonts = false
-	python3 = false
-	lua = false
-	go = false
-	rust = false
-	ruby = false
-	nodejs = false
-	gitCli = false
-	books = false
-	displayManager = false
-	networkCli = false
-	print = false
-	sync = false
-	tor = false
-	utilsCli = false
-	virtCli = false
-	virt = false
+# Define environment tags, packages, dependencies, etc.
+[data.tags.core]
+	enabled = true
+	darwin = [
+		"diffutils",
+		"dos2unix",
+		"git",
+		"gawk",
+		"gnu-sed",
+		"gnu-tar",
+		"gzip",
+		"less",
+		"star",
+		"screen",
+		"telnet",
+		"tree",
+		"unzip",
+		"watch",
+		"wget",
+	]
+	arch = [
+		"bash",
+		"bash-completion",
+		"zsh",
+		"extra/zsh-completions",
+		"less",
+		"man-db",
+		"cpio",
+		"dos2unix",
+		"diffutils",
+		"curl",
+		"git",
+		"inetutils",
+		"less",
+		"tree",
+		"screen",
+		"tar",
+		"unzip",
+		"wget",
+		"which",
+		"glibc-locales",
+	]
+	upgrade.darwin = [
+		"brew_upgrade && brew_cleanup",
+	]
+	upgrade.arch = [
+		"yay_upgrade && yay_cleanup",
+	]
+	upgrade.fedora = [
+		"dnf_upgrade && dnf_cleanup",
+	]
 
-[data.steps]
-	upgrade = false
+[data.tags.python3]
+	enabled = {{ if or ($neovimCli) ($devCli) ($espCli) ($mediaCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"python3",
+		"uv",
+	]
+	arch = [
+		"python",
+		"python-pip",
+		"uv",
+	]
+	uv = [
+		"wheel==0.45.0",
+	]
+	pre.darwin = [
+		"mkdir -p ${HOME}/Library/Python && rm -rf ${HOME}/Library/Python/*; chflags uchg ${HOME}/Library/Python",
+	]
+	post.darwin = [
+		"brew unlink --quiet python3; brew link --overwrite --force --quiet python3",
+		"python3_relink",
+	]
+	upgrade.darwin = [
+		"python3_relink",
+		"uv_upgrade",
+	]
+	upgrade.arch = [
+		"uv_upgrade",
+	]
 
+[data.tags.go]
+	enabled = {{ if or ($neovimCli) ($gamesCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"go",
+	]
+	arch = [
+		"go",
+	]
+
+[data.tags.rust]
+	enabled = {{ if or ($neovimCli) ($utilsCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"rust",
+		"cargo-binstall",
+	]
+	arch = [
+		"rust",
+		"cargo-binstall",
+	]
+
+[data.tags.nodejs]
+	enabled = {{ if or ($neovimCli) ($devCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"node@25", #fixed version due issue with v24 with npm
+	]
+	arch = [
+		"nodejs",
+		"npm",
+	]
+	npm = [
+		"yarn",
+	]
+	post.darwin = [
+		"npm_update_self",
+	]
+	upgrade.darwin = [
+		"npm_update_self",
+		"npm_update",
+	]
+
+[data.tags.lua]
+	enabled = {{ if ($neovimCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"lua",
+		"luajit",
+		"luarocks",
+	]
+	arch = [
+		"lua51",
+		"lua",
+		"luajit",
+		"luarocks",
+	]
+
+[data.tags.ruby]
+	enabled = {{ if ($neovimCli) }} true {{ else }} false {{ end }}
+	darwin = [
+	]
+	arch = [
+		"ruby",
+	]
+
+[data.tags.gitCli]
+	enabled = {{ if or ($neovimCli) ($devCli) ($terminalMultiplexer) }} true {{ else }} false {{ end }}
+	darwin = [
+		"git",
+		"git-lfs",
+		"hub",
+	]
+	arch = [
+		"git",
+		"git-lfs",
+		"hub",
+	]
+
+[data.tags.terminalMultiplexer]
+	enabled = {{ $terminalMultiplexer }}
+	darwin = [
+		"tmux",
+	]
+	arch = [
+		"tmux",
+	]
+	upgrade.darwin = [
+		"tmux_plugins_update",
+	]
+	upgrade.arch = [
+		"tmux_plugins_update",
+	]
+
+[data.tags.utilsCli]
+	enabled = {{ $utilsCli }}
+	darwin = [
+		"parallel",
+		"smartmontools",
+		"dmg2img",
+	]
+	arch = [
+		"parallel",
+		"smartmontools",
+	]
+	cargo = [
+		"dua-cli",
+		"battop",
+	]
+
+[data.tags.devCli]
+	enabled = {{ if ($neovimCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"ccache",
+		"ccat",
+		"gcc",
+		"makedepend",
+		"mkcert",
+		"mkdocs",
+		"eslint",
+		"ninja",
+		"the_silver_searcher",
+		"ripgrep",
+		"universal-ctags",
+		"source-highlight",
+		"bat",
+		"jq",
+		"stylua",
+		"git-delta",
+		"curlie",
+		"ast-grep",
+		"shellcheck",
+	]
+	arch = [
+		"base-devel",
+		"ctags",
+		"eslint",
+		"ninja",
+		"source-highlight",
+		"the_silver_searcher",
+		"ripgrep",
+		"httpie",
+		"bat",
+		"jq",
+		"stylua",
+		"git-delta",
+		"curlie",
+		"ast-grep",
+		"shellcheck",
+	]
+	uv = [
+		"httpie",
+		"posting",
+	]
+	npm = [
+		"@mermaid-js/mermaid-cli",
+	]
+	upgrade.darwin = [
+		"bat_cache_update",
+	]
+	upgrade.arch = [
+		"bat_cache_update",
+	]
+	upgrade.fedora = [
+		"bat_cache_update",
+	]
+
+[data.tags.dbCli]
+	enabled = {{ $dbCli }}
+	darwin = [
+		"xo/xo/usql",
+	]
+	arch = [
+		"usql-bin",
+	]
+
+[data.tags.k8sCli]
+	enabled = {{ $k8sCli }}
+	darwin = [
+		"kubectl",
+		"krew",
+		"k9s",
+		"stern",
+		"helm",
+	]
+	arch = [
+		"kubectl",
+		"krew",
+		"k9s",
+		"stern",
+		"helm",
+	]
+	krew = [
+		"ctr",
+		"ctx",
+		"exec-as",
+		"fuzzy",
+		"mtail",
+		"ns",
+		"node-admin",
+		"node-restart",
+		"node-shell",
+		"restart",
+		"view-allocations",
+		"view-secret",
+		"view-utilization",
+	]
+	upgrade.darwin = [
+		"krew_upgrade",
+	]
+	upgrade.arch = [
+		"krew_upgrade",
+	]
+	upgrade.fedora = [
+		"krew_upgrade",
+	]
+
+[data.tags.neovimCli]
+	enabled = {{ $neovimCli }}
+	darwin = [
+		"neovim",
+		"lua-language-server",
+	]
+	arch = [
+		"neovim",
+		"lua-language-server",
+	]
+	uv = [
+		"pynvim",
+		"flake8",
+		"yamllint",
+		"ruff",
+		"gitlint-core",
+	]
+	npm = [
+		"neovim",
+		"cspell",
+	]
+	rocks = [
+		"jsregexp",
+	]
+	go = [
+		"github.com/go-delve/delve/cmd/dlv@latest",
+		"github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2",
+	]
+	gem = [
+		{{ if eq .chezmoi.os "linux" }} "neovim", {{ end }}
+	]
+	upgrade.darwin = [
+		"nvim_plugins_update",
+	]
+	upgrade.arch = [
+		"nvim_plugins_update",
+	]
+
+[data.tags.limaCli]
+	enabled = {{ if ($limaCli) }} true {{ else }} false {{ end }}
+
+[data.tags.virtCli]
+	enabled = {{ if ($limaCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"qemu",
+	]
+	arch = [
+		"qemu-full",
+		"virtiofsd",
+	]
+
+[data.tags.fwupdCli]
+	enabled = {{ $fwupdCli }}
+	arch = [
+		"fwupd",
+	]
+	post.arch = [
+		"sudo systemctl enable --now fwupd-refresh.timer",
+	]
+
+[data.tags.mediaCli]
+	enabled = {{ $mediaCli }}
+	darwin = [
+		"jpeg",
+		"imagemagick",
+		"ffmpeg",
+	]
+	arch = [
+		"imagemagick",
+		"ffmpeg",
+	]
+	uv = [
+		"yt-dlp",
+	]
+
+[data.tags.adsCli]
+	enabled = {{ $adsCli }}
+	darwin = [
+		"hblock",
+	]
+	arch = [
+		"hblock",
+	]
+	upgrade.arch = [
+		"hblock_update",
+	]
+
+[data.tags.gamesCli]
+	enabled = {{ $gamesCli }}
+	go = [
+		"github.com/bloznelis/typioca@latest"
+	]
+
+[data.tags.dekCli]
+	enabled = {{ $dekCli }}
+
+[data.tags.newsCli]
+	enabled = {{ $newsCli }}
+	darwin = [
+		"newsboat",
+		"newsraft",
+		"stonevil/brew/curl-impersonate",
+	]
+	arch = [
+		"newsboat",
+		"curl-impersonate",
+	]
+
+[data.tags.mailCli]
+	enabled = {{ $mailCli }}
+
+[data.tags.networkCli]
+	enabled = {{ $networkCli }}
+	darwin = [
+		"nmap",
+	]
+	arch = [
+		"nmap",
+	]
+
+[data.tags.sync]
+	enabled = {{ if ($sync) }} true {{ else }} false {{ end }}
+	darwin = [
+		"syncthing-app",
+	]
+	arch = [
+		"syncthing",
+		{{ if or ($hyprland) ($plasma) }} "syncthingtray", {{ end }}
+	]
+	post.arch = [
+		"systemctl --user enable syncthing.service"
+	]
+
+[data.tags.hashicorpCli]
+	enabled = {{ $hashicorpCli }}
+	darwin = [
+		"terraform",
+	]
+	arch = [
+		"terraform",
+	]
+
+[data.tags.vagrantCli]
+	enabled = {{ $vagrantCli }}
+	arch = [
+		"vagrant",
+	]
+	vagrant = [
+		{{ if eq .chezmoi.os "linux" -}}
+		"vagrant-libvirt",
+		"vagrant-vbguest",
+		"vagrant-reload",
+		{{ end }}
+	]
+	upgrade.arch = [
+		"vagrant_plugins_update",
+	]
+
+[data.tags.espCli]
+	enabled = {{ $espCli }}
+	upgrade.darwin = [
+		"python3_relink",
+		"if [[ -d {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} ]]; then cd {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} && ./install.sh all; fi",
+	]
+	upgrade.arch = [
+		"if [[ -d {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} ]]; then cd {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | squote }} && ./install.sh all; fi",
+	]
+
+[data.tags.displayManager]
+	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
+	arch = [
+		"ly",
+		"brightnessctl",
+	]
+	post.arch = [
+		"sudo systemctl enable --now ly.service"
+	]
+
+[data.tags.spell]
+	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
+	arch = [
+		"sonnet",
+		"hunspell",
+		"hunspell-en_us",
+		"hunspell-en_gb",
+		"hunspell-uk",
+	]
+
+[data.tags.fonts]
+	enabled = {{ if or ($hyprland) ($plasma) (eq .chezmoi.os "darwin") }} true {{ else}} false {{ end }}
+	darwin = [
+		"fontconfig",
+	]
+	arch = [
+		"fontconfig",
+	]
+	upgrade.darwin = [
+		"fc-cache -f -v"
+	]
+	upgrade.arch = [
+		"fc-cache -f -v"
+	]
+
+[data.tags.print]
+	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
+	arch = [
+		"print-manager",
+		"cups",
+		"cups-pdf",
+		"system-config-printer",
+		"ghostscript",
+		"gsfonts",
+		"gutenprint",
+		"foomatic-db",
+		"foomatic-db-engine",
+		"foomatic-db-nonfree",
+		"foomatic-db-ppds",
+	]
+
+[data.tags.hyprland]
+	enabled = {{ $hyprland }}
+	arch = [
+		"NetworkManager",
+		"hyprland",
+		"xdg-desktop-portal-hyprland",
+		"xdg-desktop-portal-gtk",
+		"nwg-displays",
+		"hypridle",
+		"hyprlock",
+		"hyprcursor",
+		"hyprpolkitagent",
+		"wl-clipboard",
+	]
+
+[data.tags.plasma]
+	enabled = {{ $plasma }}
+	arch = [
+		"NetworkManager",
+		"plasma-desktop",
+		"kscreen",
+		"bluedevil",
+		"bluez",
+		"bluez-utils",
+		"okular",
+		"ark",
+		"kate",
+		"kcalc",
+		"dolphin",
+		"dolphin-plugins",
+		"konsole",
+		"kde-gtk-config",
+		"xdg-desktop-portal",
+		"xdg-desktop-portal-kde",
+		"kscreenlocker",
+		"plasma-pa",
+		"plasma-nm",
+		"breeze",
+		"breeze-gtk",
+		"kpipewire",
+		"plasma-disks",
+		"plasma-browser-integration",
+		"plasma-systemmonitor",
+		"plasma-thunderbolt",
+		"powerdevil",
+		"print-manager",
+		"spectacle",
+		"partitionmanager",
+		"konqueror",
+		"marknote",
+		"kdialog",
+		"kdiff3",
+		"kompare",
+		"kommit",
+		"krdc",
+		"krfb",
+		"calligra",
+		"wl-clipboard",
+	]
+
+[data.tags.browsers]
+	enabled = {{ $browsers }}
+	darwin = [
+		"librewolf",
+		"waterfox",
+		"ungoogled-chromium",
+	]
+	arch = [
+		"librewolf",
+		"waterfox",
+		"ungoogled-chromium",
+	]
+
+[data.tags.dev]
+	enabled = {{ $dev }}
+
+[data.tags.db]
+	enabled = {{ $db }}
+	darwin = [
+		"dbeaver-community",
+	]
+	arch = [
+		"dbeaver",
+	]
+
+[data.tags.mail]
+	enabled = {{ $mail }}
+	darwin = [
+		"thunderbird",
+	]
+	arch = [
+		"thunderbird",
+		"thunderbird-i18n-uk",
+		"thunderbird-dark-reader",
+		"thunderbird-ublock-origin",
+	]
+
+[data.tags.media]
+	enabled = {{ $media }}
+	darwin = [
+		"mpv",
+		"kid3",
+		"xact",
+		"handbrake",
+	]
+	arch = [
+		"mpv",
+		"kid3",
+		"handbrake",
+	]
+
+[data.tags.books]
+	enabled = {{ $books }}
+	darwin = [
+		"calibre",
+	]
+	arch = [
+		"calibre",
+		"arianna",
+	]
+
+[data.tags.virt]
+	enabled = {{ $virt }}
+	darwin = [
+		"utm",
+	]
+
+[data.tags.tor]
+	enabled = {{ $tor }}
+	darwin = [
+		"tor-browser",
+	]
+	arch = [
+		"torbrowser-launcher",
+	]
+
+[data.tags.terminalEmulators]
+	enabled = {{ $terminalEmulators }}
+	darwin = [
+		"timg",
+		"wezterm",
+	]
+	arch = [
+		"timg",
+		"foot",
+		"foot-terminfo",
+		"wezterm",
+	]
+
+[data.tags.modeling]
+	enabled = {{ $modeling }}
+	darwin = [
+		"freecad",
+		"blender",
+		"handbrake",
+	]
+	arch = [
+		"freecad",
+		"blender",
+		"handbrake",
+	]
+
+[data.tags.graphics]
+	enabled = {{ $graphics }}
+	darwin = [
+		"imageoptim",
+		"krita",
+		"gimp",
+		"inkscape",
+	]
+	arch = [
+		"optiimage",
+		"krita",
+		"gimp",
+		"inkscape",
+	]
+
+
+# TODO: add more sophisticated hardware detection
+# Hardware specific configs
+[data.tags.zephyrus]
+	enabled = false
+	arch = [
+		"asusctl",
+		"power-profiles-daemon",
+		"supergfxctl",
+		"switcheroo-control",
+		"rog-control-center",
+		"linux-g14",
+		"linux-g14-headers",
+		"nvidia-open-dkms",
+		"nvidia-utils",
+		"acpi_call",
+		"aic94xx-firmware",
+		"ast-firmware",
+		"upd72020x-fw",
+		"linux-firmware-qlogic",
+		"wd719x-firmware",
+		"linux-firmware-intel",
+		"iasl",
+	]
+	pre.arch = [
+		"wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
+		"sudo pacman-key -a g14.sec",
+		"sudo pacman-key --recv-keys 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
+		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
+		"sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
+		"pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
+		"grep -qF '[g14]' /etc/pacman.conf || echo -e '[g14]\nServer = https://arch.asus-linux.org' | sudo tee >> /etc/pacman.conf"
+	]
+	post.arch = [
+		"sudo systemctl enable --now power-profiles-daemon",
+		"sudo systemctl enable --now supergfxd",
+		"sudo systemctl enable --now switcheroo-control",
+	]
+
+[data.tags.thinkpad]
+	enabled = false
+	arch = [
+		"thermald",
+		"auto-cpufreq",
+	]
+	post.arch = [
+		"sudo systemctl enable --now thermald",
+		"sudo systemctl enable --now auto-cpufreq",
+	]
+
+
+# Define terminal env like tabs width, transparency, etc.
 [data.terminal]
 	fontsList = ["FiraCode", "Iosevka", "Monoid", "ProggyClean", "RobotoMono", "ZedMono",]
 	font = "Iosevka Nerd Font"
@@ -140,6 +868,8 @@
 	blur = 0
 {{ end}}
 
+# TODO: full rewokr required to dict of variables
+# Define terminal and OS / apps theme configuration
 [data.theme]
 	themeName = {{ $themeName | quote }}
 	themeVariant = {{ $themeVariant | quote }}
@@ -148,6 +878,7 @@
 	themeDarkMode = true
 {{ end }}
 
+# Define user fonts location for macOS and Linux
 [data.fonts]
 {{ if eq .chezmoi.os "darwin" }}
 	fontDir = {{ (joinPath .chezmoi.homeDir "Library/Fonts") | quote }}
@@ -155,6 +886,7 @@
 	fontDir = {{ (joinPath .chezmoi.homeDir ".local/share/fonts") | quote }}
 {{ end }}
 
+# Define macOS homebrew location
 {{ if eq .chezmoi.os "darwin" }}
 [data.path]
 	homebrew = {{ (joinPath .chezmoi.homeDir ".brew" | quote) }}

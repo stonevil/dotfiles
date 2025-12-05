@@ -7,6 +7,10 @@
 		"bash",
 		"zsh",
 	]
+	fedora = [
+		"bash",
+		"zsh",
+	]
 
 [shell.completionsList]
 	# starship = "init "

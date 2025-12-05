@@ -54,7 +54,7 @@ mute=yes
 #loop-file=inf
 
 # Pretend to be a web browser. Might fix playback with some streaming sites, but also will break with shoutcast streams.
-user-agent={{ .web.userAgent | quote }}
+user-agent={{ .web.ytUserAgent | quote }}
 
 # Use a large seekable RAM cache even for local input.
 cache=yes
@@ -101,19 +101,3 @@ demuxer-max-bytes=20M
 force-seekable=yes
 
 stop-screensaver=yes
-
-
-[1080p]
-ytdl-format=303+251
-
-[720p]
-ytdl-format=247+251
-
-[720p60]
-ytdl-format=302+251
-
-[480p]
-ytdl-format=244+250
-
-[360p]
-ytdl-format=243+249

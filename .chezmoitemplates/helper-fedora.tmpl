@@ -1,0 +1,28 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if index . "pre" }}
+	{{ if index .pre "fedora" }}
+		{{ if $.pre.fedora }}
+			{{ range $cmd := $.pre.fedora }}
+				{{ $cmd }} || exit 1
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ if index . "fedora" }}
+		echo "FEDORA: install dnf / rpm packages"
+		yay_install {{ join " " (.fedora | uniq | sortAlpha) }}
+{{ end }}
+
+{{ if index . "post" }}
+	{{ if index .post "fedora" }}
+		{{ if $.post.fedora }}
+			{{ range $cmd := $.post.fedora }}
+				{{ $cmd }} || exit 1
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}

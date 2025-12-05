@@ -10,17 +10,35 @@ local act = wezterm.action
 
 local detect = require("utils.detect")
 
+wezterm.on("gui-startup", function(cmd)
+	local screen = wezterm.gui.screens().active
+	local ratio = 0.7
+	local width, height = screen.width * ratio, screen.height * ratio
+	local tab, pane, window = wezterm.mux.spawn_window({
+		position = {
+			x = (screen.width - width) / 2,
+			y = (screen.height - height) / 2,
+			origin = "ActiveScreen",
+		},
+	})
+	-- window:gui_window():maximize()
+	window:gui_window():set_inner_size(width, height)
+end)
+
 local config = wezterm.config_builder()
 
 -- Schemas
-local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.tui.theme | title) " " (.tui.themeVariant | title)) | quote }}]
-{{ if (.tags.osTheme | contains "dark") }}
--- Override Dark Schema Background
+local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.theme.themeName | title) " " (.theme.themeVariant | title)) | quote }}]
+{{ if .theme.themeBlackout }}
+-- Override Schema Background
 scheme_current.background = "#000000"
+scheme_current.tab_bar.background = "#040404"
+scheme_current.tab_bar.inactive_tab.bg_color = "#0f0f0f"
+scheme_current.tab_bar.new_tab.bg_color = "#080808"
 {{ end }}
 
 config = {
-	default_prog = { '{{ .tui.shellPath }}', '--login' },
+	default_prog = { '{{ .terminal.shellPath }}', '--login' },
 	window_close_confirmation = "NeverPrompt",
 	exit_behavior = "Close",
 	audible_bell = "Disabled",

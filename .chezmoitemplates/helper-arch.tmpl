@@ -1,0 +1,28 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if index . "pre" }}
+	{{ if index .pre "arch" }}
+		{{ if $.pre.arch }}
+			{{ range $cmd := $.pre.arch }}
+				{{ $cmd }} || exit 1
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ if index . "arch" }}
+		echo "ARCH: install pacman / aur packages"
+		yay_install {{ join " " (.arch | uniq | sortAlpha) }}
+{{ end }}
+
+{{ if index . "post" }}
+	{{ if index .post "arch" }}
+		{{ if $.post.arch }}
+			{{ range $cmd := $.post.arch }}
+				{{ $cmd }} || exit 1
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}

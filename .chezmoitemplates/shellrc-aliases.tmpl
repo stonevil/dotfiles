@@ -12,13 +12,15 @@ alias ..='cd ..'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
-alias less='less -R --tabs={{ .tui.tabs }}'
+alias less='less -R --tabs={{ .terminal.tabs }}'
 alias more='less'
+
+alias mtar='tar --exclude="*.DS_STORE" --no-acls --no-fflags --no-xattr --no-mac-metadata'
 
 {{ if lookPath "git" }}
 alias g='git'
 
-git-submodule-remove() {
+function git_submodule_remove() {
 	git config -f .git/config --remove-section submodule."$1"
 	git config -f .gitmodules --remove-section submodule."$1"
 	git rm --cached "$1"
@@ -26,39 +28,39 @@ git-submodule-remove() {
 	rm -rf "$1"
 	rm -rf .git/modules/"$1"
 }
-{{ end }}
+{{ end -}}
 
 {{ if lookPath "direnv" }}
 # wrap tmux to avoid issues with environment loading
 alias tmux='direnv exec / tmux'
-{{ end }}
+{{ end -}}
 
 {{ if lookPath "oauth2l" }}
 # configure gcurl alias
 alias gcurl='curl -H "$(oauth2l header --json ~/credentials.json cloud-platform userinfo.email)" -H "Content-Type: application/json" '
-{{ end }}
+{{ end -}}
 
 alias path='echo -e ${PATH//:/\\n}'
 
 {{ if eq .chezmoi.os "darwin" }}
 # cleanup .DS_Store files
 alias cleanup='find . -type f \( -name \*.DS_Store -o -name \*._ \) -ls -delete'
-{{ end }}
+{{ end -}}
 
 # remove executable
 alias removex='find . -type f -exec chmod a-x "{}" \;'
 
-alias ctags-check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
+alias ctags_check='ctags --options={{ (joinPath .chezmoi.homeDir ".local/share/chezmoi/dot_ctags") | quote }}'
 
 {{ if lookPath "timg" }}
 alias preview='timg -p k'
 alias pv=preview
-{{ end }}
+{{ end -}}
 
 {{ if eq .chezmoi.os "darwin" }}
 	{{ if stat (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/") | quote }}
 alias mpv='{{ (joinPath .chezmoi.homeDir "Applications/mpv.app/Contents/MacOS/mpv") }} --terminal=no --mute=no'
-	{{ end}}
+	{{ end -}}
 	{{ else if eq .chezmoi.os "linux"}}
 alias mpv='mpv --terminal=no --mute=no'
 {{ end -}}
@@ -76,10 +78,6 @@ alias tf='terraform'
 {{ end -}}
 
 {{ if lookPath "terraform-docs" }}
-alias tfd='terraform-docs'
-{{ end -}}
-
-{{ if lookPath "terraform-docs" }}
 alias tfd='terraform-docs markdown table --output-file README.md --output-mode inject .'
 {{ end -}}
 
@@ -87,30 +85,25 @@ alias tfd='terraform-docs markdown table --output-file README.md --output-mode i
 # lima-vm to support genuine docker
 alias dk='limactl shell docker docker'
 alias docker='limactl shell docker docker'
-alias dk-stop-all='dk stop $(dk ps -a -q)'
-alias dk-rm-all='dk rm -f $(dk ps -a -q)'
-alias dk-rmi-all='dk rmi -f $(dk images --no-trunc=false -a -q)'
+alias dk_stop_all='dk stop $(dk ps -a -q)'
+alias dk_rm_all='dk rm -f $(dk ps -a -q)'
+alias dk_rmi_all='dk rmi -f $(dk images --no-trunc=false -a -q)'
 
 # lima-vm to support genuine podman
-alias pa='limactl shell podman podman'
-alias pa-stop-all='pa stop $(pa ps -a -q)'
-alias pa-rm-all='pa rm -f $(pa ps -a -q)'
-alias pa-rmi-all='pa rmi -f $(pa images --no-trunc=false -a -q)'
+alias pa='limactl shell podman-arm64 podman'
+alias pa_stop_all='pa stop $(pa ps -a -q)'
+alias pa_rm_all='pa rm -f $(pa ps -a -q)'
+alias pa_rmi_all='pa rmi -f $(pa images --no-trunc=false -a -q)'
 
 # lima-vm to support genuine podman
-alias pi='limactl shell podman-intel podman'
-alias podman-intel='limactl shell podman-intel podman'
-alias pi-stop-all='pi stop $(pi ps -a -q)'
-alias pi-rm-all='pi rm -f $(pi ps -a -q)'
-alias pi-rmi-all='pi rmi -f $(pi images --no-trunc=false -a -q)'
+alias pi='limactl shell podman-amd64 podman'
+alias pi_stop_all='pi stop $(pi ps -a -q)'
+alias pi_rm_all='pi rm -f $(pi ps -a -q)'
+alias pi_rmi_all='pi rmi -f $(pi images --no-trunc=false -a -q)'
 
 # lima-vm to support genuine nerdctl
-alias nerdctl='limactl shell nerdy nerdctl'
-alias nerdctl-stop-all='nerdctl stop $(nerdctl ps -a -q)'
-alias nerdctl-rm-all='nerdctl rm -f $(nerdctl ps -a -q)'
-alias nerdctl-rmi-all='nerdctl rmi -f $(nerdctl images --no-trunc=false -a -q)'
-{{ end -}}
-
-{{ if stat (joinPath .chezmoi.homeDir ".local/esp-idf") -}}
-alias idf-env='. {{ (joinPath .chezmoi.homeDir ".local/esp-idf/export.sh") | quote }}'
+alias ntl='limactl shell nerdy nerdctl'
+alias nctl_stop_all='nctl stop $(nctl ps -a -q)'
+alias nctl_rm_all='nctl rm -f $(nctl ps -a -q)'
+alias nctl_rmi_all='nctl rmi -f $(nctl images --no-trunc=false -a -q)'
 {{ end -}}

@@ -1,0 +1,33 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if index . "pre" }}
+	{{ if index .pre "darwin" }}
+		{{ if $.pre.darwin }}
+			{{ range $cmd := $.pre.darwin }}
+				{{ $cmd }} || exit 1
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ if index . "darwin" }}
+	echo "DARWIN: install brew packages"
+	brew_install {{ join " " (.darwin | uniq | sortAlpha) }} || true
+{{ end }}
+
+{{ if index . "darwinhead" }}
+	echo "DARWIN: install brew --HEAD packages"
+	brew_install --HEAD {{ join " " (.darwinhead | uniq | sortAlpha) }} || true
+{{ end }}
+
+{{ if index . "post" }}
+	{{ if index .post "darwin" }}
+		{{ if $.post.darwin }}
+			{{ range $cmd := $.post.darwin }}
+				{{ $cmd }} || exit 1
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}

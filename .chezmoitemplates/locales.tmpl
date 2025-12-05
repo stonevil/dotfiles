@@ -1,0 +1,23 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+sudo sh -c 'cat > /etc/locale.conf' << EOF
+LANG=en_US.UTF-8
+LANGUAGE=en_US:en:uk_UA
+LC_TIME=en_US.UTF-8
+LC_COLLATE=en_US.UTF-8
+LC_CTYPE=en_US.UTF-8
+LC_MEASUREMENT=metric
+EOF
+
+{{ if eq .chezmoi.os "linux" }}
+	{{ if eq .chezmoi.osRelease.id "arch" }}
+sudo sh -c 'cat > /etc/locale.gen' << EOF
+en_US.UTF-8 UTF-8
+EOF
+sudo locale-gen
+	{{ else if eq .chezmoi.osRelease.id "fedora" }}
+# sudo localectl set-locale LANG=en_US.UTF-8
+	{{ end }}
+{{ end }}

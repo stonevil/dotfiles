@@ -16,8 +16,8 @@ gui:
   filterMode: fuzzy
 
 git:
-  paging:
-    colorArg: always
+  pagers:
+    - colorArg: always
 {{- if lookPath "delta" }}
-    pager: delta --paging=never -s
+			pager: delta --paging=never -s
 {{ end -}}

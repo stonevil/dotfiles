@@ -1,0 +1,153 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ template "env.tmpl" . }}
+
+# Due Go templates and my brain limitations, first installing general depends
+{{ $tags := $.tags }}
+
+{{ if eq .chezmoi.os "darwin" }}
+	{{ if (get $tags.python3 "enabled") }}
+		# Install Python3
+		{{ template "helper-darwin.tmpl" $tags.python3 }}
+		{{ template "helper-common.tmpl" $tags.python3 }}
+		{{ $_ := unset $tags "python3" }}
+	{{ end }}
+	{{ if (get $tags.go "enabled") }}
+		# Install Go
+		{{ template "helper-darwin.tmpl" $tags.go }}
+		{{ template "helper-common.tmpl" $tags.go }}
+		{{ $_ := unset $tags "go" }}
+	{{ end }}
+	{{ if (get $tags.rust "enabled") }}
+		# Install Rust
+		{{ template "helper-darwin.tmpl" $tags.rust }}
+		{{ template "helper-common.tmpl" $tags.rust }}
+		{{ $_ := unset $tags "rust" }}
+	{{ end }}
+	{{ if (get $tags.nodejs "enabled") }}
+		# Install NodeJS
+		{{ template "helper-darwin.tmpl" $tags.nodejs }}
+		{{ template "helper-common.tmpl" $tags.nodejs }}
+		{{ $_ := unset $tags "nodejs" }}
+	{{ end }}
+	{{ if (get $tags.lua "enabled") }}
+		# Install Lua
+		{{ template "helper-darwin.tmpl" $tags.lua }}
+		{{ template "helper-common.tmpl" $tags.lua }}
+		{{ $_ := unset $tags "lua" }}
+	{{ end }}
+	{{ if (get $tags.ruby "enabled") }}
+		# Install Ruby
+		{{ template "helper-darwin.tmpl" $tags.ruby }}
+		{{ template "helper-common.tmpl" $tags.ruby }}
+		{{ $_ := unset $tags "ruby" }}
+	{{ end }}
+
+	{{ range $t, $v := $tags }}
+		{{ if $v }}
+			{{ if $v.enabled }}
+				{{ template "helper-darwin.tmpl" $v }}
+				{{ template "helper-common.tmpl" $v }}
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
+	{{ if (get $tags.python3 "enabled") }}
+		# Install Python3
+		{{ template "helper-arch.tmpl" $tags.python3 }}
+		{{ template "helper-common.tmpl" $tags.python3 }}
+		{{ $_ := unset $tags "python3" }}
+	{{ end }}
+	{{ if (get $tags.go "enabled") }}
+		# Install Go
+		{{ template "helper-arch.tmpl" $tags.go }}
+		{{ template "helper-common.tmpl" $tags.go }}
+		{{ $_ := unset $tags "go" }}
+	{{ end }}
+	{{ if (get $tags.rust "enabled") }}
+		# Install Rust
+		{{ template "helper-arch.tmpl" $tags.rust }}
+		{{ template "helper-common.tmpl" $tags.rust }}
+		{{ $_ := unset $tags "rust" }}
+	{{ end }}
+	{{ if (get $tags.nodejs "enabled") }}
+		# Install NodeJS
+		{{ template "helper-arch.tmpl" $tags.nodejs }}
+		{{ template "helper-common.tmpl" $tags.nodejs }}
+		{{ $_ := unset $tags "nodejs" }}
+	{{ end }}
+	{{ if (get $tags.lua "enabled") }}
+		# Install Lua
+		{{ template "helper-arch.tmpl" $tags.lua }}
+		{{ template "helper-common.tmpl" $tags.lua }}
+		{{ $_ := unset $tags "lua" }}
+	{{ end }}
+	{{ if (get $tags.ruby "enabled") }}
+		# Install Ruby
+		{{ template "helper-arch.tmpl" $tags.ruby }}
+		{{ template "helper-common.tmpl" $tags.ruby }}
+		{{ $_ := unset $tags "ruby" }}
+	{{ end }}
+
+	{{ range $t, $v := $tags }}
+		{{ if $v }}
+			{{ if $v.enabled }}
+				{{ template "helper-arch.tmpl" $v }}
+				{{ template "helper-common.tmpl" $v }}
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}
+	{{ if (get $tags.python3 "enabled") }}
+		# Install Python3
+		{{ template "helper-fedora.tmpl" $tags.python3 }}
+		{{ template "helper-common.tmpl" $tags.python3 }}
+		{{ $_ := unset $tags "python3" }}
+	{{ end }}
+	{{ if (get $tags.go "enabled") }}
+		# Install Go
+		{{ template "helper-fedora.tmpl" $tags.go }}
+		{{ template "helper-common.tmpl" $tags.go }}
+		{{ $_ := unset $tags "go" }}
+	{{ end }}
+	{{ if (get $tags.rust "enabled") }}
+		# Install Rust
+		{{ template "helper-fedora.tmpl" $tags.rust }}
+		{{ template "helper-common.tmpl" $tags.rust }}
+		{{ $_ := unset $tags "rust" }}
+	{{ end }}
+	{{ if (get $tags.nodejs "enabled") }}
+		# Install NodeJS
+		{{ template "helper-fedora.tmpl" $tags.nodejs }}
+		{{ template "helper-common.tmpl" $tags.nodejs }}
+		{{ $_ := unset $tags "nodejs" }}
+	{{ end }}
+	{{ if (get $tags.lua "enabled") }}
+		# Install Lua
+		{{ template "helper-fedora.tmpl" $tags.lua }}
+		{{ template "helper-common.tmpl" $tags.lua }}
+		{{ $_ := unset $tags "lua" }}
+	{{ end }}
+	{{ if (get $tags.ruby "enabled") }}
+		# Install Ruby
+		{{ template "helper-fedora.tmpl" $tags.ruby }}
+		{{ template "helper-common.tmpl" $tags.ruby }}
+		{{ $_ := unset $tags "ruby" }}
+	{{ end }}
+
+	{{ range $t, $v := $tags }}
+		{{ if $v }}
+			{{ if $v.enabled }}
+				{{ template "helper-fedora.tmpl" $v }}
+				{{ template "helper-common.tmpl" $v }}
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}

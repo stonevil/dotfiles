@@ -6,7 +6,7 @@ vim:ft=toml.gotexttmpl
 live_config_reload = true
 working_directory = {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
 
-import = {{ (print "themes/" (.tui.theme | lower) "-" (.tui.themeVariant | lower) ".toml") | quote }}
+import = {{ (print "themes/" (.theme.themeName | lower) "-" (.theme.themeVariant | lower) ".toml") | quote }}
 
 [bell]
 animation = "EaseOutExpo"
@@ -616,7 +616,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [terminal.shell]
 args = ["--login"]
-program = "{{ .tui.shellPath }}"
+program = "{{ .terminal.shellPath }}"
 
 [window]
 {{- if eq .chezmoi.os "linux" }}

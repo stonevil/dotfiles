@@ -266,7 +266,7 @@ tab_powerline_style angled
 
 #: Color scheme
 
-include {{ (print "themes/" (.tui.theme | lower) "-" (.tui.themeVariant | lower) ".conf") | quote }}
+include {{ (print "themes/" (.theme.themeName | lower) "-" (.theme.themeVariant | lower) ".conf") | quote }}
 
 background_opacity {{ .terminal.opacity }}
 
@@ -287,7 +287,7 @@ dim_opacity 0.75
 
 #: Advanced
 
-shell {{ .tui.shellPath }} --login
+shell {{ .terminal.shellPath }} --login
 
 editor .
 

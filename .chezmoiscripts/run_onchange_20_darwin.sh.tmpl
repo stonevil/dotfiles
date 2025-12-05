@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+# {{ .chezmoi.os }} hash: {{ include ".chezmoi.toml.tmpl" | sha256sum }}
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmoidata/*.toml")) }}
+# .chezmoidate/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmotemplates/*.tmpl")) }}
+# .chezmoitemplates/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+{{ if eq .chezmoi.os "darwin" }}
+	cd {{ .chezmoi.homeDir | quote }} || exit 1
+
+	{{ if not (stat .path.homebrew) }}
+		echo "DARWIN: clone Homebrew"
+		git clone https://github.com/Homebrew/brew.git {{ .path.homebrew | quote }} || exit 1
+	{{ end }}
+
+		echo "DARWIN: stop Homebrew from spying on you"
+		({{ (joinPath .path.homebrew "bin/brew") | quote }} analytics off) || true
+
+		echo "DARWIN: cleanup cache. Cache can cause issues like: 'Error: Couldn't find manifest matching bottle checksum'"
+		(rm -rf $({{ ((joinPath .path.homebrew "bin/brew") | quote)}} --cache)) || true
+
+		({{ joinPath .path.homebrew "bin/brew" }} update && {{ joinPath .path.homebrew "bin/brew" }} upgrade --overwrite && {{ joinPath .path.homebrew "bin/brew" }} upgrade --cask && {{ joinPath .path.homebrew "bin/brew" }} cleanup --quiet --prune=120 && {{ joinPath .path.homebrew "bin/brew" }} autoremove) || true
+
+	{{ template "helper.tmpl" . }}
+{{ end }}

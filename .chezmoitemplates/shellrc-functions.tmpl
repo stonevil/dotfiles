@@ -3,28 +3,28 @@ vim:ft=bash.gotexttmpl
 */ -}}
 
 {{- if eq .chezmoi.os "darwin" }}
-darkmode() {
+function darkmode() {
 	# shellcheck disable=SC2046,SC2145
 	defaults write $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance -bool FALSE
 	notify "Embrace the Dark Side, Luke" "Use your $@"
 }
 
-darkmodeoff() {
+function darkmode_off() {
 	# shellcheck disable=SC2046,SC2145
 	defaults delete $(osascript -e 'id of app "'"$@"'"' | tr -d '\n' | tr -d '\r') NSRequiresAquaSystemAppearance
 	notify "I felt a great disturbance in the Force" "Use your $@"
 }
 
-tn() {
-	start_time=$(date +%s)
+function tn() {
+	local start_time=$(date +%s)
 	"$@"
-	end_time=$(date +%s)
+	local end_time=$(date +%s)
 	notify "Job is done, Sir!" "$@"
 }
 
 # Cleanup macOS drive snapshots
-tm-cleanup() {
-	tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
+function tm_cleanup() {
+	local tm_list=$(tmutil listlocalsnapshots / | awk -F '.' 'NF > 1 {print $4}')
 	while IFS= read -r l; do
 		sudo tmutil deletelocalsnapshots "$l"
 	done <<<"$tm_list"
@@ -32,27 +32,27 @@ tm-cleanup() {
 }
 
 # Remove quarantine from executable binary
-unquarantine() {
+function unquarantine() {
 	xattr -r -d com.apple.quarantine "$@"
 	notify "macOS quarantine removed" "$@"
 }
 
 # Codesign local app/binary
-unosign() {
+function unosign() {
 	codesign --remove-signature "$@"
 	codesign --force --deep --sign - "$@"
 	notify "macOS codesign added" "$@"
 }
 {{ end }}
 
-ip-external() {
-	ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
+function ip_external() {
+	local ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
 	echo $ip
 	notify "External IP" "$ip"
 }
 
 {{ if lookPath "limactl" }}
-toolbox() {
+function toolbox() {
 	if [[ $(limactl list toolbox --format {{`'{{ .Status }}'`}}) == "Stopped" ]]; then
 		limactl start toolbox
 	fi 
@@ -61,7 +61,7 @@ toolbox() {
 }
 {{ end }}
 
-f2iso() {
+function f2iso() {
 	if [[ -f "$(basename $@)".iso ]]; then
 		rm -f "$(basename $@)".iso
 	fi
@@ -74,19 +74,19 @@ f2iso() {
 }
 
 {{ if lookPath "qemu-img" }}
-qcow2vhd() {
+function qcow2vhd() {
 	qemu-img convert -O vhdx -o subformat=fixed "$@" "$(basename $@)".vhd
 	notify "qemu-img" "$(basename $@).vhd image converted"
 }
 
-raw2qcow2() {
+function raw2qcow2() {
 	qemu-img convert -O qcow2 "$@" "$(basename $@)".qcow2
 	notify "qemu-img" "$(basename $@).qcow2 image converted"
 }
 {{ end }}
 
 {{ if lookPath "bat" }}
-dbat() {
+function dbat() {
 	if [ $# -eq 2 ]; then
 		diff -t -y --color "$1" "$2" | bat -l rs
 	else
@@ -94,7 +94,7 @@ dbat() {
 	fi
 }
 
-tfbat() {
+function tfbat() {
 	if [ $# -ge 1 ]; then
 		tail -f "$@" | bat --paging=never -l log --style="grid"
 	else
@@ -103,7 +103,7 @@ tfbat() {
 }
 {{ end }}
 
-passgen() {
+function passgen() {
 	if [ -n "$1" ]; then
 		openssl rand -base64 "$1"
 	else 
@@ -112,7 +112,7 @@ passgen() {
 }
 
 {{ if lookPath "yazi" }}
-y() {
+function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
@@ -123,8 +123,8 @@ y() {
 {{ end -}}
 
 {{ if lookPath "mmdc" }}
-mpng() {
-	filename="$@"
+function mpng() {
+	local filename="$@"
 	filename="${filename%.*}"
 	if [ -f "$filename.mmd" ]; then
 		mmdc -i "$filename.mmd" -o "$filename.png" -s 10
@@ -133,8 +133,8 @@ mpng() {
 		echo "File $filename.mmd absent"
 	fi
 }
-msvg() {
-	filename="$@"
+function msvg() {
+	local filename="$@"
 	filename="${filename%.*}"
 	if [ -f "$filename.mmd" ]; then
 		mmdc -i "$filename.mmd" -o "$filename.svg"
@@ -143,13 +143,13 @@ msvg() {
 		echo "File $filename.mmd absent"
 	fi
 }
-mwatch() {
-	filename="$@"
+function mwatch() {
+	local filename="$@"
 	filename="${filename%.*}"
 
 	if [ -f "$filename.mmd" ]; then
-		hash_current=0
-		hash_new=0
+		local hash_current=0
+		local hash_new=0
 
 		while true; do
 			hash_new=$(md5 "$filename.mmd")
@@ -165,20 +165,3 @@ mwatch() {
 	fi
 }
 {{ end -}}
-
-{{- if lookPath "vagrant" }}
-export VAGRANT_PROVIDER_GUI="false"
-vagrant_ip() {
-	vagrant ssh -c "ip address show eth0 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//'"
-}
-
-vagrant_install_all_plugins() {
-	vagrant plugin install vagrant-vbguest
-}
-
-vagrant_update_all_plugins() {
-	for plugin in $(vagrant plugin list | cut -f1 -d' '); do
-		vagrant plugin update "$plugin"
-	done
-}
-{{- end }}

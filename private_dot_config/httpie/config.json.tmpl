@@ -4,6 +4,10 @@
 
 {
   "default_options": [
-    "--style=pie-{{ .tags.osTheme }}"
+{{ if .theme.themeDarkMode }}
+    "--style=pie-dark"
+{{ else -}}
+    "--style=pie-light"
+{{ end -}}
   ]
 }

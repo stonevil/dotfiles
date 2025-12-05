@@ -38,7 +38,7 @@ return {
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = {{ (print .tui.theme "-" .tui.themeVariant) | quote }},
+			colorscheme = {{ (print .theme.themeName "-" .theme.themeVariant) | quote }},
 		},
 	},
 }

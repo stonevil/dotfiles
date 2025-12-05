@@ -5,11 +5,9 @@ vim:ft=bash.gotexttmpl
 # vim:ft=bash
 # shellcheck source=/dev/null
 
-{{ template "shellrc-path.tmpl" . }}
+{{ template "env.tmpl" . }}
 
 {{ template "shellrc-editor.tmpl" . }}
-
-{{ template "shellrc-media.tmpl" . }}
 
 {{ template "shellrc-notify.tmpl" . }}
 
@@ -21,22 +19,14 @@ vim:ft=bash.gotexttmpl
 
 {{ template "shellrc-functions.tmpl" . }}
 
-{{- if lookPath "starship" }}
-# export starship_config={{ (joinPath .chezmoi.homeDir "/.config/starship.toml") | quote }}
-{{ end -}}
-
 {{- if stat (joinPath .chezmoi.homeDir ".local/bash/completions") }}
 	{{- range glob (print $.chezmoi.homeDir "/.local/bash/completions/*") }}
 source {{ . | quote -}}
 	{{ end -}}
 
 {{ template "shellrc-fzf.tmpl" . }}
-{{ end }}
-
-{{ if eq .chezmoi.os "linux" }}
-{{ template "gui-env.tmpl" . }}
 {{ end -}}
 
-{{ template "shellrc-env.tmpl" . }}
+{{ template "shellrc-gui-env.tmpl" . }}
 
 {{ template "bashrc-prompt.tmpl" . }}

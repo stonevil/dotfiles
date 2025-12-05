@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+# {{ .chezmoi.os }} hash: {{ include ".chezmoi.toml.tmpl" | sha256sum }}
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmoidata/*.toml")) }}
+# .chezmoidate/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmotemplates/*.tmpl")) }}
+# .chezmoitemplates/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}
+
+	cd {{ .chezmoi.homeDir | quote }} || exit 1
+
+	{{ template "helper-sudo-access.tmpl" . }}
+
+	echo "FEDORA: update packages"
+	sudo dnf upgrade -y || exit 1
+
+	echo "FEDORA: install locales"
+	sudo dnf install -y glibc-langpack-en || exit 1
+
+	echo "FEDORA: generate locales"
+	{{ template "locales.tmpl" . }}
+
+	echo "FEDORA: install basic tools"
+	sudo install -y bash less curl tar wget git base-devel || exit 1
+
+	{{ template "helper.tmpl" . }}
+{{ end }}

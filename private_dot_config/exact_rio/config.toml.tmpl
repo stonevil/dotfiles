@@ -6,7 +6,7 @@ hide-cursor-when-typing = false
 
 # ignore-selection-foreground-color = false
 
-theme = {{ (print (.tui.theme | lower) "-" (.tui.themeVariant | lower)) | squote }}
+theme = {{ (print (.theme.themeName | lower) "-" (.theme.themeVariant | lower)) | squote }}
 
 # padding-x = 10
 # padding-y = [30, 10]
@@ -126,7 +126,7 @@ use-split = false
 navigation.unfocused-split-opacity = 0.8
 
 [shell]
-program = "{{ .tui.shellPath }}"
+program = "{{ .terminal.shellPath }}"
 args = ["--login"]
 
 [colors]

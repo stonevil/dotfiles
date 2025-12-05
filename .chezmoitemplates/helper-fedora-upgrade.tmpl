@@ -1,0 +1,19 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ template "env.tmpl" . }}
+
+{{ range $_, $v := $.tags -}}
+	{{ if $v.enabled -}}
+		{{ if index $v "upgrade" -}}
+			{{ if index $v.upgrade "fedora" -}}
+				{{ if $v.upgrade.fedora -}}
+					{{ range $cmd := $v.upgrade.fedora -}}
+						{{ $cmd }} || exit 1
+					{{ end -}}
+				{{ end -}}
+			{{ end -}}
+		{{ end -}}
+	{{ end -}}
+{{ end -}}

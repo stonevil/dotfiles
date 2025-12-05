@@ -6,8 +6,8 @@ vim:ft=tmux.gotexttmpl
 
 ## Shell
 
-# Use {{ .tui.shellPath }}
-set -g default-shell {{ .tui.shellPath }}
+# Use {{ .terminal.shellPath }}
+set -g default-shell {{ .terminal.shellPath }}
 
 ## Commands
 # Use C-s as prefix
@@ -315,6 +315,19 @@ set -g @tpm_plugins '                \
 # stonevil/tmux-hostname-status      \
 # stonevil/tmux-wan-status           \
 # stonevil/tmux-lan-status           \
+
+
+# Popup lazygit
+bind M-g display-popup -d "#{pane_current_path}" -h 80% -w 80% -E "lazygit"
+
+# Popup detached shell
+bind -n M-t display-popup -h 80% -w 60% -E "tmux-detached-shell.sh"
+bind -T popup M-t detach
+# this lets us do scrollback and search within the popup
+bind -T popup C-[ copy-mode
+
+# Popup list keys
+bind C-? display-popup -h 90% -w 80% -E "tmux list-keys | fzf"
 
 # Initializes TMUX plugin manager.
 # Keep this line at the very bottom of tmux.conf.

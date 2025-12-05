@@ -2,12 +2,12 @@
 vim:ft=toml.gotexttmpl
 */ -}}
 
-{{ if eq .tui.themeVariant "latte" -}}
-theme = "catppuccin-latte"
+{{ if eq .theme.themeVariant "latte" -}}
+theme = {{ print ((.theme.themeName) "-" (.theme.themeVariant)) | quote }}
 {{ else -}}
-theme = "catppuccin"
+theme = {{ print (.theme.themeName) | quote }}
 {{ end }}
-transparent_background = true
+transparent_backgroun = true
 
 nerdfont = true
 
