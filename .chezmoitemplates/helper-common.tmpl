@@ -4,19 +4,26 @@ vim:ft=bash.gotexttmpl
 
 {{ if index . "cargo" }}
 	echo "RUST: install cargo packages"
-	cargo_install {{ join " " (.cargo | sortAlpha | uniq) }}
+	cargo_install {{ join " " (.cargo | uniq | sortAlpha) }}
 {{ end }}
 
 {{ if index . "go" }}
 	echo "GOLANG: Install go packages"
-	for go_p in {{ join " " (.go | sortAlpha | uniq) }}; do
+	for go_p in {{ join " " (.go | uniq | sortAlpha) }}; do
 		go_install "$go_p"
+	done
+{{ end }}
+
+{{ if index . "pip" }}
+	echo "PYTHON3: install pip3 packages"
+	for pip_p in {{ join " " (.pip | uniq | sortAlpha) }}; do
+		uv_install "$pip_p"
 	done
 {{ end }}
 
 {{ if index . "uv" }}
 	echo "PYTHON3: install tools package"
-	for uv_p in {{ join " " (.uv | sortAlpha | uniq) }}; do
+	for uv_p in {{ join " " (.uv | uniq | sortAlpha) }}; do
 		uv_install "$uv_p"
 	done
 {{ end }}
@@ -25,31 +32,31 @@ vim:ft=bash.gotexttmpl
 	echo "NODEJS: install npm packages"
 	mkdir -p "${HOME}/.local"
 	npm config set prefix "${HOME}/.local"
-	for npm_p in {{ join " " (.npm | sortAlpha | uniq) }}; do
+	for npm_p in {{ join " " (.npm | uniq | sortAlpha) }}; do
 		npm_install "$npm_p"
 	done
 {{ end }}
 
 {{ if index . "rocks" }}
 	echo "LUA: install luarocks packages"
-	for rocks_p in {{ join " " (.rocks | sortAlpha | uniq) }}; do
+	for rocks_p in {{ join " " (.rocks | uniq | sortAlpha) }}; do
 		rocks_install "$rocks_p"
 	done
 {{ end }}
 
 {{ if index . "gem" }}
 	echo "RUBY: install ruby gems"
-	for gem_p in {{ join " " (.gem | sortAlpha | uniq) }}; do
+	for gem_p in {{ join " " (.gem | uniq | sortAlpha) }}; do
 		gem_install "$gem_p"
 	done
 {{ end }}
 
 {{ if index . "krew" }}
 	echo "K8S: install krew packages"
-	krew_install {{ join " " (.krew | sortAlpha | uniq) }}
+	krew_install {{ join " " (.krew | uniq | sortAlpha) }}
 {{ end }}
 
 {{ if index . "vagrant" }}
 	echo "VAGRANT: install vagrant plugins"
-	vagrant_install {{ join " " (.vagrant | sortAlpha | uniq) }}
+	vagrant_install {{ join " " (.vagrant | uniq | sortAlpha) }}
 {{ end }}
