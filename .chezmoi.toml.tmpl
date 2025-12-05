@@ -26,6 +26,7 @@
 {{ $themeName := "catppuccin" }}
 {{ $themeVariant := "mocha" }}
 {{ $vagrantCli := false }}
+{{ $adsCli := false }}
 {{ $plasma := false }}
 {{ $hyprland := false }}
 {{ $fwupdCli := false }}
@@ -73,7 +74,9 @@
 {{ $mediaCli := promptBool "Media CLI tools, like ffmpeg" false }}
 {{ $newsCli := promptBool "News CLI tools, like NewsBoat" false }}
 {{ $dekCli := promptBool "TUI presentation tools, like presenterm" false }}
-{{ $adsCli := promptBool "Ads block CLI tools, like hblock" false }}
+{{ if eq .chezmoi.os "linux" }}
+{{ $adsCli = promptBool "Ads block CLI tools, like hblock" false }}
+{{ end }}
 {{ $gamesCli := promptBool "Some CLI games, like typing tutor" false }}
 
 # Ask questin about environment if GUI env required
