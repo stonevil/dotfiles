@@ -77,7 +77,7 @@ hide-when-typing=yes
 [colors]
 alpha={{ .terminal.opacity }}
 
-include={{ (print .chezmoi.homeDir "/.config/foot/themes/" (.theme.themeName | lower) "-" (.theme.themeVariant | lower) ".ini") | squote }}
+include={{ (joinPath .chezmoi.homeDir ".config/foot/themes/theme.ini") | squote }}
 
 [csd]
 # preferred=server
