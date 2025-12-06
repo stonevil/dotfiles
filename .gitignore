@@ -25,3 +25,6 @@ lazy-lock.json
 
 # Direnv
 .envrc
+
+# Syncthing
+.stignore
