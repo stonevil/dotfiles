@@ -21,8 +21,8 @@ wayland_titlebar_color system
 macos_titlebar_color system
 
 # Tab bar colors
-active_tab_foreground {{ (print "#" ..current.theme.cursor.text) | quote }}
-active_tab_background {{ (print "#" ..current.theme.cursor.cursor) | quote }}
+active_tab_foreground {{ (print "#" .current.theme.cursor.text) | quote }}
+active_tab_background {{ (print "#" .current.theme.cursor.cursor) | quote }}
 inactive_tab_foreground {{ (print "#" .current.theme.primary.foreground) | quote }}
 inactive_tab_background {{ (print "#" .current.theme.primary.background) | quote }}
 tab_bar_background {{ (print "#" .current.theme.cursor.text) | quote }}
