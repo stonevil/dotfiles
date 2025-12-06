@@ -51,6 +51,7 @@
 {{ $themeName = promptChoice "Choose Theme" (list "catppuccin") "catppuccin" }}
 {{ if eq $themeName "catppuccin" }}
 	{{ $themeVariant = promptChoice "Theme Variant" (list "mocha" "macchiato" "latte" "frappe") "mocha" }}
+{{ end }}
 {{ $themeBlackout := promptBool "Do you want to complete black theme background" true }}
 
 {{ $neovimCli := promptBool "NeoVIM IDE" false }}
@@ -58,7 +59,7 @@
 {{ $devCli := promptBool "DEV CLI tools, like jq, bat" false }}
 {{ $dbCli := promptBool "DB management CLI tools, like usql" false }}
 {{ if eq .chezmoi.os "linux" }}
-{{ $vagrantCli = promptBool "HashiCorp Vagrant CLI tools" false }}
+	{{ $vagrantCli := promptBool "HashiCorp Vagrant CLI tools" false }}
 {{ end }}
 {{ $hashicorpCli := promptBool "HashiCorp CLI tools" false }}
 {{ $limaCli := promptBool "Lima-VM CLI tools" false }}
@@ -73,7 +74,7 @@
 {{ $newsCli := promptBool "News CLI tools, like NewsBoat" false }}
 {{ $dekCli := promptBool "TUI presentation tools, like presenterm" false }}
 {{ if eq .chezmoi.os "linux" }}
-{{ $adsCli = promptBool "Ads block CLI tools, like hblock" false }}
+	{{ $adsCli = promptBool "Ads block CLI tools, like hblock" false }}
 {{ end }}
 {{ $gamesCli := promptBool "Some CLI games, like typing tutor" false }}
 
@@ -164,7 +165,7 @@
 	]
 
 [data.tags.python3]
-	enabled = {{ if or ($neovimCli) ($devCli) ($espCli) ($mediaCli) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($neovimCli) ($devCli) ($espCli) ($mediaCli) ($ansibleCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"python3",
 		"uv",
