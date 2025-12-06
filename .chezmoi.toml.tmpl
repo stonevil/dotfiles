@@ -63,6 +63,7 @@
 {{ $hashicorpCli := promptBool "HashiCorp CLI tools" false }}
 {{ $limaCli := promptBool "Lima-VM CLI tools" false }}
 {{ $k8sCli := promptBool "K8S CLI tools" false }}
+{{ $ansibleCli := promptBool "Ansible deployemnt and configuration CLI tools" false }}
 {{ $espCli := promptBool "ESP DEV tools" false }}
 {{ $utilsCli := promptBool "Utils CLI tools, like smartmontools" false }}
 {{ $networkCli := promptBool "Network CLI tools" false }}
@@ -405,6 +406,16 @@
 	]
 	upgrade.fedora = [
 		"krew_upgrade",
+	]
+
+[data.tags.ansibleCli]
+	enabled = {{ $ansibleCli }}
+	uv = [
+		"ansible",
+		"ansible-lint",
+		"molecule",
+		"ansible-navigator",
+		"yamllint",
 	]
 
 [data.tags.neovimCli]
