@@ -266,7 +266,7 @@ tab_powerline_style angled
 
 #: Color scheme
 
-include {{ (print "themes/" (.theme.themeName | lower) "-" (.theme.themeVariant | lower) ".conf") | quote }}
+include "themes/theme.conf"
 
 background_opacity {{ .terminal.opacity }}
 

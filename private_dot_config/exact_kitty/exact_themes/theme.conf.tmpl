@@ -1,0 +1,70 @@
+# The basic colors
+foreground {{ (print "#" .current.theme.primary.background) | quote }}
+background {{ (print "#" .current.theme.primary.background) | quote }}
+selection_foreground {{ (print "#" .current.theme.selection.text) | quote }}
+selection_background {{ (print "#" .current.theme.selection.background) | quote }}
+
+# Cursor colors
+cursor {{ (print "#" .current.theme.cursor.cursor) | quote }}
+cursor_text_color {{ (print "#" .current.theme.cursor.text) | quote }}
+
+# URL underline color when hovering with mouse
+url_color {{ (print "#" .current.theme.url) | quote }}
+
+# Kitty window border colors
+active_border_color {{ (print "#" .current.theme.cursor.cursor) | quote }}
+inactive_border_color {{ (print "#" .current.theme.normal.blue) | quote }}
+bell_border_color {{ (print "#" .current.theme.bright.yellow) | quote }}
+
+# OS Window titlebar colors
+wayland_titlebar_color system
+macos_titlebar_color system
+
+# Tab bar colors
+active_tab_foreground {{ (print "#" ..current.theme.cursor.text) | quote }}
+active_tab_background {{ (print "#" ..current.theme.cursor.cursor) | quote }}
+inactive_tab_foreground {{ (print "#" .current.theme.primary.foreground) | quote }}
+inactive_tab_background {{ (print "#" .current.theme.primary.background) | quote }}
+tab_bar_background {{ (print "#" .current.theme.cursor.text) | quote }}
+
+# Colors for marks (marked text in the terminal)
+mark1_foreground {{ (print "#" .current.theme.primary.background) | quote }}
+mark1_background {{ (print "#" .current.theme.cursor.cursor) | quote }}
+mark2_foreground {{ (print "#" .current.theme.primary.background) | quote }}
+mark2_background {{ (print "#" .current.theme.cursor.cursor) | quote }}
+mark3_foreground {{ (print "#" .current.theme.primary.background) | quote }}
+mark3_background {{ (print "#" .current.theme.cursor.cursor) | quote }}
+
+# The 16 terminal colors
+
+# black
+color0 {{ (print "#" .current.theme.normal.black) | quote }}
+color8 {{ (print "#" .current.theme.bright.black) | quote }}
+
+# red
+color1 {{ (print "#" .current.theme.normal.red) | quote }}
+color9 {{ (print "#" .current.theme.bright.red) | quote }}
+
+# green
+color2 {{ (print "#" .current.theme.normal.green) | quote }}
+color10 {{ (print "#" .current.theme.bright.green) | quote }}
+
+# yellow
+color3 {{ (print "#" .current.theme.normal.yellow) | quote }}
+color11 {{ (print "#" .current.theme.bright.yellow) | quote }}
+
+# blue
+color4 {{ (print "#" .current.theme.normal.blue) | quote }}
+color12 {{ (print "#" .current.theme.bright.blue) | quote }}
+
+# magenta
+color5 {{ (print "#" .current.theme.normal.magenta) | quote }}
+color13 {{ (print "#" .current.theme.bright.magenta) | quote }}
+
+# cyan
+color6 {{ (print "#" .current.theme.normal.cyan) | quote }}
+color14 {{ (print "#" .current.theme.bright.cyan) | quote }}
+
+# white
+color7 {{ (print "#" .current.theme.normal.white) | quote }}
+color15 {{ (print "#" .current.theme.bright.white) | quote }}
