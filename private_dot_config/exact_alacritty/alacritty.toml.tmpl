@@ -6,7 +6,7 @@ vim:ft=toml.gotexttmpl
 live_config_reload = true
 working_directory = {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
 
-import = {{ (print "themes/" (.theme.themeName | lower) "-" (.theme.themeVariant | lower) ".toml") | quote }}
+import = "themes/theme.toml"
 
 [bell]
 animation = "EaseOutExpo"

@@ -1,0 +1,65 @@
+[colors.primary]
+foreground = {{ .current.theme.primary.background | quote }}
+background = {{ .current.theme.primary.background | quote }}
+dim_foreground = {{ .current.theme.primary.dim_foreground | quote }}
+bright_foreground = {{ .current.theme.primary.bright_foreground | quote }}
+
+[colors.cursor]
+text = {{ .current.theme.cursor.text | quote }}
+cursor = {{ .current.theme.cursor.cursor | quote }}
+
+[colors.vi_mode_cursor]
+text = {{ .current.theme.vi_mode_cursor.text | quote }}
+cursor = {{ .current.theme.vi_mode_cursor.cursor | quote }}
+
+[colors.search.matches]
+foreground = {{ .current.theme.search.matches.foreground | quote }}
+background = {{ .current.theme.search.matches.background | quote }}
+
+[colors.search.focused_match]
+foreground = {{ .current.theme.search.focused_match.foreground | quote }}
+background = {{ .current.theme.search.focused_match.background | quote }}
+
+[colors.footer_bar]
+foreground = {{ .current.theme.footer_bar.foreground | quote }}
+background = {{ .current.theme.footer_bar.background | quote }}
+
+[colors.hints.start]
+foreground = {{ .current.theme.hints.start.foreground | quote }}
+background = {{ .current.theme.hints.start.background | quote }}
+
+[colors.hints.end]
+foreground = {{ .current.theme.hints.end.foreground | quote }}
+background = {{ .current.theme.hints.end.background | quote }}
+
+[colors.selection]
+text = {{ .current.theme.selection.text | quote }}
+background = {{ .current.theme.selection.background | quote }}
+
+[colors.normal]
+black = {{ .current.theme.normal.black | quote }}
+red = {{ .current.theme.normal.red | quote }}
+green = {{ .current.theme.normal.green | quote }}
+yellow = {{ .current.theme.normal.yellow | quote }}
+blue = {{ .current.theme.normal.blue | quote }}
+magenta = {{ .current.theme.normal.magenta | quote }}
+cyan = {{ .current.theme.normal.cyan | quote }}
+white = {{ .current.theme.normal.white | quote }}
+
+[colors.bright]
+black = {{ .current.theme.bright.black | quote }}
+red = {{ .current.theme.bright.red | quote }}
+green = {{ .current.theme.bright.green | quote }}
+yellow = {{ .current.theme.bright.yellow | quote }}
+blue = {{ .current.theme.bright.blue | quote }}
+magenta = {{ .current.theme.bright.magenta | quote }}
+cyan = {{ .current.theme.bright.cyan | quote }}
+white = {{ .current.theme.bright.white | quote }}
+
+[[colors.indexed_colors]]
+index = 16
+color = {{ .current.theme.indexed_colors.color16 | quote }}
+
+[[colors.indexed_colors]]
+index = 17
+color = {{ .current.theme.indexed_colors.color17 | quote }}
