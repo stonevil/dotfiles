@@ -27,5 +27,9 @@
 
 		({{ joinPath .path.homebrew "bin/brew" }} update && {{ joinPath .path.homebrew "bin/brew" }} upgrade --overwrite && {{ joinPath .path.homebrew "bin/brew" }} upgrade --cask && {{ joinPath .path.homebrew "bin/brew" }} cleanup --quiet --prune=120 && {{ joinPath .path.homebrew "bin/brew" }} autoremove) || true
 
+		# Fix npm and other tools issues with SSL/TLS. For custom location OpenSSL should be build from sources.
+		# https://github.com/Homebrew/homebrew-core/issues/92271#issuecomment-1020335102
+		({{ joinPath .path.homebrew "bin/brew" }} install --build-from-source openssl ca-certificates) || exit 1
+
 	{{ template "helper.tmpl" . }}
 {{ end }}
