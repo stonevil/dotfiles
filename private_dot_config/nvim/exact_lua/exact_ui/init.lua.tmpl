@@ -23,12 +23,8 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require("catppuccin").setup({
-				flavour = "mocha", -- latte, frappe, macchiato, mocha
-				background = { -- :h background
-					light = "latte",
-					dark = "mocha",
-				},
+			require({{ .theme.themeName | quote }}).setup({
+				flavour = {{ .theme.themeVariant | quote }}, -- latte, frappe, macchiato, mocha
 				transparent_background = vim.g.transparency,
 			})
 		end,
