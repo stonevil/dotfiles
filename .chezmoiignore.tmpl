@@ -63,7 +63,7 @@ Library
 {{ if not .tags.adsCli.enabled }}
 .config/hblock
 {{ end }}
-{{ if and (not .tags.devCli.enabled) (not .tags.neovimCli.enabled) }}
+{{ if or (and (not .tags.devCli.enabled) (not .tags.neovimCli.enabled)) (ne .chezmoi.os "linux") }}
 .config/lazygit
 .config/lazydocker
 {{ end }}
