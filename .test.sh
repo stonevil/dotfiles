@@ -44,7 +44,7 @@ fi
 limactl start $lima_instance
 
 limactl shell $lima_instance mkdir -p /home/${USER}.linux/.local/share
-if [[ $distro == "arch" ]] then
+if [[ $distro == "arch" ]]; then
 	limactl shell $lima_instance sudo pacman --noconfirm --needed --sync --refresh --sysupgrade rsync
 else
 	limactl shell $lima_instance sudo dnf install -y rsync
