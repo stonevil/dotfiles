@@ -12,9 +12,23 @@ containerd:
   user: false
 
 images:
-- location: "https://geo.mirror.pkgbuild.com/images/v20251115.451200/Arch-Linux-x86_64-cloudimg-20251115.451200.qcow2"
+- location: "https://geo.mirror.pkgbuild.com/images/v20251201.460866/Arch-Linux-x86_64-cloudimg-20251201.460866.qcow2"
   arch: "x86_64"
-  digest: "sha256:38327a685289f4e8ab2e646e7866d2d87f9f5efe51d764d08e71ad712969b4c2"
+  digest: "sha256:53deacc97a595e7438259b802f72a952e38a545385e2810233e58ab6281dd5f7"
+
+provision:
+- mode: system
+  script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    sed -i '/^OPTIONS=(/s/debug/!debug/' /etc/makepkg.conf
+    pacman --noconfirm --needed --sync --refresh --sysupgrade
+    pacman --noconfirm --needed --sync glibc-locales bash less curl tar wget git base-devel go
+- mode: user
+  script: |
+    #!/bin/bash
+    set -eux -o pipefail
+    git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -sif --noconfirm && cd .. && rm -Rf yay
 
 env:
   CODESPACES: true
