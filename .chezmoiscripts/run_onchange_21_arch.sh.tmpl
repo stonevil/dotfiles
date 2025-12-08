@@ -20,7 +20,7 @@ vim:ft=bash.gotexttmpl
 	{{ template "helper-sudo-access.tmpl" . }}
 
 	echo "ARCH: disable the debug build with yay"
-	sudo sed -i '/^OPTIONS=(/s/debug/!debug/' /etc/makepkg.conf
+	sudo sed -i '/^OPTIONS=(/s/debug/!debug/' /etc/makepkg.conf || true
 
 	echo "ARCH: update packages"
 	sudo pacman --noconfirm --needed --sync --refresh --sysupgrade || exit 1
