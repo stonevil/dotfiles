@@ -29,6 +29,7 @@
 {{ $bg := "000000" }}
 {{ $vagrantCli := false }}
 {{ $adsCli := false }}
+{{ $xfce := false }}
 {{ $plasma := false }}
 {{ $hyprland := false }}
 {{ $fwupdCli := false }}
@@ -91,6 +92,7 @@
 {{ if eq .chezmoi.os "linux" }}
 	{{ $fwupdCli = promptBool "Linux hardware firmware updater, fwupd" false }}
 
+#	{{ $xfce = promptBool "Xfce DE" false }}
 	{{ $plasma = promptBool "KDE Plasma DE" false }}
 	{{ $hyprland = promptBool "Hyprland DE" false }}
 {{ end }}
@@ -235,9 +237,13 @@
 	enabled = {{ if or ($neovimCli) ($gamesCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"go",
+		"delve",
+		"golangci-lint",
 	]
 	arch = [
 		"go",
+		"delve",
+		"golangci-lint",
 	]
 
 [data.tags.rust]
@@ -245,10 +251,12 @@
 	darwin = [
 		"rust",
 		"cargo-binstall",
+		"cargo-update",
 	]
 	arch = [
 		"rust",
 		"cargo-binstall",
+		"cargo-update",
 	]
 
 [data.tags.nodejs]
@@ -330,13 +338,14 @@
 		"parallel",
 		"smartmontools",
 		"dmg2img",
+		"dua-cli",
 	]
 	arch = [
 		"parallel",
 		"smartmontools",
+		"dua-cli",
 	]
 	cargo = [
-		"dua-cli",
 		"battop",
 	]
 
@@ -480,10 +489,6 @@
 	]
 	rocks = [
 		"jsregexp",
-	]
-	go = [
-		"github.com/go-delve/delve/cmd/dlv@latest",
-		"github.com/golangci/golangci-lint/cmd/golangci-lint@v1.52.2",
 	]
 	gem = [
 		{{ if eq .chezmoi.os "linux" }} "neovim", {{ end }}
@@ -934,7 +939,6 @@
 	enabled = {{ $schematics }}
 	darwin = [
 		"kicad",
-		"stonevil/brew/openboardview",
 	]
 	arch = [
 		"kicad",
