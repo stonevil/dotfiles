@@ -27,4 +27,5 @@ lazy-lock.json
 .envrc
 
 # Syncthing
+.stfolder
 .stignore
