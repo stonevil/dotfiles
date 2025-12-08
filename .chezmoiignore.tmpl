@@ -70,7 +70,7 @@ Library
 {{ if and (not .tags.limaCli.enabled) (not .tags.k8sCli.enabled) }}
 .lima
 {{ end }}
-{{ if and (or (not .tags.plasma.enabled) (not .tags.hyprland.enabled)) (ne .chezmoi.os "darwin") }}
+{{ if not .tags.terminalEmulators.enabled }}
 .config/nvim/lua/plugins/wezterm.lua
 {{ end }}
 .stignore
