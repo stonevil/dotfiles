@@ -36,15 +36,18 @@
 {{ $terminalEmulators := false }}
 {{ $dev := false }}
 {{ $db := false }}
+{{ $network := false }}
 {{ $browsers := false }}
 {{ $messengers := false }}
 {{ $mail := false }}
 {{ $media := false }}
 {{ $modeling := false }}
+{{ $schematics := false }}
 {{ $graphics := false }}
 {{ $books := false }}
 {{ $virt := false }}
 {{ $tor := false }}
+{{ $torrent := false }}
 {{ $utils := false }}
 
 # Ask questin about environment
@@ -104,8 +107,11 @@
 	{{ $media = promptBool "Media apps, like mpv, kid3" false }}
 	{{ $modeling = promptBool "3D modeling apps, like Blender, FreeCAD" false }}
 	{{ $graphics = promptBool "Graphics apps, Gimp, Krita" false }}
+	{{ $schematics = promptBool "Electronics and PCB design apps, like KiCad" false }}
+	{{ $network = promptBool "Network apps, like VNC/RDP clients" false }}
 	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" false }}
 	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" false }}
+	{{ $torrent = promptBool "Torrent network apps, like qBittorrent" false }}
 	{{ $utils = promptBool "Utils apps, like OnyX for macOS" false }}
 {{ end }}
 
@@ -161,6 +167,30 @@
 		"wget",
 		"which",
 		"glibc-locales",
+	]
+	fedora = [
+		"bash",
+		"bash-completion",
+		"zsh",
+		"less",
+		"man-db",
+		"cpio",
+		"dos2unix",
+		"diffutils",
+		"curl",
+		"git",
+		"cracklib",
+		"cracklib-dicts",
+		"tree",
+		"screen",
+		"tar",
+		"unzip",
+		"wget",
+		"which",
+		"glibc-common",
+	]
+	pre.fedora = [
+		"sudo	dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm",
 	]
 	upgrade.darwin = [
 		"brew_upgrade && brew_cleanup",
@@ -260,8 +290,6 @@
 
 [data.tags.ruby]
 	enabled = {{ if ($neovimCli) }} true {{ else }} false {{ end }}
-	darwin = [
-	]
 	arch = [
 		"ruby",
 	]
@@ -506,9 +534,6 @@
 
 [data.tags.adsCli]
 	enabled = {{ $adsCli }}
-	darwin = [
-		"hblock",
-	]
 	arch = [
 		"hblock",
 	]
@@ -519,7 +544,7 @@
 [data.tags.gamesCli]
 	enabled = {{ $gamesCli }}
 	go = [
-		"github.com/bloznelis/typioca@latest"
+		"github.com/bloznelis/typioca@latest",
 	]
 
 [data.tags.dekCli]
@@ -560,7 +585,7 @@
 		{{ if or ($hyprland) ($plasma) }} "syncthingtray", {{ end }}
 	]
 	post.arch = [
-		"systemctl --user enable syncthing.service"
+		"systemctl --user enable syncthing.service",
 	]
 
 [data.tags.hashicorpCli]
@@ -608,7 +633,7 @@
 		"brightnessctl",
 	]
 	post.arch = [
-		"sudo systemctl enable --now ly.service"
+		"sudo systemctl enable --now ly.service",
 	]
 
 [data.tags.spell]
@@ -630,10 +655,10 @@
 		"fontconfig",
 	]
 	upgrade.darwin = [
-		"fonts_cache_update"
+		"fonts_cache_update",
 	]
 	upgrade.arch = [
-		"fonts_cache_update"
+		"fonts_cache_update",
 	]
 
 [data.tags.print]
@@ -652,6 +677,28 @@
 		"foomatic-db-ppds",
 	]
 
+[data.tags.xfce]
+	enabled = {{ $xfce }}
+	fedora = [
+		"@base-x",
+		"xrdp",
+		"xorgxrdp",
+		"xfconf",
+		"xfdesktop",
+		"xfwm4",
+		"xfce4-session",
+		"xfce4-settings",
+		"xfce4-panel",
+		"xfce4-places-plugin",
+		"xfce4-xkb-plugin",
+		"xfce4-terminal",
+		"thunar",
+		"thunar-archive-plugin",
+		"materia-gtk-theme",
+		"ristretto",
+		"mousepad",
+	]
+
 [data.tags.hyprland]
 	enabled = {{ $hyprland }}
 	arch = [
@@ -665,7 +712,6 @@
 		"hyprcursor",
 		"hyprpolkitagent",
 		"wl-clipboard",
-		"wtype",
 	]
 
 [data.tags.plasma]
@@ -704,14 +750,8 @@
 		"konqueror",
 		"marknote",
 		"kdialog",
-		"kdiff3",
-		"kompare",
-		"kommit",
-		"krdc",
-		"krfb",
 		"calligra",
 		"wl-clipboard",
-		"wtype",
 	]
 
 [data.tags.browsers]
@@ -726,9 +766,28 @@
 		"waterfox-bin",
 		"ungoogled-chromium-bin",
 	]
+	pre.fedora = [
+		"	curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
+	]
+
+[data.tags.network]
+	enabled = {{ $network }}
+	arch = [
+		"krdc",
+		"krfb",
+	]
 
 [data.tags.dev]
 	enabled = {{ $dev }}
+	darwin = [
+		"coteditor",
+		"keycastr",
+	]
+	arch = [
+		"kdiff3",
+		"kompare",
+		"kommit",
+	]
 
 [data.tags.db]
 	enabled = {{ $db }}
@@ -773,6 +832,9 @@
 		"kid3",
 		"handbrake",
 	]
+	fedora = [
+		"mpv",
+	]
 
 [data.tags.books]
 	enabled = {{ $books }}
@@ -802,12 +864,26 @@
 		"torbrowser-launcher",
 	]
 
+[data.tags.torrent]
+	enabled = {{ $torrent }}
+	darwin = [
+		"stonevil/brew/qbittorrent",
+	]
+	arch = [
+		"qbittorrent",
+	]
+	fedora = [
+		"qbittorrent",
+	]
+
 [data.tags.utils]
 	enabled = {{ $tor }}
 	darwin = [
 		"keepingyouawake",
 		"coconutbattery",
 		"onyx",
+		"sloth",
+		"grandperspective",
 	]
 	arch = [
 		"kdiskmark",
@@ -854,6 +930,26 @@
 		"inkscape",
 	]
 
+[data.tags.schematics]
+	enabled = {{ $schematics }}
+	darwin = [
+		"kicad",
+		"stonevil/brew/openboardview",
+	]
+	arch = [
+		"kicad",
+		"kicad-library",
+		"kicad-library-3d",
+		"python-kikit",
+		"python-pcbnewtransition",
+		"openboardview",
+	]
+	fedora = [
+		"kicad",
+		"kicad-doc",
+		"kicad-packages3d",
+	]
+
 
 # TODO: add more sophisticated hardware detection
 # Hardware specific configs
@@ -885,7 +981,7 @@
 		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
-		"grep -qF '[g14]' /etc/pacman.conf || echo -e '[g14]\nServer = https://arch.asus-linux.org' | sudo tee >> /etc/pacman.conf"
+		"grep -qF '[g14]' /etc/pacman.conf || echo -e '[g14]\nServer = https://arch.asus-linux.org' | sudo tee >> /etc/pacman.conf",
 	]
 	post.arch = [
 		"sudo systemctl enable --now power-profiles-daemon",
@@ -950,6 +1046,7 @@
 	homebrew = {{ (joinPath .chezmoi.homeDir ".brew" | quote) }}
 {{ end }}
 
+#TODO: maybe refactorinmg required
 [data.current]
 	{{ if eq $themeName "catppuccin" }}
 		{{ if eq $themeVariant "mocha" }}
