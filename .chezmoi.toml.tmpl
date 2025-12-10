@@ -1032,7 +1032,7 @@
 	themeName = {{ $themeName | quote }}
 	themeVariant = {{ $themeVariant | quote }}
 	themeBlackout = {{ $themeBlackout }}
-{{ if or ($themeBlackout) (eq $themeVariant "mocha") (eq $themeVariant "macchiato") (eq $themeVariant "dark") (eq $themeVariant "moon") }}
+{{ if or ($themeBlackout) (eq $themeVariant "mocha") (eq $themeVariant "macchiato") }}
 	themeDarkMode = true
 {{ end }}
 
