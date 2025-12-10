@@ -32,6 +32,7 @@ if-shell '[[ ! -d $HOME/.config/tmux/plugins/tpm ]]' {
 ## True colour
 set -g default-terminal "tmux-256color"
 set -ag terminal-overrides ",*:Tc"
+# set -ag terminal-overrides ",xterm-256color:RGB"
 # set -g default-terminal "$TERM"
 # set -ag terminal-overrides ",$TERM:Tc"
 # set -as terminal-features ",xterm-256color:RGB"
