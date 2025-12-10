@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+# vim:ft=bash.gotexttmpl
+
+# trap '' SIGINT
+
+# {{ .chezmoi.os }} hash: {{ include ".chezmoi.toml.tmpl" | sha256sum }}
+
+# {{ .chezmoi.os }} hash: {{ include ".chezmoidata/shell.toml" | sha256sum }}
+# {{ .chezmoi.os }} hash: {{ include ".chezmoitemplates/helper-shell-completions.tmpl" | sha256sum }}
+
+{{ template "helper-shell-completions.tmpl" . }}
