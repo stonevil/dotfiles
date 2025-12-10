@@ -1,0 +1,33 @@
+XTerm*saveLines: 0
+XTerm*vt100.translations: #override \n\
+  Ctrl <Btn4Down>: string(0x1b) string("[25S") \n\
+  Lock Ctrl <Btn4Down>: string(0x1b) string("[25S") \n\
+  Lock @Num_Lock Ctrl <Btn4Down>: string(0x1b) string("[25S") \n\
+  @Num_Lock Ctrl <Btn4Down>: string(0x1b) string("[25S") \n\
+  <Btn4Down>: string(0x1b) string("[5S") \n\
+  Ctrl <Btn5Down>: string(0x1b) string("[25T") \n\
+  Lock Ctrl <Btn5Down>: string(0x1b) string("[25T") \n\
+  Lock @Num_Lock Ctrl <Btn5Down>: string(0x1b) string("[25T") \n\
+  @Num_Lock Ctrl <Btn5Down>: string(0x1b) string("[25T") \n\
+  <Btn5Down>: string(0x1b) string("[5T") \n\
+  Shift <KeyPress> Prior: string(0x1b) string("[25S") \n\
+  Shift <KeyPress> Next: string(0x1b) string("[25T") \n
+
+*foreground: {{ print "#" .current.theme.primary.foreground}}
+*background: {{ print "#" .current.theme.primary.background }}
+*color0:  {{ print "#" .current.theme.normal.black }}
+*color1:  {{ print "#" .current.theme.normal.red }}
+*color2:  {{ print "#" .current.theme.normal.green }}
+*color3:  {{ print "#" .current.theme.normal.yellow }}
+*color4:  {{ print "#" .current.theme.normal.blue }}
+*color5:  {{ print "#" .current.theme.normal.magenta }}
+*color6:  {{ print "#" .current.theme.normal.cyan }}
+*color7:  {{ print "#" .current.theme.normal.white }}
+*color8:  {{ print "#" .current.theme.bright.black }}
+*color9:  {{ print "#" .current.theme.bright.red }}
+*color10: {{ print "#" .current.theme.bright.green }}
+*color11: {{ print "#" .current.theme.bright.yellow }}
+*color12: {{ print "#" .current.theme.bright.blue }}
+*color13: {{ print "#" .current.theme.bright.magenta }}
+*color14: {{ print "#" .current.theme.bright.cyan }}
+*color15: {{ print "#" .current.theme.bright.white }}
