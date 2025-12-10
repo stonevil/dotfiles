@@ -31,15 +31,15 @@ call InstallPlug(vimplug_exists)
 "" Install vim-plug if required
 "" Required:
 call plug#begin()
-	Plug 'danilo-augusto/vim-afterglow'
-
-	Plug 'bling/vim-airline'
+	Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+	Plug 'itchyny/lightline.vim'
+	Plug 'tribela/vim-transparent'
 
 	" FZF
-	if !isdirectory($HOME . '/.homebrew/opt/fzf')
+	if !isdirectory({{ joinPath .path.homebrew "opt/fzf" | squote }})
 		Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	else
-		Plug $HOME . '/.homebrew/opt/fzf'
+		Plug {{ joinPath .path.homebrew "opt/fzf" | squote }}
 	endif
 	Plug 'junegunn/fzf.vim'
 
@@ -64,6 +64,7 @@ call plug#end()
 
 
 "" Global settings override
+let mapleader = " "
 nnoremap <space> <nop>
 map <space> <leader>
 set guioptions=
@@ -136,7 +137,7 @@ set updatetime=300							" Smaller updatetime for CursorHold & CursorHoldI
 set shortmess+=c								" Don't give |ins-completion-menu| messages
 set signcolumn=yes							" Always show signcolumns
 set showmatch										" Show matching brackets by flickering
-set noshowmode									" We show the mode with airline or lightline
+set noshowmode									" We show the mode with lightline
 set completeopt=noinsert,longest,menuone,noselect
 set pumheight=10								" Completion window max size
 set nocursorcolumn							" Do not highlight column (speeds up highlighting)
@@ -145,7 +146,7 @@ set lazyredraw									" Wait to redraw
 
 set confirm											" Confirm changes (Yes, No, Cancel) instead of error
 
-"set wildmenu										" Visual autocomplete for command menu. Done by airline
+"set wildmenu										" Visual autocomplete for command menu
 "set wildmode=list:longest,full
 
 " Turn off search highlight
@@ -303,20 +304,6 @@ endif
 
 
 """"""""""
-"" vim-airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#csv#enabled = 1
-"let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-
-let g:airline#extensions#tmuxline#enabled = 0
-let g:tmuxline_powerline_separators = 0
-"let airline#extensions#tmuxline#snapshot_file = $HOME . '/.local/share/tmux.theme'
-
-
-""""""""""
 "" nerdcommenter
 let g:NERDDefaultAlign = 'left'
 let g:NERDCompactSexyComs = 1
@@ -360,8 +347,6 @@ noremap <leader>grm :GDelete<CR>
 "" dense-analysis/ale
 " Recommended for macOS
 let g:delve_backend = "native"
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_format = '[%code%] %s [%severity%]'
 let g:ale_ansible_ansible_lint_executable = 'ansible-lint -x ANSIBLE0204'
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
@@ -461,17 +446,18 @@ vnoremap K :m '<-2<CR>gv=gv
 
 """"""""""
 "" Theme
-set t_Co=256
-colorscheme afterglow
-let g:airline_theme='afterglow'
+colorscheme catppuccin_mocha
 
 set colorcolumn=0
-set background=dark
 silent do ColorScheme
 
 " Set background to transparent
-hi NonText ctermbg=none
-hi Normal guibg=NONE ctermbg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
+highlight LineNr guibg=NONE ctermbg=NONE
+highlight SignColumn guibg=NONE ctermbg=NONE
+highlight EndOfBuffer guibg=NONE ctermbg=NONE
+highlight NonText guibg=NONE ctermbg=none
+
 
 """"""""""
 "" Reopen last position
