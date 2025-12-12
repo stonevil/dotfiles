@@ -583,11 +583,14 @@
 [data.tags.sync]
 	enabled = {{ if ($sync) }} true {{ else }} false {{ end }}
 	darwin = [
-		"syncthing-app",
+		"syncthing",
 	]
 	arch = [
 		"syncthing",
 		{{ if or ($hyprland) ($plasma) }} "syncthingtray", {{ end }}
+	]
+	post.darwin = [
+		"mkdir -p ${HOME}/Library/LaunchAgents && chflags nouchg ${HOME}/Library/LaunchAgents && brew services start syncthing && chflags uchg ${HOME}/Library/LaunchAgents",
 	]
 	post.arch = [
 		"systemctl --user enable syncthing.service",
@@ -858,6 +861,12 @@
 	]
 	arch = [
 		"karton",
+		"virt-manager",
+	]
+	post.arch = [
+		"sudo usermod -a -G libvirt-qemu ${USER}"
+		"sudo systemctl enable --now libvirtd.service",
+		"sudo systemctl enable --now libvirtd.socket",
 	]
 
 [data.tags.tor]
@@ -961,6 +970,7 @@
 	enabled = false
 	arch = [
 		"asusctl",
+		"bat-asus-battery-bin",
 		"power-profiles-daemon",
 		"supergfxctl",
 		"switcheroo-control",
@@ -991,6 +1001,7 @@
 		"sudo systemctl enable --now power-profiles-daemon",
 		"sudo systemctl enable --now supergfxd",
 		"sudo systemctl enable --now switcheroo-control",
+		"sudo systemctl enable --now bat-boot",
 	]
 
 [data.tags.thinkpad]
