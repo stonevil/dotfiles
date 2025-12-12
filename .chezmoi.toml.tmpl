@@ -521,6 +521,9 @@
 	post.arch = [
 		"sudo systemctl enable --now fwupd-refresh.timer",
 	]
+	upgrade.arch = [
+		"fwupd_upgrade",
+	]
 
 [data.tags.mediaCli]
 	enabled = {{ $mediaCli }}
