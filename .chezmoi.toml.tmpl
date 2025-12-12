@@ -491,7 +491,7 @@
 		"jsregexp",
 	]
 	gem = [
-		{{ if eq .chezmoi.os "linux" }} "neovim", {{ end }}
+		{{ if eq .chezmoi.os "linux" }}"neovim",{{ end }}
 	]
 	upgrade.darwin = [
 		"nvim_plugins_update",
@@ -551,8 +551,14 @@
 
 [data.tags.gamesCli]
 	enabled = {{ $gamesCli }}
+	darwin = [
+		"typioca",
+	]
+	arch = [
+		"typioca-bin",
+	]
 	go = [
-		"github.com/bloznelis/typioca@latest",
+		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora" ) -}}"github.com/bloznelis/typioca@latest",{{ end }}
 	]
 
 [data.tags.dekCli]
@@ -590,7 +596,7 @@
 	]
 	arch = [
 		"syncthing",
-		{{ if or ($hyprland) ($plasma) }} "syncthingtray", {{ end }}
+		{{ if or ($hyprland) ($plasma) }}"syncthingtray",{{ end }}
 	]
 	post.darwin = [
 		"mkdir -p ${HOME}/Library/LaunchAgents && chflags nouchg ${HOME}/Library/LaunchAgents && brew services start syncthing && chflags uchg ${HOME}/Library/LaunchAgents",
