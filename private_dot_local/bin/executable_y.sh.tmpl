@@ -16,7 +16,7 @@ cd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }} || exit 1
 yt_title=$(yt-dlp --skip-download --get-title --no-warnings "$media_url" | sed 2d)
 printf "%s\n" "Download media: $yt_title"
 
-media_number=$(yt-dlp --no-warnings --quiet --user-agent "$yt_user_agent" --list-formats "$media_url" | fzf --header 'Select or type prefered video/audio type # in the left column' --header-lines=2 | awk '{print $1}')
+media_number=$(yt-dlp --no-warnings --quiet --user-agent "$yt_user_agent" --list-formats "$media_url" | fzf --header 'Select or type prefered video/audio ID from the left column' --header-lines=2 | awk '{print $1}')
 
 if [[ -n $media_number ]]; then
 	yt-dlp --no-warnings --user-agent "$yt_user_agent" --format "$media_number" --embed-metadata --embed-thumbnail --recode-video mp4 --audio-format m4a --merge-output-format mp4 "$media_url"
