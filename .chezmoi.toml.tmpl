@@ -191,8 +191,11 @@
 		"which",
 		"glibc-common",
 	]
+	post.darwin = [
+		"darwin_user_services_cleanup",
+	]
 	pre.fedora = [
-		"sudo	dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm",
+		"fedora_rpmfusion_add",
 	]
 	upgrade.darwin = [
 		"brew_upgrade && brew_cleanup",
@@ -219,14 +222,14 @@
 		"wheel==0.45.0",
 	]
 	pre.darwin = [
-		"mkdir -p ${HOME}/Library/Python && rm -rf ${HOME}/Library/Python/*; chflags uchg ${HOME}/Library/Python",
+		"darwin_python3_library_lock",
 	]
 	post.darwin = [
 		"brew unlink --quiet python3; brew link --overwrite --force --quiet python3",
-		"python3_relink",
+		"brew_python3_relink",
 	]
 	upgrade.darwin = [
-		"python3_relink",
+		"brew_python3_relink",
 		"uv_upgrade",
 	]
 	upgrade.arch = [
@@ -633,10 +636,10 @@
 [data.tags.espCli]
 	enabled = {{ $espCli }}
 	pre.darwin = [
-		"python3_relink",
+		"brew_python3_relink",
 	]
 	upgrade.darwin = [
-		"python3_relink",
+		"brew_python3_relink",
 		"esp_idf_update",
 	]
 	upgrade.arch = [
