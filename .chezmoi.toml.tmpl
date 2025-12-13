@@ -50,6 +50,8 @@
 {{ $tor := false }}
 {{ $torrent := false }}
 {{ $utils := false }}
+{{ $zephyrus := false }}
+{{ $thinkpad := false }}
 
 # Ask questin about environment
 {{ $ownership := (promptStringOnce . "Ownership" "Private or company property" "private") | quote }}
@@ -91,6 +93,9 @@
 # Ask questin about environment if GUI env required
 {{ if eq .chezmoi.os "linux" }}
 	{{ $fwupdCli = promptBool "Linux hardware firmware updater, fwupd" false }}
+
+	{{ $zephyrus = promptBool "Is this ASUS Zephyrus line laptop" false }}
+	{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" false }}
 
 #	{{ $xfce = promptBool "Xfce DE" false }}
 	{{ $plasma = promptBool "KDE Plasma DE" false }}
@@ -876,7 +881,7 @@
 		"virt-manager",
 	]
 	post.arch = [
-		"sudo usermod -a -G libvirt-qemu ${USER}"
+		"sudo usermod -a -G libvirt-qemu ${USER}",
 		"sudo systemctl enable --now libvirtd.service",
 		"sudo systemctl enable --now libvirtd.socket",
 	]
@@ -979,8 +984,9 @@
 # TODO: add more sophisticated hardware detection
 # Hardware specific configs
 [data.tags.zephyrus]
-	enabled = false
+	enabled = {{ $zephyrus }}
 	arch = [
+		"bolt",
 		"asusctl",
 		"bat-asus-battery-bin",
 		"power-profiles-daemon",
@@ -1017,8 +1023,9 @@
 	]
 
 [data.tags.thinkpad]
-	enabled = false
+	enabled = {{ $thinkpad }}
 	arch = [
+		"bolt",
 		"thermald",
 		"auto-cpufreq",
 	]
