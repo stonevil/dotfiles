@@ -36,11 +36,6 @@ call plug#begin()
 	Plug 'tribela/vim-transparent'
 
 	" FZF
-	if !isdirectory({{ joinPath .path.homebrew "opt/fzf" | squote }})
-		Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-	else
-		Plug {{ joinPath .path.homebrew "opt/fzf" | squote }}
-	endif
 	Plug 'junegunn/fzf.vim'
 
 	" Git Integration
@@ -204,7 +199,7 @@ let g:indentguides_tabchar = '¦'
 """"""""""
 "" junegunn/fzf.vim
 " Search files
-nnoremap <silent> <leader>e :Files<CR>
+nnoremap <silent> <leader><leader> :Files<CR>
 nnoremap <silent> <leader>ee :History<CR>
 
 " Search in git files
@@ -216,7 +211,7 @@ nnoremap <silent> <leader>bc :BCommits<CR>
 nnoremap <silent> <leader>gc :Commits<CR>
 
 " Search buffers
-nnoremap <silent> <leader><leader> :Buffers<CR>
+nnoremap <silent> <leader>, :Buffers<CR>
 
 " Search windows
 nnoremap <silent> <leader><leader><leader> :Windows<CR>
