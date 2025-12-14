@@ -658,7 +658,8 @@
 		"brightnessctl",
 	]
 	post.arch = [
-		"sudo systemctl enable --now ly.service",
+		"sudo systemctl enable --now ly@tty2.service",
+		"sudo systemctl disable --now getty@tty2.service",
 	]
 
 [data.tags.spell]
