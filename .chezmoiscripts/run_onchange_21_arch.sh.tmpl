@@ -31,6 +31,9 @@ vim:ft=bash.gotexttmpl
 	echo "ARCH: generate locales"
 	{{ template "locales.tmpl" . }}
 
+	echo "ARCH: force SYSTEM_EDITOR to vim"
+	{{ template "system-editor.tmpl" . }}
+
 	echo "ARCH: install basic tools"
 	sudo pacman --noconfirm --needed --sync bash less curl tar wget git base-devel || exit 1
 
