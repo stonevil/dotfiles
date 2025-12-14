@@ -2,6 +2,7 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+{{ if eq .chezmoi.os "linux" }}
 sudo sh -c 'cat > /etc/locale.conf' << EOF
 LANG=en_US.UTF-8
 LANGUAGE=en_US:en
@@ -11,7 +12,6 @@ LC_CTYPE=en_US.UTF-8
 LC_MEASUREMENT=metric
 EOF
 
-{{ if eq .chezmoi.os "linux" }}
 	{{ if eq .chezmoi.osRelease.id "arch" }}
 sudo sh -c 'cat > /etc/locale.gen' << EOF
 en_US.UTF-8 UTF-8
