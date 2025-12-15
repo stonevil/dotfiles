@@ -777,6 +777,10 @@
 		"marknote",
 		"kdialog",
 		"wl-clipboard",
+		"kwallet",
+		"kwalletmanager",
+		"kwallet-pam",
+		"ksshaskpass",
 	]
 
 [data.tags.browsers]
@@ -1004,6 +1008,8 @@
 		"wd719x-firmware",
 		"linux-firmware-intel",
 		"iasl",
+		"libva-intel-driver-irql",
+		"libva-nvidia-driver",
 	]
 	pre.arch = [
 		"wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
@@ -1027,6 +1033,8 @@
 		"bolt",
 		"thermald",
 		"auto-cpufreq",
+		"linux-firmware-intel",
+		"libva-intel-driver-irql",
 	]
 	post.arch = [
 		"sudo systemctl enable --now thermald",
