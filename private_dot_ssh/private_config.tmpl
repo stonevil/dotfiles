@@ -6,7 +6,7 @@ Host *
 	ConnectTimeout 120
 	RemoteForward 8377 localhost:8377
 {{- if eq .chezmoi.os "darwin" }}
-  UseKeychain yes
+	UseKeychain yes
 {{- end }}
 
 Include config.d/*
