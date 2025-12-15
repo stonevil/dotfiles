@@ -1,3 +1,8 @@
 {{ if .tags.plasma.enabled -}}
 --password-store=kwallet6
+--enable-features=AcceleratedVideoDecodeLinuxZeroCopyGL
+--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder
+--ozone-platform-hint=auto
+--process-per-site
+--disable-sync-preferences
 {{ end -}}
