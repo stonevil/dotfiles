@@ -1018,7 +1018,7 @@
 		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
-		"grep -qF '[g14]' /etc/pacman.conf || echo -e '[g14]\nServer = https://arch.asus-linux.org' | sudo tee >> /etc/pacman.conf",
+		"grep -qF '[g14]' /etc/pacman.conf || echo -e '\n[g14]\nServer = https://arch.asus-linux.org' | sudo tee -a /etc/pacman.conf >/dev/null",
 	]
 	post.arch = [
 		"sudo systemctl enable --now power-profiles-daemon",

@@ -35,7 +35,7 @@ vim:ft=bash.gotexttmpl
 	{{ template "system-editor.tmpl" . }}
 
 	echo "ARCH: install basic tools"
-	sudo pacman --noconfirm --needed --sync bash less curl tar wget git base-devel || exit 1
+	sudo pacman --noconfirm --needed --sync sudo bash less curl tar wget git base-devel || exit 1
 
 	{{ if not (lookPath "yay") }}
 		sudo pacman --noconfirm --needed --sync go || exit 1
