@@ -4,6 +4,8 @@ vim:ft=dosini.gotexttmpl
 
 # -*- conf -*-
 
+include={{ (joinPath .chezmoi.homeDir ".config/foot/themes/theme.ini") | squote }}
+
 shell={{ .terminal.shellPath }} --login
 # login-shell=no
 # term=foot (or xterm-256color if built with -Dterminfo=disabled)
@@ -13,9 +15,6 @@ shell={{ .terminal.shellPath }} --login
 # locked-title=no
 
 font={{ .terminal.font }}:weight={{ .terminal.fontNormal }}:size={{ 3 | sub .terminal.fontSize}}
-font-bold={{ .terminal.font }}:weight={{ .terminal.fontBold }}:size={{ 3 | sub .terminal.fontSize }}
-font-italic={{ .terminal.font }}:weight={{ .terminal.fontItalic }}:size={{ 3 | sub .terminal.fontSize}}
-font-bold-italic={{ .terminal.font }}:weight={{ .terminal.fontBoldItalic }}:size={{ 3 | sub .terminal.fontSize }}
 # font-size-adjustment=0.5
 # line-height=<font metrics>
 # letter-spacing=0
@@ -76,8 +75,6 @@ hide-when-typing=yes
 
 [colors]
 alpha={{ .terminal.opacity }}
-
-include={{ (joinPath .chezmoi.homeDir ".config/foot/themes/theme.ini") | squote }}
 
 [csd]
 # preferred=server
