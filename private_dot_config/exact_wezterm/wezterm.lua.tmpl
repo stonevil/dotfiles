@@ -37,6 +37,14 @@ scheme_current.tab_bar.inactive_tab.bg_color = "#0f0f0f"
 scheme_current.tab_bar.new_tab.bg_color = "#080808"
 {{ end }}
 
+wezterm.on("effective-config-changed", function(config)
+	if detect.hyprland() then
+		config.window_decorations = "RESIZE"
+	else
+		config.window_decorations = "TITLE | RESIZE"
+	end
+end)
+
 config = {
 	default_prog = { '{{ .terminal.shellPath }}', '--login' },
 	window_close_confirmation = "NeverPrompt",
@@ -58,18 +66,21 @@ config = {
 		font = wezterm.font({
 			family = {{ .terminal.font | quote }},
 		}),
-		font_size = {{ .terminal.fontSize }},
+		font_size = {{ .terminal.fontSize }}
 		-- active_titlebar_bg = "#000000",
 		-- inactive_titlebar_bg = "#000000",
 	},
 	window_background_opacity = {{ .terminal.opacity }},
 	macos_window_background_blur = {{ .terminal.blur }},
-	window_decorations = "RESIZE",
 	enable_scroll_bar = false,
 	text_blink_rate = 0,
+	{{- if eq .chezmoi.os "darwin" }}
 	native_macos_fullscreen_mode = true,
 	quit_when_all_windows_are_closed = true,
+	{{ end -}}
+	{{- if eq .chezmoi.os "linux" }}
 	enable_wayland = detect.wayland(),
+	{{ end }}
 	initial_cols = {{ .terminal.cols }},
 	initial_rows = {{ .terminal.rows }},
 	inactive_pane_hsb = {
@@ -77,7 +88,7 @@ config = {
 		brightness = 0.3,
 	},
 	font = wezterm.font({{ .terminal.font | quote }}),
-	font_size = {{ .terminal.fontSize }},
+	font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }},
 	max_fps = 120,
 	line_height = 1.1,
 	-- Cursor style

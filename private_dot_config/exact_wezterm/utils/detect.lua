@@ -2,6 +2,19 @@ local wezterm = require("wezterm")
 
 local detect = {}
 
+function detect.hyprland()
+	local xdg_desktop = os.getenv("XDG_CURRENT_DESKTOP")
+	if xdg_desktop and (xdg_desktop:find("Hyprland") or xdg_desktop:find("hyprland")) then
+		return true
+	end
+	local desktop_session = os.getenv("DESKTOP_SESSION")
+	if desktop_session and (desktop_session:find("Hyprland") or desktop_session:find("hyprland")) then
+		return true
+	end
+
+	return false
+end
+
 function detect.wayland()
 	-- Wayland support
 	local wayland = os.getenv("XDG_SESSION_TYPE")
