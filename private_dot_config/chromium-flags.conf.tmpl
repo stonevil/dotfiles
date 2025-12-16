@@ -1,8 +1,12 @@
+--no-default-browser-check
+--no-first-run
+--process-per-site
+--disable-sync-preferences
 {{ if .tags.plasma.enabled -}}
 --password-store=kwallet6
+{{ end -}}
+{{ if eq .chezmoi.os "linux" -}}
 --enable-features=AcceleratedVideoDecodeLinuxZeroCopyGL
 --enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder
 --ozone-platform-hint=auto
---process-per-site
---disable-sync-preferences
 {{ end -}}
