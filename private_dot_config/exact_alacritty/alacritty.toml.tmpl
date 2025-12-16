@@ -42,7 +42,7 @@ TERM = "xterm-256color"
 
 [font]
 builtin_box_drawing = true
-size = {{ .terminal.fontSize }}
+size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }}
 
 [font.offset]
 x = 0
@@ -636,8 +636,8 @@ startup_mode = "Windowed"
 title = "Alacritty"
 
 [window.dimensions]
-columns = 120
-lines = 50
+columns = {{ .terminal.cols }
+lines = {{ .terminal.rows }}
 
 [window.padding]
 x = 5
