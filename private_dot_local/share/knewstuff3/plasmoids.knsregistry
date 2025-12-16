@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="710">
+  <name>Thermal Monitor</name>
+  <providerid>api.kde-look.org</providerid>
+  <author>olib</author>
+  <homepage>https://store.kde.org/p/2100418</homepage>
+  <licence></licence>
+  <version>0.2.6</version>
+  <rating>74</rating>
+  <downloads>68711</downloads>
+  <installedfile>/home/huginn/.local/share/plasma/plasmoids/org.kde.olib.thermalmonitor/</installedfile>
+  <id>2100418</id>
+  <releasedate>2025-03-22</releasedate>
+  <summary>&lt;p>System temperatures at a glance&lt;br />&lt;br />For Plasma 5, please see: https://store.kde.org/p/2070765/&lt;br />&lt;br />Inspired by:&lt;br />&lt;/p>&lt;ul>&lt;li> https://github.com/kotelnik/plasma-applet-thermal-monitor&lt;br />&lt;/li>&lt;li> and its fork https://gitlab.com/agurenko/plasma-applet-thermal-monitor&lt;br />&lt;/li>&lt;/ul>&lt;br />This applet uses &lt;i>libksysguard&lt;/i> for retrieving temperature information provided by &lt;i>ksystemstats&lt;/i>.&lt;br />&lt;br />&lt;u>Usage&lt;/u>&lt;br />Add the applet to either the panel or the desktop. To add sensors to display, click the applet and configure.&lt;br />Sensors can be added and renamed through the &lt;i>Add Sensors&amp;hellip;&lt;/i> button. To export sensors to the clipboard, and copy from, the import/export buttons can be used.&lt;br />The libraries &lt;i>ksystemstats&lt;/i>, &lt;i>libksysguard&lt;/i>, &lt;i>kitemmodels&lt;/i>, &lt;i>kdeclarative&lt;/i> and &lt;i>kquickcharts&lt;/i> must be installed. They are dependencies of even a minimal Plasma installation, so they should already be installed.</summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/770x540-4/img/00/00/73/30/77/2100418/icon.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-4/img/00/00/73/30/77/2100418/icon.png</previewBig>
+  <payload>https://files06.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTc0MjYxMjQwOSwibyI6IjEiLCJzIjoiYTFjMzhjNTg2OTEyOWJiYWFkOGU2Mzc2YWMyYTE0ODhhNzBlY2I1Y2I0YTFmNWIwMDVmNjhhZjNhY2UxOGU0ODU4YTNkMDM3MDJlZTQ1MDcxZTU1MDdlOGFiNjA4OWQ3OTAyMWM3OTFlZWZhZmI0ODdiMzU2ZTA0MzI5NDE4NGIiLCJ0IjoxNzY1OTIxNTM4LCJzdGZwIjpudWxsLCJzdGlwIjoiNzYuMTI2LjQ5LjI1MCJ9.uibuep4qA65H7fXp-yTmhagBNxIhCPv0e6xHIYcuYKU/thermalmonitor.plasmoid</payload>
+  <tags>widget,linux,mit-license,monitoring,original-product,plasma##majorversion=6,plasma,extension,kde,unix,temperature,thermal,sensor</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>

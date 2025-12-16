@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE khotnewstuff3>
+<hotnewstuffregistry>
+ <stuff category="112">
+  <name>Breeze Black</name>
+  <providerid>api.kde-look.org</providerid>
+  <author>cskanani</author>
+  <homepage>https://store.kde.org/p/1358966</homepage>
+  <licence></licence>
+  <version>0.1.0</version>
+  <rating>57</rating>
+  <downloads>7848</downloads>
+  <installedfile>/home/huginn/.local/share/color-schemes/BreezeBlack.colors</installedfile>
+  <id>1358966</id>
+  <releasedate>2020-02-11</releasedate>
+  <summary>&lt;p>Breeze dark theme modified for pure black backgrounds.&lt;br />&lt;br />Colors: https://www.pling.com/p/1358966/&lt;br />Aurorae: https://www.pling.com/p/1358969/&lt;br />Wallpaper: https://www.pling.com/p/1345233/&lt;br />Icons: https://www.pling.com/p/1358970/&lt;br />Plasma: https://www.pling.com/p/1358972/&lt;/p></summary>
+  <changelog></changelog>
+  <preview>https://images.pling.com/cache/770x540-4/img/00/00/55/63/20/1358966/71b20a55de5074300673e45f92e3b534d8e31.png</preview>
+  <previewBig>https://images.pling.com/cache/770x540-4/img/00/00/55/63/20/1358966/71b20a55de5074300673e45f92e3b534d8e31.png</previewBig>
+  <payload>https://files06.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTU4MTQzNTM4OCwibyI6IjEiLCJzIjoiZjc3YjEyOGIyNzMwZmQ3MzQ3MzMzMTkxNjM3Y2RkY2FkNGM5MjY5ZDlhOTZiYTk0ZDBlNThlN2UyMGRiZmMxNjUzYjNmZThmOThmYTk1OWQyZThkZGY2ZjVjYjNjYWNhNDhlZjlmMjQ0NGUwZjE0MDFmODU1MWNiMmZkMjViMjQiLCJ0IjoxNzY1ODYyODI5LCJzdGZwIjpudWxsLCJzdGlwIjoiNzYuMTI2LjQ5LjI1MCJ9.HQ6NOIH9N0LX1YV8JY2uNJv9TxCN4r6hrbJYZiYosgI/BreezeBlack.colors</payload>
+  <tags>modification-product,linux,unix,theme,plasma,colorscheme,dark,dark-theme,gplv2-later,kde,breeze,black</tags>
+  <status>installed</status>
+ </stuff>
+</hotnewstuffregistry>
