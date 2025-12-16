@@ -4,7 +4,7 @@ vim:ft=dosini.gotexttmpl
 
 # -*- conf -*-
 
-include={{ (joinPath .chezmoi.homeDir ".config/foot/themes/theme.ini") | squote }}
+include={{ (joinPath .chezmoi.homeDir ".config/foot/themes/theme.ini") }}
 
 shell={{ .terminal.shellPath }} --login
 # login-shell=no
