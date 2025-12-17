@@ -28,27 +28,27 @@ wezterm.on("gui-startup", function(cmd)
 	window:gui_window():set_inner_size(width, height)
 end)
 
--- wezterm.gui.screens(), useful command to get screens information
-wezterm.on("window-config-reloaded", function(window)
-	if detect.linux() then 
-		if wezterm.gui.screens().active.name == "LS28AG700N" then
-			window:set_config_overrides({
-				dpi = 144,
-				font_size = 15,
-				initial_cols = 100,
-				initial_rows = 24,
-			})
-		end
-		if wezterm.gui.screens().active.name == "eDP-1" then
-			window:set_config_overrides({
-				dpi = 192,
-				font_size = 16,
-				initial_cols = 100,
-				initial_rows = 24,
-			})
-		end
-	end
-end)
+-- wezterm.gui.screens(), useful command to get screens information. Disabled. In Plasma all screens reports eDP-1. Further debug required.
+-- wezterm.on("window-config-reloaded", function(window)
+-- 	if detect.linux() then 
+-- 		if wezterm.gui.screens().active.name == "LS28AG700N" then
+-- 			window:set_config_overrides({
+-- 				dpi = 144,
+-- 				font_size = {{ .terminal.fontSize }},
+-- 				initial_cols = {{ .terminal.cols }},
+-- 				initial_rows = {{ .terminal.cols }},
+-- 			})
+-- 		end
+-- 		if wezterm.gui.screens().active.name == "eDP-1" then
+-- 			window:set_config_overrides({
+-- 				dpi = 192,
+-- 				font_size = {{ 1 | add .terminal.fontSize }},
+-- 				initial_cols = {{ .terminal.cols }},
+-- 				initial_rows = {{ .terminal.cols }},
+-- 			})
+-- 		end
+-- 	end
+-- end)
 
 local config = wezterm.config_builder()
 
@@ -84,7 +84,7 @@ config = {
 		font = wezterm.font({
 			family = {{ .terminal.font | quote }},
 		}),
-		font_size = {{ .terminal.fontSize }}
+		font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }},
 		-- active_titlebar_bg = "#000000",
 		-- inactive_titlebar_bg = "#000000",
 	},
@@ -99,7 +99,7 @@ config = {
 	{{ end -}}
 	{{- if eq .chezmoi.os "linux" }}
 	enable_wayland = detect.wayland(),
-	{{ end }}
+	{{ end -}}
 	initial_cols = {{ .terminal.cols }},
 	initial_rows = {{ .terminal.rows }},
 	inactive_pane_hsb = {

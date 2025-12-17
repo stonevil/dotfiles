@@ -14,7 +14,7 @@ shell={{ .terminal.shellPath }} --login
 # title=foot
 # locked-title=no
 
-font={{ .terminal.font }}:weight={{ .terminal.fontNormal }}:size={{ 4 | sub .terminal.fontSize }}
+font={{ .terminal.font }}:weight={{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }}
 # font-size-adjustment=0.5
 # line-height=<font metrics>
 # letter-spacing=0
