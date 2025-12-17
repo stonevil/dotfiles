@@ -26,7 +26,7 @@ font={{ .terminal.font }}:weight={{ if or (.tags.zephyrus.enabled) (.tags.thinkp
 dpi-aware=yes
 
 # initial-window-size-pixels=700x500  # Or,
-initial-window-size-chars={{ .terminal.cols }}x{{ .terminal.rows }}
+initial-window-size-chars={{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}x{{ 5 | sub .terminal.rows }}{{ else }}{{ .terminal.cols }}x{{ .terminal.rows }}{{ end }}
 initial-window-mode=windowed
 pad=5x5 # optionally append 'center'
 # resize-delay-ms=100

@@ -100,8 +100,8 @@ config = {
 	{{- if eq .chezmoi.os "linux" }}
 	enable_wayland = detect.wayland(),
 	{{ end -}}
-	initial_cols = {{ .terminal.cols }},
-	initial_rows = {{ .terminal.rows }},
+	initial_cols = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}{{ else }}{{ .terminal.cols }}{{ end }},
+	initial_rows = {{ if .tags.thinkpad.enabled }}{{ 5 | sub .terminal.rows }}{{ else }}{{ .terminal.rows }}{{ end }},
 	inactive_pane_hsb = {
 		saturation = 0.3,
 		brightness = 0.3,
