@@ -11,8 +11,23 @@ function detect.hyprland()
 	if desktop_session and (desktop_session:find("Hyprland") or desktop_session:find("hyprland")) then
 		return true
 	end
-
 	return false
+end
+
+function detect.linux()
+	if wezterm.target_triple == "x86_64-unknown-linux-gnu" then
+		return true
+	else
+		return false
+	end
+end
+
+function detect.darwin()
+	if (wezterm.target_triple == "x86_64-apple-darwin") or (wezterm.target_triple == "aarch64-apple-darwin") then
+		return true
+	else
+		return false
+	end
 end
 
 function detect.wayland()
@@ -22,6 +37,14 @@ function detect.wayland()
 		return true
 	end
 	return false
+end
+
+function detect.decorations()
+	if detect.hyprland() or detect.darwin() then
+		return "RESIZE"
+	else
+		return "TITLE | RESIZE"
+	end
 end
 
 function detect.appearance()

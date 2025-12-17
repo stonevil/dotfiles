@@ -37,13 +37,6 @@ scheme_current.tab_bar.inactive_tab.bg_color = "#0f0f0f"
 scheme_current.tab_bar.new_tab.bg_color = "#080808"
 {{ end }}
 
-wezterm.on("effective-config-changed", function(config)
-	if detect.hyprland() then
-		config.window_decorations = "RESIZE"
-	else
-		config.window_decorations = "TITLE | RESIZE"
-	end
-end)
 
 config = {
 	default_prog = { '{{ .terminal.shellPath }}', '--login' },
@@ -56,6 +49,7 @@ config = {
 	tab_bar_at_bottom = false,
 	tab_max_width = 40,
 
+	window_decorations = detect.decorations(),
 	window_padding = {
 		left = "1cell",
 		right = "1cell",
