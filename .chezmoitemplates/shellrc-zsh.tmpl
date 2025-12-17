@@ -2,19 +2,15 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-setopt append_history
-setopt sharehistory
-setopt hist_ignore_dups hist_ignore_all_dups hist_ignore_space hist_find_no_dups hist_verify
 
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 
-setopt extendedglob nomatch interactive_comments
+setopt inc_append_history share_history hist_ignore_dups hist_ignore_all_dups hist_ignore_space hist_find_no_dups hist_verify extended_glob nomatch interactive_comments
+unsetopt beep list_beep
 
-unsetopt beep
-
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 autoload -Uz colors && colors
 
@@ -76,5 +72,3 @@ for m in visual viopp; do
 		bindkey -M $m $c select-bracketed
 	done
 done
-
-alias s2t='sed -ie 's/{{ repeat (int .terminal.tabs) " " }}/\t/g''
