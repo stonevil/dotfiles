@@ -45,6 +45,13 @@ vim:ft=bash.gotexttmpl
 		{{ $_ := unset $tags "ruby" }}
 	{{ end }}
 
+	{{ if (get $tags.core "enabled") }}
+		# Install Core
+		{{ template "helper-darwin.tmpl" $tags.core }}
+		{{ template "helper-common.tmpl" $tags.core }}
+		{{ $_ := unset $tags "core" }}
+	{{ end }}
+
 	{{ range $t, $v := $tags }}
 		{{ if $v }}
 			{{ if $v.enabled }}
@@ -54,7 +61,6 @@ vim:ft=bash.gotexttmpl
 		{{ end }}
 	{{ end }}
 {{ end }}
-
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
 	{{ if (get $tags.python3 "enabled") }}
@@ -92,6 +98,13 @@ vim:ft=bash.gotexttmpl
 		{{ template "helper-arch.tmpl" $tags.ruby }}
 		{{ template "helper-common.tmpl" $tags.ruby }}
 		{{ $_ := unset $tags "ruby" }}
+	{{ end }}
+
+	{{ if (get $tags.core "enabled") }}
+		# Install Core
+		{{ template "helper-arch.tmpl" $tags.core }}
+		{{ template "helper-common.tmpl" $tags.core }}
+		{{ $_ := unset $tags "core" }}
 	{{ end }}
 
 	{{ range $t, $v := $tags }}
@@ -140,6 +153,13 @@ vim:ft=bash.gotexttmpl
 		{{ template "helper-fedora.tmpl" $tags.ruby }}
 		{{ template "helper-common.tmpl" $tags.ruby }}
 		{{ $_ := unset $tags "ruby" }}
+	{{ end }}
+
+	{{ if (get $tags.core "enabled") }}
+		# Install Core
+		{{ template "helper-fedora.tmpl" $tags.core }}
+		{{ template "helper-common.tmpl" $tags.core }}
+		{{ $_ := unset $tags "core" }}
 	{{ end }}
 
 	{{ range $t, $v := $tags }}
