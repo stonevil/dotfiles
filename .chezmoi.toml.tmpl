@@ -986,6 +986,7 @@
 	enabled = {{ $zephyrus }}
 	arch = [
 		"bolt",
+		"intel-ucode",
 		"asusctl",
 		"bat-asus-battery-bin",
 		"power-profiles-daemon",
@@ -996,6 +997,7 @@
 		"linux-g14-headers",
 		"nvidia-open-dkms",
 		"nvidia-utils",
+		"vulkan-icd-loader",
 		"acpi_call",
 		"aic94xx-firmware",
 		"ast-firmware",
@@ -1003,13 +1005,12 @@
 		"linux-firmware-qlogic",
 		"wd719x-firmware",
 		"linux-firmware-intel",
-		"iasl",
 		"libva-intel-driver-irql",
 		"libva-nvidia-driver",
 	]
 	pre.arch = [
-		"wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
-		"sudo pacman-key -a g14.sec",
+		"cd /tmp && wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
+		"sudo pacman-key -a /tmp/g14.sec",
 		"sudo pacman-key --recv-keys 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
@@ -1020,6 +1021,9 @@
 		"sudo systemctl enable --now power-profiles-daemon",
 		"sudo systemctl enable --now supergfxd",
 		"sudo systemctl enable --now switcheroo-control",
+		"cd /tmp && git clone https://gitlab.com/asus-linux/nvidia-laptop-power-cfg.git && cd nvidia-laptop-power-cfg && makepkg -sfi && cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg",
+		"systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
+		"systemctl enable --now nvidia-powerd",
 	]
 
 [data.tags.thinkpad]
