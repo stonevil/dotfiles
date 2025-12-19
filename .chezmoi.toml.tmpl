@@ -349,7 +349,6 @@
 	]
 	arch = [
 		"parallel",
-		"smartmontools",
 		"dua-cli",
 	]
 	cargo = [
@@ -979,14 +978,24 @@
 		"kicad-packages3d",
 	]
 
+[data.tags.laptop]
+	enabled = {{ if or ($zephyrus) ($thinkpad) }}true{{ else }}false{{ end }}
+	arch = [
+		"bolt",
+		"nvme-cli",
+		"powerstat",
+		"upower",
+		"intel-ucode",
+		"intel-media-driver",
+		"intel-gpu-tools",
+		"smartmontools",
+	]
 
 # TODO: add more sophisticated hardware detection
 # Hardware specific configs
 [data.tags.zephyrus]
 	enabled = {{ $zephyrus }}
 	arch = [
-		"bolt",
-		"intel-ucode",
 		"asusctl",
 		"bat-asus-battery-bin",
 		"power-profiles-daemon",
@@ -1029,7 +1038,6 @@
 [data.tags.thinkpad]
 	enabled = {{ $thinkpad }}
 	arch = [
-		"bolt",
 		"thermald",
 		"auto-cpufreq",
 		"linux-firmware-intel",
