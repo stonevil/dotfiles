@@ -23,21 +23,23 @@
 {{ end }}
 
 # Predefine basic variables
+{{ $bg := "000000" }}
+
+# Predefined Tags
 {{ $themeName := "catppuccin" }}
 {{ $themeVariant := "mocha" }}
 {{ $themeBlackout := true }}
-{{ $bg := "000000" }}
 {{ $vagrantCli := false }}
-{{ $adsCli := false }}
+{{ $adsToolsCli := false }}
 {{ $xfce := false }}
 {{ $plasma := false }}
 {{ $hyprland := false }}
 {{ $fwupdCli := false }}
 {{ $browser := false }}
 {{ $terminalEmulators := false }}
-{{ $dev := false }}
-{{ $db := false }}
-{{ $network := false }}
+{{ $devTools := false }}
+{{ $dbTools := false }}
+{{ $networkTools := false }}
 {{ $browsers := false }}
 {{ $messengers := false }}
 {{ $mail := false }}
@@ -68,25 +70,25 @@
 
 {{ $neovimCli := promptBool "NeoVIM IDE" false }}
 {{ $terminalMultiplexer := promptBool "Terminal Mutiplexer, like TMUX" false }}
-{{ $devCli := promptBool "DEV CLI tools, like jq, bat" false }}
-{{ $dbCli := promptBool "DB management CLI tools, like usql" false }}
+{{ $devToolsCli := promptBool "DEV CLI tools, like jq, bat" false }}
+{{ $dbToolsCli := promptBool "DB management CLI tools, like usql" false }}
 {{ if eq .chezmoi.os "linux" }}
 	{{ $vagrantCli := promptBool "HashiCorp Vagrant CLI tools" false }}
 {{ end }}
 {{ $hashicorpCli := promptBool "HashiCorp CLI tools" false }}
 {{ $limaCli := promptBool "Lima-VM CLI tools" false }}
-{{ $k8sCli := promptBool "K8S CLI tools" false }}
+{{ $k8sToolsCli := promptBool "K8S CLI tools" false }}
 {{ $ansibleCli := promptBool "Ansible deployemnt and configuration CLI tools" false }}
-{{ $espCli := promptBool "ESP DEV tools" false }}
+{{ $espToolsCli := promptBool "ESP DEV tools" false }}
 {{ $utilsCli := promptBool "Utils CLI tools, like smartmontools" false }}
-{{ $networkCli := promptBool "Network CLI tools" false }}
-{{ $sync := promptBool "Sync CLI / GUI tools, like Syncthing" false }}
+{{ $networkToolsCli := promptBool "Network CLI tools" false }}
+{{ $syncTools := promptBool "Sync CLI / GUI tools, like Syncthing" false }}
 {{ $mailCli := promptBool "Mail CLI tools, like NeoMutt" false }}
-{{ $mediaCli := promptBool "Media CLI tools, like ffmpeg" false }}
+{{ $mediaToolsCli := promptBool "Media CLI tools, like ffmpeg" false }}
 {{ $newsCli := promptBool "News CLI tools, like NewsBoat" false }}
 {{ $dekCli := promptBool "TUI presentation tools, like presenterm" false }}
 {{ if eq .chezmoi.os "linux" }}
-	{{ $adsCli = promptBool "Ads block CLI tools, like hblock" false }}
+	{{ $adsToolsCli = promptBool "Ads block CLI tools, like hblock" false }}
 {{ end }}
 {{ $gamesCli := promptBool "Some CLI games, like typing tutor" false }}
 
@@ -106,8 +108,8 @@
 {{ if or (or ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" false }}
 	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" false }}
-	{{ $dev = promptBool "DEV apps, like CotEditor" false }}
-	{{ $db = promptBool "DB management tools, like DBeaver" false }}
+	{{ $devTools = promptBool "DEV apps, like CotEditor" false }}
+	{{ $dbTools = promptBool "DB management tools, like DBeaver" false }}
 	{{ $messengers = promptBool "Messengers apps, like Discord" false }}
 	{{ $mail = promptBool "Mail apps, like Thunderbird" false }}
 	{{ $books = promptBool "Book management apps, like Calibre" false }}
@@ -115,7 +117,7 @@
 	{{ $modeling = promptBool "3D modeling apps, like Blender, FreeCAD" false }}
 	{{ $graphics = promptBool "Graphics apps, Gimp, Krita" false }}
 	{{ $schematics = promptBool "Electronics and PCB design apps, like KiCad" false }}
-	{{ $network = promptBool "Network apps, like VNC/RDP clients" false }}
+	{{ $networkTools = promptBool "Network apps, like VNC/RDP clients" false }}
 	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" false }}
 	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" false }}
 	{{ $torrent = promptBool "Torrent network apps, like qBittorrent" false }}
@@ -212,7 +214,7 @@
 	]
 
 [data.tags.python3]
-	enabled = {{ if or ($neovimCli) ($devCli) ($espCli) ($mediaCli) ($ansibleCli) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($neovimCli) ($devToolsCli) ($espToolsCli) ($mediaToolsCli) ($ansibleCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"python3",
 		"uv",
@@ -267,7 +269,7 @@
 	]
 
 [data.tags.nodejs]
-	enabled = {{ if or ($neovimCli) ($devCli) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($neovimCli) ($devToolsCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"node",
 	]
@@ -304,13 +306,13 @@
 	]
 
 [data.tags.ruby]
-	enabled = {{ if ($neovimCli) }} true {{ else }} false {{ end }}
+	enabled = {{ if $neovimCli }} true {{ else }} false {{ end }}
 	arch = [
 		"ruby",
 	]
 
 [data.tags.gitCli]
-	enabled = {{ if or ($neovimCli) ($devCli) ($terminalMultiplexer) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($neovimCli) ($devToolsCli) ($terminalMultiplexer) }} true {{ else }} false {{ end }}
 	darwin = [
 		"git",
 		"git-lfs",
@@ -338,6 +340,9 @@
 	upgrade.arch = [
 		"tmux_plugins_update",
 	]
+	upgrade.fedora = [
+		"tmux_plugins_update",
+	]
 
 [data.tags.utilsCli]
 	enabled = {{ $utilsCli }}
@@ -355,8 +360,8 @@
 		"battop",
 	]
 
-[data.tags.devCli]
-	enabled = {{ if ($neovimCli) }} true {{ else }} false {{ end }}
+[data.tags.devToolsCli]
+	enabled = {{ if or ($devToolsCli) ($neovimCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"ccache",
 		"ccat",
@@ -412,8 +417,8 @@
 		"bat_cache_update",
 	]
 
-[data.tags.dbCli]
-	enabled = {{ $dbCli }}
+[data.tags.dbToolsCli]
+	enabled = {{ $dbToolsCli }}
 	darwin = [
 		"xo/xo/usql",
 	]
@@ -421,8 +426,8 @@
 		"usql-bin",
 	]
 
-[data.tags.k8sCli]
-	enabled = {{ $k8sCli }}
+[data.tags.k8sToolsCli]
+	enabled = {{ $k8sToolsCli }}
 	darwin = [
 		"kubectl",
 		"krew",
@@ -482,6 +487,9 @@
 		"neovim",
 		"lua-language-server",
 	]
+	fedora = [
+		"neovim",
+	]
 	uv = [
 		"pynvim",
 		"flake8",
@@ -495,6 +503,7 @@
 	]
 	rocks = [
 		"jsregexp",
+		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"lua-language-server",{{ end }}
 	]
 	gem = [
 		{{ if eq .chezmoi.os "linux" }}"neovim",{{ end }}
@@ -503,6 +512,9 @@
 		"nvim_plugins_update",
 	]
 	upgrade.arch = [
+		"nvim_plugins_update",
+	]
+	upgrade.fedora = [
 		"nvim_plugins_update",
 	]
 
@@ -518,10 +530,17 @@
 		"qemu-full",
 		"virtiofsd",
 	]
+	fedora = [
+		"qemu",
+		"virtiofsd",
+	]
 
 [data.tags.fwupdCli]
 	enabled = {{ $fwupdCli }}
 	arch = [
+		"fwupd",
+	]
+	fedora = [
 		"fwupd",
 	]
 	post.arch = [
@@ -530,9 +549,15 @@
 	upgrade.arch = [
 		"fwupd_upgrade",
 	]
+	post.fedora = [
+		"sudo systemctl enable --now fwupd-refresh.timer",
+	]
+	upgrade.fedora = [
+		"fwupd_upgrade",
+	]
 
-[data.tags.mediaCli]
-	enabled = {{ $mediaCli }}
+[data.tags.mediaToolsCli]
+	enabled = {{ $mediaToolsCli }}
 	darwin = [
 		"jpeg",
 		"imagemagick",
@@ -542,12 +567,19 @@
 		"imagemagick",
 		"ffmpeg",
 	]
+	fedora = [
+		"ImageMagick",
+	]
+	pre.fedora = [
+		"sudo dnf swap -y --allowerasing ffmpeg-free ffmpeg",
+		"sudo dnf swap -y --allowerasing libavcodec-free libavcodec-freeworld",
+	]
 	uv = [
 		"yt-dlp",
 	]
 
-[data.tags.adsCli]
-	enabled = {{ $adsCli }}
+[data.tags.adsToolsCli]
+	enabled = {{ $adsToolsCli }}
 	arch = [
 		"hblock",
 	]
@@ -564,7 +596,7 @@
 		"typioca-bin",
 	]
 	go = [
-		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora" ) -}}"github.com/bloznelis/typioca@latest",{{ end }}
+		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora" ) }}"github.com/bloznelis/typioca@latest",{{ end }}
 	]
 
 [data.tags.dekCli]
@@ -586,8 +618,8 @@
 [data.tags.mailCli]
 	enabled = {{ $mailCli }}
 
-[data.tags.networkCli]
-	enabled = {{ $networkCli }}
+[data.tags.networkToolsCli]
+	enabled = {{ $networkToolsCli }}
 	darwin = [
 		"nmap",
 	]
@@ -595,8 +627,8 @@
 		"nmap",
 	]
 
-[data.tags.sync]
-	enabled = {{ if ($sync) }} true {{ else }} false {{ end }}
+[data.tags.syncTools]
+	enabled = {{ if ($syncTools) }} true {{ else }} false {{ end }}
 	darwin = [
 		"syncthing",
 	]
@@ -636,8 +668,8 @@
 		"vagrant_plugins_update",
 	]
 
-[data.tags.espCli]
-	enabled = {{ $espCli }}
+[data.tags.espToolsCli]
+	enabled = {{ $espToolsCli }}
 	pre.darwin = [
 		"brew_python3_relink",
 	]
@@ -669,7 +701,7 @@
 		"hunspell-en_gb",
 	]
 
-[data.tags.fonts]
+[data.tags.fontTools]
 	enabled = {{ if or ($hyprland) ($plasma) (eq .chezmoi.os "darwin") }} true {{ else}} false {{ end }}
 	darwin = [
 		"fontconfig",
@@ -794,15 +826,15 @@
 		"	curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
 	]
 
-[data.tags.network]
-	enabled = {{ $network }}
+[data.tags.networkTools]
+	enabled = {{ $networkTools }}
 	arch = [
 		"krdc",
 		"krfb",
 	]
 
-[data.tags.dev]
-	enabled = {{ $dev }}
+[data.tags.devTools]
+	enabled = {{ $devTools }}
 	darwin = [
 		"coteditor",
 		"keycastr",
@@ -813,8 +845,8 @@
 		"kommit",
 	]
 
-[data.tags.db]
-	enabled = {{ $db }}
+[data.tags.dbTools]
+	enabled = {{ $dbTools }}
 	darwin = [
 		"dbeaver-community",
 	]
@@ -989,6 +1021,8 @@
 		"intel-media-driver",
 		"intel-gpu-tools",
 		"smartmontools",
+		"linux-firmware-intel",
+		"libva-intel-driver-irql",
 	]
 
 # TODO: add more sophisticated hardware detection
@@ -1013,8 +1047,6 @@
 		"upd72020x-fw",
 		"linux-firmware-qlogic",
 		"wd719x-firmware",
-		"linux-firmware-intel",
-		"libva-intel-driver-irql",
 		"libva-nvidia-driver",
 	]
 	pre.arch = [
@@ -1038,10 +1070,10 @@
 [data.tags.thinkpad]
 	enabled = {{ $thinkpad }}
 	arch = [
+		"sof-firmware",
+		"easyeffects",
 		"thermald",
 		"auto-cpufreq",
-		"linux-firmware-intel",
-		"libva-intel-driver-irql",
 	]
 	post.arch = [
 		"sudo systemctl enable --now thermald",
