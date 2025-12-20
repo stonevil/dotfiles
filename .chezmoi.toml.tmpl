@@ -25,108 +25,158 @@
 # Predefine basic variables
 {{ $bg := "000000" }}
 
-# Predefined Tags
-{{ $themeName := "catppuccin" }}
-{{ $themeVariant := "mocha" }}
-{{ $themeBlackout := true }}
-{{ $vagrantCli := false }}
-{{ $adsToolsCli := false }}
-{{ $xfce := false }}
-{{ $plasma := false }}
-{{ $hyprland := false }}
-{{ $fwupdCli := false }}
-{{ $browser := false }}
-{{ $terminalEmulators := false }}
-{{ $devTools := false }}
-{{ $dbTools := false }}
-{{ $networkTools := false }}
-{{ $browsers := false }}
-{{ $messengers := false }}
-{{ $mail := false }}
-{{ $media := false }}
-{{ $modeling := false }}
-{{ $schematics := false }}
-{{ $graphics := false }}
-{{ $books := false }}
-{{ $virt := false }}
-{{ $tor := false }}
-{{ $torrent := false }}
-{{ $utils := false }}
-{{ $zephyrus := false }}
-{{ $thinkpad := false }}
-
 # Ask questin about environment
-{{ $ownership := (promptStringOnce . "Ownership" "Private or company property" "private") | quote }}
-{{ $uname := (promptStringOnce . "Full Name" "What is your full name" "fubar") | quote }}
-{{ $email := (promptStringOnce . "email" "What is your email address" "fu@bar.org") | quote }}
+{{ $ownership := "private" }}{{ if hasKey . "ownership" }}{{ $ownership = .ownership }}{{ end }}
+{{ $ownership = (promptStringOnce . "Ownership" "Private or company property. Use company name for working computer." $ownership) | quote }}
 
-{{ $themeName = promptChoice "Choose Theme" (list "catppuccin") "catppuccin" }}
+{{ $uname := "fubar" }}{{ if hasKey . "uname" }}{{ $uname = .uname }}{{ end }}
+{{ $uname = (promptStringOnce . "Full Name" "What is your full name" $uname) | quote }}
+
+{{ $email := "fu@bar.org" }}{{ if hasKey . "email" }}{{ $email = .email }}{{ end }}
+{{ $email = (promptStringOnce . "email" "What is your email address" $email) | quote }}
+
+{{ $themeName := "catppuccin" }}{{ if hasKey .theme "themeName" }}{{ $themeName = .theme.themeName }}{{ end }}
+{{ $themeName = promptChoice "Choose Theme" (list "catppuccin") $themeName }}
+
+{{ $themeVariant := "mocha" }}{{ if hasKey .theme "themeVariant" }}{{ $themeVariant = .theme.themeVariant }}{{ end }}
 {{ if eq $themeName "catppuccin" }}
-	{{ $themeVariant = promptChoice "Theme Variant" (list "mocha" "macchiato" "frappe" "latte") "mocha" }}
-{{ end }}
-{{ if eq $themeVariant "mocha" "macchiato" "frappe" }}
-	{{ $themeBlackout = promptBool "Do you want to complete black theme background" true }}
+	{{ $themeVariant = promptChoice "Theme Variant" (list "mocha" "macchiato" "frappe" "latte") $themeVariant }}
 {{ end }}
 
-{{ $neovimCli := promptBool "NeoVIM IDE" false }}
-{{ $terminalMultiplexer := promptBool "Terminal Mutiplexer, like TMUX" false }}
-{{ $devToolsCli := promptBool "DEV CLI tools, like jq, bat" false }}
-{{ $dbToolsCli := promptBool "DB management CLI tools, like usql" false }}
-{{ if eq .chezmoi.os "linux" }}
-	{{ $vagrantCli := promptBool "HashiCorp Vagrant CLI tools" false }}
+{{ $themeBlackout := true }}{{ if hasKey .theme "themeBlackout" }}{{ $themeBlackout = .theme.themeBlackout }}{{ end }}
+{{ if eq $themeVariant "mocha" "macchiato" "frappe" }}
+	{{ $themeBlackout = promptBool "Do you want to complete black/transparent theme background" $themeBlackout }}
+{{ else }}
+	{{ if eq $themeVariant "latte" }}
+		{{ $themeBlackout = false }}
+	{{ end }}
 {{ end }}
-{{ $hashicorpCli := promptBool "HashiCorp CLI tools" false }}
-{{ $limaCli := promptBool "Lima-VM CLI tools" false }}
-{{ $k8sToolsCli := promptBool "K8S CLI tools" false }}
-{{ $ansibleCli := promptBool "Ansible deployemnt and configuration CLI tools" false }}
-{{ $espToolsCli := promptBool "ESP DEV tools" false }}
-{{ $utilsCli := promptBool "Utils CLI tools, like smartmontools" false }}
-{{ $networkToolsCli := promptBool "Network CLI tools" false }}
-{{ $syncTools := promptBool "Sync CLI / GUI tools, like Syncthing" false }}
-{{ $mailCli := promptBool "Mail CLI tools, like NeoMutt" false }}
-{{ $mediaToolsCli := promptBool "Media CLI tools, like ffmpeg" false }}
-{{ $newsCli := promptBool "News CLI tools, like NewsBoat" false }}
-{{ $dekCli := promptBool "TUI presentation tools, like presenterm" false }}
+
+{{ $neovimCli := false }}{{ if hasKey .tags "neovimCli" }}{{ $neovimCli = .tags.neovimCli.enabled }}{{ end }}
+{{ $neovimCli = promptBool "NeoVIM IDE" $neovimCli }}
+
+{{ $terminalMultiplexer := false }}{{ if hasKey .tags "terminalMultiplexer" }}{{ $terminalMultiplexer = .tags.terminalMultiplexer.enabled }}{{ end }}
+{{ $terminalMultiplexer = promptBool "Terminal Mutiplexer, like TMUX" $terminalMultiplexer }}
+
+{{ $devToolsCli := false }}{{ if hasKey .tags "devToolsCli" }}{{ $devToolsCli = .tags.devToolsCli.enabled }}{{ end }}
+{{ $devToolsCli = promptBool "DEV CLI tools, like jq, bat" $devToolsCli }}
+
+{{ $dbToolsCli := false }}{{ if hasKey .tags "dbToolsCli" }}{{ $dbToolsCli = .tags.dbToolsCli.enabled }}{{ end }}
+{{ $dbToolsCli = promptBool "DB management CLI tools, like usql" $dbToolsCli }}
+
+{{ $vagrantCli := false }}{{ if hasKey .tags "vagrantCli" }}{{ $vagrantCli = .tags.vagrantCli.enabled }}{{ end }}
 {{ if eq .chezmoi.os "linux" }}
-	{{ $adsToolsCli = promptBool "Ads block CLI tools, like hblock" false }}
+	{{ $vagrantCli = promptBool "HashiCorp Vagrant CLI tools" $vagrantCli }}
 {{ end }}
-{{ $gamesCli := promptBool "Some CLI games, like typing tutor" false }}
+
+{{ $hashiCli := false }}{{ if hasKey .tags "hashiCli" }}{{ $hashiCli = .tags.hashiCli.enabled }}{{ end }}
+{{ $hashiCli = promptBool "HashiCorp CLI tools" $hashiCli }}
+
+{{ $limaCli := false }}{{ if hasKey .tags "limaCli" }}{{ $limaCli = .tags.limaCli.enabled }}{{ end }}
+{{ $limaCli = promptBool "Lima-VM CLI tools" $limaCli }}
+
+{{ $k8sToolsCli := false }}{{ if hasKey .tags "k8sToolsCli" }}{{ $k8sToolsCli = .tags.k8sToolsCli.enabled }}{{ end }}
+{{ $k8sToolsCli = promptBool "K8S CLI tools" $k8sToolsCli }}
+
+{{ $ansibleCli := false }}{{ if hasKey .tags "ansibleCli" }}{{ $ansibleCli = .tags.ansibleCli.enabled }}{{ end }}
+{{ $ansibleCli = promptBool "Ansible deployemnt and configuration CLI tools" $ansibleCli }}
+
+{{ $espToolsCli := false }}{{ if hasKey .tags "espToolsCli" }}{{ $espToolsCli = .tags.espToolsCli.enabled }}{{ end }}
+{{ $espToolsCli = promptBool "ESP DEV tools" $espToolsCli }}
+
+{{ $utilsCli := false }}{{ if hasKey .tags "utilsCli" }}{{ $utilsCli = .tags.utilsCli.enabled }}{{ end }}
+{{ $utilsCli = promptBool "Utils CLI tools, like smartmontools" $utilsCli }}
+
+{{ $networkToolsCli := false }}{{ if hasKey .tags "networkToolsCli" }}{{ $networkToolsCli = .tags.networkToolsCli.enabled }}{{ end }}
+{{ $networkToolsCli := promptBool "Network CLI tools" $networkToolsCli }}
+
+{{ $syncTools := false }}{{ if hasKey .tags "syncTools" }}{{ $syncTools = .tags.syncTools.enabled }}{{ end }}
+{{ $syncTools = promptBool "Sync CLI / GUI tools, like Syncthing" $syncTools }}
+
+{{ $mailCli := false }}{{ if hasKey .tags "mailCli" }}{{ $mailCli = .tags.mailCli.enabled }}{{ end }}
+{{ $mailCli = promptBool "Mail CLI tools, like NeoMutt" $mailCli }}
+
+{{ $mediaToolsCli := false }}{{ if hasKey .tags "mediaToolsCli" }}{{ $mediaToolsCli = .tags.mediaToolsCli.enabled }}{{ end }}
+{{ $mediaToolsCli = promptBool "Media CLI tools, like ffmpeg" $mediaToolsCli }}
+
+{{ $newsCli := false }}{{ if hasKey .tags "newsCli" }}{{ $newsCli = .tags.newsCli.enabled }}{{ end }}
+{{ $newsCli := promptBool "News CLI tools, like NewsBoat" $newsCli }}
+
+{{ $dekCli := false }}{{ if hasKey .tags "dekCli" }}{{ $dekCli = .tags.dekCli.enabled }}{{ end }}
+{{ $dekCli := promptBool "TUI presentation tools, like presenterm" $dekCli }}
+
+{{ $adsToolsCli := false }}{{ if hasKey .tags "adsToolsCli" }}{{ $adsToolsCli = .tags.adsToolsCli.enabled }}{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+	{{ $adsToolsCli = promptBool "Ads block CLI tools, like hblock" $adsToolsCli }}
+{{ end }}
+
+{{ $gamesCli := false }}{{ if hasKey .tags "gamesCli" }}{{ $gamesCli = .tags.gamesCli.enabled }}{{ end }}
+{{ $gamesCli = promptBool "Some CLI games, like typing tutor" $gamesCli }}
 
 # Ask questin about environment if GUI env required
+{{ $fwupdCli := false }}{{ if hasKey .tags "fwupdCli" }}{{ $fwupdCli = .tags.fwupdCli.enabled }}{{ end }}
+{{ $zephyrus := false }}{{ if hasKey .tags "zephyrus" }}{{ $zephyrus = .tags.zephyrus.enabled }}{{ end }}
+{{ $thinkpad := false }}{{ if hasKey .tags "thinkpad" }}{{ $thinkpad = .tags.thinkpad.enabled }}{{ end }}
+{{ $xfce := false }}{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
+{{ $plasma := false }}{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
+{{ $hyprland := false }}{{ if hasKey .tags "hyprland" }}{{ $hyprland = .tags.hyprland.enabled }}{{ end }}
+
 {{ if eq .chezmoi.os "linux" }}
-	{{ $fwupdCli = promptBool "Linux hardware firmware updater, fwupd" false }}
+	{{ $fwupdCli = promptBool "Linux hardware firmware updater, fwupd" $fwupdCli }}
 
-	{{ $zephyrus = promptBool "Is this ASUS Zephyrus line laptop" false }}
-	{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" false }}
+	{{ $zephyrus = promptBool "Is this ASUS Zephyrus line laptop" $zephyrus }}
+	{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
 
-#	{{ $xfce = promptBool "Xfce DE" false }}
-	{{ $plasma = promptBool "KDE Plasma DE" false }}
-	{{ $hyprland = promptBool "Hyprland DE" false }}
+#	{{ $xfce = promptBool "Xfce DE" $xfce }}
+	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
+	{{ $hyprland = promptBool "Hyprland DE" $hyprland }}
 {{ end }}
 
 # Ask questin about environment if GUI env enabled
+{{ $browsers := false }}{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
+{{ $terminalEmulators := false }}{{ if hasKey .tags "terminalEmulators" }}{{ $terminalEmulators = .tags.terminalEmulators.enabled }}{{ end }}
+{{ $devTools := false }}{{ if hasKey .tags "devTools" }}{{ $devTools = .tags.devTools.enabled }}{{ end }}
+{{ $dbTools := false }}{{ if hasKey .tags "dbTools" }}{{ $dbTools = .tags.dbTools.enabled }}{{ end }}
+{{ $messengers := false }}{{ if hasKey .tags "messengers" }}{{ $messengers = .tags.messengers.enabled }}{{ end }}
+{{ $mail := false }}{{ if hasKey .tags "mail" }}{{ $mail = .tags.mail.enabled }}{{ end }}
+{{ $books := false }}{{ if hasKey .tags "books" }}{{ $books = .tags.books.enabled }}{{ end }}
+{{ $media := false }}{{ if hasKey .tags "media" }}{{ $media = .tags.media.enabled }}{{ end }}
+{{ $modeling := false }}{{ if hasKey .tags "modeling" }}{{ $modeling = .tags.modeling.enabled }}{{ end }}
+{{ $graphics := false }}{{ if hasKey .tags "graphics" }}{{ $graphics = .tags.graphics.enabled }}{{ end }}
+{{ $schematics := false }}{{ if hasKey .tags "schematics" }}{{ $schematics = .tags.schematics.enabled }}{{ end }}
+{{ $networkTools := false }}{{ if hasKey .tags "networkTools" }}{{ $networkTools = .tags.networkTools.enabled }}{{ end }}
+{{ $virt := false }}{{ if hasKey .tags "virt" }}{{ $virt = .tags.virt.enabled }}{{ end }}
+{{ $tor := false }}{{ if hasKey .tags "tor" }}{{ $tor = .tags.tor.enabled }}{{ end }}
+{{ $torrent := false }}{{ if hasKey .tags "torrent" }}{{ $torrent = .tags.torrent.enabled }}{{ end }}
+{{ $utils := false }}{{ if hasKey .tags "utils" }}{{ $utils = .tags.utils.enabled }}{{ end }}
+
 {{ if or (or ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
-	{{ $browsers = promptBool "Web browsers, like LibreWolf" false }}
-	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" false }}
-	{{ $devTools = promptBool "DEV apps, like CotEditor" false }}
-	{{ $dbTools = promptBool "DB management tools, like DBeaver" false }}
-	{{ $messengers = promptBool "Messengers apps, like Discord" false }}
-	{{ $mail = promptBool "Mail apps, like Thunderbird" false }}
-	{{ $books = promptBool "Book management apps, like Calibre" false }}
-	{{ $media = promptBool "Media apps, like mpv, kid3" false }}
-	{{ $modeling = promptBool "3D modeling apps, like Blender, FreeCAD" false }}
-	{{ $graphics = promptBool "Graphics apps, Gimp, Krita" false }}
-	{{ $schematics = promptBool "Electronics and PCB design apps, like KiCad" false }}
-	{{ $networkTools = promptBool "Network apps, like VNC/RDP clients" false }}
-	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" false }}
-	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" false }}
-	{{ $torrent = promptBool "Torrent network apps, like qBittorrent" false }}
-	{{ $utils = promptBool "Utils apps, like OnyX for macOS" false }}
+	{{ $browsers = promptBool "Web browsers, like LibreWolf" $browsers }}
+	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" $terminalEmulators }}
+	{{ $devTools = promptBool "DEV apps, like CotEditor" $devTools }}
+	{{ $dbTools = promptBool "DB management tools, like DBeaver" $dbTools }}
+	{{ $messengers = promptBool "Messengers apps, like Discord" $messengers }}
+	{{ $mail = promptBool "Mail apps, like Thunderbird" $mail }}
+	{{ $books = promptBool "Book management apps, like Calibre" $books }}
+	{{ $media = promptBool "Media apps, like mpv, kid3" $media }}
+	{{ $modeling = promptBool "3D modeling apps, like Blender, FreeCAD" $modeling }}
+	{{ $graphics = promptBool "Graphics apps, Gimp, Krita" $graphics }}
+	{{ $schematics = promptBool "Electronics and PCB design apps, like KiCad" $schematics }}
+	{{ $networkTools = promptBool "Network apps, like VNC/RDP clients" $networkTools }}
+	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" $virt }}
+	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" $tor }}
+	{{ $torrent = promptBool "Torrent network apps, like qBittorrent" $torrent }}
+	{{ $utils = promptBool "Utils apps, like OnyX for macOS" $utils }}
 {{ end }}
 
-{{ $tabs := promptInt "WARNING: default tabs width" 2 }}
-{{ $shellPath := (promptString "WARNING: path to shell" "/bin/zsh") | quote }}
-{{ $opacity := promptString "WARNING: windows opacity, choose between 0.1 and 1.0" "1.0" }}
+{{ $tabs := 2 }}{{ if hasKey .terminal "tabs" }}{{ $tabs = .terminal.tabs }}{{ end }}
+{{ $tabs = promptInt "WARNING: default tabs width" $tabs }}
+
+{{ $shellPath := "/bin/zsh" }}{{ if hasKey .terminal "shellPath" }}{{ $shellPath = .terminal.shellPath }}{{ end }}
+{{ $shellPath = (promptString "WARNING: path to shell. Path should be absolute path to the already installed shell!" $shellPath) | quote }}
+
+{{ $opacity := "1.0" }}{{ if hasKey .terminal "opacity" }}{{ $opacity = (.terminal.opacity | quote) }}{{ end }}
+{{ $opacity = promptString "WARNING: windows opacity, choose between 0.1 and 1.0" $opacity }}
 
 # Set user information
 [data]
@@ -643,8 +693,8 @@
 		"systemctl --user enable syncthing.service",
 	]
 
-[data.tags.hashicorpCli]
-	enabled = {{ $hashicorpCli }}
+[data.tags.hashiCli]
+	enabled = {{ $hashiCli }}
 	darwin = [
 		"terraform",
 	]
