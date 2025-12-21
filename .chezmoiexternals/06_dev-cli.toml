@@ -1,6 +1,6 @@
 # vim:ft=toml
 
-{{ if or .tags.devCli.enabled .tags.k8sCli.enabled .tags.neovimCli.enabled }}
+{{ if or .tags.devToolsCli.enabled .tags.k8sToolsCli.enabled .tags.neovimCli.enabled }}
 # Stricter, configurable, extensible, and beautiful drop-in replacement for golint
 {{ $reviveVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/mgechev/revive/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/revive"]
@@ -85,7 +85,7 @@
 	url = "https://github.com/loeffel-io/ls-lint/releases/download/v{{ $lslintVersion }}/ls-lint-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
 {{ end }}
 
-{{ if .tags.hashicorpCli.enabled }}
+{{ if .tags.hashiCli.enabled }}
 {{ $terraformDocsVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/terraform-docs/terraform-docs/releases/latest" | trim | base | trimPrefix "v" }}
 [".local/bin/terraform-docs"]
 	type = "archive-file"

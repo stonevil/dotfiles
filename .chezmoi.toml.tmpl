@@ -175,8 +175,8 @@
 {{ $shellPath := "/bin/zsh" }}{{ if hasKey .terminal "shellPath" }}{{ $shellPath = .terminal.shellPath }}{{ end }}
 {{ $shellPath = (promptString "WARNING: path to shell. Path should be absolute path to the already installed shell!" $shellPath) | quote }}
 
-{{ $opacity := "1.0" }}{{ if hasKey .terminal "opacity" }}{{ $opacity = (.terminal.opacity | quote) }}{{ end }}
-{{ $opacity = promptString "WARNING: windows opacity, choose between 0.1 and 1.0" $opacity }}
+{{ $opacity := (int64 1.0) }}{{ if hasKey .terminal "opacity" }}{{ $opacity = (int64 .terminal.opacity) }}{{ end }}
+{{ $opacity = (int64 (promptString "WARNING: windows opacity, choose between 0.1 and 1.0" ($opacity | toString))) }}
 
 # Set user information
 [data]
@@ -1145,8 +1145,8 @@
 	rows = 24
 	tabs = {{ $tabs }}
 	shellPath = {{ $shellPath }}
-	opacity = {{ $opacity }}
-{{ if lt ($opacity | float64) 1.0 }}
+	opacity = {{ int64 $opacity }}
+{{ if lt $opacity (int64 1.0) }}
 	blur = 20
 {{ else }}
 	blur = 0

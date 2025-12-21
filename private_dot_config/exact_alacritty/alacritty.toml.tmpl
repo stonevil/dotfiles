@@ -629,7 +629,12 @@ decorations = "buttonless"
 decorations_theme_variant = "Dark"
 dynamic_padding = false
 dynamic_title = true
-opacity = 1
+opacity = {{ .terminal.opacity }}
+{{ if lt .terminal.opacity (int64 1.0) -}}
+blur = true
+{{ else -}}
+blur = false
+{{ end -}}
 option_as_alt = "OnlyRight"
 resize_increments = false
 startup_mode = "Windowed"

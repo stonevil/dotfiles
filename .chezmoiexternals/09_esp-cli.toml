@@ -1,6 +1,6 @@
 # vim:ft=toml
 
-{{ if .tags.espCli.enabled }}
+{{ if .tags.espToolsCli.enabled }}
 [".local/esp-idf"]
 	type = "git-repo"
 	refreshPeriod = "168h"

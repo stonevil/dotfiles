@@ -65,14 +65,14 @@ Library
 .themes
 .icons
 {{ end }}
-{{ if not .tags.adsCli.enabled }}
+{{ if not .tags.adsToolsCli.enabled }}
 .config/hblock
 {{ end }}
-{{ if or (and (not .tags.devCli.enabled) (not .tags.neovimCli.enabled)) (ne .chezmoi.os "linux") }}
+{{ if or (and (not .tags.devToolsCli.enabled) (not .tags.neovimCli.enabled)) (ne .chezmoi.os "linux") }}
 .config/lazygit
 .config/lazydocker
 {{ end }}
-{{ if and (not .tags.limaCli.enabled) (not .tags.k8sCli.enabled) }}
+{{ if and (not .tags.limaCli.enabled) (not .tags.k8sToolsCli.enabled) }}
 .lima
 {{ end }}
 {{ if not .tags.terminalEmulators.enabled }}
