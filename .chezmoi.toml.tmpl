@@ -35,20 +35,18 @@
 {{ $email := "fu@bar.org" }}{{ if hasKey . "email" }}{{ $email = .email }}{{ end }}
 {{ $email = (promptStringOnce . "email" "What is your email address" $email) | quote }}
 
+{{ $themeDarkMode := true }}{{ if hasKey .theme "themeDarkMode" }}{{ $themeDarkMode = .theme.themeDarkMode }}{{ end }}
+{{ $themeDarkMode = promptBool "Are you prefer Dark Mode" $themeDarkMode }}
+
 {{ $themeName := "catppuccin" }}{{ if hasKey .theme "themeName" }}{{ $themeName = .theme.themeName }}{{ end }}
 {{ $themeName = promptChoice "Choose Theme" (list "catppuccin") $themeName }}
 
 {{ $themeVariant := "mocha" }}{{ if hasKey .theme "themeVariant" }}{{ $themeVariant = .theme.themeVariant }}{{ end }}
 {{ if eq $themeName "catppuccin" }}
-	{{ $themeVariant = promptChoice "Theme Variant" (list "mocha" "macchiato" "frappe" "latte") $themeVariant }}
-{{ end }}
-
-{{ $themeBlackout := true }}{{ if hasKey .theme "themeBlackout" }}{{ $themeBlackout = .theme.themeBlackout }}{{ end }}
-{{ if eq $themeVariant "mocha" "macchiato" "frappe" }}
-	{{ $themeBlackout = promptBool "Do you want to complete black/transparent theme background" $themeBlackout }}
-{{ else }}
-	{{ if eq $themeVariant "latte" }}
-		{{ $themeBlackout = false }}
+	{{ if $themeDarkMode }}
+		{{ $themeVariant = promptChoice "Theme Variant" (list "mocha" "macchiato" "frappe") $themeVariant }}
+	{{ else }}
+		{{ $themeVariant = "latte" }}
 	{{ end }}
 {{ end }}
 
@@ -1157,10 +1155,7 @@
 [data.theme]
 	themeName = {{ $themeName | quote }}
 	themeVariant = {{ $themeVariant | quote }}
-	themeBlackout = {{ $themeBlackout }}
-{{ if $themeBlackout }}
-	themeDarkMode = true
-{{ end }}
+	themeDarkMode = {{ $themeDarkMode }}
 
 # Define user fonts location for macOS and Linux
 [data.fonts]
@@ -1180,21 +1175,21 @@
 [data.current]
 	{{ if eq $themeName "catppuccin" }}
 		{{ if eq $themeVariant "mocha" }}
-			{{ if not $themeBlackout }}
+			{{ if not $themeDarkMode }}
 				{{ $bg = "1e1e2e" }}
 			{{ end }}
 			theme = { primary.foreground = "cdd6f4", primary.background = {{ $bg | quote }}, primary.dim_foreground = "7f849c", primary.bright_foreground = "cdd6f4", cursor.text = {{ $bg | quote }}, cursor.cursor = "f5e0dc", vi_mode_cursor.text = {{ $bg | quote }}, vi_mode_cursor.cursor = "b4befe", search.matches.foreground = {{ $bg | quote }}, search.matches.background = "a6adc8", search.focused_match.foreground = {{ $bg | quote }}, search.focused_match.background = "a6e3a1", footer_bar.foreground = {{ $bg | quote }}, footer_bar.background = "a6adc8", hints.start.foreground = {{ $bg | quote }}, hints.start.background = "f9e2af", hints.end.foreground = {{ $bg | quote }}, hints.end.background = "a6adc8", selection.text = {{ $bg | quote }}, selection.background = "f5e0dc", normal.black = "45475a", normal.red = "f38ba8", normal.green = "a6e3a1", normal.yellow = "f9e2af", normal.blue = "89b4fa", normal.magenta = "f5c2e7", normal.cyan = "94e2d5", normal.white = "bac2de", bright.black = "585b70", bright.red = "f38ba8", bright.green = "a6e3a1", bright.yellow = "f9e2af", bright.blue = "89b4fa", bright.magenta = "f5c2e7", bright.cyan = "94e2d5", bright.white = "a6adc8", indexed_colors.color16 = "fab387", indexed_colors.color17 = "f5e0dc", urls="89b4fa" }
 		{{ end }}
 
 		{{ if eq $themeVariant "macchiato" }}
-			{{ if not $themeBlackout }}
+			{{ if not $themeDarkMode }}
 				{{ $bg = "24273a" }}
 			{{ end }}
 			theme = { primary.foreground = "cad3f5", primary.background = {{ $bg | quote }}, primary.dim_foreground = "8087a2", primary.bright_foreground = "cad3f5", cursor.text = {{ $bg | quote }}, cursor.cursor = "f4dbd6", vi_mode_cursor.text = {{ $bg | quote }}, vi_mode_cursor.cursor = "b7bdf8", search.matches.foreground = {{ $bg | quote }}, search.matches.background = "a5adcb", search.focused_match.foreground = {{ $bg | quote }}, search.focused_match.background = "a6da95", footer_bar.foreground = {{ $bg | quote }}, footer_bar.background = "a5adcb", hints.start.foreground = {{ $bg | quote }}, hints.start.background = "eed49f", hints.end.foreground = {{ $bg | quote }}, hints.end.background = "a5adcb", selection.text = {{ $bg | quote }}, selection.background = "f4dbd6", normal.black = "494d64", normal.red = "ed8796", normal.green = "a6da95", normal.yellow = "eed49f", normal.blue = "8aadf4", normal.magenta = "f5bde6", normal.cyan = "8bd5ca", normal.white = "b8c0e0", bright.black = "5b6078", bright.red = "ed8796", bright.green = "a6da95", bright.yellow = "eed49f", bright.blue = "8aadf4", bright.magenta = "f5bde6", bright.cyan = "8bd5ca", bright.white = "a5adcb", indexed_colors.color16 = "f5a97f", indexed_colors.color17 = "f4dbd6", urls="8aadf4" }
 		{{ end }}
 
 		{{ if eq $themeVariant "frappe" }}
-			{{ if not $themeBlackout }}
+			{{ if not $themeDarkMode }}
 				{{ $bg = "303446" }}
 			{{ end }}
 			theme = { primary.foreground = "c6d0f5", primary.background = {{ $bg | quote }}, primary.dim_foreground = "838ba7", primary.bright_foreground = "c6d0f5", cursor.text = {{ $bg | quote }}, cursor.cursor = "f2d5cf", vi_mode_cursor.text = {{ $bg | quote }}, vi_mode_cursor.cursor = "babbf1", search.matches.foreground = {{ $bg | quote }}, search.matches.background = "a5adce", search.focused_match.foreground = {{ $bg | quote }}, search.focused_match.background = "a6d189", footer_bar.foreground = {{ $bg | quote }}, footer_bar.background = "a5adce", hints.start.foreground = {{ $bg | quote }}, hints.start.background = "e5c890", hints.end.foreground = {{ $bg | quote }}, hints.end.background = "a5adce", selection.text = {{ $bg | quote }}, selection.background = "f2d5cf", normal.black = "51576d", normal.red = "e78284", normal.green = "a6d189", normal.yellow = "e5c890", normal.blue = "8caaee", normal.magenta = "f4b8e4", normal.cyan = "81c8be", normal.white = "b5bfe2", bright.black = "626880", bright.red = "e78284", bright.green = "a6d189", bright.yellow = "e5c890", bright.blue = "8caaee", bright.magenta = "f4b8e4", bright.cyan = "81c8be", bright.white = "a5adce", indexed_colors16 = "ef9f76", indexed_colors17 = "f2d5cf", urls="8caaee" }

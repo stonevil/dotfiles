@@ -54,7 +54,7 @@ local config = wezterm.config_builder()
 
 -- Schemas
 local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.theme.themeName | title) " " (.theme.themeVariant | title)) | quote }}]
-{{ if .theme.themeBlackout }}
+{{ if .theme.themeDarkMode }}
 -- Override Schema Background
 scheme_current.background = "#000000"
 scheme_current.tab_bar.background = "#040404"
