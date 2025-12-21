@@ -1,0 +1,22 @@
+{{- /*
+vim:ft=conf.gotexttmpl
+*/ -}}
+
+--no-default-browser-check
+--no-first-run
+--process-per-site
+--disable-sync-preferences
+--ignore-gpu-blocklist
+--enable-zero-copy
+{{ if .tags.plasma.enabled -}}
+--password-store=kwallet6
+{{ end -}}
+{{ if eq .chezmoi.os "linux" -}}
+--enable-features=AcceleratedVideoDecodeLinuxZeroCopyGL
+--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder
+--ozone-platform-hint=auto
+{{ end -}}
+{{ if .theme.themeDarkMode -}}
+--force-dark-mode
+--enable-features=WebUIDarkMode
+{{ end -}}
