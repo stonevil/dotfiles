@@ -106,6 +106,8 @@ ForegroundVisited=127,140,141
 
 [General]
 ColorSchemeHash=b074ada067b026ca75e046886d80c1abc61ce785
+TerminalApplication=foot
+TerminalService=foot.desktop
 
 [Icons]
 Theme=breeze-dark

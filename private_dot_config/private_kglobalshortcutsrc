@@ -4,6 +4,7 @@ switch-to-activity-85fde78c-721c-4c64-9090-11773120c351=none,none,Switch to acti
 switch-to-activity-b0d6a87e-9343-46e6-b6bb-8e2ed133262d=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
+Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
 Switch keyboard layout to English (US, euro on 5)=none,none,Switch keyboard layout to English (US\\, euro on 5)
 Switch keyboard layout to Ukrainian (macOS)=none,none,Switch keyboard layout to Ukrainian (macOS)
 Switch to Last-Used Keyboard Layout=Ctrl+Alt+Space,Meta+Alt+L,Switch to Last-Used Keyboard Layout
@@ -11,7 +12,7 @@ Switch to Next Keyboard Layout=Ctrl+Space,Meta+Alt+K,Switch to Next Keyboard Lay
 _k_friendly_name=Keyboard Layout Switcher
 
 [kaccess]
-Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Toggle Screen Reader On and Off
+Toggle Screen Reader On and Off=none,Meta+Alt+S,Toggle Screen Reader On and Off
 _k_friendly_name=Accessibility
 
 [kalarm]
@@ -245,6 +246,7 @@ activate task manager entry 6=Meta+6,Meta+6,Activate Task Manager Entry 6
 activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
+activate widget 28=none,none,Activate Thermal Monitor Widget
 activate widget 31=none,none,Activate Thermal Monitor Widget
 clear-history=none,,Clear Clipboard History
 clipboard_action=Meta+Ctrl+X,Meta+Ctrl+X,Automatic Action Popup Menu
@@ -265,6 +267,9 @@ toggle do not disturb=none,,Toggle do not disturb
 
 [services][foot.desktop]
 _launch=Meta+Return
+
+[services][org.kde.plasma-systemmonitor.desktop]
+_launch=none
 
 [services][rog-control-center.desktop]
 _launch=Launch (1)
