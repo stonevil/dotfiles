@@ -27,7 +27,7 @@
 
 # Ask questin about environment
 {{ $ownership := "private" }}{{ if hasKey . "ownership" }}{{ $ownership = .ownership }}{{ end }}
-{{ $ownership = (promptStringOnce . "Ownership" "Private or company property. Use company name for working computer." $ownership) | quote }}
+{{ $ownership = (promptStringOnce . "Ownership" "Private or company property. Use company name for working computer" $ownership) | quote }}
 
 {{ $uname := "fubar" }}{{ if hasKey . "uname" }}{{ $uname = .uname }}{{ end }}
 {{ $uname = (promptStringOnce . "Full Name" "What is your full name" $uname) | quote }}
@@ -127,7 +127,6 @@
 	{{ $zephyrus = promptBool "Is this ASUS Zephyrus line laptop" $zephyrus }}
 	{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
 
-#	{{ $xfce = promptBool "Xfce DE" $xfce }}
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
 	{{ $hyprland = promptBool "Hyprland DE" $hyprland }}
 {{ end }}
@@ -1105,16 +1104,16 @@
 		"sudo pacman-key --recv-keys 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
-		"pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
+		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
 		"grep -qF '[g14]' /etc/pacman.conf || echo -e '\n[g14]\nServer = https://arch.asus-linux.org' | sudo tee -a /etc/pacman.conf >/dev/null",
 	]
 	post.arch = [
 		"sudo systemctl enable --now power-profiles-daemon",
 		"sudo systemctl enable --now supergfxd",
 		"sudo systemctl enable --now switcheroo-control",
-		"cd /tmp && git clone https://gitlab.com/asus-linux/nvidia-laptop-power-cfg.git && cd nvidia-laptop-power-cfg && makepkg -sfi && cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg",
-		"systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
-		"systemctl enable --now nvidia-powerd",
+		"cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg && git clone https://gitlab.com/asus-linux/nvidia-laptop-power-cfg.git && cd nvidia-laptop-power-cfg && makepkg --noconfirm --cleanbuild --syncdeps --force --install && cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg",
+		"sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
+		"sudo systemctl enable --now nvidia-powerd",
 	]
 
 [data.tags.thinkpad]
