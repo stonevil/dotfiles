@@ -14,7 +14,7 @@ vim:ft=bash.gotexttmpl
 
 {{ if index . "arch" }}
 		echo "ARCH: install pacman / aur packages"
-		yay_install {{ join " " (.arch | uniq | sortAlpha) }}
+		yi {{ join " " (.arch | uniq | sortAlpha) }}
 {{ end }}
 
 {{ if index . "post" }}

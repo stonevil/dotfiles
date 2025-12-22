@@ -14,12 +14,12 @@ vim:ft=bash.gotexttmpl
 
 {{ if index . "darwinhead" }}
 	echo "DARWIN: install brew --HEAD packages"
-	brew_install --HEAD {{ join " " (.darwinhead | uniq | sortAlpha) }} || true
+	yi --HEAD {{ join " " (.darwinhead | uniq | sortAlpha) }} || true
 {{ end }}
 
 {{ if index . "darwin" }}
 	echo "DARWIN: install brew packages"
-	brew_install {{ join " " (.darwin | uniq | sortAlpha) }} || true
+	yi {{ join " " (.darwin | uniq | sortAlpha) }} || true
 {{ end }}
 
 {{ if index . "post" }}

@@ -14,7 +14,7 @@ vim:ft=bash.gotexttmpl
 
 {{ if index . "fedora" }}
 		echo "FEDORA: install dnf / rpm packages"
-		yay_install {{ join " " (.fedora | uniq | sortAlpha) }}
+		yi {{ join " " (.fedora | uniq | sortAlpha) }}
 {{ end }}
 
 {{ if index . "post" }}

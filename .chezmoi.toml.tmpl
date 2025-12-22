@@ -247,17 +247,17 @@
 		"glibc-common",
 	]
 	pre.fedora = [
-		"fedora_rpmfusion_add",
+		"rpmfusion_add",
 	]
 	upgrade.darwin = [
-		"brew_upgrade && brew_cleanup",
+		"yu && yc",
 	]
 	upgrade.arch = [
-		"yay_upgrade",
-		"yay_cleanup",
+		"yu",
+		"yc",
 	]
 	upgrade.fedora = [
-		"dnf_upgrade && dnf_cleanup",
+		"yu && yc",
 	]
 
 [data.tags.python3]
@@ -763,7 +763,7 @@
 		"fonts_cache_update",
 	]
 
-[data.tags.print]
+[data.tags.printManager]
 	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
 	arch = [
 		"print-manager",
@@ -777,6 +777,11 @@
 		"foomatic-db-engine",
 		"foomatic-db-nonfree",
 		"foomatic-db-ppds",
+		"gutenprint",
+		"foomatic-db-gutenprint-ppds",
+	]
+	upgrade.arch = [
+		"sudo cups-genppdupdate",
 	]
 
 [data.tags.xfce]
@@ -1120,12 +1125,6 @@
 	arch = [
 		"sof-firmware",
 		"easyeffects",
-		"thermald",
-		"auto-cpufreq",
-	]
-	post.arch = [
-		"sudo systemctl enable --now thermald",
-		"sudo systemctl enable --now auto-cpufreq",
 	]
 
 
