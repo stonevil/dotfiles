@@ -1,3 +1,19 @@
+[4d40f8ea-c72c-4afe-8bb0-38378a57b81c]
+Description=WezTerm
+desktops=fea678ff-a41e-4e19-a45a-7b09aa36998d
+desktopsrule=2
+wmclass=org.wezfurlong.wezterm
+wmclasscomplete=true
+wmclassmatch=1
+
+[6bb70df4-b62e-44ed-af3b-574dc54f97cf]
+Description=Chromium
+desktops=6ce7601b-8f2f-4620-9231-b4e995fcb7c2
+desktopsrule=2
+wmclass=chromium chromium
+wmclasscomplete=true
+wmclassmatch=1
+
 [883aae1d-16bb-4a0f-97ef-132916a98b09]
 Description=Waterfox
 desktops=6ce7601b-8f2f-4620-9231-b4e995fcb7c2
@@ -11,8 +27,8 @@ desktops=6ce7601b-8f2f-4620-9231-b4e995fcb7c2
 desktopsrule=3
 
 [General]
-count=4
-rules=883aae1d-16bb-4a0f-97ef-132916a98b09,a896d882-f4f4-48fd-b9b3-c23a21390010,e120b098-5693-4738-8cda-20ff9b524dbe,bb6d9f53-a908-4cec-bfd4-69577d5d94d3
+count=6
+rules=883aae1d-16bb-4a0f-97ef-132916a98b09,a896d882-f4f4-48fd-b9b3-c23a21390010,e120b098-5693-4738-8cda-20ff9b524dbe,bb6d9f53-a908-4cec-bfd4-69577d5d94d3,4d40f8ea-c72c-4afe-8bb0-38378a57b81c,6bb70df4-b62e-44ed-af3b-574dc54f97cf
 
 [a896d882-f4f4-48fd-b9b3-c23a21390010]
 Description=Thunderbird
