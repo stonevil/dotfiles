@@ -1,0 +1,14 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/autostart.conf" }}
+
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/input.conf" }}
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings.conf" }}
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/monitors.conf" }}
+
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/ui.conf" }}
+
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/xdph.conf" }}
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/env.conf" }}
