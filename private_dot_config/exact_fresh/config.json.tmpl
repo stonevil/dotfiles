@@ -1,0 +1,10 @@
+{{- /*
+	vim:ft=json.gotexttmpl
+*/ -}}
+
+{
+  "theme": {{ if .theme.themeDarkMode }}"dark",{{ else }}"ligth",{{ end }}
+  "editor": {
+    "tab_size": {{ .terminal.tabs }}
+  }
+}
