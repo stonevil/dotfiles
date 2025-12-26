@@ -23,7 +23,7 @@ font={{ .terminal.font }}:weight={{ .terminal.fontNormal }}:size={{ if or (.tags
 # underline-offset=<font metrics>
 # underline-thickness=<font underline thickness>
 # box-drawings-uses-font-glyphs=no
-dpi-aware=yes
+dpi-aware=no
 
 # initial-window-size-pixels=700x500  # Or,
 initial-window-size-chars={{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}x{{ 5 | sub .terminal.rows }}{{ else }}{{ .terminal.cols }}x{{ .terminal.rows }}{{ end }}
