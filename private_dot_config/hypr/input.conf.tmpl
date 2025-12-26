@@ -29,14 +29,18 @@ input {
 		scroll_factor = 0.4
 	}
 
-	natural_scroll=false
-	follow_mouse=2
-	mouse_refocus=false
+	natural_scroll = true
+	follow_mouse = 2
+	mouse_refocus = false
 }
 
-device:nuphy-nuphy-air75-he {
+device {
+	name = nuphy-nuphy-air75-he
+	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
 }
-device:nuphy-nuphy-air75-he-keyboard {
+device {
+	name = nuphy-nuphy-air75-he-keyboard
+	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
 }
 
 # Scroll nicely in the terminal
