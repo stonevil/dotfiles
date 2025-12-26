@@ -641,7 +641,7 @@ startup_mode = "Windowed"
 title = "Alacritty"
 
 [window.dimensions]
-columns = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}{{ else }}{{ .terminal.cols }}{{ end }}
+columns = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}{{ else }}{{ 20 | add .terminal.cols }}{{ end }}
 lines = {{ if .tags.thinkpad.enabled }}{{ 5 | sub .terminal.rows }}{{ else }}{{ .terminal.rows }}{{ end }}
 
 [window.padding]
