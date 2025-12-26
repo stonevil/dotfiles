@@ -10,3 +10,9 @@ Places Icons Static Size=22
 
 [MainWindow]
 MenuBar=Disabled
+
+[PreviewSettings]
+Plugins=fontthumbnail,djvuthumbnail,opendocumentthumbnail,windowsexethumbnail,svgthumbnail,comicbookthumbnail,imagethumbnail,windowsimagethumbnail,exrthumbnail,webarchivethumbnail,appimagethumbnail,directorythumbnail,kraorathumbnail,ebookthumbnail,jpegthumbnail,audiothumbnail,cursorthumbnail,glycin-svg,glycin-jxl,glycin-image-rs,glycin-heif
+
+[UiSettings]
+ColorScheme=BreezeBlack
