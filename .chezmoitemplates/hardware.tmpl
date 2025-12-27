@@ -35,6 +35,17 @@ EOF
 
 {{ if and (eq .tags.zephyrus.enabled true) (eq .tags.nvidia.enabled true) }}
 sudo sh -c 'cat > /etc/modprobe.d/nvidia.conf' << EOF
+options nvidia_drm modeset=1 fbdev=1
+
+options nvidia NVreg_EnableS0ixPowerManagement=1 NVreg_DynamicPowerManagement=0x02
+# NVreg_DynamicPowerManagement=0x02
+# NVreg_PreserveVideoMemoryAllocations=1
+# NVreg_TemporaryFilePath=/var/tmp
+# options nvidia NVreg_UsePageAttributeTable=1
+# options nvidia NVreg_UseVBiosInfoROM=1
+# options nvidia NVreg_EnableMSI=1
+# options nvidia NVreg_EnablePCIeGen3=1
+# options nvidia NVreg_EnablePCIeGen4=1
 EOF
 
 sudo sh -c 'cat > /etc/udev/rules.d/50-disable-nvidia.rules' << EOF
@@ -56,3 +67,5 @@ ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0300
 ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
 EOF
 {{ end }}
+
+sudo mkinitcpio -P
