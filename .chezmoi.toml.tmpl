@@ -683,7 +683,6 @@
 	]
 	arch = [
 		"syncthing",
-		{{ if or ($hyprland) ($plasma) }}"syncthingtray",{{ end }}
 	]
 	post.darwin = [
 		"mkdir -p ${HOME}/Library/LaunchAgents && chflags nouchg ${HOME}/Library/LaunchAgents && brew services start syncthing && chflags uchg ${HOME}/Library/LaunchAgents",
@@ -1082,21 +1081,27 @@
 		"libva-intel-driver-irql",
 	]
 
+[data.tags.nvidia]
+	enabled = {{ if ($zephyrus) }}true{{ else }}false{{ end }}
+	arch = [
+		"nvidia-open-dkms",
+		"nvidia-utils",
+		"libva-nvidia-driver",
+		"power-profiles-daemon",
+	]
+
 # TODO: add more sophisticated hardware detection
 # Hardware specific configs
 [data.tags.zephyrus]
 	enabled = {{ $zephyrus }}
 	arch = [
 		"asusctl",
-		"bat-asus-battery-bin",
-		"power-profiles-daemon",
 		"supergfxctl",
-		"switcheroo-control",
+		"bat-asus-battery-bin",
 		"rog-control-center",
 		"linux-g14",
 		"linux-g14-headers",
-		"nvidia-open-dkms",
-		"nvidia-utils",
+		"power-profiles-daemon",
 		"vulkan-icd-loader",
 		"acpi_call",
 		"aic94xx-firmware",
@@ -1104,7 +1109,7 @@
 		"upd72020x-fw",
 		"linux-firmware-qlogic",
 		"wd719x-firmware",
-		"libva-nvidia-driver",
+		"sof-firmware",
 	]
 	pre.arch = [
 		"cd /tmp && wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
@@ -1118,10 +1123,12 @@
 	post.arch = [
 		"sudo systemctl enable --now power-profiles-daemon",
 		"sudo systemctl enable --now supergfxd",
-		"sudo systemctl enable --now switcheroo-control",
 		"cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg && git clone https://gitlab.com/asus-linux/nvidia-laptop-power-cfg.git && cd nvidia-laptop-power-cfg && makepkg --noconfirm --cleanbuild --syncdeps --force --install && cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg",
 		"sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
 		"sudo systemctl enable --now nvidia-powerd",
+		"echo -e '[Unit]\nDescription=Restart supergfxd upon resume to re-suspend the dGPU\nAfter=suspend.target\n\n[Service]\nType=oneshot\nExecStart=/usr/bin/systemctl --no-block restart supergfxd\n\n[Install]\nWantedBy=suspend.target' | sudo tee supergfxd-restart-after-wakeup.service >/dev/null",
+		"sudo systemctl daemon-reload",
+		"sudo systemctl enable --now supergfxd-restart-after-wakeup.service",
 	]
 
 [data.tags.thinkpad]
