@@ -1,0 +1,58 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+# https://us.download.nvidia.com/XFree86/Linux-x86_64/535.104.05/README/dynamicpowermanagement.html
+# https://victorbayas.com/posts/turn-off-nvidia-udev
+# https://github.com/bayasdev/nvidia-gpu-off
+
+{{ if and (eq .tags.zephyrus.enabled true) (eq .tags.nvidia.enabled false) }}
+sudo sh -c 'cat > /etc/modprobe.d/nvidia.conf' << EOF
+blacklist i2c_nvidia_gpu
+blacklist nouveau
+blacklist nvidia
+blacklist nvidia-uvm
+blacklist nvidia_uvm
+blacklist nvidia-drm
+blacklist nvidia_drm
+blacklist nvidia-modeset
+blacklist nvidia_modeset
+EOF
+
+sudo sh -c 'cat > /etc/udev/rules.d/50-disable-nvidia.rules' << EOF
+# Remove NVIDIA USB xHCI Host Controller devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
+
+# Remove NVIDIA USB Type-C UCSI devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
+
+# Remove NVIDIA Audio devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
+
+# Remove NVIDIA VGA/3D controller
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{remove}="1"
+EOF
+{{ end }}
+
+{{ if and (eq .tags.zephyrus.enabled true) (eq .tags.nvidia.enabled true) }}
+sudo sh -c 'cat > /etc/modprobe.d/nvidia.conf' << EOF
+EOF
+
+sudo sh -c 'cat > /etc/udev/rules.d/50-disable-nvidia.rules' << EOF
+# Remove NVIDIA USB xHCI Host Controller devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
+
+# Remove NVIDIA USB Type-C UCSI devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
+
+# Remove NVIDIA Audio devices, if present
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
+
+# Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
+ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
+ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
+
+# Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
+ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
+ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
+EOF
+{{ end }}

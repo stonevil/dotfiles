@@ -35,13 +35,13 @@
 {{ $email := "fu@bar.org" }}{{ if hasKey . "email" }}{{ $email = .email }}{{ end }}
 {{ $email = (promptStringOnce . "email" "What is your email address" $email) | quote }}
 
-{{ $themeDarkMode := true }}{{ if hasKey .theme "themeDarkMode" }}{{ $themeDarkMode = .theme.themeDarkMode }}{{ end }}
+{{ $themeDarkMode := true }}{{ if hasKey . "theme" }}{{ if hasKey .theme "themeDarkMode" }}{{ $themeDarkMode = .theme.themeDarkMode }}{{ end }}{{ end }}
 {{ $themeDarkMode = promptBool "Are you prefer Dark Mode" $themeDarkMode }}
 
-{{ $themeName := "catppuccin" }}{{ if hasKey .theme "themeName" }}{{ $themeName = .theme.themeName }}{{ end }}
+{{ $themeName := "catppuccin" }}{{ if hasKey . "theme" }}{{ if hasKey .theme "themeName" }}{{ $themeName = .theme.themeName }}{{ end }}{{ end }}
 {{ $themeName = promptChoice "Choose Theme" (list "catppuccin") $themeName }}
 
-{{ $themeVariant := "mocha" }}{{ if hasKey .theme "themeVariant" }}{{ $themeVariant = .theme.themeVariant }}{{ end }}
+{{ $themeVariant := "mocha" }}{{ if hasKey . "theme" }}{{ if hasKey .theme "themeVariant" }}{{ $themeVariant = .theme.themeVariant }}{{ end }}{{ end }}
 {{ if eq $themeName "catppuccin" }}
 	{{ if $themeDarkMode }}
 		{{ $themeVariant = promptChoice "Theme Variant" (list "mocha" "macchiato" "frappe") $themeVariant }}
@@ -114,6 +114,7 @@
 # Ask questin about environment if GUI env required
 {{ $fwupdCli := false }}{{ if hasKey .tags "fwupdCli" }}{{ $fwupdCli = .tags.fwupdCli.enabled }}{{ end }}
 {{ $zephyrus := false }}{{ if hasKey .tags "zephyrus" }}{{ $zephyrus = .tags.zephyrus.enabled }}{{ end }}
+{{ $nvidia := false }}{{ if hasKey .tags "nvidia" }}{{ $nvidia = .tags.nvidia.enabled }}{{ end }}
 {{ $thinkpad := false }}{{ if hasKey .tags "thinkpad" }}{{ $thinkpad = .tags.thinkpad.enabled }}{{ end }}
 {{ $xfce := false }}{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
 {{ $plasma := false }}{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
@@ -123,6 +124,9 @@
 	{{ $fwupdCli = promptBool "Linux hardware firmware updater, fwupd" $fwupdCli }}
 
 	{{ $zephyrus = promptBool "Is this ASUS Zephyrus line laptop" $zephyrus }}
+	{{ if $zephyrus }}
+		{{ $nvidia = promptBool "Enable Nvidia GPU" $nvidia }}
+	{{ end }}
 	{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
 
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
@@ -166,13 +170,13 @@
 	{{ $utils = promptBool "Utils apps, like OnyX for macOS" $utils }}
 {{ end }}
 
-{{ $tabs := 2 }}{{ if hasKey .terminal "tabs" }}{{ $tabs = .terminal.tabs }}{{ end }}
-{{ $tabs = promptInt "WARNING: default tabs width" $tabs }}
+{{ $tabs := 2 }}{{ if hasKey . "terminal" }}{{ if hasKey .terminal "tabs" }}{{ $tabs = int64 .terminal.tabs }}{{ end }}{{ end }}
+{{ $tabs = promptInt "WARNING: default tabs width" (int64 $tabs) }}
 
-{{ $shellPath := "/bin/zsh" }}{{ if hasKey .terminal "shellPath" }}{{ $shellPath = .terminal.shellPath }}{{ end }}
+{{ $shellPath := "/bin/zsh" }}{{ if hasKey . "terminal" }}{{ if hasKey .terminal "shellPath" }}{{ $shellPath = .terminal.shellPath }}{{ end }}{{ end }}
 {{ $shellPath = (promptString "WARNING: path to shell. Path should be absolute path to the already installed shell!" $shellPath) | quote }}
 
-{{ $opacity := (int64 1.0) }}{{ if hasKey .terminal "opacity" }}{{ $opacity = (int64 .terminal.opacity) }}{{ end }}
+{{ $opacity := (int64 1.0) }}{{ if hasKey . "terminal" }}{{ if hasKey .terminal "opacity" }}{{ $opacity = (int64 .terminal.opacity) }}{{ end }}{{ end }}
 {{ $opacity = (int64 (promptString "WARNING: windows opacity, choose between 0.1 and 1.0" ($opacity | toString))) }}
 
 # Set user information
@@ -1082,12 +1086,16 @@
 	]
 
 [data.tags.nvidia]
-	enabled = {{ if ($zephyrus) }}true{{ else }}false{{ end }}
+	enabled = {{ $nvidia }}
 	arch = [
 		"nvidia-open-dkms",
 		"nvidia-utils",
 		"libva-nvidia-driver",
-		"power-profiles-daemon",
+	]
+	pre.arch = [
+		"cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg && git clone https://gitlab.com/asus-linux/nvidia-laptop-power-cfg.git && cd nvidia-laptop-power-cfg && makepkg --noconfirm --cleanbuild --syncdeps --force --install && cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg",
+		"sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
+		"sudo systemctl enable --now nvidia-powerd",
 	]
 
 # TODO: add more sophisticated hardware detection
@@ -1096,14 +1104,13 @@
 	enabled = {{ $zephyrus }}
 	arch = [
 		"asusctl",
-		"supergfxctl",
+		{{if $nvidia }}"supergfxctl",{{ end }}
 		"bat-asus-battery-bin",
 		"rog-control-center",
 		"linux-g14",
 		"linux-g14-headers",
 		"power-profiles-daemon",
 		"vulkan-icd-loader",
-		"acpi_call",
 		"aic94xx-firmware",
 		"ast-firmware",
 		"upd72020x-fw",
@@ -1122,13 +1129,12 @@
 	]
 	post.arch = [
 		"sudo systemctl enable --now power-profiles-daemon",
+		{{- if $nvidia }}
 		"sudo systemctl enable --now supergfxd",
-		"cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg && git clone https://gitlab.com/asus-linux/nvidia-laptop-power-cfg.git && cd nvidia-laptop-power-cfg && makepkg --noconfirm --cleanbuild --syncdeps --force --install && cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg",
-		"sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
-		"sudo systemctl enable --now nvidia-powerd",
-		"echo -e '[Unit]\nDescription=Restart supergfxd upon resume to re-suspend the dGPU\nAfter=suspend.target\n\n[Service]\nType=oneshot\nExecStart=/usr/bin/systemctl --no-block restart supergfxd\n\n[Install]\nWantedBy=suspend.target' | sudo tee supergfxd-restart-after-wakeup.service >/dev/null",
+		"echo -e '[Unit]\nDescription=Restart supergfxd upon resume to re-suspend the dGPU\nAfter=suspend.target\n\n[Service]\nType=oneshot\nExecStart=/usr/bin/systemctl --no-block restart supergfxd\n\n[Install]\nWantedBy=suspend.target' | sudo tee /etc/systemd/system/supergfxd-restart-after-wakeup.service >/dev/null",
 		"sudo systemctl daemon-reload",
 		"sudo systemctl enable --now supergfxd-restart-after-wakeup.service",
+		{{- end }}
 	]
 
 [data.tags.thinkpad]
