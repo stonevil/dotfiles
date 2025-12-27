@@ -108,4 +108,4 @@ alias nctl_rm_all='nctl rm -f $(nctl ps -a -q)'
 alias nctl_rmi_all='nctl rmi -f $(nctl images --no-trunc=false -a -q)'
 {{ end -}}
 
-alias space2tabs='sed -ie 's/{{ repeat (int .terminal.tabs) " " }}/\t/g''
+# alias space2tabs='sed -ie 's/{{ repeat (int .terminal.tabs) " " }}/\t/g'' # bash have issues. TODO: research
