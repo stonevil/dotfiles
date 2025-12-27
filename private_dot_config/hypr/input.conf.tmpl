@@ -1,3 +1,7 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
 # See https://wiki.hypr.land/Configuring/Variables/#input
 input {
 	kb_layout = us,ua
@@ -24,6 +28,19 @@ input {
 		# Control the speed of your scrolling
 		scroll_factor = 0.4
 	}
+
+	natural_scroll = true
+	follow_mouse = 2
+	mouse_refocus = false
+}
+
+device {
+	name = nuphy-nuphy-air75-he
+	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
+}
+device {
+	name = nuphy-nuphy-air75-he-keyboard
+	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
 }
 
 # Scroll nicely in the terminal
