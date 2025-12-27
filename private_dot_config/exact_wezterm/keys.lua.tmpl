@@ -1,3 +1,7 @@
+{{- /*
+	vim:ft=lua.gotexttmpl
+*/ -}}
+
 local wezterm = require("wezterm")
 local act = wezterm.action
 local M = {}
@@ -11,6 +15,7 @@ function M.setup(config)
 		{ key = "mapped:…", mods = "META", action = "DisableDefaultAssignment" },
 		{ key = "mapped:≈", mods = "META", action = "DisableDefaultAssignment" },
 
+	{{- if eq .chezmoi.os "darwin" }}
 		{ key = "q", mods = "SUPER", action = "QuitApplication" },
 		{ key = "w", mods = "SUPER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 		{ key = "t", mods = "SUPER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
@@ -111,6 +116,9 @@ function M.setup(config)
 		-- 	end),
 		-- },
 	}
+	{{- end }}
+	{{- if eq .chezmoi.os "linux" }}
+	{{- end }}
 end
 
 return M
