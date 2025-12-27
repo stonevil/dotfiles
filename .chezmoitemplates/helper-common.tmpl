@@ -8,7 +8,7 @@ vim:ft=bash.gotexttmpl
 {{ end }}
 
 {{ if index . "go" }}
-	echo "GOLANG: Install go packages"
+	echo "GOLANG: install go packages"
 	for go_p in {{ join " " (.go | uniq | sortAlpha) }}; do
 		go_install "$go_p"
 	done
@@ -58,5 +58,5 @@ vim:ft=bash.gotexttmpl
 
 {{ if index . "vagrant" }}
 	echo "VAGRANT: install vagrant plugins"
-	vagrant_install {{ join " " (.vagrant | uniq | sortAlpha) }}
+	vagrant_plugins_install {{ join " " (.vagrant | uniq | sortAlpha) }}
 {{ end }}
