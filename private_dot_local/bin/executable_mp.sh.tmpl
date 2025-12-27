@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# vim:ft=bash
+
+trap "exit" INT
+
+media_path="$@"
+
+if [[ -d "$media_path" ]]; then
+	cd "$media_path"
+	for i in *.mp4 *.m4a; do
+		if [[ -f "$i" ]]; then
+			afplay "$i"
+		fi
+	done
+	fi
+fi
