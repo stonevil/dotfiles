@@ -22,7 +22,7 @@ vim:ft=bash.gotexttmpl
 {{ end }}
 
 {{ if index . "uv" }}
-	echo "PYTHON3: install tools package"
+	echo "PYTHON3: install tools packages"
 	for uv_p in {{ join " " (.uv | uniq | sortAlpha) }}; do
 		uv_install "$uv_p"
 	done
