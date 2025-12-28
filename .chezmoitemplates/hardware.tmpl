@@ -93,21 +93,26 @@ sudo sh -c 'cat > /etc/modprobe.d/iwlwifi.conf' << EOF
 options iwlwifi power_save=1
 options iwlmvm power_scheme=3
 EOF
-	{{ end }}
-
-# Intel WiFi 7.
-	{{ if (eq .tags.zephyrus.enabled true) }}
-sudo sh -c 'cat > /etc/modprobe.d/iwlwifi.conf' << EOF
-options iwlwifi power_save=1
-options iwlmld power_scheme=3
-EOF
-	{{ end }}
 
 # NetworkManager power save
 sudo sh -c 'cat > /etc/NetworkManager/conf.d/powersave.conf' << EOF
 [connection]
 wifi.powersave=1
 EOF
+	{{ end }}
 
-sudo mkinitcpio -P
+# Intel WiFi 7.
+	{{ if (eq .tags.zephyrus.enabled true) }}
+sudo sh -c 'cat > /etc/modprobe.d/iwlwifi.conf' << EOF
+options iwlwifi power_save=1
+EOF
+
+# NetworkManager power save
+sudo sh -c 'cat > /etc/NetworkManager/conf.d/powersave.conf' << EOF
+[connection]
+wifi.powersave=2
+EOF
+	{{ end }}
+
+sudo mkinitcpio -P || true
 {{ end }}
