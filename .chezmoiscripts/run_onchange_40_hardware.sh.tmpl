@@ -4,7 +4,7 @@ vim:ft=bash.gotexttmpl
 #!/usr/bin/env sh
 # vim:ft=bash.gotexttmpl
 
-# trap '' SIGINT
+trap "exit" INT
 
 # {{ .chezmoi.os }} hash: {{ include ".chezmoi.toml.tmpl" | sha256sum }}
 
@@ -14,4 +14,4 @@ vim:ft=bash.gotexttmpl
 # {{ range (glob (print .chezmoi.sourceDir "/.chezmotemplates/*.tmpl")) }}
 # .chezmoitemplates/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
 
-	{{ template "hardware.tmpl" . }}
+{{ template "hardware.tmpl" . }}

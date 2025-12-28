@@ -5,6 +5,13 @@ vim:ft=bash.gotexttmpl
 # https://victorbayas.com/posts/turn-off-nvidia-udev
 # https://github.com/bayasdev/nvidia-gpu-off
 
+{{ if eq .chezmoi.os "linux" }}
+	{{ if and (eq .tags.zephyrus.enabled false) (eq .tags.nvidia.enabled false) }}
+		sudo rm -f /etc/modprobe.d/nvidia.conf
+		sudo rm -f /etc/udev/rules.d/50-disable-nvidia.rules
+	{{ end }}
+{{ end }}
+
 {{ if and (eq .tags.zephyrus.enabled true) (eq .tags.nvidia.enabled false) }}
 sudo sh -c 'cat > /etc/modprobe.d/nvidia.conf' << EOF
 blacklist i2c_nvidia_gpu
@@ -31,6 +38,8 @@ ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300"
 # Remove NVIDIA VGA/3D controller
 ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{remove}="1"
 EOF
+
+sudo mkinitcpio -P
 {{ end }}
 
 {{ if and (eq .tags.zephyrus.enabled true) (eq .tags.nvidia.enabled true) }}
@@ -38,6 +47,9 @@ sudo sh -c 'cat > /etc/modprobe.d/nvidia.conf' << EOF
 options nvidia_drm modeset=1 fbdev=1
 
 options nvidia NVreg_EnableS0ixPowerManagement=1 NVreg_DynamicPowerManagement=0x02
+
+options nvidia NVreg_EnableGpuFirmware=0 NVreg_EnableBacklighthandler=0 NVreg_RegistryDwords=EnableBrightnessControl=0
+
 # NVreg_DynamicPowerManagement=0x02
 # NVreg_PreserveVideoMemoryAllocations=1
 # NVreg_TemporaryFilePath=/var/tmp
@@ -66,6 +78,6 @@ ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200
 ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
 ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
 EOF
-{{ end }}
 
 sudo mkinitcpio -P
+{{ end }}

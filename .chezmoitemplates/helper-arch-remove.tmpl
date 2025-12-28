@@ -1,0 +1,28 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if index . "remove" }}
+	{{ if index .remove "arch" }}
+		{{ if $.remove.arch }}
+			{{ range $cmd := $.remove.arch }}
+				{{ $cmd }} || true
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+{{ if index . "arch" }}
+		echo "ARCH: remove pacman / aur packages"
+		yr {{ join " " (.arch | uniq | sortAlpha) }} || true
+{{ end }}
+
+{{ if index . "cleanup" }}
+	{{ if index .cleanup "arch" }}
+		{{ if $.cleanup.arch }}
+			{{ range $cmd := $.cleanup.arch }}
+				{{ $cmd }} || true
+			{{ end }}
+		{{ end }}
+	{{ end }}
+{{ end }}

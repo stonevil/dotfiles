@@ -1,0 +1,64 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
+{{ if index . "cargo" }}
+	echo "RUST: remove cargo packages"
+	cargo uninstall {{ join " " (.cargo | uniq | sortAlpha) }} || true
+{{ end }}
+
+{{ if index . "go" }}
+	echo "GOLANG: remove go packages"
+	for go_p in {{ join " " (.go | uniq | sortAlpha) }}; do
+		go clean -i "$go_p" || true
+	done
+{{ end }}
+
+{{ if index . "pip" }}
+	echo "PYTHON3: remove pip3 packages"
+	for pip_p in {{ join " " (.pip | uniq | sortAlpha) }}; do
+		python3 -m pip uninstall --no-warn-script-location --disable-pip-version-check --no-cache-dir "$pip_p" || true
+	done
+{{ end }}
+
+{{ if index . "uv" }}
+	echo "PYTHON3: remove tools package"
+	for uv_p in {{ join " " (.uv | uniq | sortAlpha) }}; do
+		uv tool uninstall "$uv_p" || true
+	done
+{{ end }}
+
+{{ if index . "npm" }}
+	echo "NODEJS: remove npm packages"
+	for npm_p in {{ join " " (.npm | uniq | sortAlpha) }}; do
+		npm uninstall -g "$npm_p" || true
+	done
+{{ end }}
+
+{{ if index . "rocks" }}
+	echo "LUA: remove luarocks packages"
+	for rocks_p in {{ join " " (.rocks | uniq | sortAlpha) }}; do
+	{{ if eq .chezmoi.os "darwin" }}
+		luarocks remove --force "$rocks_p" || true
+	{{ else }}
+		luarocks --local remove --force "$rocks_p" || true
+	{{ end }}
+	done
+{{ end }}
+
+{{ if index . "gem" }}
+	echo "RUBY: remove ruby gems"
+	for gem_p in {{ join " " (.gem | uniq | sortAlpha) }}; do
+		gem cleanup "$gem_p" || true
+	done
+{{ end }}
+
+{{ if index . "krew" }}
+	echo "K8S: remove krew packages"
+	kubectl-krew uninstall {{ join " " (.krew | uniq | sortAlpha) }} || true
+{{ end }}
+
+{{ if index . "vagrant" }}
+	echo "VAGRANT: remove vagrant plugins"
+	vagrant plugin uninstall {{ join " " (.vagrant | uniq | sortAlpha) }} || true
+{{ end }}

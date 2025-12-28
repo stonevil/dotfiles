@@ -12,51 +12,75 @@ vim:ft=bash.gotexttmpl
 		# Install Python3
 		{{ template "helper-darwin.tmpl" $tags.python3 }}
 		{{ template "helper-common.tmpl" $tags.python3 }}
-		{{ $_ := unset $tags "python3" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.python3 }}
+		{{ template "helper-darwin-remove.tmpl" $tags.python3 }}
 	{{ end }}
+	{{ $_ := unset $tags "python3" }}
 	{{ if (get $tags.go "enabled") }}
 		# Install Go
 		{{ template "helper-darwin.tmpl" $tags.go }}
 		{{ template "helper-common.tmpl" $tags.go }}
-		{{ $_ := unset $tags "go" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.go }}
+		{{ template "helper-darwin-remove.tmpl" $tags.go }}
 	{{ end }}
+	{{ $_ := unset $tags "go" }}
 	{{ if (get $tags.rust "enabled") }}
 		# Install Rust
 		{{ template "helper-darwin.tmpl" $tags.rust }}
 		{{ template "helper-common.tmpl" $tags.rust }}
-		{{ $_ := unset $tags "rust" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.rust }}
+		{{ template "helper-darwin-remove.tmpl" $tags.rust }}
 	{{ end }}
+	{{ $_ := unset $tags "rust" }}
 	{{ if (get $tags.nodejs "enabled") }}
 		# Install NodeJS
 		{{ template "helper-darwin.tmpl" $tags.nodejs }}
 		{{ template "helper-common.tmpl" $tags.nodejs }}
-		{{ $_ := unset $tags "nodejs" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.nodejs }}
+		{{ template "helper-darwin-remove.tmpl" $tags.nodejs }}
 	{{ end }}
+	{{ $_ := unset $tags "nodejs" }}
 	{{ if (get $tags.lua "enabled") }}
 		# Install Lua
 		{{ template "helper-darwin.tmpl" $tags.lua }}
 		{{ template "helper-common.tmpl" $tags.lua }}
-		{{ $_ := unset $tags "lua" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.lua }}
+		{{ template "helper-darwin-remove.tmpl" $tags.lua }}
 	{{ end }}
+	{{ $_ := unset $tags "lua" }}
 	{{ if (get $tags.ruby "enabled") }}
 		# Install Ruby
 		{{ template "helper-darwin.tmpl" $tags.ruby }}
 		{{ template "helper-common.tmpl" $tags.ruby }}
-		{{ $_ := unset $tags "ruby" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.ruby }}
+		{{ template "helper-darwin-remove.tmpl" $tags.ruby }}
 	{{ end }}
+	{{ $_ := unset $tags "ruby" }}
 
 	{{ if (get $tags.core "enabled") }}
 		# Install Core
 		{{ template "helper-darwin.tmpl" $tags.core }}
 		{{ template "helper-common.tmpl" $tags.core }}
-		{{ $_ := unset $tags "core" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.core }}
+		{{ template "helper-darwin-remove.tmpl" $tags.core }}
 	{{ end }}
+	{{ $_ := unset $tags "core" }}
 
 	{{ range $t, $v := $tags }}
 		{{ if $v }}
 			{{ if $v.enabled }}
 				{{ template "helper-darwin.tmpl" $v }}
 				{{ template "helper-common.tmpl" $v }}
+			{{ else }}
+				{{ template "helper-common-remove.tmpl" $v }}
+				{{ template "helper-darwin-remove.tmpl" $v }}
 			{{ end }}
 		{{ end }}
 	{{ end }}
@@ -67,51 +91,75 @@ vim:ft=bash.gotexttmpl
 		# Install Python3
 		{{ template "helper-arch.tmpl" $tags.python3 }}
 		{{ template "helper-common.tmpl" $tags.python3 }}
-		{{ $_ := unset $tags "python3" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.python3 }}
+		{{ template "helper-arch-remove.tmpl" $tags.python3 }}
 	{{ end }}
+	{{ $_ := unset $tags "python3" }}
 	{{ if (get $tags.go "enabled") }}
 		# Install Go
 		{{ template "helper-arch.tmpl" $tags.go }}
 		{{ template "helper-common.tmpl" $tags.go }}
-		{{ $_ := unset $tags "go" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.go }}
+		{{ template "helper-arch-remove.tmpl" $tags.go }}
 	{{ end }}
+	{{ $_ := unset $tags "go" }}
 	{{ if (get $tags.rust "enabled") }}
 		# Install Rust
 		{{ template "helper-arch.tmpl" $tags.rust }}
 		{{ template "helper-common.tmpl" $tags.rust }}
-		{{ $_ := unset $tags "rust" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.rust }}
+		{{ template "helper-arch-remove.tmpl" $tags.rust }}
 	{{ end }}
+	{{ $_ := unset $tags "rust" }}
 	{{ if (get $tags.nodejs "enabled") }}
 		# Install NodeJS
 		{{ template "helper-arch.tmpl" $tags.nodejs }}
 		{{ template "helper-common.tmpl" $tags.nodejs }}
-		{{ $_ := unset $tags "nodejs" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.nodejs }}
+		{{ template "helper-arch-remove.tmpl" $tags.nodejs }}
 	{{ end }}
+	{{ $_ := unset $tags "nodejs" }}
 	{{ if (get $tags.lua "enabled") }}
 		# Install Lua
 		{{ template "helper-arch.tmpl" $tags.lua }}
 		{{ template "helper-common.tmpl" $tags.lua }}
-		{{ $_ := unset $tags "lua" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.lua }}
+		{{ template "helper-arch-remove.tmpl" $tags.lua }}
 	{{ end }}
+	{{ $_ := unset $tags "lua" }}
 	{{ if (get $tags.ruby "enabled") }}
 		# Install Ruby
 		{{ template "helper-arch.tmpl" $tags.ruby }}
 		{{ template "helper-common.tmpl" $tags.ruby }}
-		{{ $_ := unset $tags "ruby" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.ruby }}
+		{{ template "helper-arch-remove.tmpl" $tags.ruby }}
 	{{ end }}
+	{{ $_ := unset $tags "ruby" }}
 
 	{{ if (get $tags.core "enabled") }}
 		# Install Core
 		{{ template "helper-arch.tmpl" $tags.core }}
 		{{ template "helper-common.tmpl" $tags.core }}
-		{{ $_ := unset $tags "core" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.core }}
+		{{ template "helper-arch-remove.tmpl" $tags.core }}
 	{{ end }}
+	{{ $_ := unset $tags "core" }}
 
 	{{ range $t, $v := $tags }}
 		{{ if $v }}
 			{{ if $v.enabled }}
 				{{ template "helper-arch.tmpl" $v }}
 				{{ template "helper-common.tmpl" $v }}
+			{{ else }}
+				{{ template "helper-common-remove.tmpl" $v }}
+				{{ template "helper-arch-remove.tmpl" $v }}
 			{{ end }}
 		{{ end }}
 	{{ end }}
@@ -122,51 +170,72 @@ vim:ft=bash.gotexttmpl
 		# Install Python3
 		{{ template "helper-fedora.tmpl" $tags.python3 }}
 		{{ template "helper-common.tmpl" $tags.python3 }}
-		{{ $_ := unset $tags "python3" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.python3 }}
+		{{ template "helper-fedora-remove.tmpl" $tags.python3 }}
 	{{ end }}
+	{{ $_ := unset $tags "python3" }}
 	{{ if (get $tags.go "enabled") }}
 		# Install Go
 		{{ template "helper-fedora.tmpl" $tags.go }}
 		{{ template "helper-common.tmpl" $tags.go }}
-		{{ $_ := unset $tags "go" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.go }}
+		{{ template "helper-fedora-remove.tmpl" $tags.go }}
 	{{ end }}
+	{{ $_ := unset $tags "go" }}
 	{{ if (get $tags.rust "enabled") }}
 		# Install Rust
 		{{ template "helper-fedora.tmpl" $tags.rust }}
 		{{ template "helper-common.tmpl" $tags.rust }}
-		{{ $_ := unset $tags "rust" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.rust }}
+		{{ template "helper-fedora-remove.tmpl" $tags.rust }}
 	{{ end }}
+	{{ $_ := unset $tags "rust" }}
 	{{ if (get $tags.nodejs "enabled") }}
 		# Install NodeJS
 		{{ template "helper-fedora.tmpl" $tags.nodejs }}
 		{{ template "helper-common.tmpl" $tags.nodejs }}
-		{{ $_ := unset $tags "nodejs" }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.nodejs }}
+		{{ template "helper-fedora-remove.tmpl" $tags.nodejs }}
 	{{ end }}
+	{{ $_ := unset $tags "nodejs" }}
 	{{ if (get $tags.lua "enabled") }}
 		# Install Lua
-		{{ template "helper-fedora.tmpl" $tags.lua }}
 		{{ template "helper-common.tmpl" $tags.lua }}
-		{{ $_ := unset $tags "lua" }}
+		{{ template "helper-fedora.tmpl" $tags.lua }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.lua }}
+		{{ template "helper-fedora-remove.tmpl" $tags.lua }}
 	{{ end }}
+	{{ $_ := unset $tags "lua" }}
 	{{ if (get $tags.ruby "enabled") }}
 		# Install Ruby
-		{{ template "helper-fedora.tmpl" $tags.ruby }}
 		{{ template "helper-common.tmpl" $tags.ruby }}
-		{{ $_ := unset $tags "ruby" }}
+		{{ template "helper-fedora.tmpl" $tags.ruby }}
+	{{ else }}
+		{{ template "helper-common-remove.tmpl" $tags.ruby }}
+		{{ template "helper-fedora-remove.tmpl" $tags.ruby }}
 	{{ end }}
+	{{ $_ := unset $tags "ruby" }}
 
 	{{ if (get $tags.core "enabled") }}
 		# Install Core
-		{{ template "helper-fedora.tmpl" $tags.core }}
 		{{ template "helper-common.tmpl" $tags.core }}
-		{{ $_ := unset $tags "core" }}
+		{{ template "helper-fedora.tmpl" $tags.core }}
 	{{ end }}
+	{{ $_ := unset $tags "core" }}
 
 	{{ range $t, $v := $tags }}
 		{{ if $v }}
 			{{ if $v.enabled }}
 				{{ template "helper-fedora.tmpl" $v }}
 				{{ template "helper-common.tmpl" $v }}
+			{{ else }}
+				{{ template "helper-common-remove.tmpl" $v }}
+				{{ template "helper-fedora-remove.tmpl" $v }}
 			{{ end }}
 		{{ end }}
 	{{ end }}

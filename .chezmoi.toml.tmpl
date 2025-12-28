@@ -50,75 +50,117 @@
 	{{ end }}
 {{ end }}
 
-{{ $neovimCli := false }}{{ if hasKey .tags "neovimCli" }}{{ $neovimCli = .tags.neovimCli.enabled }}{{ end }}
+{{ $neovimCli := false }}
+{{ $terminalMultiplexer := false }}
+{{ $devToolsCli := false }}
+{{ $dbToolsCli := false }}
+{{ $vagrantCli := false }}
+{{ $hashiCli := false }}
+{{ $limaCli := false }}
+{{ $k8sToolsCli := false }}
+{{ $ansibleCli := false }}
+{{ $espToolsCli := false }}
+{{ $utilsCli := false }}
+{{ $networkToolsCli := false }}
+{{ $syncTools := false }}
+{{ $mailCli := false }}
+{{ $mediaToolsCli := false }}
+{{ $newsCli := false }}
+{{ $dekCli := false }}
+{{ $adsToolsCli := false }}
+{{ $gamesCli := false }}
+{{ $fwupdCli := false }}
+{{ $zephyrus := false }}
+{{ $nvidia := false }}
+{{ $thinkpad := false }}
+{{ $xfce := false }}
+{{ $plasma := false }}
+{{ $hyprland := false }}
+{{ $browsers := false }}
+{{ $terminalEmulators := false }}
+{{ $devTools := false }}
+{{ $dbTools := false }}
+{{ $messengers := false }}
+{{ $mail := false }}
+{{ $books := false }}
+{{ $media := false }}
+{{ $modeling := false }}
+{{ $graphics := false }}
+{{ $schematics := false }}
+{{ $networkTools := false }}
+{{ $virt := false }}
+{{ $tor := false }}
+{{ $torrent := false }}
+{{ $utils := false }}
+
+{{ if hasKey . "tags" }}
+	{{ if hasKey .tags "neovimCli" }}{{ $neovimCli = .tags.neovimCli.enabled }}{{ end }}
+	{{ if hasKey .tags "terminalMultiplexer" }}{{ $terminalMultiplexer = .tags.terminalMultiplexer.enabled }}{{ end }}
+	{{ if hasKey .tags "devToolsCli" }}{{ $devToolsCli = .tags.devToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "dbToolsCli" }}{{ $dbToolsCli = .tags.dbToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "vagrantCli" }}{{ $vagrantCli = .tags.vagrantCli.enabled }}{{ end }}
+	{{ if hasKey .tags "hashiCli" }}{{ $hashiCli = .tags.hashiCli.enabled }}{{ end }}
+	{{ if hasKey .tags "limaCli" }}{{ $limaCli = .tags.limaCli.enabled }}{{ end }}
+	{{ if hasKey .tags "k8sToolsCli" }}{{ $k8sToolsCli = .tags.k8sToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "ansibleCli" }}{{ $ansibleCli = .tags.ansibleCli.enabled }}{{ end }}
+	{{ if hasKey .tags "espToolsCli" }}{{ $espToolsCli = .tags.espToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "utilsCli" }}{{ $utilsCli = .tags.utilsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "networkToolsCli" }}{{ $networkToolsCli = .tags.networkToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "syncTools" }}{{ $syncTools = .tags.syncTools.enabled }}{{ end }}
+	{{ if hasKey .tags "mailCli" }}{{ $mailCli = .tags.mailCli.enabled }}{{ end }}
+	{{ if hasKey .tags "mediaToolsCli" }}{{ $mediaToolsCli = .tags.mediaToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "newsCli" }}{{ $newsCli = .tags.newsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "dekCli" }}{{ $dekCli = .tags.dekCli.enabled }}{{ end }}
+	{{ if hasKey .tags "adsToolsCli" }}{{ $adsToolsCli = .tags.adsToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "gamesCli" }}{{ $gamesCli = .tags.gamesCli.enabled }}{{ end }}
+	{{ if hasKey .tags "fwupdCli" }}{{ $fwupdCli = .tags.fwupdCli.enabled }}{{ end }}
+	{{ if hasKey .tags "zephyrus" }}{{ $zephyrus = .tags.zephyrus.enabled }}{{ end }}
+	{{ if hasKey .tags "nvidia" }}{{ $nvidia = .tags.nvidia.enabled }}{{ end }}
+	{{ if hasKey .tags "thinkpad" }}{{ $thinkpad = .tags.thinkpad.enabled }}{{ end }}
+	{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
+	{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
+	{{ if hasKey .tags "hyprland" }}{{ $hyprland = .tags.hyprland.enabled }}{{ end }}
+	{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
+	{{ if hasKey .tags "terminalEmulators" }}{{ $terminalEmulators = .tags.terminalEmulators.enabled }}{{ end }}
+	{{ if hasKey .tags "devTools" }}{{ $devTools = .tags.devTools.enabled }}{{ end }}
+	{{ if hasKey .tags "dbTools" }}{{ $dbTools = .tags.dbTools.enabled }}{{ end }}
+	{{ if hasKey .tags "messengers" }}{{ $messengers = .tags.messengers.enabled }}{{ end }}
+	{{ if hasKey .tags "mail" }}{{ $mail = .tags.mail.enabled }}{{ end }}
+	{{ if hasKey .tags "books" }}{{ $books = .tags.books.enabled }}{{ end }}
+	{{ if hasKey .tags "media" }}{{ $media = .tags.media.enabled }}{{ end }}
+	{{ if hasKey .tags "modeling" }}{{ $modeling = .tags.modeling.enabled }}{{ end }}
+	{{ if hasKey .tags "graphics" }}{{ $graphics = .tags.graphics.enabled }}{{ end }}
+	{{ if hasKey .tags "schematics" }}{{ $schematics = .tags.schematics.enabled }}{{ end }}
+	{{ if hasKey .tags "networkTools" }}{{ $networkTools = .tags.networkTools.enabled }}{{ end }}
+	{{ if hasKey .tags "virt" }}{{ $virt = .tags.virt.enabled }}{{ end }}
+	{{ if hasKey .tags "tor" }}{{ $tor = .tags.tor.enabled }}{{ end }}
+	{{ if hasKey .tags "torrent" }}{{ $torrent = .tags.torrent.enabled }}{{ end }}
+	{{ if hasKey .tags "utils" }}{{ $utils = .tags.utils.enabled }}{{ end }}
+{{ end }}
+
 {{ $neovimCli = promptBool "NeoVIM IDE" $neovimCli }}
-
-{{ $terminalMultiplexer := false }}{{ if hasKey .tags "terminalMultiplexer" }}{{ $terminalMultiplexer = .tags.terminalMultiplexer.enabled }}{{ end }}
 {{ $terminalMultiplexer = promptBool "Terminal Mutiplexer, like TMUX" $terminalMultiplexer }}
-
-{{ $devToolsCli := false }}{{ if hasKey .tags "devToolsCli" }}{{ $devToolsCli = .tags.devToolsCli.enabled }}{{ end }}
 {{ $devToolsCli = promptBool "DEV CLI tools, like jq, bat" $devToolsCli }}
-
-{{ $dbToolsCli := false }}{{ if hasKey .tags "dbToolsCli" }}{{ $dbToolsCli = .tags.dbToolsCli.enabled }}{{ end }}
 {{ $dbToolsCli = promptBool "DB management CLI tools, like usql" $dbToolsCli }}
-
-{{ $vagrantCli := false }}{{ if hasKey .tags "vagrantCli" }}{{ $vagrantCli = .tags.vagrantCli.enabled }}{{ end }}
 {{ if eq .chezmoi.os "linux" }}
 	{{ $vagrantCli = promptBool "HashiCorp Vagrant CLI tools" $vagrantCli }}
 {{ end }}
-
-{{ $hashiCli := false }}{{ if hasKey .tags "hashiCli" }}{{ $hashiCli = .tags.hashiCli.enabled }}{{ end }}
 {{ $hashiCli = promptBool "HashiCorp CLI tools" $hashiCli }}
-
-{{ $limaCli := false }}{{ if hasKey .tags "limaCli" }}{{ $limaCli = .tags.limaCli.enabled }}{{ end }}
 {{ $limaCli = promptBool "Lima-VM CLI tools" $limaCli }}
-
-{{ $k8sToolsCli := false }}{{ if hasKey .tags "k8sToolsCli" }}{{ $k8sToolsCli = .tags.k8sToolsCli.enabled }}{{ end }}
 {{ $k8sToolsCli = promptBool "K8S CLI tools" $k8sToolsCli }}
-
-{{ $ansibleCli := false }}{{ if hasKey .tags "ansibleCli" }}{{ $ansibleCli = .tags.ansibleCli.enabled }}{{ end }}
 {{ $ansibleCli = promptBool "Ansible deployemnt and configuration CLI tools" $ansibleCli }}
-
-{{ $espToolsCli := false }}{{ if hasKey .tags "espToolsCli" }}{{ $espToolsCli = .tags.espToolsCli.enabled }}{{ end }}
 {{ $espToolsCli = promptBool "ESP DEV tools" $espToolsCli }}
-
-{{ $utilsCli := false }}{{ if hasKey .tags "utilsCli" }}{{ $utilsCli = .tags.utilsCli.enabled }}{{ end }}
 {{ $utilsCli = promptBool "Utils CLI tools, like smartmontools" $utilsCli }}
-
-{{ $networkToolsCli := false }}{{ if hasKey .tags "networkToolsCli" }}{{ $networkToolsCli = .tags.networkToolsCli.enabled }}{{ end }}
 {{ $networkToolsCli := promptBool "Network CLI tools" $networkToolsCli }}
-
-{{ $syncTools := false }}{{ if hasKey .tags "syncTools" }}{{ $syncTools = .tags.syncTools.enabled }}{{ end }}
 {{ $syncTools = promptBool "Sync CLI / GUI tools, like Syncthing" $syncTools }}
-
-{{ $mailCli := false }}{{ if hasKey .tags "mailCli" }}{{ $mailCli = .tags.mailCli.enabled }}{{ end }}
 {{ $mailCli = promptBool "Mail CLI tools, like NeoMutt" $mailCli }}
-
-{{ $mediaToolsCli := false }}{{ if hasKey .tags "mediaToolsCli" }}{{ $mediaToolsCli = .tags.mediaToolsCli.enabled }}{{ end }}
 {{ $mediaToolsCli = promptBool "Media CLI tools, like ffmpeg" $mediaToolsCli }}
-
-{{ $newsCli := false }}{{ if hasKey .tags "newsCli" }}{{ $newsCli = .tags.newsCli.enabled }}{{ end }}
 {{ $newsCli := promptBool "News CLI tools, like NewsBoat" $newsCli }}
-
-{{ $dekCli := false }}{{ if hasKey .tags "dekCli" }}{{ $dekCli = .tags.dekCli.enabled }}{{ end }}
 {{ $dekCli := promptBool "TUI presentation tools, like presenterm" $dekCli }}
-
-{{ $adsToolsCli := false }}{{ if hasKey .tags "adsToolsCli" }}{{ $adsToolsCli = .tags.adsToolsCli.enabled }}{{ end }}
 {{ if eq .chezmoi.os "linux" }}
 	{{ $adsToolsCli = promptBool "Ads block CLI tools, like hblock" $adsToolsCli }}
 {{ end }}
-
-{{ $gamesCli := false }}{{ if hasKey .tags "gamesCli" }}{{ $gamesCli = .tags.gamesCli.enabled }}{{ end }}
 {{ $gamesCli = promptBool "Some CLI games, like typing tutor" $gamesCli }}
-
-# Ask questin about environment if GUI env required
-{{ $fwupdCli := false }}{{ if hasKey .tags "fwupdCli" }}{{ $fwupdCli = .tags.fwupdCli.enabled }}{{ end }}
-{{ $zephyrus := false }}{{ if hasKey .tags "zephyrus" }}{{ $zephyrus = .tags.zephyrus.enabled }}{{ end }}
-{{ $nvidia := false }}{{ if hasKey .tags "nvidia" }}{{ $nvidia = .tags.nvidia.enabled }}{{ end }}
-{{ $thinkpad := false }}{{ if hasKey .tags "thinkpad" }}{{ $thinkpad = .tags.thinkpad.enabled }}{{ end }}
-{{ $xfce := false }}{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
-{{ $plasma := false }}{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
-{{ $hyprland := false }}{{ if hasKey .tags "hyprland" }}{{ $hyprland = .tags.hyprland.enabled }}{{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
 	{{ $fwupdCli = promptBool "Linux hardware firmware updater, fwupd" $fwupdCli }}
@@ -134,23 +176,6 @@
 {{ end }}
 
 # Ask questin about environment if GUI env enabled
-{{ $browsers := false }}{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
-{{ $terminalEmulators := false }}{{ if hasKey .tags "terminalEmulators" }}{{ $terminalEmulators = .tags.terminalEmulators.enabled }}{{ end }}
-{{ $devTools := false }}{{ if hasKey .tags "devTools" }}{{ $devTools = .tags.devTools.enabled }}{{ end }}
-{{ $dbTools := false }}{{ if hasKey .tags "dbTools" }}{{ $dbTools = .tags.dbTools.enabled }}{{ end }}
-{{ $messengers := false }}{{ if hasKey .tags "messengers" }}{{ $messengers = .tags.messengers.enabled }}{{ end }}
-{{ $mail := false }}{{ if hasKey .tags "mail" }}{{ $mail = .tags.mail.enabled }}{{ end }}
-{{ $books := false }}{{ if hasKey .tags "books" }}{{ $books = .tags.books.enabled }}{{ end }}
-{{ $media := false }}{{ if hasKey .tags "media" }}{{ $media = .tags.media.enabled }}{{ end }}
-{{ $modeling := false }}{{ if hasKey .tags "modeling" }}{{ $modeling = .tags.modeling.enabled }}{{ end }}
-{{ $graphics := false }}{{ if hasKey .tags "graphics" }}{{ $graphics = .tags.graphics.enabled }}{{ end }}
-{{ $schematics := false }}{{ if hasKey .tags "schematics" }}{{ $schematics = .tags.schematics.enabled }}{{ end }}
-{{ $networkTools := false }}{{ if hasKey .tags "networkTools" }}{{ $networkTools = .tags.networkTools.enabled }}{{ end }}
-{{ $virt := false }}{{ if hasKey .tags "virt" }}{{ $virt = .tags.virt.enabled }}{{ end }}
-{{ $tor := false }}{{ if hasKey .tags "tor" }}{{ $tor = .tags.tor.enabled }}{{ end }}
-{{ $torrent := false }}{{ if hasKey .tags "torrent" }}{{ $torrent = .tags.torrent.enabled }}{{ end }}
-{{ $utils := false }}{{ if hasKey .tags "utils" }}{{ $utils = .tags.utils.enabled }}{{ end }}
-
 {{ if or (or ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" $browsers }}
 	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" $terminalEmulators }}
@@ -170,13 +195,18 @@
 	{{ $utils = promptBool "Utils apps, like OnyX for macOS" $utils }}
 {{ end }}
 
-{{ $tabs := 2 }}{{ if hasKey . "terminal" }}{{ if hasKey .terminal "tabs" }}{{ $tabs = int64 .terminal.tabs }}{{ end }}{{ end }}
+{{ $tabs := 2 }}
+{{ $shellPath := "/bin/zsh" }}
+{{ $opacity := (int64 1.0) }}
+
+{{ if hasKey . "terminal" }}
+	{{ if hasKey .terminal "tabs" }}{{ $tabs = int64 .terminal.tabs }}{{ end }}
+	{{ if hasKey .terminal "shellPath" }}{{ $shellPath = .terminal.shellPath }}{{ end }}
+	{{ if hasKey .terminal "opacity" }}{{ $opacity = (int64 .terminal.opacity) }}{{ end }}
+{{ end }}
+
 {{ $tabs = promptInt "WARNING: default tabs width" (int64 $tabs) }}
-
-{{ $shellPath := "/bin/zsh" }}{{ if hasKey . "terminal" }}{{ if hasKey .terminal "shellPath" }}{{ $shellPath = .terminal.shellPath }}{{ end }}{{ end }}
 {{ $shellPath = (promptString "WARNING: path to shell. Path should be absolute path to the already installed shell!" $shellPath) | quote }}
-
-{{ $opacity := (int64 1.0) }}{{ if hasKey . "terminal" }}{{ if hasKey .terminal "opacity" }}{{ $opacity = (int64 .terminal.opacity) }}{{ end }}{{ end }}
 {{ $opacity = (int64 (promptString "WARNING: windows opacity, choose between 0.1 and 1.0" ($opacity | toString))) }}
 
 # Set user information
@@ -254,14 +284,16 @@
 		"rpmfusion_add",
 	]
 	upgrade.darwin = [
-		"yu && yc",
+		"yu",
+		"yc",
 	]
 	upgrade.arch = [
 		"yu",
 		"yc",
 	]
 	upgrade.fedora = [
-		"yu && yc",
+		"yu",
+		"yc",
 	]
 
 [data.tags.python3]
@@ -288,6 +320,9 @@
 	upgrade.darwin = [
 		"brew_python3_relink",
 		"uv_upgrade",
+	]
+	cleanup.darwin = [
+		"brew_python3_unlink",
 	]
 	upgrade.arch = [
 		"uv_upgrade",
@@ -600,13 +635,13 @@
 		"sudo systemctl enable --now fwupd-refresh.timer",
 	]
 	upgrade.arch = [
-		"fwupd_upgrade",
+		"fwupd_update",
 	]
 	post.fedora = [
 		"sudo systemctl enable --now fwupd-refresh.timer",
 	]
 	upgrade.fedora = [
-		"fwupd_upgrade",
+		"fwupd_update",
 	]
 
 [data.tags.mediaToolsCli]
@@ -639,6 +674,9 @@
 	upgrade.arch = [
 		"hblock_update",
 	]
+	remove.arch = [
+		"if command -v hblock >/dev/null 2>&1; then hblock --sources none --denylist none; fi",
+	]
 
 [data.tags.gamesCli]
 	enabled = {{ $gamesCli }}
@@ -670,6 +708,12 @@
 
 [data.tags.mailCli]
 	enabled = {{ $mailCli }}
+	darwin = [
+		"neomutt",
+	]
+	arch = [
+		"neomutt",
+	]
 
 [data.tags.networkToolsCli]
 	enabled = {{ $networkToolsCli }}
@@ -694,6 +738,9 @@
 	post.arch = [
 		"systemctl --user enable syncthing.service",
 	]
+	remove.darwin = [
+		"mkdir -p ${HOME}/Library/LaunchAgents && chflags nouchg ${HOME}/Library/LaunchAgents && brew services stop syncthing && chflags uchg ${HOME}/Library/LaunchAgents",
+	]
 
 [data.tags.hashiCli]
 	enabled = {{ $hashiCli }}
@@ -710,11 +757,11 @@
 		"vagrant",
 	]
 	vagrant = [
-		{{ if eq .chezmoi.os "linux" -}}
+		{{- if eq .chezmoi.os "linux" }}
 		"vagrant-libvirt",
 		"vagrant-vbguest",
 		"vagrant-reload",
-		{{ end }}
+		{{- end }}
 	]
 	upgrade.arch = [
 		"vagrant_plugins_update",
@@ -731,6 +778,12 @@
 	]
 	upgrade.arch = [
 		"esp_idf_update",
+	]
+	remove.darwin = [
+		'if [[ -d {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | quote }} ]]; then rm -rf {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | quote }}; fi; if [[ -d {{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") | quote }} ]]; then rm -rf {{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") | quote }}; fi',
+	]
+	remove.arch = [
+		'if [[ -d {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | quote }} ]]; then rm -rf {{ (joinPath .chezmoi.homeDir ".local/esp-idf") | quote }}; fi; if [[ -d {{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") | quote }} ]]; then rm -rf {{ (joinPath .chezmoi.homeDir ".local/xtensa-esp32-elf") | quote }}; fi',
 	]
 
 [data.tags.displayManager]
@@ -883,7 +936,10 @@
 		"ungoogled-chromium-bin",
 	]
 	pre.fedora = [
-		"	curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
+		"curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
+	]
+	cleanup.fedora = [
+		"sudo rm -f /etc/yum.repos.d/librewolf.repo",
 	]
 
 [data.tags.networkTools]
@@ -896,8 +952,10 @@
 [data.tags.devTools]
 	enabled = {{ $devTools }}
 	darwin = [
+		"kdiff3",
 		"coteditor",
 		"keycastr",
+		"kommit",
 	]
 	arch = [
 		"kdiff3",
@@ -1003,8 +1061,7 @@
 		"keepingyouawake",
 		"coconutbattery",
 		"onyx",
-		"sloth",
-		"grandperspective",
+		"homebrew/cask/sloth",
 	]
 	arch = [
 		"kdiskmark",
@@ -1110,7 +1167,6 @@
 		"linux-g14",
 		"linux-g14-headers",
 		"power-profiles-daemon",
-		"vulkan-icd-loader",
 		"aic94xx-firmware",
 		"ast-firmware",
 		"upd72020x-fw",
