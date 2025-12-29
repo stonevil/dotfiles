@@ -113,6 +113,4 @@ sudo sh -c 'cat > /etc/NetworkManager/conf.d/powersave.conf' << EOF
 wifi.powersave=2
 EOF
 	{{ end }}
-
-sudo mkinitcpio -P || true
 {{ end }}
