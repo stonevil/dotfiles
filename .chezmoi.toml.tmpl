@@ -2,6 +2,8 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
+scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
+
 # Detect desktop OR laptop. And OS theme
 {{ $chassisType := "desktop" }}
 {{ if eq .chezmoi.os "darwin" }}
