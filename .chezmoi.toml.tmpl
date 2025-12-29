@@ -1158,11 +1158,26 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"nvidia-open-dkms",
 		"nvidia-utils",
 		"libva-nvidia-driver",
+		{{if $zephyrus }}"supergfxctl",{{ end }}
 	]
 	pre.arch = [
 		"cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg && git clone https://gitlab.com/asus-linux/nvidia-laptop-power-cfg.git && cd nvidia-laptop-power-cfg && makepkg --noconfirm --cleanbuild --syncdeps --force --install && cd /tmp && rm -rf /tmp/nvidia-laptop-power-cfg",
 		"sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
 		"sudo systemctl enable --now nvidia-powerd",
+	]
+	post.arch = [
+		{{- if $zephyrus }}
+		"sudo systemctl enable --now supergfxd",
+		"echo -e '[Unit]\nDescription=Restart supergfxd upon resume to re-suspend the dGPU\nAfter=suspend.target\n\n[Service]\nType=oneshot\nExecStart=/usr/bin/systemctl --no-block restart supergfxd\n\n[Install]\nWantedBy=suspend.target' | sudo tee /etc/systemd/system/supergfxd-restart-after-wakeup.service >/dev/null",
+		"sudo systemctl daemon-reload",
+		"sudo systemctl enable --now supergfxd-restart-after-wakeup.service",
+		{{- end }}
+	]
+	remove.arch = [
+		"yr nvidia-laptop-power-cfg",
+		"sudo systemctl disable --now nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service",
+		"sudo systemctl disable --now supergfxd-restart-after-wakeup.service",
+		"sudo rm -f /etc/systemd/system/supergfxd-restart-after-wakeup.service",
 	]
 
 # TODO: add more sophisticated hardware detection
@@ -1171,7 +1186,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $zephyrus }}
 	arch = [
 		"asusctl",
-		{{if $nvidia }}"supergfxctl",{{ end }}
 		"bat-asus-battery-bin",
 		"rog-control-center",
 		"linux-g14",
@@ -1195,12 +1209,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	post.arch = [
 		"sudo systemctl enable --now power-profiles-daemon",
-		{{- if $nvidia }}
-		"sudo systemctl enable --now supergfxd",
-		"echo -e '[Unit]\nDescription=Restart supergfxd upon resume to re-suspend the dGPU\nAfter=suspend.target\n\n[Service]\nType=oneshot\nExecStart=/usr/bin/systemctl --no-block restart supergfxd\n\n[Install]\nWantedBy=suspend.target' | sudo tee /etc/systemd/system/supergfxd-restart-after-wakeup.service >/dev/null",
-		"sudo systemctl daemon-reload",
-		"sudo systemctl enable --now supergfxd-restart-after-wakeup.service",
-		{{- end }}
 	]
 
 [data.tags.thinkpad]
