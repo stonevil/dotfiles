@@ -177,7 +177,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if $zephyrus }}
 		{{ $nvidia = promptBool "Enable Nvidia GPU" $nvidia }}
 	{{ end }}
-	{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
+
+	{{ if eq $zephyrus false }}
+		{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
+	{{ end }}
 
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
 	{{ $hyprland = promptBool "Hyprland DE" $hyprland }}
