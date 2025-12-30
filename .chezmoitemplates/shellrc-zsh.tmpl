@@ -72,3 +72,49 @@ for m in visual viopp; do
 		bindkey -M $m $c select-bracketed
 	done
 done
+
+# Just type the filename to open it with the associated program
+alias -s json=jless
+alias -s md=bat
+alias -s go='$EDITOR'
+alias -s tmpl='$EDITOR'
+alias -s rs='$EDITOR'
+alias -s txt=bat
+alias -s log=bat
+alias -s py='$EDITOR'
+alias -s js='$EDITOR'
+alias -s ts='$EDITOR'
+alias -s mmd='$EDITOR'
+
+{{- if eq .chezmoi.os "darwin" }}
+alias -s html=open # macOS: open in default browser
+{{ else }}
+alias open=xdg-open
+alias -s html=xdg-open # Linux: open in default browser
+{{- end }}
+
+alias -g NE='2>/dev/null' # Redirect stderr to /dev/null
+alias -g NO='>/dev/null' # Redirect stdout to /dev/null
+alias -g NUL='>/dev/null 2>&1' # Redirect both stdout and stderr to /dev/null
+
+alias -g J='| jq' # Pipe to jq
+alias -g B='| bat' # Pipe to bat
+alias -g M='| less' # Pipe to less
+alias -g G='| grep' # Pipe to grep
+
+{{- if eq .chezmoi.os "darwin" }}
+alias -g C='| pbcopy' # Copy output to clipboard (macOS)
+{{ else }}
+ alias -g C='| wl-copy' # Copy output to clipboard (Wayland/Linux)
+{{- end }}
+
+# Enable zmv
+autoload -Uz zmv
+# Usage examples:
+# zmv '(*).log' '$1.txt'		# Rename .log to .txt
+# zmv -w '*.log' '*.txt'		# Same thing, simpler syntax
+# zmv -n '(*).log' '$1.txt'	# Dry run (preview changes)
+# zmv -i '(*).log' '$1.txt'	# Interactive mode (confirm each)
+
+# cd ~cm
+hash -d cm={{ joinPath .chezmoi.homeDir ".local/share/chezmoi" }}
