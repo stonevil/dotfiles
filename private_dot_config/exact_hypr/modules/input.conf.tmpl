@@ -1,0 +1,51 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
+# See https://wiki.hypr.land/Configuring/Variables/#input
+input {
+	kb_layout = us,ua
+	kb_variant = ,legacy
+	kb_options = ctrl:nocaps,altwin:swap_alt_win,grp:lctrl_space_toggle
+
+	# Change speed of keyboard repeat
+	repeat_rate = 40
+	repeat_delay = 600
+
+	# Start with numlock on by default
+	numlock_by_default = false
+
+	# Increase sensitivity for mouse/trackpad (default: 0)
+	# sensitivity = 0.35
+
+	touchpad {
+		# Use natural (inverse) scrolling
+		natural_scroll = true
+
+		# Use two-finger clicks for right-click instead of lower-right corner
+		clickfinger_behavior = true
+
+		# Control the speed of your scrolling
+		scroll_factor = 0.4
+	}
+
+	natural_scroll = true
+	follow_mouse = 2
+	mouse_refocus = false
+}
+
+device {
+	name = nuphy-nuphy-air75-he
+	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
+}
+device {
+	name = nuphy-nuphy-air75-he-keyboard
+	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
+}
+
+# Scroll nicely in the terminal
+windowrule = scrolltouchpad 1.5, class:(Alacritty|kitty|WezTerm)
+windowrule = scrolltouchpad 0.2, class:com.mitchellh.ghostty
+
+# See https://wiki.hyprland.org/Configuring/Gestures/
+# gesture = 3, horizontal, workspace
