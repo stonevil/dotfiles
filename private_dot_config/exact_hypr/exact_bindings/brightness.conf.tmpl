@@ -1,0 +1,11 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
+# Screen brightness
+bindd = , XF86MonBrightnessUp, Volume increase, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --inc
+bindd = , XF86MonBrightnessDown, Volume decrease, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --dec
+
+# Keyboard brightness
+# bindd = keyboard_brightness_up_shortcut, Keyboard brightness increase, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/kbbacklight" }} --inc
+# bind = keyboard_brightness_up_shortcut, Keyboard brightness decrease, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/kbbacklight" }} --dec

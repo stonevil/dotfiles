@@ -2,17 +2,20 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/env.conf" }}
+
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/autostart.conf" }}
 
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/input.conf" }}
-
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/monitors.conf" }}
-
-source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/env.conf" }}
 
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/theme.conf" }}
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/ui.conf" }}
 
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings/general.conf" }}
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings/applications.conf" }}
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings/tiles.conf" }}
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings/clipboard.conf" }}
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings/media.conf" }}
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings/hardware.conf" }}
+source = {{ joinPath .chezmoi.homeDir ".config/hypr/bindings/brightness.conf" }}
