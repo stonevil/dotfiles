@@ -1178,7 +1178,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"nvidia-open-dkms",
 		"nvidia-utils",
 		"libva-nvidia-driver",
-		{{-if $zephyrus }}
+		{{- if $zephyrus }}
 		"supergfxctl",
 		"plasma6-applets-supergfxctl",
 		{{- end }}
