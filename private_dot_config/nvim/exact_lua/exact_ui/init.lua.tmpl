@@ -23,8 +23,8 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require({{ .theme.themeName | quote }}).setup({
-				flavour = {{ .theme.themeVariant | quote }}, -- latte, frappe, macchiato, mocha
+			require({{ .theme.name | quote }}).setup({
+				flavour = {{ .theme.variant | quote }}, -- latte, frappe, macchiato, mocha
 				transparent_background = vim.g.transparency,
 			})
 		end,
@@ -34,7 +34,7 @@ return {
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = {{ (print .theme.themeName "-" .theme.themeVariant) | quote }},
+			colorscheme = {{ (print .theme.name "-" .theme.variant) | quote }},
 		},
 	},
 }

@@ -6,8 +6,8 @@ vim:ft=ini.gotexttmpl
 
 #custom-shader = shaders/glitchy.glsl
 
-theme = {{ (print (.theme.themeName | lower) "-" (.theme.themeVariant | lower)) }}
-{{- if .theme.themeDarkMode }}
+theme = {{ (print (.theme.name | lower) "-" (.theme.variant | lower)) }}
+{{- if .theme.darkMode }}
 background = 000000
 {{ end }}
 # split-divider-color = 2b415a

@@ -7,8 +7,10 @@ vim:ft=bash.gotexttmpl
 	osascript <<APPLESCRIPT
 		tell application "System Events"
 			tell appearance preferences
-				set dark mode to {{ .theme.themeDarkMode }}
+				set dark mode to {{ .theme.darkMode }}
 			end tell
 		end tell
 	APPLESCRIPT
+
+	{{ if .theme.darkMode }}notify "Embrace the dark side, Luke"{{ else }}notify "Welcome to the light, Luke"{{ end }}
 {{ end }}

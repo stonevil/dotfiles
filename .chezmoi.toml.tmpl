@@ -43,9 +43,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $themeVariant := "mocha" }}
 
 {{ if hasKey . "theme" }}
-	{{ if hasKey .theme "themeDarkMode" }}{{ $themeDarkMode = .theme.themeDarkMode }}{{ end }}
-	{{ if hasKey .theme "themeName" }}{{ $themeName = .theme.themeName }}{{ end }}
-	{{ if hasKey .theme "themeVariant" }}{{ $themeVariant = .theme.themeVariant }}{{ end }}
+	{{ if hasKey .theme "darkMode" }}{{ $themeDarkMode = .theme.darkMode }}{{ end }}
+	{{ if hasKey .theme "name" }}{{ $themeName = .theme.name }}{{ end }}
+	{{ if hasKey .theme "variant" }}{{ $themeVariant = .theme.variant }}{{ end }}
 {{ end }}
 
 {{ $themeDarkMode = promptBool "Are you prefer Dark Mode" $themeDarkMode }}
@@ -905,7 +905,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"elephant-files",
 		"elephant-menus",
 		"elephant-clipboard",
-		"mako",
+		"swaync",
 	]
 
 [data.tags.plasma]
@@ -1261,9 +1261,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 # TODO: full rewokr required to dict of variables
 # Define terminal and OS / apps theme configuration
 [data.theme]
-	themeName = {{ $themeName | quote }}
-	themeVariant = {{ $themeVariant | quote }}
-	themeDarkMode = {{ $themeDarkMode }}
+	name = {{ $themeName | quote }}
+	variant = {{ $themeVariant | quote }}
+	darkMode = {{ $themeDarkMode }}
 
 # Define user fonts location for macOS and Linux
 [data.fonts]

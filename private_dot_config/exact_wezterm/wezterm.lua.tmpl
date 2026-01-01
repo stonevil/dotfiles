@@ -30,7 +30,7 @@ end)
 
 -- wezterm.gui.screens(), useful command to get screens information. Disabled. In Plasma all screens reports eDP-1. Further debug required.
 -- wezterm.on("window-config-reloaded", function(window)
--- 	if detect.linux() then 
+-- 	if detect.linux() then
 -- 		if wezterm.gui.screens().active.name == "LS28AG700N" then
 -- 			window:set_config_overrides({
 -- 				dpi = 144,
@@ -53,8 +53,8 @@ end)
 local config = wezterm.config_builder()
 
 -- Schemas
-local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.theme.themeName | title) " " (.theme.themeVariant | title)) | quote }}]
-{{ if .theme.themeDarkMode }}
+local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.theme.name | title) " " (.theme.variant | title)) | quote }}]
+{{ if .theme.darkMode }}
 -- Override Schema Background
 scheme_current.background = "#000000"
 scheme_current.tab_bar.background = "#040404"

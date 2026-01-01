@@ -2,7 +2,7 @@
 	vim:ft=yaml.gotexttmpl
 */ -}}
 
-theme: {{ (print (.theme.themeName | lower) "-" (.theme.themeVariant | lower)) }}
+theme: {{ (print (.theme.name | lower) "-" (.theme.variant | lower)) }}
 layout: horizontal
 response:
   prettify_json: false

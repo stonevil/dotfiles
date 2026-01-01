@@ -19,7 +19,7 @@ vim:ft=conf.gotexttmpl
 # Chromium crash workaround for Wayland color management on Hyprland - see https://github.com/hyprwm/Hyprland/issues/11957
 --disable-features=WaylandWpColorManagerV1
 {{ end -}}
-{{ if .theme.themeDarkMode -}}
+{{ if .theme.darkMode -}}
 --force-dark-mode
 --enable-features=WebUIDarkMode
 {{ end -}}
