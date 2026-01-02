@@ -2,14 +2,15 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
-# Volume and Media control
-bindd = , XF86AudioRaiseVolume, Volume increase, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --inc
-bindd = , XF86AudioLowerVolume, Volume decrease, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --dec
+# Volume control
+bindd = , XF86AudioRaiseVolume, Volume increase, exec, $volumeup
+bindd = , XF86AudioLowerVolume, Volume decrease, exec, $volumedown
+bindd = , XF86AudioMute, Volume Mute, exec, $volumemute
 
-bindd = , XF86AudioMicMute, Microphone mute, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --toggle-mic
-bindd = , XF86AudioMute, Microphone mute, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --toggle
+bindd = , XF86AudioMicMute, Microphone mute, exec, $micmute
 
-bind = , XF86AudioPlay, exec, playerctl play-pause
-bind = , XF86AudioPause, exec, playerctl play-pause
-bind = , XF86AudioNext, exec, playerctl next
-bind = , XF86AudioPrev, exec, playerctl previous
+# Media control
+bindd = , XF86AudioPlay, Play, exec, playerctl play-pause
+bindd = , XF86AudioPause, Pause, exec, playerctl play-pause
+bindd = , XF86AudioNext, Next, exec, playerctl next
+bindd = , XF86AudioPrev, Previous, exec, playerctl previous

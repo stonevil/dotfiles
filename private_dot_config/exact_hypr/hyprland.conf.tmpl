@@ -2,6 +2,43 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
+# Define applications
+$terminal = foot
+$fm = dolphin
+$fmcli = foot yazi
+$browser = librewolf
+$mail = thunderbird
+
+{{- if .tags.dms }}
+$appsswitcher = dms ipc call hypr toggleOverview
+$notifications = dms ipc call notifications toggle
+$clipboard = dms ipc call clipboard toggle
+$spotlight = dms ipc call spotlight toggle
+$screenlock = dms ipc call lock lock
+
+$volumeup = dms ipc call audio increment 5
+$volumedown = dms ipc call audio decrement 5
+$volumemute = dms ipc call audio mute
+
+$backlightup = dms ipc call brightness increment 5
+$backlightdown = dms ipc call brightness decrement 5
+{{- else }}
+$notifications = swaync-client -t -sw
+$spotlight = walker
+$screenlock = hyprlock
+
+$volumeup = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --inc
+$volumedown = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --dec
+$volumemute = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --toggle
+
+$backlightup = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --inc
+$backlightdown = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --dec
+{{- end }}
+
+$micmute = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --toggle-mic
+$logout = hyprctl dispatch exit
+
+
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/env.conf" }}
 
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/autostart.conf" }}
@@ -9,7 +46,6 @@ source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/autostart.conf" }}
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/input.conf" }}
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/monitors.conf" }}
 
-source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/applications.conf" }}
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/windowrules.conf" }}
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/workspaces.conf" }}
 

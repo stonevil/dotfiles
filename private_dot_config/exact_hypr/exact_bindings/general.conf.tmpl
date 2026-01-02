@@ -5,9 +5,11 @@
 # Switch keyboard language
 bindd = CTRL, SPACE, Switch keyboard language, exec, {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/lang" }}
 
+bindd = SUPER, TAB, Apps Switcher, exec, $appsswitcher # Apps Switcher
+
 # Lock screen
-bindd = SUPER CTRL, Q, Lock the screen, exec, hyprlock # macOS alike
-bindd = SUPER, L, Lock the screen, exec, hyprlock # Windows alike
+bindd = SUPER CTRL, Q, Lock the screen, exec, $screenlock # macOS alike
+bindd = SUPER, L, Lock the screen, exec, $screenlock # Windows alike
 
 # Screenshots
 bindd = SUPER SHIFT, 3, Screenshot window, exec, hyprshot -m output # macOS alike
@@ -15,8 +17,8 @@ bindd = SUPER SHIFT, 4, Screenshot area, exec, hyprshot -m window
 bindd = , PRINT, Screenshot window, exec, hyprshot -m window # Windows alike
 bindd = SHIFT, PRINT, Screenshot area, exec, hyprshot -m region
 
+bindd = SUPER, SPACE, Spotlight, exec, $spotlight
 
-bindd = ALT, asciitilde, Notification Center, exec, swaync-client -t -sw # Notification Center
+bindd = SUPER SHIFT, N, Notification Center, exec, $notifications # Notification Center
 
-# Logout
-bindd = CTRL ALT, DELETE, Exit Hyprland, exec, hyprctl dispatch exit
+bindd = CTRL ALT, DELETE, Exit Hyprland, exec, $logout # Logout

@@ -84,6 +84,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $xfce := false }}
 {{ $plasma := false }}
 {{ $hyprland := false }}
+{{ $dms := false }}
 {{ $browsers := false }}
 {{ $terminalEmulators := false }}
 {{ $devTools := false }}
@@ -128,6 +129,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
 	{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
 	{{ if hasKey .tags "hyprland" }}{{ $hyprland = .tags.hyprland.enabled }}{{ end }}
+	{{ if hasKey .tags "dms" }}{{ $dms = .tags.dms.enabled }}{{ end }}
 	{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
 	{{ if hasKey .tags "terminalEmulators" }}{{ $terminalEmulators = .tags.terminalEmulators.enabled }}{{ end }}
 	{{ if hasKey .tags "devTools" }}{{ $devTools = .tags.devTools.enabled }}{{ end }}
@@ -184,6 +186,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
 	{{ $hyprland = promptBool "Hyprland DE" $hyprland }}
+{{ end }}
+{{ if $hyprland }}
+	{{ $dms = promptBool "Enable Dank Material Shell" $dms }}
 {{ end }}
 
 {{ $guiOpacity := 1.0 }}
@@ -901,29 +906,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"mousepad",
 	]
 
-[data.tags.hyprland]
-	enabled = {{ $hyprland }}
+[data.tags.dms]
+	enabled = {{ $dms }}
 	arch = [
-		"hyprland",
-		"xdg-desktop-portal-hyprland",
-		"archlinux-xdg-menu",
+		"quickshell",
+		"dms-shell-bin",
+	]
+
+[data.tags.hyprenv]
+	enabled = {{ if ne $dms true }}true{{ else }}false{{ end }}
+	arch = [
 		"hypridle",
 		"hyprlock",
-		"hyprcursor",
-		"hyprshot",
 		"hyprpaper",
-		"hyprpolkitagent",
-		"wl-clipboard",
-		"wlr-randr",
-		"hyprmon-bin",
-		"qt5-wayland",
-		"qt6-wayland",
-		"qt6ct-kde",
-		"udiskie",
-		"pamixer",
-		"playerctl",
-		"gojq",
-		"wev",
 		"walker",
 		"elephant",
 		"elephant-desktopapplications",
@@ -931,6 +926,28 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"elephant-menus",
 		"elephant-clipboard",
 		"swaync",
+	]
+
+[data.tags.hyprland]
+	enabled = {{ $hyprland }}
+	arch = [
+		"hyprland",
+		"xdg-desktop-portal-hyprland",
+		"archlinux-xdg-menu",
+		"hyprcursor",
+		"hyprshot",
+		"hyprpolkitagent",
+		"wl-clipboard",
+		"wlr-randr",
+		"hyprmon-bin",
+		"qt6-wayland",
+		"qt6ct-kde",
+		"udiskie",
+		"pamixer",
+		"playerctl",
+		"gojq",
+		"cliphist",
+		"wev",
 	]
 
 [data.tags.plasma]
