@@ -20,8 +20,8 @@ $volumeup = dms ipc call audio increment 5
 $volumedown = dms ipc call audio decrement 5
 $volumemute = dms ipc call audio mute
 
-$backlightup = dms ipc call brightness increment 5
-$backlightdown = dms ipc call brightness decrement 5
+$backlightup = dms ipc call brightness increment 3 backlight:intel_backlight
+$backlightdown = dms ipc call brightness decrement 3 backlight:intel_backlight
 {{- else }}
 $notifications = swaync-client -t -sw
 $spotlight = walker
