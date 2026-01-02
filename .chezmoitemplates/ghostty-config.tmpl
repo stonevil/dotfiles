@@ -21,7 +21,7 @@ cursor-style = block
 cursor-style-blink = true
 
 background-opacity = {{ .terminal.opacity }}
-{{- if lt .terminal.opacity (int64 1.0) }}
+{{- if lt (float64 .terminal.opacity) 1.0 }}
 background-blur-radius = {{ .terminal.blur }}
 {{ end }}
 

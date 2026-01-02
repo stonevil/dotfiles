@@ -1,0 +1,36 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
+# pavucontrol
+windowrulev2 = float,class:^(pavucontrol)$
+windowrulev2 = size 50%,class:^(pavucontrol)$
+windowrulev2 = center,class:^(pavucontrol)$
+
+# polkit
+windowrulev2 = float,class:(org.kde.polkit-kde-authentication-agent-1)
+windowrulev2 = center,class:(org.kde.polkit-kde-authentication-agent-1)
+
+# blueman
+windowrulev2 = float,class:(blueman)
+windowrulev2 = center,class:(blueman)
+windowrulev2 = size 50%,class:(blueman)
+
+# Librewolf
+windowrulev2 = workspace 2, class:(librewolf)
+
+# Thunderbird
+windowrulev2 = workspace 4, class:(thunderbird)
+windowrulev2 = float,class:(thunderbird),title:(status)
+windowrulev2 = float,class:(thunderbird),title:(.*)(Reminders)
+windowrulev2 = float,class:(thunderbird),title:(Write:.*)
+windowrulev2 = float,class:(thunderbird),title:(Send.*)
+windowrulev2 = float,class:(thunderbird),title:(Inbox.*)
+windowrulev2 = tile,class:(thunderbird),initialTitle(Mozilla Thunderbird)
+windowrulev2 = float,class:(thunderbird)
+windowrulev2 = float,class:(Msgcompose.*)
+windowrulev2 = float, class:(thunderbird),title(.*)(Reminders)$
+windowrulev2 = maximize, class:(thunderbird)
+
+# Dolphin
+windowrulev2 = workspace 1, class:(dolphin)

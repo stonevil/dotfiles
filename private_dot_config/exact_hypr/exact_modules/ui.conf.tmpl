@@ -6,15 +6,32 @@
 general {
 	gaps_in = 2
 	gaps_out = 2
+	float_gaps = 2
 	border_size = 1
 
 	layout = master
 	resize_on_border = true
+
+# col.active_border
+# col.inactive_border
+# col.nogroup_border_active
+# col.nogroup_border
+
+	snap {
+			enabled = true
+		}
 }
 
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 decoration {
 	rounding = 0
+
+	active_opacity = {{ .terminal.opacity }}
+	inactive_opacity = {{ .terminal.opacityInactive }}
+	fullscreen_opacity = {{ .terminal.opacity }}
+
+	# dim_inactive = true
+	# dim_strength = 0.5
 
 	shadow {
 		enabled = false

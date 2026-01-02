@@ -630,7 +630,7 @@ decorations_theme_variant = "Dark"
 dynamic_padding = false
 dynamic_title = true
 opacity = {{ .terminal.opacity }}
-{{ if lt .terminal.opacity (int64 1.0) -}}
+{{ if lt (float64 .terminal.opacity) 1.0 -}}
 blur = true
 {{ else -}}
 blur = false
