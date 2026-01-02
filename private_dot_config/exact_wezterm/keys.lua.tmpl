@@ -123,9 +123,9 @@ function M.setup(config)
 		-- },
 	{{- end }}
 	{{- if eq .chezmoi.os "linux" }}
-		{ key = "0", mods = "CTRL SHIFT", action = wezterm.action.ResetFontSize },
-		{ key = "=", mods = "CTRL SHIFT", action = wezterm.action.IncreaseFontSize },
-		{ key = "-", mods = "CTRL SHIFT", action = wezterm.action.DecreaseFontSize },
+		{ key = "0", mods = "CTRL|SHIFT", action = wezterm.action.ResetFontSize },
+		{ key = "=", mods = "CTRL|SHIFT", action = wezterm.action.IncreaseFontSize },
+		{ key = "-", mods = "CTRL|SHIFT", action = wezterm.action.DecreaseFontSize },
 	{{- end }}
 	}
 end
