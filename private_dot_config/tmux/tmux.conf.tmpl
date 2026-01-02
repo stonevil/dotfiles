@@ -31,11 +31,10 @@ if-shell '[[ ! -d $HOME/.config/tmux/plugins/tpm ]]' {
 
 ## True colour
 set -g default-terminal "tmux-256color"
-set -ag terminal-overrides ",*:Tc"
-# set -ag terminal-overrides ",xterm-256color:RGB"
+set -ag terminal-overrides ",xterm-256color:RGB"
+# set -ag terminal-overrides ",*:Tc"
 # set -g default-terminal "$TERM"
 # set -ag terminal-overrides ",$TERM:Tc"
-# set -as terminal-features ",xterm-256color:RGB"
 # Set to scrolls Vim not tmux history with mouse
 # set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
@@ -264,8 +263,9 @@ set -g pane-border-style fg=colour12
 set -g pane-active-border-style fg=colour11
 set -g pane-border-format "#{pane_index} /#{pane_current_command} #{pane_current_path}"
 
-# set -g window-style bg=$background
-# set -g window-active-style bg=$background
+# Change colour for inactive pane
+set-hook -g pane-focus-out 'select-pane -P fg=colour8'
+set-hook -g pane-focus-in 'select-pane -P fg=default'
 
 # Window List
 setw -g window-status-separator "  "
