@@ -192,10 +192,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $guiDimStregth := 0.5 }}
 
 {{ if hasKey . "gui" }}
-	{{ if hasKey .gui "opacity" }}{{ $opacity = .gui.opacity }}{{ end }}
-	{{ if hasKey .gui "opacityInactive" }}{{ $opacityInactive = .gui.opacityInactive }}{{ end }}
-	{{ if hasKey .gui "DimInactive" }}{{ $dimInactive = .gui.dimInactive }}{{ end }}
-	{{ if hasKey .gui "DimStregth" }}{{ $dimStregth = .gui.dimStregth }}{{ end }}
+	{{ if hasKey .gui "opacity" }}{{ $guiOpacity = .gui.opacity }}{{ end }}
+	{{ if hasKey .gui "opacityInactive" }}{{ $guiOpacityInactive = .gui.opacityInactive }}{{ end }}
+	{{ if hasKey .gui "DimInactive" }}{{ $guiDimInactive = .gui.dimInactive }}{{ end }}
+	{{ if hasKey .gui "DimStregth" }}{{ $guiDimStregth = .gui.dimStregth }}{{ end }}
 {{ end }}
 
 {{ if ($hyprland) }}
@@ -217,7 +217,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ $media = promptBool "Media apps, like mpv, kid3" $media }}
 	{{ $modeling = promptBool "3D modeling apps, like Blender, FreeCAD" $modeling }}
 	{{ $graphics = promptBool "Graphics apps, Gimp, Krita" $graphics }}
+{{ if ne .chezmoi.os "darwin" }}
 	{{ $schematics = promptBool "Electronics and PCB design apps, like KiCad" $schematics }}
+{{ end }}
 	{{ $networkTools = promptBool "Network apps, like VNC/RDP clients" $networkTools }}
 	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" $virt }}
 	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" $tor }}
@@ -1161,9 +1163,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 [data.tags.schematics]
 	enabled = {{ $schematics }}
-	darwin = [
-		"kicad",
-	]
 	arch = [
 		"kicad",
 		"kicad-library",
@@ -1268,7 +1267,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 # Define terminal env like tabs width, transparency, etc.
 [data.terminal]
-	fontsList = ["FiraCode", "Iosevka", "Monoid", "ProggyClean", "RobotoMono",]
+	fontsList = ["FiraCode", "Iosevka", "IosevkaTerm", "Monoid", "ProggyClean", "RobotoMono", "JetBrainsMono",]
 	font = "Iosevka Nerd Font"
 	fontNormal = "Light"
 	fontBold = "Light"
