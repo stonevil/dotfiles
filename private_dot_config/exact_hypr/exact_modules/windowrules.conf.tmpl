@@ -19,6 +19,9 @@ windowrulev2 = size 50%,class:(blueman)
 # Librewolf
 windowrulev2 = workspace 2, class:(librewolf)
 
+# Chrome
+windowrulev2 = workspace 2, class:^(google-chrome)$
+
 # Thunderbird
 windowrulev2 = workspace 4, class:(thunderbird)
 windowrulev2 = float,class:(thunderbird),title:(status)
@@ -34,3 +37,11 @@ windowrulev2 = maximize, class:(thunderbird)
 
 # Dolphin
 windowrulev2 = workspace 1, class:(dolphin)
+
+# Discord, WebCord
+windowrulev2 = workspace 5, class:^(discord)$
+windowrulev2 = workspace 5, class:^(webcord)$
+
+# MPV
+windowrulev2 = float, class:^(mpv)$
+windowrulev2 = center, floating:1, class:^(mpv)$
