@@ -83,7 +83,8 @@ EOF
 # Intel video
 	{{ if or (eq .tags.zephyrus.enabled true) (eq .tags.thinkpad.enabled true) }}
 sudo sh -c 'cat > /etc/modprobe.d/i915.conf' << EOF
-options i915 enable_rc6=1 enable_fbc=1 lvds_downclock=1 enable_psr=1
+options i915 enable_rc6=1 enable_fbc=1 lvds_downclock=1
+#enable_psr=1
 EOF
 	{{ end }}
 
