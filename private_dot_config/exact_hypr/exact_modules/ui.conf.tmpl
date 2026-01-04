@@ -13,9 +13,9 @@ general {
 	resize_on_border = true
 
 	col.active_border = {{ print "0xff" .current.theme.mauve }}
-	col.inactive_border = {{ print "0xff" .current.theme.mantle }}
+	col.inactive_border = {{ print "0xff" .current.theme.lavender }}
 	col.nogroup_border_active = {{ print "0xff" .current.theme.flamingo }}
-	col.nogroup_border = {{ print "0xff" .current.theme.crust }}
+	col.nogroup_border = {{ print "0xff" .current.theme.rosewater }}
 
 	snap {
 		enabled = true
@@ -73,6 +73,27 @@ animations {
 	animation = fadeLayersIn, 1, 1.79, almostLinear
 	animation = fadeLayersOut, 1, 1.39, almostLinear
 	animation = workspaces, 0, 0, ease
+}
+
+group {
+	col.border_active = {{ print "0x66" .current.theme.mauve }}
+	col.border_inactive = {{ print "0x66" .current.theme.mauve }}
+	col.border_locked_active = {{ print "0x66" .current.theme.flamingo }}
+	col.border_locked_inactive = {{ print "0x66" .current.theme.rosewater }}
+
+	groupbar {
+			# text_color =
+			# text_color_inactive =
+			# text_color_locked_active =
+			# text_color_locked_inactive =
+			col.active = {{ print "0x66" .current.theme.mauve }}
+			col.inactive = {{ print "0x66" .current.theme.mauve }}
+			col.locked_active = {{ print "0x66" .current.theme.flamingo }}
+			col.locked_inactive = {{ print "0x66" .current.theme.rosewater }}
+			gaps_in = 2
+			gaps_out = 2
+			blur = false
+		}
 }
 
 # See https://wiki.hyprland.org/Configuring/Master-Layout/
