@@ -5,7 +5,10 @@ exec-once = systemctl --user import-environment $(env | cut -d'=' -f 1)
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = dbus-update-activation-environment --systemd --all
 
-{{- if .tags.dms }}
+# Disk automount
+exec-once = udiskie -t
+
+{{- if .tags.dms.enabled }}
 # DMS
 exec-once = systemctl --user start hyprland-session.target
 exec-once = dms run
@@ -23,12 +26,13 @@ exec-once = wl-paste --type text --watch cliphist store # clipboard store text d
 exec-once = wl-paste --type image --watch cliphist store # clipboard store image data
 
 # SwayNC
-exec-once = swaync
+exec-once = mako
 
 # Walker
 exec-once = elephant
 exec-once = walker --gapplication-service
 {{- end }}
 
-# Disk automount
-exec-once = udiskie -t
+
+# Switch to first workspace on start. Should be last line in autostart.
+exec-once = hyprctl dispatch workspace 1

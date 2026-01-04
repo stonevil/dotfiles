@@ -833,6 +833,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"ly",
 		"brightnessctl",
+		"ddcutil",
 	]
 	post.arch = [
 		"sudo systemctl enable --now ly@tty2.service",
@@ -925,7 +926,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"elephant-files",
 		"elephant-menus",
 		"elephant-clipboard",
-		"swaync",
+		"mako",
 	]
 
 [data.tags.hyprland]

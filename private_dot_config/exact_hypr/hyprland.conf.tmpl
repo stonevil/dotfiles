@@ -9,7 +9,7 @@ $fmcli = foot yazi
 $browser = librewolf
 $mail = thunderbird
 
-{{- if .tags.dms }}
+{{- if .tags.dms.enabled }}
 $appsswitcher = dms ipc call hypr toggleOverview
 $notifications = dms ipc call notifications toggle
 $clipboard = dms ipc call clipboard toggle
