@@ -1,0 +1,64 @@
+log_level = "error"
+outputs = { Targets = ["eDP-1"] }
+position = "Bottom"
+
+app_launcher_cmd = "walker"
+
+[settings]
+lock_cmd = "playerctl --all-players pause; hyprlock &"
+
+
+[modules]
+left = [[ "Workspaces" ], [ "WindowTitle" ]]
+center = [ "MediaPlayer" ]
+right = [[ "Tray" ], [ "KeyboardLayout", "KeyboardSubmap" ], [ "SystemInfo" ], [ "Privacy" ], [ "Clock", "Settings" ]]
+
+[workspaces]
+visibility_mode = "All"
+max_workspaces = 10
+workspace_names = ["一","二","三","四","五","六","七","八","九","十",]
+
+[window_title]
+mode = "Title"
+truncate_title_after_length = 50
+
+[media_player]
+max_title_length = 50
+
+[keyboard_layout.labels]
+"English (US)" = "🇺🇸"
+"Ukrainian" = "🇺🇦"
+
+# Theme
+[appearance]
+font_name = "JetBrainsMono NFP"
+scale_factor = 1.0
+opacity = 0.5
+
+style = "Islands"
+
+success_color = "#a6e3a1"
+text_color = "#cdd6f4"
+
+workspace_colors = [ "#fab387", "#b4befe", "#cba6f7" ]
+
+[appearance.menu]
+opacity = 0.5
+backdrop = 0.3
+
+[appearance.primary_color]
+base = "#000000"
+text = "#1e1e2e"
+
+[appearance.danger_color]
+base = "#000000"
+weak = "#f9e2af"
+
+[appearance.background_color]
+base = "#000000"
+weak = "#313244"
+strong = "#45475a"
+
+[appearance.secondary_color]
+base = "#000000"
+strong = "#1b1b25"

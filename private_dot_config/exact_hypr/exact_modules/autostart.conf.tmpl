@@ -25,12 +25,15 @@ exec-once = hyprpaper
 exec-once = wl-paste --type text --watch cliphist store # clipboard store text data
 exec-once = wl-paste --type image --watch cliphist store # clipboard store image data
 
-# SwayNC
+# Mako notifications center
 exec-once = mako
 
-# Walker
+# Walker, Spotlight replacement
 exec-once = elephant
 exec-once = walker --gapplication-service
+
+# Ashell, system menubar
+exec-once = ashell --config-path {{ join .chezmoi.homeDir ".config/ashell/config.toml" }}
 {{- end }}
 
 

@@ -6,7 +6,7 @@
 input {
 	kb_layout = us,ua
 	kb_variant = ,legacy
-	kb_options = ctrl:nocaps,altwin:swap_alt_win,grp:lctrl_space_toggle
+	kb_options = grp:ctrl_space_toggle,ctrl:nocaps,altwin:swap_alt_win
 
 	# Change speed of keyboard repeat
 	repeat_rate = 40
@@ -36,9 +36,11 @@ input {
 
 device {
 	name = nuphy-nuphy-air75-he
-	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
+	kb_variant = ,legacy
+	kb_options = grp:ctrl_space_toggle,ctrl:nocaps
 }
 device {
 	name = nuphy-nuphy-air75-he-keyboard
-	kb_options = ctrl:nocaps,grp:lctrl_space_toggle
+	kb_variant = ,legacy
+	kb_options = grp:ctrl_space_toggle,ctrl:nocaps
 }
