@@ -1,0 +1,20 @@
+{{- /*
+	vim:ft=toml.gotexttmpl
+*/ -}}
+
+max-history=50
+sort=+time
+history=1
+default-timeout=5000
+
+#font=JetBrainsMono NFP 12
+
+# Theme
+background-color={{ print "#" .current.theme.base }}
+text-color={{ print "#" .current.theme.text }}
+border-color={{ print "#" .current.theme.mauve }}
+progress-color=over {{ print "#" .current.theme.surface0 }}
+icons=1
+
+[urgency=high]
+border-color={{ print "#" .current.theme.red }}

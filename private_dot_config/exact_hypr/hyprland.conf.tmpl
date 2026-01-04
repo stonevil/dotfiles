@@ -23,9 +23,9 @@ $volumemute = dms ipc call audio mute
 $backlightup = dms ipc call brightness increment 3 backlight:intel_backlight
 $backlightdown = dms ipc call brightness decrement 3 backlight:intel_backlight
 {{- else }}
-$notifications = swaync-client -t -sw
+$notifications = mako
 $spotlight = walker
-$screenlock = hyprlock
+$screenlock = playerctl --all-players pause; hyprlock
 
 $volumeup = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --inc
 $volumedown = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --dec
