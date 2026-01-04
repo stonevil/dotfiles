@@ -12,26 +12,26 @@ general {
 	layout = master
 	resize_on_border = true
 
-# col.active_border
-# col.inactive_border
-# col.nogroup_border_active
-# col.nogroup_border
+	col.active_border = {{ print "0xff" .current.theme.mauve }}
+	col.inactive_border = {{ print "0xff" .current.theme.mantle }}
+	col.nogroup_border_active = {{ print "0xff" .current.theme.flamingo }}
+	col.nogroup_border = {{ print "0xff" .current.theme.crust }}
 
 	snap {
-			enabled = true
-		}
+		enabled = true
+	}
 }
 
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 decoration {
 	rounding = 0
 
-	active_opacity = {{ .terminal.opacity }}
-	inactive_opacity = {{ .terminal.opacityInactive }}
-	fullscreen_opacity = {{ .terminal.opacity }}
+	active_opacity = {{ .gui.opacity }}
+	inactive_opacity = {{ .gui.opacityInactive }}
+	fullscreen_opacity = {{ .gui.opacity }}
 
-	# dim_inactive = true
-	# dim_strength = 0.5
+	dim_inactive = {{ .gui.dimInactive }}
+	dim_strength = {{ .gui.dimStrength }}
 
 	shadow {
 		enabled = false

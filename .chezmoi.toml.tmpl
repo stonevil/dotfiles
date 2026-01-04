@@ -194,20 +194,20 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $guiOpacity := 1.0 }}
 {{ $guiOpacityInactive := 0.4 }}
 {{ $guiDimInactive := false }}
-{{ $guiDimStregth := 0.5 }}
+{{ $guiDimStrength := 0.5 }}
 
 {{ if hasKey . "gui" }}
 	{{ if hasKey .gui "opacity" }}{{ $guiOpacity = .gui.opacity }}{{ end }}
 	{{ if hasKey .gui "opacityInactive" }}{{ $guiOpacityInactive = .gui.opacityInactive }}{{ end }}
 	{{ if hasKey .gui "DimInactive" }}{{ $guiDimInactive = .gui.dimInactive }}{{ end }}
-	{{ if hasKey .gui "DimStregth" }}{{ $guiDimStregth = .gui.dimStregth }}{{ end }}
+	{{ if hasKey .gui "DimStrength" }}{{ $guiDimStrength = .gui.dimStrength }}{{ end }}
 {{ end }}
 
 {{ if ($hyprland) }}
 {{ $guiOpacity = (promptString "Hyprland windows opacity, choose between 0.1 and 1.0" ($guiOpacity | toString)) }}
 {{ $guiOpacityInactive = (promptString "Hyprland inactive windows opacity, choose between 0.1 and 1.0" ($guiOpacityInactive | toString)) }}
 {{ $guiDimInactive = (promptBool "Hyprland inactive windows dim" $guiDimInactive) }}
-{{ $guiDimStregth = (promptString "Hyprland inactive windows dim streght, choose between 0.1 and 1.0" ($guiDimStregth | toString)) }}
+{{ $guiDimStrength = (promptString "Hyprland inactive windows dim strenght, choose between 0.1 and 1.0" ($guiDimStrength | toString)) }}
 {{ end }}
 
 # Ask questin about environment if GUI env enabled
@@ -1281,7 +1281,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	opacity = {{ $guiOpacity }}
 	opacityInactive = {{ $guiOpacityInactive }}
 	dimInactive = {{ $guiDimInactive }}
-	dimStregth = {{ $guiDimStregth }}
+	dimStrength = {{ $guiDimStrength }}
 
 # Define terminal env like tabs width, transparency, etc.
 [data.terminal]
@@ -1333,7 +1333,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 			{{ if not $themeDarkMode }}
 				{{ $bg = "1e1e2e" }}
 			{{ end }}
-			theme = { primary.foreground = "cdd6f4", primary.background = {{ $bg | quote }}, primary.dim_foreground = "7f849c", primary.bright_foreground = "cdd6f4", cursor.text = {{ $bg | quote }}, cursor.cursor = "f5e0dc", vi_mode_cursor.text = {{ $bg | quote }}, vi_mode_cursor.cursor = "b4befe", search.matches.foreground = {{ $bg | quote }}, search.matches.background = "a6adc8", search.focused_match.foreground = {{ $bg | quote }}, search.focused_match.background = "a6e3a1", footer_bar.foreground = {{ $bg | quote }}, footer_bar.background = "a6adc8", hints.start.foreground = {{ $bg | quote }}, hints.start.background = "f9e2af", hints.end.foreground = {{ $bg | quote }}, hints.end.background = "a6adc8", selection.text = {{ $bg | quote }}, selection.background = "f5e0dc", normal.black = "45475a", normal.red = "f38ba8", normal.green = "a6e3a1", normal.yellow = "f9e2af", normal.blue = "89b4fa", normal.magenta = "f5c2e7", normal.cyan = "94e2d5", normal.white = "bac2de", bright.black = "585b70", bright.red = "f38ba8", bright.green = "a6e3a1", bright.yellow = "f9e2af", bright.blue = "89b4fa", bright.magenta = "f5c2e7", bright.cyan = "94e2d5", bright.white = "a6adc8", indexed_colors.color16 = "fab387", indexed_colors.color17 = "f5e0dc", urls="89b4fa" }
+			theme = { primary.foreground = "cdd6f4", primary.background = {{ $bg | quote }}, primary.dim_foreground = "7f849c", primary.bright_foreground = "cdd6f4", cursor.text = {{ $bg | quote }}, cursor.cursor = "f5e0dc", vi_mode_cursor.text = {{ $bg | quote }}, vi_mode_cursor.cursor = "b4befe", search.matches.foreground = {{ $bg | quote }}, search.matches.background = "a6adc8", search.focused_match.foreground = {{ $bg | quote }}, search.focused_match.background = "a6e3a1", footer_bar.foreground = {{ $bg | quote }}, footer_bar.background = "a6adc8", hints.start.foreground = {{ $bg | quote }}, hints.start.background = "f9e2af", hints.end.foreground = {{ $bg | quote }}, hints.end.background = "a6adc8", selection.text = {{ $bg | quote }}, selection.background = "f5e0dc", normal.black = "45475a", normal.red = "f38ba8", normal.green = "a6e3a1", normal.yellow = "f9e2af", normal.blue = "89b4fa", normal.magenta = "f5c2e7", normal.cyan = "94e2d5", normal.white = "bac2de", bright.black = "585b70", bright.red = "f38ba8", bright.green = "a6e3a1", bright.yellow = "f9e2af", bright.blue = "89b4fa", bright.magenta = "f5c2e7", bright.cyan = "94e2d5", bright.white = "a6adc8", indexed_colors.color16 = "fab387", indexed_colors.color17 = "f5e0dc", urls="89b4fa", flamingo = "f2cdcd", mauve = "cba6f7", mantle = "181825", crust = "11111b" }
 		{{ end }}
 
 		{{ if eq $themeVariant "macchiato" }}
