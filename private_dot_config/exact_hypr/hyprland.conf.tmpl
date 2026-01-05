@@ -7,7 +7,7 @@ $mainMod = SUPER
 # Define applications
 $terminal = foot
 $filemanager = dolphin
-$filemanagerCli = foot yazi
+$fm = foot -e {{ (joinPath .chezmoi.homeDir ".local/bin/yazi") | quote }}
 $browser = librewolf
 $mail = thunderbird
 $editor = nvim
