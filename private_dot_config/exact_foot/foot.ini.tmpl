@@ -6,7 +6,7 @@ vim:ft=dosini.gotexttmpl
 
 include={{ (joinPath .chezmoi.homeDir ".config/foot/themes/theme.ini") }}
 
-shell={{ .terminal.shellPath }} --login
+shell={{ .env.shellPath }} --login
 # login-shell=no
 # term=foot (or xterm-256color if built with -Dterminfo=disabled)
 
@@ -14,7 +14,7 @@ shell={{ .terminal.shellPath }} --login
 # title=foot
 # locked-title=no
 
-font={{ .terminal.font }}:weight={{ .terminal.fontNormal }}:size={{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }}
+font={{ .env.font }}:weight={{ .env.fontNormal }}:size={{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}
 # font-size-adjustment=0.5
 # line-height=<font metrics>
 # letter-spacing=0
@@ -26,7 +26,7 @@ font={{ .terminal.font }}:weight={{ .terminal.fontNormal }}:size={{ if or (.tags
 dpi-aware=no
 
 # initial-window-size-pixels=700x500  # Or,
-initial-window-size-chars={{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}x{{ 5 | sub .terminal.rows }}{{ else }}{{ .terminal.cols }}x{{ .terminal.rows }}{{ end }}
+initial-window-size-chars={{ if .tags.thinkpad.enabled }}{{ 20 | sub .env.cols }}x{{ 5 | sub .env.rows }}{{ else }}{{ .env.cols }}x{{ .env.rows }}{{ end }}
 initial-window-mode=windowed
 pad=5x5 # optionally append 'center'
 # resize-delay-ms=100
@@ -74,7 +74,7 @@ hide-when-typing=yes
 # alternate-scroll-mode=yes
 
 [colors]
-alpha={{ .terminal.opacity }}
+alpha={{ .env.opacity }}
 
 [csd]
 # preferred=server

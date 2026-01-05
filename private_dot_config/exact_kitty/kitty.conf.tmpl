@@ -6,12 +6,12 @@ vim:ft=conf.gotexttmpl
 
 #: Fonts
 
-font_family      {{ .terminal.font }}
+font_family      {{ .env.font }}
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
 
-font_size {{ .terminal.fontSize }}
+font_size {{ .env.fontSize }}
 
 # force_ltr no
 
@@ -268,7 +268,7 @@ tab_powerline_style angled
 
 include "themes/theme.conf"
 
-background_opacity {{ .terminal.opacity }}
+background_opacity {{ .env.opacity }}
 
 # background_image none
 
@@ -287,7 +287,7 @@ dim_opacity 0.75
 
 #: Advanced
 
-shell {{ .terminal.shellPath }} --login
+shell {{ .env.shellPath }} --login
 
 editor .
 

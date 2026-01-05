@@ -31,8 +31,8 @@ vim.opt.autoindent = true
 vim.opt.shiftround = true
 vim.opt.expandtab = false
 
-vim.opt.shiftwidth = {{ .terminal.tabs }}
-vim.opt.tabstop = {{ .terminal.tabs }}
+vim.opt.shiftwidth = {{ .env.tabs }}
+vim.opt.tabstop = {{ .env.tabs }}
 
 vim.opt.wrap = true
 vim.opt.linebreak = true

@@ -2,12 +2,15 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
+$mainMod = SUPER
+
 # Define applications
 $terminal = foot
-$fm = dolphin
-$fmcli = foot yazi
+$filemanager = dolphin
+$filemanagerCli = foot yazi
 $browser = librewolf
 $mail = thunderbird
+$editor = nvim
 
 {{- if .tags.dms.enabled }}
 $appsswitcher = dms ipc call hypr toggleOverview

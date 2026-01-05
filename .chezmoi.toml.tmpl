@@ -193,25 +193,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ $dms = promptBool "Enable Dank Material Shell" $dms }}
 {{ end }}
 
-{{ $guiOpacity := 1.0 }}
-{{ $guiOpacityInactive := 0.4 }}
-{{ $guiDimInactive := false }}
-{{ $guiDimStrength := 0.5 }}
-
-{{ if hasKey . "gui" }}
-	{{ if hasKey .gui "opacity" }}{{ $guiOpacity = .gui.opacity }}{{ end }}
-	{{ if hasKey .gui "opacityInactive" }}{{ $guiOpacityInactive = .gui.opacityInactive }}{{ end }}
-	{{ if hasKey .gui "DimInactive" }}{{ $guiDimInactive = .gui.dimInactive }}{{ end }}
-	{{ if hasKey .gui "DimStrength" }}{{ $guiDimStrength = .gui.dimStrength }}{{ end }}
-{{ end }}
-
-{{ if ($hyprland) }}
-{{ $guiOpacity = (promptString "Hyprland windows opacity, choose between 0.1 and 1.0" ($guiOpacity | toString)) }}
-{{ $guiOpacityInactive = (promptString "Hyprland inactive windows opacity, choose between 0.1 and 1.0" ($guiOpacityInactive | toString)) }}
-{{ $guiDimInactive = (promptBool "Hyprland inactive windows dim" $guiDimInactive) }}
-{{ $guiDimStrength = (promptString "Hyprland inactive windows dim strenght, choose between 0.1 and 1.0" ($guiDimStrength | toString)) }}
-{{ end }}
-
 # Ask questin about environment if GUI env enabled
 {{ if or (or ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" $browsers }}
@@ -237,19 +218,27 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $tabs := 2 }}
 {{ $shellPath := "/bin/zsh" }}
 {{ $opacity := 1.0 }}
-{{ $opacityInactive := 0.4 }}
+{{ $opacityInactive := 0.9 }}
+{{ $dimInactive := false }}
+{{ $dimStrength := 0.5 }}
 
-{{ if hasKey . "terminal" }}
-	{{ if hasKey .terminal "tabs" }}{{ $tabs = int64 .terminal.tabs }}{{ end }}
-	{{ if hasKey .terminal "shellPath" }}{{ $shellPath = .terminal.shellPath }}{{ end }}
-	{{ if hasKey .terminal "opacity" }}{{ $opacity = .terminal.opacity }}{{ end }}
-	{{ if hasKey .terminal "opacityInactive" }}{{ $opacityInactive = .terminal.opacityInactive }}{{ end }}
+{{ if hasKey . "env" }}
+	{{ if hasKey .env "tabs" }}{{ $tabs = int64 .env.tabs }}{{ end }}
+	{{ if hasKey .env "shellPath" }}{{ $shellPath = .env.shellPath }}{{ end }}
+	{{ if hasKey .env "opacity" }}{{ $opacity = .env.opacity }}{{ end }}
+	{{ if hasKey .env "opacityInactive" }}{{ $opacityInactive = .env.opacityInactive }}{{ end }}
+	{{ if hasKey .env "dimInactive" }}{{ $dimInactive = .env.dimInactive }}{{ end }}
+	{{ if hasKey .env "dimStrength" }}{{ $dimStrength = .env.dimStrength }}{{ end }}
 {{ end }}
 
 {{ $tabs = promptInt "WARNING: default tabs width" (int64 $tabs) }}
 {{ $shellPath = (promptString "WARNING: path to shell. Path should be absolute path to the already installed shell!" $shellPath) | quote }}
 {{ $opacity = (promptString "WARNING: windows opacity, choose between 0.1 and 1.0" ($opacity | toString)) }}
 {{ $opacityInactive = (promptString "WARNING: inactive windows opacity, choose between 0.1 and 1.0" ($opacityInactive | toString)) }}
+{{ $dimInactive = (promptBool "WARNING: dim inactive windows" $dimInactive) }}
+{{ if $dimInactive }}
+{{ $dimStrength = (promptString "WARNING: dim inactive windows stregth, choose between 0.1 and 1.0" ($dimStrength | toString)) }}
+{{ end }}
 
 # Set user information
 [data]
@@ -1279,15 +1268,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"easyeffects",
 	]
 
-# Define Hyprland env like, transparency, etc.
-[data.gui]
-	opacity = {{ $guiOpacity }}
-	opacityInactive = {{ $guiOpacityInactive }}
-	dimInactive = {{ $guiDimInactive }}
-	dimStrength = {{ $guiDimStrength }}
-
-# Define terminal env like tabs width, transparency, etc.
-[data.terminal]
+# Define terminal, DE like Hyprland env like tabs width, opacity, etc.
+[data.env]
 	fontsList = ["FiraCode", "Iosevka", "IosevkaTerm", "Monoid", "ProggyClean", "RobotoMono", "JetBrainsMono",]
 	font = "Iosevka Nerd Font"
 	fontNormal = "Light"
@@ -1302,6 +1284,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	shellPath = {{ $shellPath }}
 	opacity = {{ $opacity }}
 	opacityInactive = {{ $opacityInactive }}
+	dimInactive = {{ $dimInactive }}
+	dimStrength = {{ $dimStrength }}
 {{ if lt (float64 $opacity) 1.0 }}
 	blur = 20
 {{ else }}

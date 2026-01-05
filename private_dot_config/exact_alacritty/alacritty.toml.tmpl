@@ -17,7 +17,7 @@ command = "None"
 duration = 100
 
 [colors]
-draw_bold_text_with_bright_colors = {{ .terminal.fontBoldBright }}
+draw_bold_text_with_bright_colors = {{ .env.fontBoldBright }}
 
 [cursor]
 blink_interval = 750
@@ -42,7 +42,7 @@ TERM = "xterm-256color"
 
 [font]
 builtin_box_drawing = true
-size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }}
+size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}
 
 [font.offset]
 x = 0
@@ -53,14 +53,14 @@ x = 0
 y = 0
 
 [font.normal]
-family = "{{ .terminal.font }}"
-style = "{{ .terminal.fontNormal }}"
+family = "{{ .env.font }}"
+style = "{{ .env.fontNormal }}"
 
 [font.bold]
-style = "{{ .terminal.fontBold }}"
+style = "{{ .env.fontBold }}"
 
 [font.italic]
-style = "{{ .terminal.fontItalic }}"
+style = "{{ .env.fontItalic }}"
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -618,7 +618,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [terminal.shell]
 args = ["--login"]
-program = "{{ .terminal.shellPath }}"
+program = "{{ .env.shellPath }}"
 
 [window]
 {{- if eq .chezmoi.os "linux" }}
@@ -629,8 +629,8 @@ decorations = "buttonless"
 decorations_theme_variant = "Dark"
 dynamic_padding = false
 dynamic_title = true
-opacity = {{ .terminal.opacity }}
-{{ if lt (float64 .terminal.opacity) 1.0 -}}
+opacity = {{ .env.opacity }}
+{{ if lt (float64 .env.opacity) 1.0 -}}
 blur = true
 {{ else -}}
 blur = false
@@ -641,8 +641,8 @@ startup_mode = "Windowed"
 title = "Alacritty"
 
 [window.dimensions]
-columns = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}{{ else }}{{ 20 | add .terminal.cols }}{{ end }}
-lines = {{ if .tags.thinkpad.enabled }}{{ 5 | sub .terminal.rows }}{{ else }}{{ .terminal.rows }}{{ end }}
+columns = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .env.cols }}{{ else }}{{ 20 | add .env.cols }}{{ end }}
+lines = {{ if .tags.thinkpad.enabled }}{{ 5 | sub .env.rows }}{{ else }}{{ .env.rows }}{{ end }}
 
 [window.padding]
 x = 5

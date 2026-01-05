@@ -23,7 +23,7 @@ option-as-alt = 'right'
 
 confirm-before-quit = false
 
-draw-bold-text-with-light-colors = {{ .terminal.fontBoldBright }}
+draw-bold-text-with-light-colors = {{ .env.fontBoldBright }}
 
 [cursor]
 shape = 'block'
@@ -49,7 +49,7 @@ width = 800
 height = 600
 mode = "windowed"
 opacity = 1.0
-{{ if lt (.terminal.opacity | float64) 1.0 }}
+{{ if lt (.env.opacity | float64) 1.0 }}
 blur = true
 {{ else }}
 blur = false
@@ -78,33 +78,33 @@ disable-occluded-render = true
 
 [fonts]
 use-drawable-chars = true
-# family = "{{ .terminal.font }}" # disabled for now due Rio issues with fonts in macOS
+# family = "{{ .env.font }}" # disabled for now due Rio issues with fonts in macOS
 # extras = [{ family = "Microsoft JhengHei" }]
 # features = ["ss02", "ss03", "ss05", "ss19"]
 # hinting = false
 # symbol-map = [
 #   { start = "2297", end = "2299", font-family = "Cascadia Code NF" }
 # ]
-size = {{ .terminal.fontSize }}
+size = {{ .env.fontSize }}
 
 # [fonts.regular]
-# family = "{{ .terminal.font }}"
-# style = "{{ .terminal.fontNormal }}"
+# family = "{{ .env.font }}"
+# style = "{{ .env.fontNormal }}"
 # weight = 400
 
 # [fonts.bold]
-# family = "{{ .terminal.font }}"
-# style = "{{ .terminal.fontBold }}"
+# family = "{{ .env.font }}"
+# style = "{{ .env.fontBold }}"
 # weight = 800
 
 # [fonts.italic]
-# family = "{{ .terminal.font }}"
-# style = "{{ .terminal.fontItalic }}"
+# family = "{{ .env.font }}"
+# style = "{{ .env.fontItalic }}"
 # weight = 400
 
 # [fonts.bold-italic]
-# family = "{{ .terminal.font }}"
-# style = "{{ .terminal.fontBoldItalic }}"
+# family = "{{ .env.font }}"
+# style = "{{ .env.fontBoldItalic }}"
 # weight = 800
 
 # [scroll]
@@ -126,7 +126,7 @@ use-split = false
 navigation.unfocused-split-opacity = 0.8
 
 [shell]
-program = "{{ .terminal.shellPath }}"
+program = "{{ .env.shellPath }}"
 args = ["--login"]
 
 [colors]

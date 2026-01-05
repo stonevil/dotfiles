@@ -34,17 +34,17 @@ end)
 -- 		if wezterm.gui.screens().active.name == "LS28AG700N" then
 -- 			window:set_config_overrides({
 -- 				dpi = 144,
--- 				font_size = {{ .terminal.fontSize }},
--- 				initial_cols = {{ .terminal.cols }},
--- 				initial_rows = {{ .terminal.cols }},
+-- 				font_size = {{ .env.fontSize }},
+-- 				initial_cols = {{ .env.cols }},
+-- 				initial_rows = {{ .env.cols }},
 -- 			})
 -- 		end
 -- 		if wezterm.gui.screens().active.name == "eDP-1" then
 -- 			window:set_config_overrides({
 -- 				dpi = 192,
--- 				font_size = {{ 1 | add .terminal.fontSize }},
--- 				initial_cols = {{ .terminal.cols }},
--- 				initial_rows = {{ .terminal.cols }},
+-- 				font_size = {{ 1 | add .env.fontSize }},
+-- 				initial_cols = {{ .env.cols }},
+-- 				initial_rows = {{ .env.cols }},
 -- 			})
 -- 		end
 -- 	end
@@ -63,7 +63,7 @@ scheme_current.tab_bar.new_tab.bg_color = "#080808"
 {{ end }}
 
 config = {
-	default_prog = { '{{ .terminal.shellPath }}', '--login' },
+	default_prog = { '{{ .env.shellPath }}', '--login' },
 	window_close_confirmation = "NeverPrompt",
 	exit_behavior = "Close",
 	audible_bell = "Disabled",
@@ -82,14 +82,14 @@ config = {
 	},
 	window_frame = {
 		font = wezterm.font({
-			family = {{ .terminal.font | quote }},
+			family = {{ .env.font | quote }},
 		}),
-		font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }},
+		font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }},
 		-- active_titlebar_bg = "#000000",
 		-- inactive_titlebar_bg = "#000000",
 	},
-	window_background_opacity = {{ .terminal.opacity }},
-	macos_window_background_blur = {{ .terminal.blur }},
+	window_background_opacity = {{ .env.opacity }},
+	macos_window_background_blur = {{ .env.blur }},
 	enable_scroll_bar = false,
 	text_blink_rate = 0,
 	adjust_window_size_when_changing_font_size = false,
@@ -100,14 +100,14 @@ config = {
 	{{- if eq .chezmoi.os "linux" }}
 	enable_wayland = detect.wayland(),
 	{{ end -}}
-	initial_cols = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .terminal.cols }}{{ else }}{{ .terminal.cols }}{{ end }},
-	initial_rows = {{ if .tags.thinkpad.enabled }}{{ 5 | sub .terminal.rows }}{{ else }}{{ .terminal.rows }}{{ end }},
+	initial_cols = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .env.cols }}{{ else }}{{ .env.cols }}{{ end }},
+	initial_rows = {{ if .tags.thinkpad.enabled }}{{ 5 | sub .env.rows }}{{ else }}{{ .env.rows }}{{ end }},
 	inactive_pane_hsb = {
 		saturation = 0.3,
 		brightness = 0.3,
 	},
-	font = wezterm.font({{ .terminal.font | quote }}),
-	font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .terminal.fontSize }}{{ else }}{{ .terminal.fontSize }}{{ end }},
+	font = wezterm.font({{ .env.font | quote }}),
+	font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }},
 	max_fps = 120,
 	line_height = 1.1,
 	-- Cursor style

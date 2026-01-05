@@ -12,17 +12,17 @@ background = 000000
 {{ end }}
 # split-divider-color = 2b415a
 
-font-family = {{ .terminal.font | quote }}
-font-size = {{ .terminal.fontSize }}
+font-family = {{ .env.font | quote }}
+font-size = {{ .env.fontSize }}
 
-bold-is-bright = {{ .terminal.fontBoldBright }}
+bold-is-bright = {{ .env.fontBoldBright }}
 
 cursor-style = block
 cursor-style-blink = true
 
-background-opacity = {{ .terminal.opacity }}
-{{- if lt (float64 .terminal.opacity) 1.0 }}
-background-blur-radius = {{ .terminal.blur }}
+background-opacity = {{ .env.opacity }}
+{{- if lt (float64 .env.opacity) 1.0 }}
+background-blur-radius = {{ .env.blur }}
 {{ end }}
 
 window-decoration = true

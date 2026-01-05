@@ -36,6 +36,9 @@ exec-once = walker --gapplication-service
 exec-once = ashell --config-path {{ join .chezmoi.homeDir ".config/ashell/config.toml" }}
 {{- end }}
 
+# Playerctl daemon
+exec-once = playerctld
+
 
 # Switch to first workspace on start. Should be last line in autostart.
 exec-once = hyprctl dispatch workspace 1

@@ -6,13 +6,13 @@
 	excludesfile = ~/.gitignore_global
 	editor = $EDITOR
 	{{ if lookPath "delta" }}
-	pager = delta --tabs {{ .terminal.tabs }}
+	pager = delta --tabs {{ .env.tabs }}
 	{{ else }}
-	pager = less -R --tabs={{ .terminal.tabs }}
+	pager = less -R --tabs={{ .env.tabs }}
 	{{ end }}
 	autocrlf = false
 	safecrlf = true
-	whitespace = fix, indent-with-non-tab, space-before-tab, trailing-space, cr-at-eol, blank-at-eol, blank-at-eof, tabwidth = {{ .terminal.tabs }}
+	whitespace = fix, indent-with-non-tab, space-before-tab, trailing-space, cr-at-eol, blank-at-eol, blank-at-eof, tabwidth = {{ .env.tabs }}
 
 [user]
 	name = {{ .uname | quote }}

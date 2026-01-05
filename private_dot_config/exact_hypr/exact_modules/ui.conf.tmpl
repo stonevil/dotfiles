@@ -26,12 +26,12 @@ general {
 decoration {
 	rounding = 0
 
-	active_opacity = {{ .gui.opacity }}
-	inactive_opacity = {{ .gui.opacityInactive }}
-	fullscreen_opacity = {{ .gui.opacity }}
+	active_opacity = {{ .env.opacity }}
+	inactive_opacity = {{ .env.opacityInactive }}
+	fullscreen_opacity = {{ .env.opacity }}
 
-	dim_inactive = {{ .gui.dimInactive }}
-	dim_strength = {{ .gui.dimStrength }}
+	dim_inactive = {{ .env.dimInactive }}
+	dim_strength = {{ .env.dimStrength }}
 
 	shadow {
 		enabled = false
@@ -39,7 +39,7 @@ decoration {
 
 	# https://wiki.hyprland.org/Configuring/Variables/#blur
 	blur {
-		enabled = true
+		enabled = false
 		size = 2
 		passes = 2
 		special = true
@@ -99,6 +99,12 @@ group {
 # See https://wiki.hyprland.org/Configuring/Master-Layout/
 master {
 	new_status = master
+}
+
+# https://wiki.hypr.land/Configuring/Dwindle-Layout/
+dwindle {
+	pseudotile = true
+	preserve_split = yes
 }
 
 # https://wiki.hyprland.org/Configuring/Variables/#misc

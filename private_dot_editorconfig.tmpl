@@ -6,28 +6,28 @@ root = true
 
 [{*.{awk,c,dts,dtsi,dtso,h,mk,s,S},Kconfig,Makefile,Makefile.*}]
 indent_style = tab
-indent_size = {{ .terminal.tabs }}
+indent_size = {{ .env.tabs }}
 charset = utf-8
 end_of_line = lf
 trim_trailing_whitespace = true
 
 [*.yaml]
 indent_style = space
-indent_size = {{ .terminal.tabs }}
+indent_size = {{ .env.tabs }}
 charset = utf-8
 end_of_line = lf
 trim_trailing_whitespace = true
 
 [*.{json,py,rs}]
 indent_style = space
-indent_size = {{ .terminal.tabs }}
+indent_size = {{ .env.tabs }}
 charset = utf-8
 end_of_line = lf
 trim_trailing_whitespace = true
 
 [*]
 indent_style = tab
-indent_size = {{ .terminal.tabs }}
+indent_size = {{ .env.tabs }}
 charset = utf-8
 end_of_line = lf
 trim_trailing_whitespace = true

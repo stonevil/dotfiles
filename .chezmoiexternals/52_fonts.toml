@@ -1,7 +1,7 @@
 # vim:ft=toml
 
 {{ if .tags.terminalEmulators.enabled }}
-	{{ range .terminal.fontsList }}
+	{{ range .env.fontsList }}
 		{{ if eq $.chezmoi.os "darwin" -}}
 		["Library/Fonts/{{ . }}"]
 		{{ else if eq $.chezmoi.os "linux" }}

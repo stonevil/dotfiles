@@ -82,7 +82,7 @@ set mouse=a											" Enable proper mouse selection
 set history=1000
 set undolevels=1000
 
-set shell={{ .terminal.shellPath }}
+set shell={{ .env.shellPath }}
 
 set encoding=utf-8							" Set default encoding to UTF-8
 set fileencoding=utf-8
@@ -107,7 +107,7 @@ set wildignore+=.cache,node_modules,package-lock.json,yarn.lock,dist,.git
 
 set autoindent									" Enabile Autoindent
 set shiftround									" Round indent to multiple of 'shiftwidth'. Applies to > and < commands.
-set noexpandtab ci pi sts={{ .terminal.tabs }} ts={{ .terminal.tabs }} sw={{ .terminal.tabs }}
+set noexpandtab ci pi sts={{ .env.tabs }} ts={{ .env.tabs }} sw={{ .env.tabs }}
 set wrap linebreak nolist				" Word wrap without line breaks
 set backspace=indent,eol,start	" Makes backspace key more powerful.
 
