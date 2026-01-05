@@ -1,6 +1,15 @@
 MenuBar=Disabled
 
+[ContextMenu]
+ShowAddToPlaces=false
+ShowOpenInSplitView=false
+
+[ExtractDialog]
+2 screens: Window-Maximized=true
+DirHistory[$e]=$HOME/Downloads/
+
 [General]
+OpenExternallyCalledFolderInNewTab=true
 Version=202
 ViewPropsTimestamp=2025,10,5,5,0,16.587
 
@@ -12,7 +21,7 @@ Places Icons Static Size=22
 MenuBar=Disabled
 
 [PreviewSettings]
-Plugins=fontthumbnail,djvuthumbnail,opendocumentthumbnail,windowsexethumbnail,svgthumbnail,comicbookthumbnail,imagethumbnail,windowsimagethumbnail,exrthumbnail,webarchivethumbnail,appimagethumbnail,directorythumbnail,kraorathumbnail,ebookthumbnail,jpegthumbnail,audiothumbnail,cursorthumbnail,glycin-svg,glycin-jxl,glycin-image-rs,glycin-heif
+Plugins=appimagethumbnail,audiothumbnail,glycin-heif,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,glycin-image-rs,jpegthumbnail,glycin-jxl,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,glycin-svg,svgthumbnail,webarchivethumbnail
 
 [UiSettings]
 ColorScheme=BreezeBlack

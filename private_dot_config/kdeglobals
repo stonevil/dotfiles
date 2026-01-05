@@ -116,6 +116,8 @@ Theme=breeze-dark
 [KDE]
 AnimationDurationFactor=0.17677669529663687
 LookAndFeelPackage=org.kde.breezedark.desktop
+ShowDeleteCommand=false
+widgetStyle=qt6ct-style
 
 [KFileDialog Settings]
 Allow Expansion=false
@@ -133,6 +135,10 @@ Sort hidden files last=false
 Sort reversed=false
 Speedbar Width=140
 View Style=DetailTree
+
+[PreviewSettings]
+EnableRemoteFolderThumbnail=false
+MaximumRemoteSize=0
 
 [UiSettings]
 ColorScheme=BreezeDark
