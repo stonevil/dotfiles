@@ -259,24 +259,24 @@ set -g status-interval 5
 
 # Pane
 set -g pane-border-status off
-set -g pane-border-style fg={{ print "#" .current.theme.mantle }}
-set -g pane-active-border-style fg={{ print "#" .current.theme.mauve }}
+set -g pane-border-style fg=colour8
+set -g pane-active-border-style fg=colour4
 set -g pane-border-format "#{pane_index} /#{pane_current_command} #{pane_current_path}"
 
 # Change colour for inactive pane
-set-hook -g pane-focus-out 'select-pane -P fg={{ print "#" .current.theme.mantle }}'
+set-hook -g pane-focus-out 'select-pane -P fg=colour15'
 set-hook -g pane-focus-in 'select-pane -P fg=default'
 
 # Window List
 setw -g window-status-separator "  "
-setw -g window-status-style fg={{ print "#" .current.theme.crust }},bg=default
-setw -g window-status-current-style fg={{ print "#" .current.theme.mauve }},bg=default
+setw -g window-status-style fg=colour8,bg=default
+setw -g window-status-current-style fg=colour12,bg=default
 setw -g window-status-format "#I /#W"
 setw -g window-status-current-format "#I /#W"
 
 # Messages
-set -g message-style fg={{ print "#" .current.theme.mauve }}
-set -g message-command-style fg={{ print "#" .current.theme.mauve }},bg=default
+set -g message-style fg=colour7
+set -g message-command-style fg=colour7,bg=default
 
 # Status
 set -g status on
