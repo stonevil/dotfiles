@@ -31,7 +31,7 @@ indicators = [ "Cpu", "Memory", "Temperature" ]
 [appearance]
 font_name = "JetBrainsMono NFP"
 scale_factor = 1.0
-opacity = {{ .env.opacityInactive }}
+opacity = {{ if ge (0.5 | sub .env.opacityInactive) 0.1 }}{{ (0.5 | sub .env.opacityInactive) }}{{ else }}0.1{{ end }}
 
 style = "Islands"
 
