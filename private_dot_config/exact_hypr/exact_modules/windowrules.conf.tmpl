@@ -48,3 +48,28 @@ windowrulev2 = center, floating:1, class:^(mpv)$
 
 # Open DMS windows as floating by default
 windowrulev2 = float, class:^(org.quickshell)$
+
+# Mako transperency
+windowrule2 = opacity, class:^(mako)$, opacity:0.8
+
+# File pickers center floating
+windowrule2 = float, center title:^(Open File|Open|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
+
+# Ignore maximize requests from apps
+windowrule2 = suppressevent maximize, class:.*
+
+# Fix some dragging issues with Wayland
+windowrule2 = nofocus, class:^$, title:^$, xwayland: 1, floating: 1, fullscreen: 0, pinned: 0
+
+# KDE Plasma workaround for screen sharing
+windowrule {
+	name = xwayland-video-bridge-fixes
+	match:class = xwaylandvideobridge
+
+	no_initial_focus = true
+	no_focus = true
+	no_anim = true
+	no_blur = true
+	max_size = 1 1
+	opacity = 0.0
+}

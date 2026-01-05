@@ -3,9 +3,9 @@
 */ -}}
 
 # Switch keyboard language
-bindd = CTRL, SPACE, Switch keyboard language, exec, switch=$(hyprctl devices -j | jq -r '.keyboards[] | .active_keymap' | uniq -c | [ $(wc -l) -eq 1 ] && echo "next" || echo "0"); for device in $(hyprctl devices -j | jq -r '.keyboards[] | .name'); do hyprctl switchxkblayout $device $switch; done; activeKeymap=$(hyprctl devices -j | jq -r '.keyboards[0] | .active_keymap'); if [ $switch == "0" ]; then resetStr="(reset)"; else resetStr=""; fi; hyprctl notify -1 1500 0 "$activeKeymap $resetStr";
+# bindd = CTRL, SPACE, Switch keyboard language, exec, switch=$(hyprctl devices -j | jq -r '.keyboards[] | .active_keymap' | uniq -c | [ $(wc -l) -eq 1 ] && echo "next" || echo "0"); for device in $(hyprctl devices -j | jq -r '.keyboards[] | .name'); do hyprctl switchxkblayout $device $switch; done; activeKeymap=$(hyprctl devices -j | jq -r '.keyboards[0] | .active_keymap'); if [ $switch == "0" ]; then resetStr="(reset)"; else resetStr=""; fi; hyprctl notify -1 1500 0 "$activeKeymap $resetStr";
 
-# bindl = CTRL, SPACE, exec, hyprctl notify -1 1500 0 $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')
+bindl = CTRL, SPACE, exec, hyprctl notify -1 1500 0 $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')
 
 bindd = SUPER, TAB, Apps Switcher, exec, $appsswitcher # Apps Switcher
 
