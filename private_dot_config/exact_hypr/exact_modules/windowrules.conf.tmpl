@@ -49,9 +49,6 @@ windowrulev2 = center, floating:1, class:^(mpv)$
 # Open DMS windows as floating by default
 windowrulev2 = float, class:^(org.quickshell)$
 
-# Mako transperency
-windowrule2 = opacity, class:^(mako)$, opacity:0.8
-
 # File pickers center floating
 windowrule2 = float, center title:^(Open File|Open|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
 
@@ -73,3 +70,21 @@ windowrule {
 	max_size = 1 1
 	opacity = 0.0
 }
+
+# Blur Waybar
+layerrule = match:namespace waybar, blur on
+layerrule = match:namespace waybar, ignore_alpha 0.5
+layerrule = match:namespace waybar, no_anim on
+
+# Blur SwayNC
+layerrule = match:namespace swaync-control-center, blur on
+layerrule = match:namespace swaync-notification-window, blur on
+layerrule = match:namespace swaync-control-center, ignore_alpha 0.5
+layerrule = match:namespace swaync-notification-window, ignore_alpha 0.5
+
+# Blur wlogout
+layerrule = match:namespace logout_dialog, animation fade
+layerrule = match:namespace logout_dialog, blur on
+
+# Rofi animation
+layerrule = match:namespace rofi, animation popin 90%
