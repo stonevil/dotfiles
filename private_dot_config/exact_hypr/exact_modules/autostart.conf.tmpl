@@ -39,6 +39,11 @@ exec-once = ashell --config-path {{ join .chezmoi.homeDir ".config/ashell/config
 # Playerctl daemon
 exec-once = playerctld
 
+{{- if .tags.zephyrus.enabled }}
+# ROG Control Center
+exec-once = rog-control-center
+{{- end }}
+
 
 # Switch to first workspace on start. Should be last line in autostart.
 exec-once = hyprctl dispatch workspace 1
