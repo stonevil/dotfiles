@@ -13,9 +13,7 @@ background = 000000
 # split-divider-color = 2b415a
 
 font-family = {{ .env.font | quote }}
-font-size = {{ .env.fontSize }}
-
-bold-is-bright = {{ .env.fontBoldBright }}
+font-size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
 
 cursor-style = block
 cursor-style-blink = true

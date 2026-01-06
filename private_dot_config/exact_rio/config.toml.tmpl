@@ -85,7 +85,7 @@ use-drawable-chars = true
 # symbol-map = [
 #   { start = "2297", end = "2299", font-family = "Cascadia Code NF" }
 # ]
-size = {{ .env.fontSize }}
+size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
 
 # [fonts.regular]
 # family = "{{ .env.font }}"

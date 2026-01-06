@@ -14,7 +14,7 @@ shell={{ .env.shellPath }} --login
 # title=foot
 # locked-title=no
 
-font={{ .env.font }}:weight={{ .env.fontNormal }}:size={{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 12 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
+font={{ .env.font }}:weight={{ .env.fontNormal }}:size={{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
 # font-size-adjustment=0.5
 # line-height=<font metrics>
 # letter-spacing=0

@@ -12,10 +12,10 @@ general {
 	layout = master
 	resize_on_border = true
 
-	col.active_border = {{ print "0xff" .colours.normal.mauve }}
-	col.inactive_border = {{ print "0xff" .colours.normal.lavender }}
+	col.active_border = {{ print "0xff" .colours.normal.lavender }}
+	col.inactive_border = {{ print "0xff" .colours.normal.base }}
 	col.nogroup_border_active = {{ print "0xff" .colours.normal.flamingo }}
-	col.nogroup_border = {{ print "0xff" .colours.normal.rosewater }}
+	col.nogroup_border = {{ print "0xff" .colours.normal.base }}
 
 	snap {
 		enabled = true
@@ -39,7 +39,7 @@ decoration {
 
 	# https://wiki.hyprland.org/Configuring/Variables/#blur
 	blur {
-		enabled = false
+		enabled = true
 		size = 2
 		passes = 2
 		special = true
@@ -76,23 +76,23 @@ animations {
 }
 
 group {
-	col.border_active = {{ print "0x66" .colours.normal.mauve }}
-	col.border_inactive = {{ print "0x66" .colours.normal.mauve }}
+	col.border_active = {{ print "0x66" .colours.normal.blue }}
+	col.border_inactive = {{ print "0x66" .colours.normal.base }}
 	col.border_locked_active = {{ print "0x66" .colours.normal.flamingo }}
-	col.border_locked_inactive = {{ print "0x66" .colours.normal.rosewater }}
+	col.border_locked_inactive = {{ print "0x66" .colours.normal.base }}
 
 	groupbar {
 			# text_color =
 			# text_color_inactive =
 			# text_color_locked_active =
 			# text_color_locked_inactive =
-			col.active = {{ print "0x66" .colours.normal.mauve }}
-			col.inactive = {{ print "0x66" .colours.normal.mauve }}
+			col.active = {{ print "0x66" .colours.normal.blue }}
+			col.inactive = {{ print "0x66" .colours.normal.base }}
 			col.locked_active = {{ print "0x66" .colours.normal.flamingo }}
-			col.locked_inactive = {{ print "0x66" .colours.normal.rosewater }}
+			col.locked_inactive = {{ print "0x66" .colours.normal.base }}
 			gaps_in = 2
 			gaps_out = 2
-			blur = false
+			blur = true
 		}
 }
 
