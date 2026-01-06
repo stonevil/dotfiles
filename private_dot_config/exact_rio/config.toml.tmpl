@@ -6,7 +6,7 @@ hide-cursor-when-typing = false
 
 # ignore-selection-foreground-color = false
 
-theme = {{ (print (.theme.name | lower) "-" (.theme.variant | lower)) | squote }}
+theme = 'current'
 
 # padding-x = 10
 # padding-y = [30, 10]
@@ -123,7 +123,7 @@ hide-if-single = true
 use-current-path = true
 # color-automation = []
 use-split = false
-navigation.unfocused-split-opacity = {{ if ge (0.2 | sub .env.opacity) 0.1 }}{{ 0.2 | sub .env.opacity }}{{ else }}{{ .env.opacity }}{{ end }}
+navigation.unfocused-split-opacity = {{ if ge (0.2 | sub (float64 .env.opacity)) 0.1 }}{{ 0.2 | sub (float64 .env.opacity) }}{{ else }}{{ .env.opacity }}{{ end }}
 
 [shell]
 program = "{{ .env.shellPath }}"
