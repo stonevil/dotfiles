@@ -1,0 +1,65 @@
+[colors.primary]
+foreground = {{ (print "#" .colours.normal.foreground) | quote }}
+background = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
+dim_foreground = {{ (print "#" .colours.dim.foreground) | quote }}
+bright_foreground = {{ (print "#" .colours.bright.foreground) | quote }}
+
+[colors.cursor]
+text = {{ (print "#" .colours.cursor.text) | quote }}
+cursor = {{ (print "#" .colours.cursor.cursor) | quote }}
+
+[colors.vi_mode_cursor]
+text = {{ (print "#" .colours.cursor.vi_mode.text) | quote }}
+cursor = {{ (print "#" .colours.cursor.vi_mode.cursor) | quote }}
+
+[colors.search.matches]
+foreground = {{ (print "#" .colours.search.matches.foreground) | quote }}
+background = {{ (print "#" .colours.search.matches.background) | quote }}
+
+[colors.search.focused_match]
+foreground = {{ (print "#" .colours.search.focused_match.foreground) | quote }}
+background = {{ (print "#" .colours.search.focused_match.background) | quote }}
+
+[colors.footer_bar]
+foreground = {{ (print "#" .colours.footer_bar.foreground) | quote }}
+background = {{ (print "#" .colours.footer_bar.background) | quote }}
+
+[colors.hints.start]
+foreground = {{ (print "#" .colours.hints.start.foreground) | quote }}
+background = {{ (print "#" .colours.hints.start.background) | quote }}
+
+[colors.hints.end]
+foreground = {{ (print "#" .colours.hints.end.foreground) | quote }}
+background = {{ (print "#" .colours.hints.end.background) | quote }}
+
+[colors.selection]
+text = {{ (print "#" .colours.selection.text) | quote }}
+background = {{ (print "#" .colours.selection.background) | quote }}
+
+[colors.normal]
+black = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.black) | quote }}{{ end }}
+red = {{ (print "#" .colours.normal.red) | quote }}
+green = {{ (print "#" .colours.normal.green) | quote }}
+yellow = {{ (print "#" .colours.normal.yellow) | quote }}
+blue = {{ (print "#" .colours.normal.blue) | quote }}
+magenta = {{ (print "#" .colours.normal.magenta) | quote }}
+cyan = {{ (print "#" .colours.normal.cyan) | quote }}
+white = {{ (print "#" .colours.normal.white) | quote }}
+
+[colors.bright]
+black = {{ (print "#" .colours.bright.black) | quote }}
+red = {{ (print "#" .colours.bright.red) | quote }}
+green = {{ (print "#" .colours.bright.green) | quote }}
+yellow = {{ (print "#" .colours.bright.yellow) | quote }}
+blue = {{ (print "#" .colours.bright.blue) | quote }}
+magenta = {{ (print "#" .colours.bright.magenta) | quote }}
+cyan = {{ (print "#" .colours.bright.cyan) | quote }}
+white = {{ (print "#" .colours.bright.white) | quote }}
+
+[[colors.indexed_colors]]
+index = 16
+color = {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+
+[[colors.indexed_colors]]
+index = 17
+color = {{ (print "#" .colours.normal.indexed_colors.color17) | quote }}

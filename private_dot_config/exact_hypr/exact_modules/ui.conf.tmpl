@@ -12,10 +12,10 @@ general {
 	layout = master
 	resize_on_border = true
 
-	col.active_border = {{ print "0xff" .current.theme.mauve }}
-	col.inactive_border = {{ print "0xff" .current.theme.lavender }}
-	col.nogroup_border_active = {{ print "0xff" .current.theme.flamingo }}
-	col.nogroup_border = {{ print "0xff" .current.theme.rosewater }}
+	col.active_border = {{ print "0xff" .colours.normal.mauve }}
+	col.inactive_border = {{ print "0xff" .colours.normal.lavender }}
+	col.nogroup_border_active = {{ print "0xff" .colours.normal.flamingo }}
+	col.nogroup_border = {{ print "0xff" .colours.normal.rosewater }}
 
 	snap {
 		enabled = true
@@ -76,20 +76,20 @@ animations {
 }
 
 group {
-	col.border_active = {{ print "0x66" .current.theme.mauve }}
-	col.border_inactive = {{ print "0x66" .current.theme.mauve }}
-	col.border_locked_active = {{ print "0x66" .current.theme.flamingo }}
-	col.border_locked_inactive = {{ print "0x66" .current.theme.rosewater }}
+	col.border_active = {{ print "0x66" .colours.normal.mauve }}
+	col.border_inactive = {{ print "0x66" .colours.normal.mauve }}
+	col.border_locked_active = {{ print "0x66" .colours.normal.flamingo }}
+	col.border_locked_inactive = {{ print "0x66" .colours.normal.rosewater }}
 
 	groupbar {
 			# text_color =
 			# text_color_inactive =
 			# text_color_locked_active =
 			# text_color_locked_inactive =
-			col.active = {{ print "0x66" .current.theme.mauve }}
-			col.inactive = {{ print "0x66" .current.theme.mauve }}
-			col.locked_active = {{ print "0x66" .current.theme.flamingo }}
-			col.locked_inactive = {{ print "0x66" .current.theme.rosewater }}
+			col.active = {{ print "0x66" .colours.normal.mauve }}
+			col.inactive = {{ print "0x66" .colours.normal.mauve }}
+			col.locked_active = {{ print "0x66" .colours.normal.flamingo }}
+			col.locked_inactive = {{ print "0x66" .colours.normal.rosewater }}
 			gaps_in = 2
 			gaps_out = 2
 			blur = false
@@ -115,7 +115,7 @@ misc {
 	focus_on_activate = true
 	anr_missed_pings = 3
 	allow_session_lock_restore = true
-	background_color = {{ print "0x" .current.theme.primary.background }}
+	background_color = {{ if .theme.blackout }}0x000000{{ else }}{{ print "0x" .colours.normal.background }}{{ end }}
 }
 
 # https://wiki.hypr.land/Configuring/Variables/#cursor

@@ -35,28 +35,28 @@ opacity = {{ if ge (0.5 | sub .env.opacityInactive) 0.1 }}{{ (0.5 | sub .env.opa
 
 style = "Islands"
 
-success_color = {{ (print "#" .current.theme.green) | quote }}
-text_color = {{ (print "#" .current.theme.text) | quote }}
+success_color = {{ (print "#" .colours.normal.green) | quote }}
+text_color = {{ (print "#" .colours.normal.text) | quote }}
 
-workspace_colors = [ {{ (print "#" .current.theme.indexed_colors.color16) | quote }}, {{ (print "#" .current.theme.lavender) | quote }}, {{ (print "#" .current.theme.mauve) | quote }} ]
+workspace_colors = [ {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}, {{ (print "#" .colours.normal.lavender) | quote }}, {{ (print "#" .colours.normal.mauve) | quote }} ]
 
 [appearance.menu]
 opacity = 0.5
 backdrop = 0.3
 
 [appearance.primary_color]
-base = {{ (print "#" .current.theme.peach) | quote }}
-text = {{ (print "#" .current.theme.mantle) | quote }}
+base = {{ (print "#" .colours.normal.peach) | quote }}
+text = {{ (print "#" .colours.normal.mantle) | quote }}
 
 [appearance.danger_color]
-base = {{ (print "#" .current.theme.red) | quote }}
-weak = {{ (print "#" .current.theme.yellow) | quote }}
+base = {{ (print "#" .colours.normal.red) | quote }}
+weak = {{ (print "#" .colours.normal.yellow) | quote }}
 
 [appearance.background_color]
-base = {{ (print "#" .current.theme.base) | quote }}
-weak = {{ (print "#" .current.theme.surface0) | quote }}
-strong = {{ (print "#" .current.theme.surface1) | quote }}
+base = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.base) | quote }}{{ end }}
+weak = {{ (print "#" .colours.normal.surface0) | quote }}
+strong = {{ (print "#" .colours.normal.surface2) | quote }}
 
 [appearance.secondary_color]
-base = {{ (print "#" .current.theme.crust) | quote }}
-strong = {{ (print "#" .current.theme.mantle) | quote }}
+base = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.crust) | quote }}{{ end }}
+strong = {{ (print "#" .colours.normal.surface1) | quote }}
