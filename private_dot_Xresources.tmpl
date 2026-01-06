@@ -13,21 +13,21 @@ XTerm*vt100.translations: #override \n\
   Shift <KeyPress> Prior: string(0x1b) string("[25S") \n\
   Shift <KeyPress> Next: string(0x1b) string("[25T") \n
 
-*foreground: {{ print "#" .current.theme.primary.foreground}}
-*background: {{ print "#" .current.theme.primary.background }}
-*color0:  {{ print "#" .current.theme.normal.black }}
-*color1:  {{ print "#" .current.theme.normal.red }}
-*color2:  {{ print "#" .current.theme.normal.green }}
-*color3:  {{ print "#" .current.theme.normal.yellow }}
-*color4:  {{ print "#" .current.theme.normal.blue }}
-*color5:  {{ print "#" .current.theme.normal.magenta }}
-*color6:  {{ print "#" .current.theme.normal.cyan }}
-*color7:  {{ print "#" .current.theme.normal.white }}
-*color8:  {{ print "#" .current.theme.bright.black }}
-*color9:  {{ print "#" .current.theme.bright.red }}
-*color10: {{ print "#" .current.theme.bright.green }}
-*color11: {{ print "#" .current.theme.bright.yellow }}
-*color12: {{ print "#" .current.theme.bright.blue }}
-*color13: {{ print "#" .current.theme.bright.magenta }}
-*color14: {{ print "#" .current.theme.bright.cyan }}
-*color15: {{ print "#" .current.theme.bright.white }}
+*foreground: {{ print "#" .colours.normal.foreground }}
+*background: {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background }}{{ end }}
+*color0:  {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.black }}{{ end }}
+*color1:  {{ print "#" .colours.normal.red }}
+*color2:  {{ print "#" .colours.normal.green }}
+*color3:  {{ print "#" .colours.normal.yellow }}
+*color4:  {{ print "#" .colours.normal.blue }}
+*color5:  {{ print "#" .colours.normal.magenta }}
+*color6:  {{ print "#" .colours.normal.cyan }}
+*color7:  {{ print "#" .colours.normal.white }}
+*color8:  {{ print "#" .colours.bright.black }}
+*color9:  {{ print "#" .colours.bright.red }}
+*color10: {{ print "#" .colours.bright.green }}
+*color11: {{ print "#" .colours.bright.yellow }}
+*color12: {{ print "#" .colours.bright.blue }}
+*color13: {{ print "#" .colours.bright.magenta }}
+*color14: {{ print "#" .colours.bright.cyan }}
+*color15: {{ print "#" .colours.bright.white }}

@@ -84,7 +84,7 @@ config = {
 		font = wezterm.font({
 			family = {{ .env.font | quote }},
 		}),
-		font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }},
+		font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 12 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }},
 		-- active_titlebar_bg = "#000000",
 		-- inactive_titlebar_bg = "#000000",
 	},
@@ -100,14 +100,14 @@ config = {
 	{{- if eq .chezmoi.os "linux" }}
 	enable_wayland = detect.wayland(),
 	{{ end -}}
-	initial_cols = {{ if .tags.thinkpad.enabled }}{{ 20 | sub .env.cols }}{{ else }}{{ .env.cols }}{{ end }},
-	initial_rows = {{ if .tags.thinkpad.enabled }}{{ 5 | sub .env.rows }}{{ else }}{{ .env.rows }}{{ end }},
+	initial_cols = {{ if .tags.thinkpad.enabled }}{{ if ge (20 | sub .env.cols) 10 }}{{ 20 | sub .env.cols }}{{ else }}{{ .env.cols }}{{ end }}{{ else }}{{ .env.cols }}{{ end }},
+	initial_rows = {{ if .tags.thinkpad.enabled }}{{ if ge (5 | sub .env.rows) 10 }}{{ 5 | sub .env.rows }}{{ else }} {{ .env.rows }}{{ end }}{{ else }}{{ .env.rows }}{{ end }},
 	inactive_pane_hsb = {
 		saturation = 0.3,
 		brightness = 0.3,
 	},
 	font = wezterm.font({{ .env.font | quote }}),
-	font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }},
+	font_size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 12 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }},
 	max_fps = 120,
 	line_height = 1.1,
 	-- Cursor style

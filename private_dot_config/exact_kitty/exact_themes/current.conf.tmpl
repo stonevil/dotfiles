@@ -1,0 +1,70 @@
+# The basic colors
+foreground {{ (print "#" .colours.normal.background) | quote }}
+background {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
+selection_foreground {{ (print "#" .colours.selection.text) | quote }}
+selection_background {{ (print "#" .colours.selection.background) | quote }}
+
+# Cursor colors
+cursor {{ (print "#" .colours.cursor.cursor) | quote }}
+cursor_text_color {{ (print "#" .colours.cursor.text) | quote }}
+
+# URL underline color when hovering with mouse
+url_color {{ (print "#" .colours.normal.urls) | quote }}
+
+# Kitty window border colors
+active_border_color {{ (print "#" .colours.normal.blue) | quote }}
+inactive_border_color {{ (print "#" .colours.normal.black) | quote }}
+bell_border_color {{ (print "#" .colours.bright.yellow) | quote }}
+
+# OS Window titlebar colors
+wayland_titlebar_color system
+macos_titlebar_color system
+
+# Tab bar colors
+active_tab_foreground {{ (print "#" .colours.cursor.text) | quote }}
+active_tab_background {{ (print "#" .colours.cursor.cursor) | quote }}
+inactive_tab_foreground {{ (print "#" .colours.bright.foreground) | quote }}
+inactive_tab_background {{ (print "#" .colours.bright.background) | quote }}
+tab_bar_background {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
+
+# Colors for marks (marked text in the terminal)
+mark1_foreground {{ (print "#" .colours.cursor.text) | quote }}
+mark1_background {{ (print "#" .colours.normal.surface2) | quote }}
+mark2_foreground {{ (print "#" .colours.cursor.text) | quote }}
+mark2_background {{ (print "#" .colours.normal.surface1) | quote }}
+mark3_foreground {{ (print "#" .colours.cursor.text) | quote }}
+mark3_background {{ (print "#" .colours.normal.surface0) | quote }}
+
+# The 16 terminal colors
+
+# black
+color0 {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.black) | quote }}{{ end }}
+color8 {{ (print "#" .colours.bright.black) | quote }}
+
+# red
+color1 {{ (print "#" .colours.normal.red) | quote }}
+color9 {{ (print "#" .colours.bright.red) | quote }}
+
+# green
+color2 {{ (print "#" .colours.normal.green) | quote }}
+color10 {{ (print "#" .colours.bright.green) | quote }}
+
+# yellow
+color3 {{ (print "#" .colours.normal.yellow) | quote }}
+color11 {{ (print "#" .colours.bright.yellow) | quote }}
+
+# blue
+color4 {{ (print "#" .colours.normal.blue) | quote }}
+color12 {{ (print "#" .colours.bright.blue) | quote }}
+
+# magenta
+color5 {{ (print "#" .colours.normal.magenta) | quote }}
+color13 {{ (print "#" .colours.bright.magenta) | quote }}
+
+# cyan
+color6 {{ (print "#" .colours.normal.cyan) | quote }}
+color14 {{ (print "#" .colours.bright.cyan) | quote }}
+
+# white
+color7 {{ (print "#" .colours.normal.white) | quote }}
+color15 {{ (print "#" .colours.bright.white) | quote }}

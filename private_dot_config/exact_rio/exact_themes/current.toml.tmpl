@@ -1,0 +1,45 @@
+[colors]
+
+# Normal
+cursor     = {{ (print "#" .colours.cursor.cursor) | squote }}
+foreground = {{ (print "#" .colours.normal.foreground) | squote }}
+background = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.background) | squote }}{{ end }}
+black      = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.black) | squote }}{{ end }}
+white      = {{ (print "#" .colours.normal.white) | squote }}
+blue       = {{ (print "#" .colours.normal.blue) | squote }}
+cyan       = {{ (print "#" .colours.normal.cyan) | squote }}
+green      = {{ (print "#" .colours.normal.green) | squote }}
+magenta    = {{ (print "#" .colours.normal.magenta) | squote }}
+red        = {{ (print "#" .colours.normal.red) | squote }}
+yellow     = {{ (print "#" .colours.normal.yellow) | squote }}
+
+# UI colors
+tabs                   = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.background) | squote }}{{ end }}
+tabs-foreground        = {{ (print "#" .colours.normal.foreground) | squote }}
+tabs-active            = {{ (print "#" .colours.cursor.vi_mode.cursor) | squote }}
+tabs-active-highlight  = {{ (print "#" .colours.cursor.vi_mode.cursor) | squote }}
+tabs-active-foreground = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.crust) | squote }}{{ end }}
+selection-foreground   = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.cursor.text) | squote }}{{ end }}
+selection-background   = {{ (print "#" .colours.cursor.cursor) | squote }}
+
+# Dim colors
+dim-foreground  = {{ (print "#" .colours.normal.foreground) | squote }}
+dim-black       = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.black) | squote }}{{ end }}
+dim-white       = {{ (print "#" .colours.normal.white) | squote }}
+dim-blue        = {{ (print "#" .colours.normal.blue) | squote }}
+dim-cyan        = {{ (print "#" .colours.normal.cyan) | squote }}
+dim-green       = {{ (print "#" .colours.normal.green) | squote }}
+dim-magenta     = {{ (print "#" .colours.normal.magenta) | squote }}
+dim-red         = {{ (print "#" .colours.normal.red) | squote }}
+dim-yellow      = {{ (print "#" .colours.normal.yellow) | squote }}
+
+# Light colors
+light-foreground = {{ (print "#" .colours.bright.foreground) | squote }}
+light-black      = {{ (print "#" .colours.bright.black) | squote }}
+light-white      = {{ (print "#" .colours.bright.white) | squote }}
+light-blue       = {{ (print "#" .colours.bright.blue) | squote }}
+light-cyan       = {{ (print "#" .colours.bright.cyan) | squote }}
+light-green      = {{ (print "#" .colours.bright.green) | squote }}
+light-magenta    = {{ (print "#" .colours.bright.magenta) | squote }}
+light-red        = {{ (print "#" .colours.bright.red) | squote }}
+light-yellow     = {{ (print "#" .colours.bright.yellow) | squote }}

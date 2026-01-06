@@ -1,0 +1,34 @@
+[colors]
+cursor={{ .colours.cursor.text }} {{ .colours.cursor.cursor }}
+foreground={{ .colours.normal.foreground }}
+background={{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.background }}{{ end }}
+
+regular0={{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.black }}{{ end }}
+regular1={{ .colours.normal.red }}
+regular2={{ .colours.normal.green }}
+regular3={{ .colours.normal.yellow }}
+regular4={{ .colours.normal.blue }}
+regular5={{ .colours.normal.magenta }}
+regular6={{ .colours.normal.cyan }}
+regular7={{ .colours.normal.white }}
+
+bright0={{ .colours.bright.black }}
+bright1={{ .colours.bright.red }}
+bright2={{ .colours.bright.green }}
+bright3={{ .colours.bright.yellow }}
+bright4={{ .colours.bright.blue }}
+bright5={{ .colours.bright.magenta }}
+bright6={{ .colours.bright.cyan }}
+bright7={{ .colours.bright.white }}
+
+16={{ .colours.normal.indexed_colors.color16 }}
+17={{ .colours.normal.indexed_colors.color17 }}
+
+selection-foreground={{ .colours.selection.text }}
+selection-background={{ .colours.selection.background }}
+
+search-box-no-match={{ .colours.cursor.text}} {{ .colours.cursor.cursor }}
+search-box-match={{ .colours.bright.foreground }} {{ .colours.bright.background }}
+
+jump-labels={{ .colours.cursor.text }} {{ .colours.normal.indexed_colors.color16 }}
+urls={{ .colours.normal.urls }}

@@ -2,80 +2,80 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
-$rosewater = rgb({{ .current.theme.indexed_colors.color17 }})
-$rosewaterAlpha = {{ .current.theme.indexed_colors.color17 }}
+$rosewater = rgb({{ .colours.normal.rosewater }})
+$rosewaterAlpha = {{ .colours.normal.rosewater }}
 
-$flamingo = rgb(f2cdcd)
-$flamingoAlpha = f2cdcd
+$flamingo = rgb({{ .colours.normal.flamingo }})
+$flamingoAlpha = {{ .colours.normal.flamingo }}
 
-$pink = rgb({{ .current.theme.bright.magenta }})
-$pinkAlpha = {{ .current.theme.bright.magenta }}
+$pink = rgb({{ .colours.normal.pink }})
+$pinkAlpha = {{ .colours.normal.pink }}
 
-$mauve = rgb(cba6f7)
-$mauveAlpha = cba6f7
+$mauve = rgb({{ .colours.normal.mauve }})
+$mauveAlpha = {{ .colours.normal.mauve }}
 
-$red = rgb({{ .current.theme.normal.red }})
-$redAlpha = {{ .current.theme.normal.red }}
+$red = rgb({{ .colours.normal.red }})
+$redAlpha = {{ .colours.normal.red }}
 
-$maroon = rgb(eba0ac)
-$maroonAlpha = eba0ac
+$maroon = rgb({{ .colours.normal.maroon }})
+$maroonAlpha = {{ .colours.normal.maroon }}
 
-$peach = rgb({{ .current.theme.indexed_colors.color17 }})
-$peachAlpha = {{ .current.theme.indexed_colors.color17 }}
+$peach = rgb({{ .colours.normal.peach }})
+$peachAlpha = {{ .colours.normal.peach }}
 
-$yellow = rgb({{ .current.theme.normal.yellow }})
-$yellowAlpha = {{ .current.theme.normal.yellow }}
+$yellow = rgb({{ .colours.normal.yellow }})
+$yellowAlpha = {{ .colours.normal.yellow }}
 
-$green = rgb({{ .current.theme.normal.green }})
-$greenAlpha = {{ .current.theme.normal.green }}
+$green = rgb({{ .colours.normal.green }})
+$greenAlpha = {{ .colours.normal.green }}
 
-$teal = rgb({{ .current.theme.bright.cyan }})
-$tealAlpha = {{ .current.theme.bright.cyan }}
+$teal = rgb({{ .colours.normal.teal }})
+$tealAlpha = {{ .colours.normal.teal }}
 
-$sky = rgb(89dceb)
-$skyAlpha = 89dceb
+$sky = rgb({{ .colours.normal.sky }})
+$skyAlpha = {{ .colours.normal.sky }}
 
-$sapphire = rgb(74c7ec)
-$sapphireAlpha = 74c7ec
+$sapphire = rgb({{ .colours.normal.sapphire }})
+$sapphireAlpha = {{ .colours.normal.sapphire }}
 
-$blue = rgb({{ .current.theme.normal.blue }})
-$blueAlpha = {{ .current.theme.normal.blue }}
+$blue = rgb({{ .colours.normal.blue }})
+$blueAlpha = {{ .colours.normal.blue }}
 
-$lavender = rgb(b4befe)
-$lavenderAlpha = b4befe
+$lavender = rgb({{ .colours.normal.lavender }})
+$lavenderAlpha = {{ .colours.normal.lavender }}
 
-$text = rgb({{ .current.theme.primary.foreground }})
-$textAlpha = {{ .current.theme.primary.foreground }}
+$text = rgb({{ .colours.normal.text }})
+$textAlpha = {{ .colours.normal.text }}
 
-$subtext1 = rgb(bac2de)
-$subtext1Alpha = bac2de
+$subtext1 = rgb({{ .colours.normal.subtext1 }})
+$subtext1Alpha = {{ .colours.normal.subtext1 }}
 
-$subtext0 = rgb(a6adc8)
-$subtext0Alpha = a6adc8
+$subtext0 = rgb({{ .colours.normal.subtext0 }})
+$subtext0Alpha = {{ .colours.normal.subtext0 }}
 
-$overlay2 = rgb(9399b2)
-$overlay2Alpha = 9399b2
+$overlay2 = rgb({{ .colours.normal.overlay2 }})
+$overlay2Alpha = {{ .colours.normal.overlay2 }}
 
-$overlay1 = rgb(7f849c)
-$overlay1Alpha = 7f849c
+$overlay1 = rgb({{ .colours.normal.overlay1 }})
+$overlay1Alpha = {{ .colours.normal.overlay1 }}
 
-$overlay0 = rgb(6c7086)
-$overlay0Alpha = 6c7086
+$overlay0 = rgb({{ .colours.normal.overlay0 }})
+$overlay0Alpha = {{ .colours.normal.overlay0 }}
 
-$surface2 = rgb(585b70)
-$surface2Alpha = 585b70
+$surface2 = rgb({{ .colours.normal.surface2 }})
+$surface2Alpha = {{ .colours.normal.surface2 }}
 
-$surface1 = rgb(45475a)
-$surface1Alpha = 45475a
+$surface1 = rgb({{ .colours.normal.surface1 }})
+$surface1Alpha ={{ .colours.normal.surface1 }}
 
-$surface0 = rgb(313244)
-$surface0Alpha = 313244
+$surface0 = rgb({{ .colours.normal.surface0 }})
+$surface0Alpha ={{ .colours.normal.surface0 }}
 
-$base = rgb({{ .current.theme.primary.background }})
-$baseAlpha = {{ .current.theme.primary.background }}
+$base = rgb({{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.base }}{{ end }})
+$baseAlpha = {{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.base }}{{ end }}
 
-$mantle = rgb(181825)
-$mantleAlpha = 181825
+$mantle = rgb({{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.mantle }}{{ end }})
+$mantleAlpha = {{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.mantle }}{{ end }}
 
-$crust = rgb(11111b)
-$crustAlpha = 11111b
+$crust = rgb({{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.crust }}{{ end }})
+$crustAlpha = {{ if .theme.blackout }}000000{{ else }}{{ .colours.normal.crust }}{{ end }}
