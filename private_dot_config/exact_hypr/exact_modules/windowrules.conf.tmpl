@@ -58,6 +58,8 @@ windowrule2 = suppressevent maximize, class:.*
 # Fix some dragging issues with Wayland
 windowrule2 = nofocus, class:^$, title:^$, xwayland: 1, floating: 1, fullscreen: 0, pinned: 0
 
+windowrulev2 = opacity 0.5, class:(mako)
+
 # KDE Plasma workaround for screen sharing
 windowrule {
 	name = xwayland-video-bridge-fixes
@@ -76,11 +78,13 @@ layerrule = match:namespace waybar, blur on
 layerrule = match:namespace waybar, ignore_alpha 0.5
 layerrule = match:namespace waybar, no_anim on
 
-# Blur SwayNC
-layerrule = match:namespace swaync-control-center, blur on
-layerrule = match:namespace swaync-notification-window, blur on
-layerrule = match:namespace swaync-control-center, ignore_alpha 0.5
-layerrule = match:namespace swaync-notification-window, ignore_alpha 0.5
+# Blur SwayNC / Notifications
+layerrule = match:namespace (swaync-control-center|notifications), blur on
+layerrule = match:namespace (swaync-notification-window|notifications), blur on
+layerrule = match:namespace (swaync-control-center|notifications), ignore_alpha 0.5
+layerrule = match:namespace (swaync-notification-window|notifications), ignore_alpha 0.5
+layerrule = match:namespace (swaync-control-center|notifications), no_screen_share on
+layerrule = match:namespace (swaync-notification-window|notifications), no_screen_share on
 
 # Blur wlogout
 layerrule = match:namespace logout_dialog, animation fade
