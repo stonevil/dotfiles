@@ -12,20 +12,6 @@ $browser = librewolf
 $mail = thunderbird
 $editor = nvim
 
-{{- if .tags.dms.enabled }}
-$appsswitcher = dms ipc call hypr toggleOverview
-$notifications = dms ipc call notifications toggle
-$clipboard = dms ipc call clipboard toggle
-$spotlight = dms ipc call spotlight toggle
-$screenlock = dms ipc call lock lock
-
-$volumeup = dms ipc call audio increment 5
-$volumedown = dms ipc call audio decrement 5
-$volumemute = dms ipc call audio mute
-
-$backlightup = dms ipc call brightness increment 3 backlight:intel_backlight
-$backlightdown = dms ipc call brightness decrement 3 backlight:intel_backlight
-{{- else }}
 $notifications = mako
 $spotlight = walker
 $screenlock = playerctl --all-players pause; hyprlock
@@ -36,7 +22,6 @@ $volumemute = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --to
 
 $backlightup = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --inc
 $backlightdown = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --dec
-{{- end }}
 
 $micmute = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --toggle-mic
 $logout = hyprctl dispatch exit

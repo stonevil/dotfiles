@@ -8,12 +8,7 @@ exec-once = dbus-update-activation-environment --systemd --all
 # Disk automount
 exec-once = udiskie -t
 
-{{- if .tags.dms.enabled }}
-# DMS
-exec-once = systemctl --user start hyprland-session.target
-exec-once = dms run
-exec-once = bash -c "wl-paste --watch cliphist store &"
-{{- else }}
+# Auth agent
 exec-once = systemctl --user start hyprpolkitagent
 # exec-once = /usr/lib/polkit-kde-authentication-agent-1 # authentication dialogue for GUI apps
 
@@ -34,7 +29,6 @@ exec-once = walker --gapplication-service
 
 # Ashell, system menubar
 exec-once = ashell --config-path {{ join .chezmoi.homeDir ".config/ashell/config.toml" }}
-{{- end }}
 
 # Playerctl daemon
 exec-once = playerctld
