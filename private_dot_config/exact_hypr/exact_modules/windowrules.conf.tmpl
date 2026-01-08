@@ -2,6 +2,22 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
+# Librewolf
+windowrule {
+	name = Librewolf
+	match:class = ^(librewolf)$
+	workspace = 2
+	float = on
+}
+
+# MPV
+windowrule {
+	name = MPV
+	match:class = ^(mpv)$
+	float = on
+	center = on
+}
+
 # pavucontrol
 windowrulev2 = float,class:^(pavucontrol)$
 windowrulev2 = size 50%,class:^(pavucontrol)$
@@ -15,12 +31,6 @@ windowrulev2 = center,class:(org.kde.polkit-kde-authentication-agent-1)
 windowrulev2 = float,class:(blueman)
 windowrulev2 = center,class:(blueman)
 windowrulev2 = size 50%,class:(blueman)
-
-# Librewolf
-windowrulev2 = workspace 2, class:(librewolf)
-
-# Chrome
-windowrulev2 = workspace 2, class:^(google-chrome)$
 
 # Thunderbird
 windowrulev2 = workspace 4, class:(thunderbird)
@@ -42,10 +52,6 @@ windowrulev2 = workspace 1, class:(dolphin)
 windowrulev2 = workspace 5, class:^(discord)$
 windowrulev2 = workspace 5, class:^(webcord)$
 
-# MPV
-windowrulev2 = float, class:^(mpv)$
-windowrulev2 = center, floating:1, class:^(mpv)$
-
 # File pickers center floating
 windowrule2 = float, center title:^(Open File|Open|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
 
@@ -54,8 +60,6 @@ windowrule2 = suppressevent maximize, class:.*
 
 # Fix some dragging issues with Wayland
 windowrule2 = nofocus, class:^$, title:^$, xwayland: 1, floating: 1, fullscreen: 0, pinned: 0
-
-windowrulev2 = opacity 0.5, class:(mako)
 
 # KDE Plasma workaround for screen sharing
 windowrule {
