@@ -1180,14 +1180,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"nvme-cli",
 		"powerstat",
 		"upower",
+		"usbutils",
+		"pciutils",
+	]
+
+[data.tags.intel]
+	enabled = {{ if or ($zephyrus) ($thinkpad) }}true{{ else }}false{{ end }}
+	arch = [
 		"intel-ucode",
 		"intel-media-driver",
 		"intel-gpu-tools",
 		"smartmontools",
 		"linux-firmware-intel",
 		"libva-intel-driver-irql",
-		"usbutils",
-		"pciutils",
 	]
 
 [data.tags.nvidia]
