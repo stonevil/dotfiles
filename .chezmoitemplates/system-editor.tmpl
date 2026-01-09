@@ -4,6 +4,12 @@ vim:ft=bash.gotexttmpl
 
 {{ if eq .chezmoi.os "linux" }}
 	{{ if eq .chezmoi.osRelease.id "arch" }}
+sudo pacman --noconfirm --remove --recursive vim gvim nano
+sudo pacman --noconfirm --needed --sync neovim
+sudo ln -sf /usr/bin/nvim /usr/bin/v
+sudo ln -sf /usr/bin/nvim /usr/bin/vi
+sudo ln -sf /usr/bin/nvim /usr/bin/vim
+
 sudo sh -c 'cat > /etc/profile.d/editor.sh' << EOF
 #!/bin/sh
 
