@@ -870,6 +870,15 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"sudo cups-genppdupdate",
 	]
 
+[data.tags.gnome]
+	enabled = {{ $hyprland }}
+	arch = [
+		"adwaita-icon-theme",
+		"adwaita-icon-theme-legacy",
+		"adwaita-cursors",
+	]
+
+
 [data.tags.xfce]
 	enabled = {{ $xfce }}
 	fedora = [
@@ -926,6 +935,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"playerctl",
 		"gojq",
 		"cliphist",
+		"nwg-look",
 		"wev",
 		"xwaylandvideobridge",
 	]
