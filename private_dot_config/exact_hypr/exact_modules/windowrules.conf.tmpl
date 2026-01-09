@@ -18,6 +18,27 @@ windowrule {
 	center = on
 }
 
+# Dolphin
+windowrule {
+	name = Dolphin
+	match:class = ^(dolphin)$
+	workspace = 1
+}
+
+# Discord
+windowrule {
+	name = Discord
+	match:class = ^(discord)$
+	workspace = 3
+}
+
+# Float class
+windowrule {
+	name = Float
+	match:class = ^(floating)$
+	float = on
+}
+
 # pavucontrol
 windowrulev2 = float,class:^(pavucontrol)$
 windowrulev2 = size 50%,class:^(pavucontrol)$
@@ -44,13 +65,6 @@ windowrulev2 = float,class:(thunderbird)
 windowrulev2 = float,class:(Msgcompose.*)
 windowrulev2 = float, class:(thunderbird),title(.*)(Reminders)$
 windowrulev2 = maximize, class:(thunderbird)
-
-# Dolphin
-windowrulev2 = workspace 1, class:(dolphin)
-
-# Discord, WebCord
-windowrulev2 = workspace 5, class:^(discord)$
-windowrulev2 = workspace 5, class:^(webcord)$
 
 # File pickers center floating
 windowrule2 = float, center title:^(Open File|Open|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
