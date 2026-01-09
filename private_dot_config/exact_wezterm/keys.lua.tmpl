@@ -45,16 +45,16 @@ function M.setup(config)
 
 		{ key = "z", mods = "META|SHIFT", action = wezterm.action.TogglePaneZoomState },
 
-		{ key = "f", mods = "SUPER|CTRL", action = wezterm.action.ToggleFullScreen },
-
 		{ key = "d", mods = "SUPER|SHIFT", action = wezterm.action.ShowDebugOverlay },
-
-		{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
-		{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
 
 		{ key = "f", mods = "META", action = wezterm.action.Search("CurrentSelectionOrEmptyString") },
 
 	{{- if eq .chezmoi.os "darwin" }}
+		{ key = "f", mods = "SUPER|CTRL", action = wezterm.action.ToggleFullScreen },
+
+		{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
+		{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
+
 		{ key = "q", mods = "SUPER", action = "QuitApplication" },
 		{ key = "w", mods = "SUPER", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 		{ key = "t", mods = "SUPER", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },

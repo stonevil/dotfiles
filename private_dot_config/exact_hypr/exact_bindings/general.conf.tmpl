@@ -7,11 +7,8 @@
 
 bindl = CTRL, SPACE, exec, hyprctl notify -1 1500 0 $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')
 
-bindd = SUPER, TAB, Apps Switcher, exec, $appsswitcher # Apps Switcher
-
-# Lock screen
-bindd = SUPER CTRL, Q, Lock the screen, exec, $screenlock # macOS alike
-bindd = SUPER, L, Lock the screen, exec, $screenlock # Windows alike
+# Apps Switcher
+bindd = SUPER, TAB, Apps Switcher, exec, $appsswitcher # macOS alike
 
 # Screenshots
 bindd = SUPER SHIFT, 3, Screenshot window, exec, hyprshot -m output # macOS alike
@@ -19,8 +16,14 @@ bindd = SUPER SHIFT, 4, Screenshot area, exec, hyprshot -m window
 bindd = , PRINT, Screenshot window, exec, hyprshot -m window # Windows alike
 bindd = SHIFT, PRINT, Screenshot area, exec, hyprshot -m region
 
+# Spotlight / Search
 bindd = SUPER, SPACE, Spotlight, exec, $spotlight
 
-bindd = SUPER SHIFT, N, Notification Center, exec, $notifications # Notification Center
+# Notification Center
+bindd = SUPER CTRL, N, Notification Center, exec, $notifications
 
-bindd = CTRL ALT, DELETE, Exit Hyprland, exec, $logout # Logout
+# Lock screen
+bindd = SUPER CTRL, Q, Lock the screen, exec, $screenlock # macOS alike
+
+# Logout
+bindd = SUPER SHIFT, Q, Exit Hyprland, exec, $logout # macOS alike
