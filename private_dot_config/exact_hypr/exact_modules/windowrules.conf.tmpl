@@ -10,6 +10,14 @@ windowrule {
 	float = on
 }
 
+# Chromium
+windowrule {
+	name = Chromium
+	match:class = ^(chromium)$
+	workspace = 2
+	float = on
+}
+
 # MPV
 windowrule {
 	name = MPV
@@ -32,6 +40,48 @@ windowrule {
 	workspace = 3
 }
 
+# Terminal
+windowrule {
+	name = Foot
+	match:class = ^(Alacritty|foot|kitty|wezterm|com.mitchellh.ghostty)$
+	opacity = 0.9
+}
+
+# Polkit
+windowrule {
+	name = Polkit
+	match:class = (org.kde.polkit-kde-authentication-agent-1)
+	float = on
+	center = on
+}
+
+# Blueman
+windowrule {
+	name = Blueman
+	match:class = (blueman)
+	size = 50%
+	center = on
+	float = on
+}
+
+# Pavucontrol
+windowrule {
+	name = Pavucontrol
+	match:class = ^(pavucontrol)$
+	size = 50%
+	center = on
+	float = on
+}
+
+
+# File pickers center floating
+windowrule {
+	name = FilePicker
+	match:title = ^(Open File|Open|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
+	center = on
+	float = on
+}
+
 # Float class
 windowrule {
 	name = Float
@@ -39,19 +89,11 @@ windowrule {
 	float = on
 }
 
-# pavucontrol
-windowrulev2 = float,class:^(pavucontrol)$
-windowrulev2 = size 50%,class:^(pavucontrol)$
-windowrulev2 = center,class:^(pavucontrol)$
+# Ignore maximize requests from apps
+windowrule2 = suppressevent maximize, class:.*
 
-# polkit
-windowrulev2 = float,class:(org.kde.polkit-kde-authentication-agent-1)
-windowrulev2 = center,class:(org.kde.polkit-kde-authentication-agent-1)
-
-# blueman
-windowrulev2 = float,class:(blueman)
-windowrulev2 = center,class:(blueman)
-windowrulev2 = size 50%,class:(blueman)
+# Fix some dragging issues with Wayland
+windowrule2 = nofocus, class:^$, title:^$, xwayland: 1, floating: 1, fullscreen: 0, pinned: 0
 
 # Thunderbird
 windowrulev2 = workspace 4, class:(thunderbird)
@@ -66,20 +108,10 @@ windowrulev2 = float,class:(Msgcompose.*)
 windowrulev2 = float, class:(thunderbird),title(.*)(Reminders)$
 windowrulev2 = maximize, class:(thunderbird)
 
-# File pickers center floating
-windowrule2 = float, center title:^(Open File|Open|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
-
-# Ignore maximize requests from apps
-windowrule2 = suppressevent maximize, class:.*
-
-# Fix some dragging issues with Wayland
-windowrule2 = nofocus, class:^$, title:^$, xwayland: 1, floating: 1, fullscreen: 0, pinned: 0
-
 # KDE Plasma workaround for screen sharing
 windowrule {
 	name = xwayland-video-bridge-fixes
 	match:class = xwaylandvideobridge
-
 	no_initial_focus = true
 	no_focus = true
 	no_anim = true
