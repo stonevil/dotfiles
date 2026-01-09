@@ -22,6 +22,9 @@ trap "exit" INT
 	echo "ARCH: disable the debug build with yay"
 	sudo sed -i '/^OPTIONS=(/s/ debug/ !debug/' /etc/makepkg.conf || true
 
+	echo "ARCH: enable colour for pacman"
+	sudo sed -i '/Color/s/^#//g' /etc/pacman.conf || true
+
 	echo "ARCH: update packages"
 	sudo pacman --noconfirm --needed --sync --refresh --sysupgrade || exit 1
 
