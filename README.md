@@ -85,7 +85,7 @@ Known issues
 
 But like any tool, chezmoi have own limitation.
 
-Just like Go templates also have some limitations. And this limitations had contribution to sometimes not so optiomal solutions.
+Just like ``Go`` templates also have some limitations. And this limitations had contribution to sometimes not so optiomal solutions.
 
 
 TODO
