@@ -7,6 +7,98 @@ vim:ft=bash.gotexttmpl
 
 # Cleanup Nvidia
 {{ if eq .chezmoi.os "linux" }}
+
+
+	{{ if or (eq .tags.zephyrus.enabled true) (eq .tags.thinkpad.enabled false) }}
+sudo sh -c 'cat > /etc/udev/rules.d/20-audio-pm.rules' << EOF
+# Disables power saving capabilities for snd-hda-intel when device is not running on battery power. This is needed because it prevents audio cracks on some hardware.
+ACTION=="add", SUBSYSTEM=="sound", KERNEL=="card*", DRIVERS=="snd_hda_intel", TEST!="/run/udev/snd-hda-intel-powersave", RUN+="/usr/bin/bash -c 'touch /run/udev/snd-hda-intel-powersave; [[ $$(cat /sys/class/power_supply/BAT0/status 2>/dev/null) != \"Discharging\" ]] && echo $$(cat /sys/module/snd_hda_intel/parameters/power_save) > /run/udev/snd-hda-intel-powersave && echo 0 > /sys/module/snd_hda_intel/parameters/power_save'"
+
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", TEST=="/sys/module/snd_hda_intel", RUN+="/usr/bin/bash -c 'echo $$(cat /run/udev/snd-hda-intel-powersave 2>/dev/null || echo 10) > /sys/module/snd_hda_intel/parameters/power_save'"
+
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", TEST=="/sys/module/snd_hda_intel", RUN+="/usr/bin/bash -c '[[ $$(cat /sys/module/snd_hda_intel/parameters/power_save) != 0 ]] && echo $$(cat /sys/module/snd_hda_intel/parameters/power_save) > /run/udev/snd-hda-intel-powersave; echo 0 > /sys/module/snd_hda_intel/parameters/power_save'"
+EOF
+
+sudo sh -c 'cat > /etc/udev/rules.d/40-hpet-permissions.rules' << EOF
+KERNEL=="rtc0", GROUP="audio"
+KERNEL=="hpet", GROUP="audio"
+EOF
+
+sudo sh -c 'cat > /etc/udev/rules.d/60-ioschedulers.rules' << EOF
+# NVMe SSD
+ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+EOF
+
+sudo sh -c 'cat > /etc/tmpfiles.d/thp-shrinker.conf' << EOF
+# THP Shrinker has been added in the 6.12 Kernel
+# Default Value is 511
+# THP=always policy vastly overprovisions THPs in sparsely accessed memory areas, resulting in excessive memory pressure and premature OOM killing 409 means that any THP that has more than 409 out of 512 (80%) zero filled filled pages will be split.
+# This reduces the memory usage, when THP=always used and the memory usage goes down to around the same usage as when madvise is used, while still providing an equal performance improvement
+w! /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none - - - - 409
+EOF
+
+sudo sh -c 'cat > /etc/tmpfiles.d/coredump.conf' << EOF
+# Clear all coredumps that were created more than 3 days ago
+d /var/lib/systemd/coredump 0755 root root 3d
+EOF
+
+sudo sh -c 'cat > /etc/tmpfiles.d/thp.conf' << EOF
+# Improve performance for applications that use tcmalloc
+# https://github.com/google/tcmalloc/blob/master/docs/tuning.md#system-level-optimizations
+w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise
+EOF
+
+sudo sh -c 'cat > /etc/sysctl.d/optimisation.conf' << EOF
+# The sysctl swappiness parameter determines the kernel's preference for pushing anonymous pages or page cache to disk in memory-starved situations.
+# A low value causes the kernel to prefer freeing up open files (page cache), a high value causes the kernel to try to use swap space, and a value of 100 means IO cost is assumed to be equal.
+vm.swappiness = 100
+
+# The value controls the tendency of the kernel to reclaim the memory which is used for caching of directory and inode objects (VFS cache).
+# Lowering it from the default value of 100 makes the kernel less inclined to reclaim VFS cache (do not set it to 0, this may produce out-of-memory conditions)
+vm.vfs_cache_pressure = 50
+
+# Contains, as bytes, the number of pages at which a process which is generating disk writes will itself start writing out dirty data.
+vm.dirty_bytes = 268435456
+
+# page-cluster controls the number of pages up to which consecutive pages are read in from swap in a single attempt.
+# This is the swap counterpart to page cache readahead. The mentioned consecutivity is not in terms of virtual/physical addresses, but consecutive on swap space - that means they were swapped out together. (Default is 3). Increase this value to 1 or 2 if you are using physical swap (1 if ssd, 2 if hdd)
+vm.page-cluster = 0
+
+# Contains, as bytes, the number of pages at which the background kernel flusher threads will start writing out dirty data.
+vm.dirty_background_bytes = 67108864
+
+# The kernel flusher threads will periodically wake up and write old data out to disk. This tunable expresses the interval between those wakeups, in 100'ths of a second (Default is 500).
+vm.dirty_writeback_centisecs = 1500
+
+# This action will speed up your boot and shutdown, because one less module is loaded. Additionally disabling watchdog timers increases performance and lowers power consumption. Disable NMI watchdog
+kernel.nmi_watchdog = 0
+
+# Enable the sysctl setting kernel.unprivileged_userns_clone to allow normal users to run unprivileged containers.
+kernel.unprivileged_userns_clone = 1
+
+# To hide any kernel messages from the console
+kernel.printk = 3 3 3 3
+
+# Restricting access to kernel pointers in the proc filesystem
+kernel.kptr_restrict = 2
+
+# Increase netdev receive queue. May help prevent losing packets
+net.core.netdev_max_backlog = 4096
+
+# Set size of file handles and inode cache
+fs.file-max = 2097152
+EOF
+
+sudo sh -c 'cat > /etc/modules-load.d/ntsync.conf' << EOF
+ntsync
+EOF
+
+if [[ -z $(grep '@audio' "/etc/security/limits.conf") ]]; then
+sed -i '/# End of file/i \
+@audio - rtprio 99' /etc/security/limits.conf
+fi
+	{{ end }}
+
 	{{ if and (eq .tags.zephyrus.enabled false) (eq .tags.nvidia.enabled false) }}
 		sudo rm -f /etc/modprobe.d/nvidia.conf
 		sudo rm -f /etc/udev/rules.d/50-disable-nvidia.rules
@@ -48,12 +140,13 @@ options nvidia_drm modeset=1 fbdev=1
 
 options nvidia NVreg_EnableS0ixPowerManagement=1 NVreg_DynamicPowerManagement=0x02
 
-options nvidia NVreg_EnableGpuFirmware=0 NVreg_EnableBacklighthandler=0 NVreg_RegistryDwords=EnableBrightnessControl=0
+options nvidia NVreg_EnableGpuFirmware=0 NVreg_EnableBacklighthandler=0 NVreg_RegistryDwords=EnableBrightnessControl=0 NVreg_RegistryDwords=RmEnableAggressiveVblank=1
 
 # NVreg_DynamicPowerManagement=0x02
 # NVreg_PreserveVideoMemoryAllocations=1
 # NVreg_TemporaryFilePath=/var/tmp
-# options nvidia NVreg_UsePageAttributeTable=1
+options nvidia NVreg_UsePageAttributeTable=1
+options nvidia NVreg_InitializeSystemMemoryAllocations=0
 # options nvidia NVreg_UseVBiosInfoROM=1
 # options nvidia NVreg_EnableMSI=1
 # options nvidia NVreg_EnablePCIeGen3=1
