@@ -73,11 +73,18 @@ windowrule {
 	float = on
 }
 
+# Plasma Open File dialog
+windowrule {
+	name = IMPL
+	match:class = (org.freedesktop.impl.portal.desktop.kde)
+	float = on
+	center = on
+}
 
 # File pickers center floating
 windowrule {
 	name = FilePicker
-	match:title = ^(Open File|Open|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
+	match:title = ^(Open File|Open|Open Source|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
 	center = on
 	float = on
 }
