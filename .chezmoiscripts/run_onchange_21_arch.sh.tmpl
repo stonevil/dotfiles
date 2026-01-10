@@ -25,6 +25,9 @@ trap "exit" INT
 	echo "ARCH: enable colour for pacman"
 	sudo sed -i '/Color/s/^#//g' /etc/pacman.conf || true
 
+	echo "ARCH: shrink journald storage"
+	sudo sed -i '/SystemMaxUse/c\SystemMaxUse=50M' /etc/systemd/journald.conf || true
+
 	echo "ARCH: update packages"
 	sudo pacman --noconfirm --needed --sync --refresh --sysupgrade || exit 1
 
