@@ -1008,7 +1008,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $networkTools }}
 	arch = [
 		"krdc",
-		"krfb",
+		"libvncserver",
+		"freerdp",
 	]
 
 [data.tags.devTools]
