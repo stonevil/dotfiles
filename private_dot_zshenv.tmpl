@@ -4,3 +4,49 @@ vim:ft=zsh.gotexttmpl
 
 # vim:ft=zsh :
 # shellcheck source=/dev/null
+
+{{- $p_list := list ((joinPath .chezmoi.homeDir ".local/bin") | quote) }}
+
+{{- if eq .chezmoi.os "darwin" }}
+	{{- if and (.tags.ruby.enabled) (stat (joinPath .path.homebrew "Cellar/ruby")) }}
+			{{- $p_list = append $p_list ((joinPath ((glob (print $.path.homebrew "/Cellar/ruby/*")) | last ) "bin") | quote) }}
+	{{- end }}
+	{{- $p_list = append $p_list ((joinPath .path.homebrew "sbin") | quote) }}
+	{{- $p_list = append $p_list ((joinPath .path.homebrew "bin") | quote) }}
+{{- end }}
+
+{{- if .tags.rust.enabled }}
+	{{- $p_list = append $p_list ((joinPath .chezmoi.homeDir ".cargo/bin") | quote) }}
+{{- end }}
+
+{{- if .tags.k8sToolsCli.enabled }}
+	{{- $p_list = append $p_list ((joinPath .chezmoi.homeDir ".local/krew/bin") | quote) }}
+{{- end }}
+
+export PATH={{ join ":" ($p_list | compact | uniq) }}:$PATH
+
+{{ if lookPath "nvim" }}
+export EDITOR="nvim"
+{{- else }}
+	{{- if lookPath "vim" }}
+export EDITOR="vim"
+	{{- else }}
+		{{- if lookPath "vi" }}
+export EDITOR="vi"
+		{{- end }}
+	{{- end }}
+{{- end }}
+
+{{- if and (eq .chezmoi.os "darwin") ((joinPath .chezmoi.homeDir "Applications/Neovide.app") | lstat) }}
+export VISUAL={{ (joinPath .chezmoi.homeDir "Applications/Neovide.app/Contents/MacOS/neovide") | quote }}
+{{- else }}
+export VISUAL=$EDITOR
+{{- end }}
+
+{{- if and (eq .chezmoi.os "linux") (lookPath "neovide") }}
+export VISUAL="neovide"
+{{- else }}
+export VISUAL=$EDITOR
+{{- end }}
+
+export GIT_EDITOR=$EDITOR
