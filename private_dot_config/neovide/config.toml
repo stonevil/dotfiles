@@ -1,0 +1,9 @@
+neovim-bin = "${HOME}/.brew/bin/nvim"
+frame = "transparent" # options: full, none. macOS only: transparent, buttonless
+title-hidden = true # macOS only
+
+mouse-cursor-icon = "arrow"
+
+[font]
+normal = [] # Will use the bundled Fira Code Nerd Font by default
+size = 14.0
