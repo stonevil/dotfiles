@@ -17,7 +17,7 @@ vim:ft=zsh.gotexttmpl
 {{- end }}
 
 {{- if .tags.k8sToolsCli.enabled }}
-	{{- $p_list = append $p_list ((joinPath .chezmoi.homeDir ".local/krew/bin") | quote) }}
+	{{- $p_list = append $p_list ((joinPath .chezmoi.homeDir ".krew/bin") | quote) }}
 {{- end }}
 
 export PATH={{ join ":" ($p_list | compact | uniq) }}:$PATH
