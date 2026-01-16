@@ -391,9 +391,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	npm = [
 		"yarn",
 	]
-	post.darwin = [
-		"npm_update_self || true",
-	]
 	upgrade.darwin = [
 		"npm_update_self || true",
 		"npm_update || true",
