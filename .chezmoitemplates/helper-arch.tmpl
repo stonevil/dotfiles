@@ -2,27 +2,27 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if index . "pre" }}
-	{{ if index .pre "arch" }}
-		{{ if $.pre.arch }}
-			{{ range $cmd := $.pre.arch }}
+{{- if index . "pre" }}
+	{{- if index .pre "arch" }}
+		{{- if $.pre.arch }}
+			{{- range $cmd := $.pre.arch }}
 				{{ $cmd }} || exit 1
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "arch" }}
+{{- if index . "arch" }}
 		echo "ARCH: install pacman / aur packages"
 		yi {{ join " " (.arch | uniq | sortAlpha) }}
-{{ end }}
+{{- end }}
 
-{{ if index . "post" }}
-	{{ if index .post "arch" }}
-		{{ if $.post.arch }}
-			{{ range $cmd := $.post.arch }}
+{{- if index . "post" }}
+	{{- if index .post "arch" }}
+		{{- if $.post.arch }}
+			{{- range $cmd := $.post.arch }}
 				{{ $cmd }} || exit 1
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}

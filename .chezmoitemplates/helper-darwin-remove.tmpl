@@ -2,32 +2,32 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if index . "remove" }}
-	{{ if index .remove "darwin" }}
-		{{ if $.remove.darwin }}
-			{{ range $cmd := $.remove.darwin }}
+{{- if index . "remove" }}
+	{{- if index .remove "darwin" }}
+		{{- if $.remove.darwin }}
+			{{- range $cmd := $.remove.darwin }}
 				{{ $cmd }} || true
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "darwinhead" }}
+{{- if index . "darwinhead" }}
 	echo "DARWIN: remove brew --HEAD packages"
 	yr --HEAD {{ join " " (.darwinhead | uniq | sortAlpha) }} || true
-{{ end }}
+{{- end }}
 
-{{ if index . "darwin" }}
+{{- if index . "darwin" }}
 	echo "DARWIN: remove brew packages"
 	yr {{ join " " (.darwin | uniq | sortAlpha) }} || true
-{{ end }}
+{{- end }}
 
-{{ if index . "cleanup" }}
-	{{ if index .cleanup "darwin" }}
-		{{ if $.cleanup.darwin }}
-			{{ range $cmd := $.cleanup.darwin }}
+{{- if index . "cleanup" }}
+	{{- if index .cleanup "darwin" }}
+		{{- if $.cleanup.darwin }}
+			{{- range $cmd := $.cleanup.darwin }}
 				{{ $cmd }} || true
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}

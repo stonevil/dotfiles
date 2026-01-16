@@ -2,77 +2,77 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if index . "cargo" }}
-	{{ if lookPath "cargo" }}
+{{- if index . "cargo" }}
+	{{- if lookPath "cargo" }}
 		echo "RUST: remove cargo packages"
 		cargo uninstall {{ join " " (.cargo | uniq | sortAlpha) }} || true
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "go" }}
-	{{ if lookPath "go" }}
+{{- if index . "go" }}
+	{{- if lookPath "go" }}
 		echo "GOLANG: remove go packages"
 		for go_p in {{ join " " (.go | uniq | sortAlpha) }}; do
 			go clean -i "$go_p" || true
 		done
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "pip" }}
-	{{ if lookPath "python3" }}
+{{- if index . "pip" }}
+	{{- if lookPath "python3" }}
 		echo "PYTHON3: remove pip3 packages"
 		for pip_p in {{ join " " (.pip | uniq | sortAlpha) }}; do
 			python3 -m pip uninstall --no-warn-script-location --disable-pip-version-check --no-cache-dir "$pip_p" || true
 		done
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "uv" }}
-	{{ if lookPath "uv" }}
+{{- if index . "uv" }}
+	{{- if lookPath "uv" }}
 		echo "PYTHON3: remove tools packages"
 		for uv_p in {{ join " " (.uv | uniq | sortAlpha) }}; do
 			uv tool uninstall "$uv_p" || true
 		done
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "npm" }}
-	{{ if lookPath "npm" }}
+{{- if index . "npm" }}
+	{{- if lookPath "npm" }}
 		echo "NODEJS: remove npm packages"
 		for npm_p in {{ join " " (.npm | uniq | sortAlpha) }}; do
 			npm uninstall -g "$npm_p" || true
 		done
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "rocks" }}
-	{{ if lookPath "rocks" }}
+{{- if index . "rocks" }}
+	{{- if lookPath "rocks" }}
 		echo "LUA: remove luarocks packages"
 		for rocks_p in {{ join " " (.rocks | uniq | sortAlpha) }}; do
 			luarocks remove --force "$rocks_p" || true
 		done
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "gem" }}
-	{{ if lookPath "gem" }}
+{{- if index . "gem" }}
+	{{- if lookPath "gem" }}
 		echo "RUBY: remove ruby gems"
 		for gem_p in {{ join " " (.gem | uniq | sortAlpha) }}; do
 			gem cleanup "$gem_p" || true
 		done
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "krew" }}
-	{{ if lookPath "kubectl-krew" }}
+{{- if index . "krew" }}
+	{{- if lookPath "kubectl-krew" }}
 		echo "K8S: remove krew packages"
 		kubectl-krew uninstall {{ join " " (.krew | uniq | sortAlpha) }} || true
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "vagrant" }}
-	{{ if lookPath "vagrant" }}
+{{- if index . "vagrant" }}
+	{{- if lookPath "vagrant" }}
 		echo "VAGRANT: remove vagrant plugins"
 		vagrant plugin uninstall {{ join " " (.vagrant | uniq | sortAlpha) }} || true
-	{{ end }}
-{{ end }}
+	{{- end }}
+{{- end }}

@@ -2,27 +2,27 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if index . "remove" }}
-	{{ if index .remove "fedora" }}
-		{{ if $.remove.fedora }}
-			{{ range $cmd := $.remove.fedora }}
+{{- if index . "remove" }}
+	{{- if index .remove "fedora" }}
+		{{- if $.remove.fedora }}
+			{{- range $cmd := $.remove.fedora }}
 				{{ $cmd }} || true
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "fedora" }}
+{{- if index . "fedora" }}
 		echo "FEDORA: remove dnf / rpm packages"
 		yr {{ join " " (.fedora | uniq | sortAlpha) }} || true
-{{ end }}
+{{- end }}
 
-{{ if index . "cleanup" }}
-	{{ if index .cleanup "fedora" }}
-		{{ if $.cleanup.fedora }}
-			{{ range $cmd := $.cleanup.fedora }}
+{{- if index . "cleanup" }}
+	{{- if index .cleanup "fedora" }}
+		{{- if $.cleanup.fedora }}
+			{{- range $cmd := $.cleanup.fedora }}
 				{{ $cmd }} || true
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}

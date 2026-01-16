@@ -2,27 +2,27 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if index . "pre" }}
-	{{ if index .pre "fedora" }}
-		{{ if $.pre.fedora }}
-			{{ range $cmd := $.pre.fedora }}
-				{{ $cmd }} || exit 1
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+{{- if index . "pre" }}
+	{{- if index .pre "fedora" }}
+		{{- if $.pre.fedora }}
+			{{- range $cmd := $.pre.fedora }}
+				{{- $cmd }} || exit 1
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "fedora" }}
+{{- if index . "fedora" }}
 		echo "FEDORA: install dnf / rpm packages"
 		yi {{ join " " (.fedora | uniq | sortAlpha) }}
-{{ end }}
+{{- end }}
 
-{{ if index . "post" }}
-	{{ if index .post "fedora" }}
-		{{ if $.post.fedora }}
-			{{ range $cmd := $.post.fedora }}
+{{- if index . "post" }}
+	{{- if index .post "fedora" }}
+		{{- if $.post.fedora }}
+			{{- range $cmd := $.post.fedora }}
 				{{ $cmd }} || exit 1
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}

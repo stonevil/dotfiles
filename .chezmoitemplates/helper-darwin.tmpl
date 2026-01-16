@@ -2,32 +2,32 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ if index . "pre" }}
-	{{ if index .pre "darwin" }}
-		{{ if $.pre.darwin }}
-			{{ range $cmd := $.pre.darwin }}
+{{- if index . "pre" }}
+	{{- if index .pre "darwin" }}
+		{{- if $.pre.darwin }}
+			{{- range $cmd := $.pre.darwin }}
 				{{ $cmd }} || exit 1
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}
 
-{{ if index . "darwinhead" }}
+{{- if index . "darwinhead" }}
 	echo "DARWIN: install brew --HEAD packages"
 	yi --HEAD {{ join " " (.darwinhead | uniq | sortAlpha) }} || true
-{{ end }}
+{{- end }}
 
-{{ if index . "darwin" }}
+{{- if index . "darwin" }}
 	echo "DARWIN: install brew packages"
 	yi {{ join " " (.darwin | uniq | sortAlpha) }} || true
-{{ end }}
+{{- end }}
 
-{{ if index . "post" }}
-	{{ if index .post "darwin" }}
-		{{ if $.post.darwin }}
-			{{ range $cmd := $.post.darwin }}
+{{- if index . "post" }}
+	{{- if index .post "darwin" }}
+		{{- if $.post.darwin }}
+			{{- range $cmd := $.post.darwin }}
 				{{ $cmd }} || exit 1
-			{{ end }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}

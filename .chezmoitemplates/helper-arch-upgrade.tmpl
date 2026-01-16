@@ -2,16 +2,16 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ range $_, $v := $.tags -}}
-	{{ if $v.enabled -}}
-		{{ if index $v "upgrade" -}}
-			{{ if index $v.upgrade "arch" -}}
-				{{ if $v.upgrade.arch -}}
-					{{ range $cmd := $v.upgrade.arch -}}
+{{- range $_, $v := $.tags }}
+	{{- if $v.enabled }}
+		{{- if index $v "upgrade" }}
+			{{- if index $v.upgrade "arch" }}
+				{{- if $v.upgrade.arch }}
+					{{- range $cmd := $v.upgrade.arch }}
 						{{ $cmd }} || echo "Command $cmd has failed"
-					{{ end -}}
-				{{ end -}}
-			{{ end -}}
-		{{ end -}}
-	{{ end -}}
-{{ end -}}
+					{{- end }}
+				{{- end }}
+			{{- end }}
+		{{- end }}
+	{{- end }}
+{{- end }}
