@@ -2,8 +2,6 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-{{ template "env.tmpl" . }}
-
 {{ range $_, $v := $.tags -}}
 	{{ if $v.enabled -}}
 		{{ if index $v "upgrade" -}}

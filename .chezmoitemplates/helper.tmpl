@@ -3,6 +3,7 @@ vim:ft=bash.gotexttmpl
 */ -}}
 
 {{ template "env.tmpl" . }}
+{{ template "shellrc-path.tmpl" . }}
 
 # Due Go templates and my brain limitations, first installing general depends
 {{ $tags := $.tags }}
