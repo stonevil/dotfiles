@@ -13,9 +13,6 @@ yarn.lock
 # Ctags/tags artifacts
 tags
 
-# Local binary
-bin/
-
 # Vagrant temp directory
 .vagrant
 
