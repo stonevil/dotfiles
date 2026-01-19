@@ -675,10 +675,17 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"jpeg",
 		"imagemagick",
 		"ffmpeg",
+		"deno",
+	]
+	darwinhead = [
+		"yt-dlp",
 	]
 	arch = [
 		"imagemagick",
 		"ffmpeg",
+		"yt-dlp",
+		"yt-dlp-ejs",
+		"deno",
 	]
 	fedora = [
 		"ImageMagick",
@@ -686,9 +693,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	pre.fedora = [
 		"sudo dnf swap -y --allowerasing ffmpeg-free ffmpeg",
 		"sudo dnf swap -y --allowerasing libavcodec-free libavcodec-freeworld",
-	]
-	uv = [
-		"yt-dlp",
 	]
 
 [data.tags.adsToolsCli]
