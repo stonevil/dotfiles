@@ -1,0 +1,6 @@
+[Common]
+RoundedCorners=false
+ShadowSize=ShadowNone
+
+[Windeco]
+TitleAlignment=AlignLeft
