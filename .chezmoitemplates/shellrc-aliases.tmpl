@@ -85,29 +85,52 @@ alias tfd='terraform-docs markdown table --output-file README.md --output-mode i
 
 {{ if lookPath "limactl" }}
 # lima-vm to support genuine docker
-alias dk='limactl shell docker docker'
-alias docker='limactl shell docker docker'
-alias dk_stop_all='dk stop $(dk ps -a -q)'
-alias dk_rm_all='dk rm -f $(dk ps -a -q)'
-alias dk_rmi_all='dk rmi -f $(dk images --no-trunc=false -a -q)'
+function docker() {
+	{{- if eq .chezmoi.arch "arm64" }}
+	if [[ $ARCH == "amd64" ]]; then
+		limactl shell docker-amd64 docker $@
+	else
+		limactl shell docker-arm64 docker $@
+	fi
+	{{- else }}
+		{{- if eq .chezmoi.arch "amd64" }}
+	limactl shell docker-amd64 docker $@
+		{{- end }}
+	{{- end }}
+}
+function docker_stop_all() {
+	docker stop $(docker ps -a -q)
+}
+function docker_rm_all() {
+	docker rm -f $(docker ps -a -q)
+}
+function docker_rmi_all() {
+	docker rmi -f $(docker images --no-trunc=false -a -q)
+}
 
 # lima-vm to support genuine podman
-alias pa='limactl shell podman-arm64 podman'
-alias pa_stop_all='pa stop $(pa ps -a -q)'
-alias pa_rm_all='pa rm -f $(pa ps -a -q)'
-alias pa_rmi_all='pa rmi -f $(pa images --no-trunc=false -a -q)'
-
-# lima-vm to support genuine podman
-alias pi='limactl shell podman-amd64 podman'
-alias pi_stop_all='pi stop $(pi ps -a -q)'
-alias pi_rm_all='pi rm -f $(pi ps -a -q)'
-alias pi_rmi_all='pi rmi -f $(pi images --no-trunc=false -a -q)'
-
-# lima-vm to support genuine nerdctl
-alias ntl='limactl shell nerdy nerdctl'
-alias nctl_stop_all='nctl stop $(nctl ps -a -q)'
-alias nctl_rm_all='nctl rm -f $(nctl ps -a -q)'
-alias nctl_rmi_all='nctl rmi -f $(nctl images --no-trunc=false -a -q)'
+function podman() {
+	{{- if eq .chezmoi.arch "arm64" }}
+	if [[ $ARCH == "amd64" ]]; then
+		limactl shell podman-amd64 podman $@
+	else
+		limactl shell podman-arm64 podman $@
+	fi
+	{{- else }}
+		{{- if eq .chezmoi.arch "amd64" }}
+	limactl shell podman-amd64 podman $@
+		{{- end }}
+	{{- end }}
+}
+function podman_stop_all() {
+	podman stop $(podman ps -a -q)
+}
+function podman_rm_all() {
+	podman rm -f $(podman ps -a -q)
+}
+function podman_rmi_all() {
+	podman rmi -f $(podman images --no-trunc=false -a -q)
+}
 {{ end -}}
 
 # alias space2tabs='sed -ie 's/{{ repeat (int .env.tabs) " " }}/\t/g'' # bash have issues. TODO: research
