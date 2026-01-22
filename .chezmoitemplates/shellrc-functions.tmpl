@@ -43,7 +43,7 @@ function unosign() {
 	codesign --force --deep --sign - "$@"
 	notify "macOS codesign added" "$@"
 }
-{{ end }}
+{{- end }}
 
 function ip_external() {
 	local ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
@@ -51,15 +51,15 @@ function ip_external() {
 	notify "External IP" "$ip"
 }
 
-{{ if lookPath "limactl" }}
+{{- if lookPath "limactl" }}
 function toolbox() {
 	if [[ $(limactl list toolbox --format {{`'{{ .Status }}'`}}) == "Stopped" ]]; then
 		limactl start toolbox
-	fi 
+	fi
 	limactl shell --shell /bin/zsh toolbox
 	echo "You left Toolbox Universei\n\n"
 }
-{{ end }}
+{{- end }}
 
 function f2iso() {
 	if [[ -f "$(basename $@)".iso ]]; then
@@ -73,7 +73,7 @@ function f2iso() {
 	notify "f2iso" "$(basename $@).iso image created"
 }
 
-{{ if lookPath "qemu-img" }}
+{{- if lookPath "qemu-img" }}
 function qcow2vhd() {
 	qemu-img convert -O vhdx -o subformat=fixed "$@" "$(basename $@)".vhd
 	notify "qemu-img" "$(basename $@).vhd image converted"
@@ -83,9 +83,9 @@ function raw2qcow2() {
 	qemu-img convert -O qcow2 "$@" "$(basename $@)".qcow2
 	notify "qemu-img" "$(basename $@).qcow2 image converted"
 }
-{{ end }}
+{{- end }}
 
-{{ if lookPath "bat" }}
+{{- if lookPath "bat" }}
 function dbat() {
 	if [ $# -eq 2 ]; then
 		diff -t -y --color "$1" "$2" | bat -l rs
@@ -101,17 +101,17 @@ function tfbat() {
 		echo "bat tail -f function requires at least one arguments"
 	fi
 }
-{{ end }}
+{{- end }}
 
 function passgen() {
 	if [ -n "$1" ]; then
 		openssl rand -base64 "$1"
-	else 
+	else
 		openssl rand -base64 "14"
 	fi
 }
 
-{{ if lookPath "yazi" }}
+{{- if lookPath "yazi" }}
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -120,9 +120,9 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
-{{ end -}}
+{{- end }}
 
-{{ if lookPath "mmdc" }}
+{{- if lookPath "mmdc" }}
 function mpng() {
 	local filename="$@"
 	filename="${filename%.*}"
@@ -164,4 +164,4 @@ function mwatch() {
 		echo "File $filename.mmd absent"
 	fi
 }
-{{ end -}}
+{{- end }}
