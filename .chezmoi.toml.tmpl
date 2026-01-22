@@ -872,14 +872,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"sudo cups-genppdupdate",
 	]
 
-[data.tags.gnome]
-	enabled = {{ $hyprland }}
+[data.tags.bluetooth]
+	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
 	arch = [
-		"adwaita-icon-theme",
-		"adwaita-icon-theme-legacy",
-		"adwaita-cursors",
+		"bluez",
+		"bluez-utils",
 	]
-
 
 [data.tags.xfce]
 	enabled = {{ $xfce }}
@@ -917,6 +915,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"elephant-menus",
 		"elephant-clipboard",
 		"mako",
+		"wl-clipboard",
 	]
 
 [data.tags.hyprland]
@@ -928,7 +927,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"hyprcursor",
 		"hyprshot",
 		"hyprpolkitagent",
-		"wl-clipboard",
 		"wlr-randr",
 		"hyprmon-bin",
 		"qt6-wayland",
@@ -949,12 +947,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"plasma-desktop",
 		"kscreen",
-		"bluedevil",
-		"bluez",
-		"bluez-utils",
 		"okular",
 		"ark",
-		"kate",
 		"kcalc",
 		"dolphin",
 		"dolphin-plugins",
@@ -972,6 +966,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"plasma-browser-integration",
 		"plasma-systemmonitor",
 		"plasma-thunderbolt",
+		"bluedevil",
 		"powerdevil",
 		"print-manager",
 		"spectacle",
