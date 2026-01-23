@@ -8,9 +8,8 @@ sudo sh -c 'cat > /etc/vconsole.conf' << EOF
 # This is the fallback vconsole configuration provided by systemd.
 
 KEYMAP=us
-XKBLAYOUT=us,ua
-XKBVARIANT= ,macOS
-XKBOPTIONS="ctrl:nocaps,altwin:swap_alt_win,grp:ctrl_space_toggle"
+XKBLAYOUT=us
+XKBOPTIONS="ctrl:nocaps,altwin:swap_alt_win,grp"
 FONT="latarcyrheb-sun32"
 EOF
 	{{ end }}
