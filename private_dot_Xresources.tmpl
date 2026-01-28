@@ -1,5 +1,47 @@
-XTerm*saveLines: 0
-XTerm*vt100.translations: #override \n\
+! UTF-8 by default
+*xterm.utf8: 1
+
+! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+*xterm*loginShell: true
+
+! Lot of scrollback
+*xterm*saveLines: 10000
+
+! Scrollbar
+*xterm*scrollBar: false
+*xterm*rightScrollBar: true
+
+! Scroll down anytime you press a key
+*xterm*scrollKey: true
+
+! Disable fullscreen toggle which can conflict with Midnight Commander feature
+*xterm*fullScreen: never
+
+! Copy between xterm and other programs/documents
+*xterm.selectToClipboard: true
+*xterm.highlightSelection: true
+*xterm.trimSelection: true
+
+! Stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: false
+
+! Double-click to select whole URLs
+*xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+*xterm.termName: xterm-256color
+*xterm.vt100.TiteInhibit: True
+*xterm.vt100.geometry: 120x34
+*xterm*font: xft:monospace:size=14
+
+! Copy / Paste bindings
+*vt100*translations: #override \n\
+	Shift <Key>Home: copy-selection(CLIPBOARD) \n\
+	Shift <Key>Insert: copy-selection(CLIPBOARD) \n\
+	Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+	Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+! Mousewheel in GNU Screen
+*vt100.translations: #override \n\
   Ctrl <Btn4Down>: string(0x1b) string("[25S") \n\
   Lock Ctrl <Btn4Down>: string(0x1b) string("[25S") \n\
   Lock @Num_Lock Ctrl <Btn4Down>: string(0x1b) string("[25S") \n\
@@ -13,21 +55,40 @@ XTerm*vt100.translations: #override \n\
   Shift <KeyPress> Prior: string(0x1b) string("[25S") \n\
   Shift <KeyPress> Next: string(0x1b) string("[25T") \n
 
-*foreground: {{ print "#" .colours.normal.foreground }}
+
+! THEME
 *background: {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background }}{{ end }}
+*foreground: {{ print "#" .colours.normal.foreground }}
+*cursorColor: {{ print "#" .colours.cursor.cursor }}
+
+! black
 *color0:  {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.black }}{{ end }}
-*color1:  {{ print "#" .colours.normal.red }}
-*color2:  {{ print "#" .colours.normal.green }}
-*color3:  {{ print "#" .colours.normal.yellow }}
-*color4:  {{ print "#" .colours.normal.blue }}
-*color5:  {{ print "#" .colours.normal.magenta }}
-*color6:  {{ print "#" .colours.normal.cyan }}
-*color7:  {{ print "#" .colours.normal.white }}
 *color8:  {{ print "#" .colours.bright.black }}
+
+! red
+*color1:  {{ print "#" .colours.normal.red }}
 *color9:  {{ print "#" .colours.bright.red }}
+
+! green
+*color2:  {{ print "#" .colours.normal.green }}
 *color10: {{ print "#" .colours.bright.green }}
+
+! yellow
+*color3:  {{ print "#" .colours.normal.yellow }}
 *color11: {{ print "#" .colours.bright.yellow }}
+
+! blue
+*color4:  {{ print "#" .colours.normal.blue }}
 *color12: {{ print "#" .colours.bright.blue }}
+
+! magenta
+*color5:  {{ print "#" .colours.normal.magenta }}
 *color13: {{ print "#" .colours.bright.magenta }}
+
+! cyan
+*color6:  {{ print "#" .colours.normal.cyan }}
 *color14: {{ print "#" .colours.bright.cyan }}
+
+! white
+*color7:  {{ print "#" .colours.normal.white }}
 *color15: {{ print "#" .colours.bright.white }}
