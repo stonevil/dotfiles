@@ -7,8 +7,8 @@ windowrule {
 	name = ROG
 	match:class = ^(rog-control-center)$
 	workspace = 7
-	maximize = on
-	float = on
+	maximize = true
+	float = true
 }
 
 # Librewolf
@@ -16,7 +16,7 @@ windowrule {
 	name = Librewolf
 	match:class = ^(librewolf)$
 	workspace = 2
-	float = on
+	float = true
 }
 
 # Chromium
@@ -24,15 +24,15 @@ windowrule {
 	name = Chromium
 	match:class = ^(chromium)$
 	workspace = 2
-	float = on
+	float = true
 }
 
 # MPV
 windowrule {
 	name = MPV
 	match:class = ^(mpv)$
-	float = on
-	center = on
+	float = true
+	center = true
 }
 
 # Dolphin
@@ -60,8 +60,8 @@ windowrule {
 windowrule {
 	name = Polkit
 	match:class = (org.kde.polkit-kde-authentication-agent-1)
-	float = on
-	center = on
+	float = true
+	center = true
 }
 
 # Blueman
@@ -69,8 +69,8 @@ windowrule {
 	name = Blueman
 	match:class = (blueman)
 	size = 50%
-	center = on
-	float = on
+	center = true
+	float = true
 }
 
 # Pavucontrol
@@ -78,8 +78,8 @@ windowrule {
 	name = Pavucontrol
 	match:class = ^(pavucontrol)$
 	size = 50%
-	center = on
-	float = on
+	center = true
+	float = true
 }
 
 # KRDC
@@ -93,8 +93,8 @@ windowrule {
 windowrule {
 	name = KCalc
 	match:class = (org.kde.kcalc)
-	float = on
-	opaque = on
+	float = true
+	opaque = true
 	size = 235 333
 }
 
@@ -102,43 +102,57 @@ windowrule {
 windowrule {
 	name = IMPL
 	match:class = (org.freedesktop.impl.portal.desktop.kde)
-	float = on
-	center = on
+	float = true
+	center = true
 }
 
 # File pickers center floating
 windowrule {
 	name = FilePicker
 	match:title = ^(Open File|Open|Open Source|Save|Import|Choose|Rename|Pick Files), class:^(.*)$
-	center = on
-	float = on
+	center = true
+	float = true
 }
 
 # Float class
 windowrule {
 	name = Float
 	match:class = ^(floating)$
-	float = on
+	float = true
 }
 
 # Ignore maximize requests from apps
-windowrule2 = suppressevent maximize, class:.*
+windowrule {
+	name = Maximise
+	match:class = (.*)
+	suppress_event = maximize
+}
 
 # Fix some dragging issues with Wayland
-windowrule2 = nofocus, class:^$, title:^$, xwayland: 1, floating: 1, fullscreen: 0, pinned: 0
+windowrule {
+	name = Unfocus
+	match:class = ^$
+	match:title = ^$
+	match:xwayland = true
+	match:float = true
+	match:fullscreen = false
+	match:pin = false
+	no_focus = true
+}
 
 # Thunderbird
-windowrulev2 = workspace 4, class:(thunderbird)
-windowrulev2 = float,class:(thunderbird),title:(status)
-windowrulev2 = float,class:(thunderbird),title:(.*)(Reminders)
-windowrulev2 = float,class:(thunderbird),title:(Write:.*)
-windowrulev2 = float,class:(thunderbird),title:(Send.*)
-windowrulev2 = float,class:(thunderbird),title:(Inbox.*)
-windowrulev2 = tile,class:(thunderbird),initialTitle(Mozilla Thunderbird)
-windowrulev2 = float,class:(thunderbird)
-windowrulev2 = float,class:(Msgcompose.*)
-windowrulev2 = float, class:(thunderbird),title(.*)(Reminders)$
-windowrulev2 = maximize, class:(thunderbird)
+windowrule {
+	name = Thunderbird
+	match:class = (thunderbird)
+	workspace = 4
+}
+windowrule {
+	name = Thunderbird Inbox
+	match:class = (thunderbird)
+	match:title = (Inbox.*|Msgcompose.*|Send.*|Write.*|Reminders.*|status)
+	workspace = 4
+	float = true
+}
 
 # KDE Plasma workaround for screen sharing
 windowrule {
