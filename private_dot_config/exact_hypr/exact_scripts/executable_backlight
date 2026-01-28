@@ -1,37 +1,12 @@
 #!/usr/bin/env bash
 
-# Accept an arg '+' or '-'
-direction=$1
-
-# Get monitor info
-monitor_data=$(hyprctl monitors -j)
-focused_name=$(echo $monitor_data | jq -r '.[] | select(.focused == true) | .name')
-
-
-
-
-if [ "$focused_name" == "eDP-1" ]; then
-	# Internal display is focused -> use brillo
-	if [ "$direction" == "-" ]; then
-		brillo -u 150000 -U 8
-	else
-		brillo -u 150000 -A 8
-	fi
-else
-	# External display is focused -> use ddcutil
-	# But *which* external display?
-	focused_id=$(echo $monitor_data | jq -r '.[] | select(.focused == true) | .id')
-	ddcutil --display=$focused_id setvcp 10 $direction 8
-fi
-
-
-
-
-
-
-
 iDIR="$HOME/.config/mako/icons"
 
+# Get brightness
+get_backlight() {
+	LIGHT=$(printf "%.0f\n" $(brightnessctl g))
+	echo "${LIGHT}"
+}
 
 # Get icons
 get_icon() {
@@ -51,36 +26,18 @@ get_icon() {
 
 # Notify
 notify_user() {
-	if [ "$focused_name" == "eDP-1" ]; then
-		notify-send -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon" "Brightness : $(internal_get_backlight)"
-	else
-		# TODO: add external
-	fi
-}
-
-# Get brightness
-internal_get_backlight() {
-	LIGHT=$(printf "%.0f\n" $(brightnessctl g))
-	echo "${LIGHT}"
+	notify-send -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon" "Brightness : $(get_backlight)"
 }
 
 # Increase brightness
-internal_inc_backlight() {
+inc_backlight() {
 	brightnessctl s +5% && get_icon && notify_user
 }
 
 # Decrease brightness
-internal_dec_backlight() {
+dec_backlight() {
 	brightnessctl s 5%- && get_icon && notify_user
 }
-
-	# External display is focused -> use ddcutil
-external_inc_backlight() {
-	# Get external display
-	focused_id=$(echo $monitor_data | jq -r '.[] | select(.focused == true) | .id')
-	ddcutil --display=$focused_id setvcp 10 $direction 8
-}
-
 
 # Execute accordingly
 if [[ "$1" == "--get" ]]; then
