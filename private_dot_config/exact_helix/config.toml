@@ -1,4 +1,4 @@
-theme = "black_mocha"
+theme = "current"
 
 [editor]
 shell = ["bash", "-c"]

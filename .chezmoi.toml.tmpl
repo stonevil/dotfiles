@@ -1315,13 +1315,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.colours]
 	{{ if eq $themeName "catppuccin" }}
 		{{ if eq $themeVariant "mocha" }}
-			normal = { black = "45475a", white = "bac2de", red = "f38ba8", green = "a6e3a1", yellow = "f9e2af", blue = "89b4fa", magenta = "f5c2e7", cyan = "94e2d5", indexed_colors.color16 = "fab387", indexed_colors.color17 = "f5e0dc", background = "1e1e2e", foreground = "cdd6f4", urls="89b4fa", rosewater = "f5e0dc", flamingo = "f2cdcd", pink = "f5c2e7", mauve = "cba6f7", maroon = "eba0ac", peach = "fab387", teal = "94e2d5", sky = "89dceb", sapphire = "74c7ec", lavender = "b4befe", text = "cdd6f4", subtext1 = "bac2de", subtext0 = "a6adc8", overlay2 = "9399b2", overlay1 = "7f849c", overlay0 = "6c7086", surface2 = "585b70", surface1 = "45475a", surface0 = "313244", base = "1e1e2e", mantle = "181825", crust = "11111b" }
+			normal = { black = "45475a", white = "bac2de", red = "f38ba8", green = "a6e3a1", yellow = "f9e2af", blue = "89b4fa", magenta = "f5c2e7", cyan = "94e2d5", indexed_colors = { color16 = "fab387", color17 = "f5e0dc" }, background = "1e1e2e", foreground = "cdd6f4", urls="89b4fa", rosewater = "f5e0dc", flamingo = "f2cdcd", pink = "f5c2e7", mauve = "cba6f7", maroon = "eba0ac", peach = "fab387", teal = "94e2d5", sky = "89dceb", sapphire = "74c7ec", lavender = "b4befe", text = "cdd6f4", subtext1 = "bac2de", subtext0 = "a6adc8", overlay2 = "9399b2", overlay1 = "7f849c", overlay0 = "6c7086", surface2 = "585b70", surface1 = "45475a", surface0 = "313244", base = "1e1e2e", mantle = "181825", crust = "11111b" }
 			bright = { black = "585b70", white = "a6adc8", red = "f38ba8", green = "a6e3a1", yellow = "f9e2af", blue = "89b4fa", magenta = "f5c2e7", cyan = "94e2d5", background = "1e1e2e", foreground = "cdd6f4" }
 			dim = { foreground = "7f849c" }
-			cursor = { text = "1e1e2e", cursor = "f5e0dc", vi_mode.text = "1e1e2e", vi_mode.cursor = "b4befe" }
-			search = { matches.foreground = "1e1e2e", matches.background = "a6adc8", focused_match.foreground = "1e1e2e", focused_match.background = "a6e3a1" }
+			cursor = { text = "1e1e2e", cursor = "f5e0dc", vi_mode = { text = "1e1e2e", cursor = "b4befe" }, line = "2a2b3c", secondary = { cursor = "b5a6a8", select = "878ec0", normal = "b5a6a8", insert = "7ea87f" } }
+			search = { matches = { foreground = "1e1e2e", background = "a6adc8" }, focused_match = { foreground = "1e1e2e", background = "a6e3a1" } }
 			footer_bar = { foreground = "1e1e2e", background = "a6adc8" }
-			hints = { start.foreground = "1e1e2e", start.background = "f9e2af", end.foreground = "1e1e2e", end.background = "a6adc8" }
+			hints = { start = { foreground = "1e1e2e", background = "f9e2af" }, end = { foreground = "1e1e2e", background = "a6adc8" } }
 			selection = { text = "1e1e2e", background = "f5e0dc" }
 		{{ end }}
 	{{ end }}

@@ -1,3 +1,7 @@
+{{- /*
+vim:ft=toml.gotexttmpl
+*/ -}}
+
 # Syntax highlighting
 # -------------------
 "attribute" = "yellow"
@@ -130,35 +134,35 @@ hint = "teal"
 rainbow = ["red", "peach", "yellow", "green", "sapphire", "lavender"]
 
 [palette]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#000000"
-mantle = "#181825"
-crust = "#11111b"
+rosewater = {{ (print "#" .colours.normal.rosewater) | quote }}
+flamingo = {{ (print "#" .colours.normal.flamingo) | quote }}
+pink = {{ (print "#" .colours.normal.pink) | quote }}
+mauve = {{ (print "#" .colours.normal.mauve) | quote }}
+red = {{ (print "#" .colours.normal.red) | quote }}
+maroon = {{ (print "#" .colours.normal.maroon) | quote }}
+peach = {{ (print "#" .colours.normal.peach) | quote }}
+yellow = {{ (print "#" .colours.normal.yellow) | quote }}
+green = {{ (print "#" .colours.normal.green) | quote }}
+teal = {{ (print "#" .colours.normal.teal) | quote }}
+sky = {{ (print "#" .colours.normal.sky) | quote }}
+sapphire = {{ (print "#" .colours.normal.sapphire) | quote }}
+blue = {{ (print "#" .colours.normal.blue) | quote }}
+lavender = {{ (print "#" .colours.normal.lavender) | quote }}
+text = {{ (print "#" .colours.normal.foreground) | quote }}
+subtext1 = {{ (print "#" .colours.normal.subtext1) | quote }}
+subtext0 = {{ (print "#" .colours.normal.subtext0) | quote }}
+overlay2 = {{ (print "#" .colours.normal.overlay2) | quote }}
+overlay1 = {{ (print "#" .colours.normal.overlay1) | quote }}
+overlay0 = {{ (print "#" .colours.normal.overlay0) | quote }}
+surface2 = {{ (print "#" .colours.normal.surface2) | quote }}
+surface1 = {{ (print "#" .colours.normal.surface1) | quote }}
+surface0 = {{ (print "#" .colours.normal.surface0) | quote }}
+base = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.base) | quote }}{{ end }}
+mantle = {{ (print "#" .colours.normal.mantle) | quote }}
+crust = {{ (print "#" .colours.normal.crust) | quote }}
 
-cursorline = "#2a2b3c"
-secondary_cursor = "#b5a6a8"
-secondary_cursor_select = "#878ec0"
-secondary_cursor_normal = "#b5a6a8"
-secondary_cursor_insert = "#7ea87f"
+cursorline = {{ (print "#" .colours.cursor.line) | quote }}
+secondary_cursor = {{ (print "#" .colours.cursor.secondary.cursor) | quote }}
+secondary_cursor_select = {{ (print "#" .colours.cursor.secondary.select) | quote }}
+secondary_cursor_normal = {{ (print "#" .colours.cursor.secondary.normal) | quote }}
+secondary_cursor_insert = {{ (print "#" .colours.cursor.secondary.insert) | quote }}

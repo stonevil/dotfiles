@@ -34,8 +34,8 @@ let s:surface1 = {{ (print "#" .colours.normal.surface1) | quote }}
 let s:surface0 = {{ (print "#" .colours.normal.surface0) | quote }}
 
 let s:base = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.base) | quote }}{{ end }}
-let s:mantle = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
-let s:crust = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.crust) | quote }}{{ end }}
+let s:mantle = {{ (print "#" .colours.normal.mantle) | quote }}
+let s:crust = {{ (print "#" .colours.normal.crust) | quote }}
 
 function! s:hi(group, guisp, guifg, guibg, gui, cterm)
   let cmd = ""
