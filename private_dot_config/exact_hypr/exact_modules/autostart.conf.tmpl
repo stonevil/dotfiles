@@ -1,41 +1,41 @@
 # https://wiki.hypr.land/Configuring/Keywords/#executing
 
 # Slow app launch fix -- set systemd vars
-exec-once = systemctl --user import-environment $(env | cut -d'=' -f 1)
-exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec-once = dbus-update-activation-environment --systemd --all
+exec-once = systemctl --user import-environment $(env | cut -d'=' -f 1) &
+exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+exec-once = dbus-update-activation-environment --systemd --all &
 
 # Disk automount
-exec-once = udiskie -t
+exec-once = udiskie -t &
 
 # Auth agent
-exec-once = systemctl --user start hyprpolkitagent
-# exec-once = /usr/lib/polkit-kde-authentication-agent-1 # authentication dialogue for GUI apps
+exec-once = systemctl --user start hyprpolkitagent &
+# exec-once = /usr/lib/polkit-kde-authentication-agent-1 & # authentication dialogue for GUI apps
 
 # Idle, Lockscreen
-exec-once = hypridle
-exec-once = hyprpaper
+exec-once = hypridle &
+exec-once = hyprpaper &
 
 # Clipboard
 #exec-once = wl-paste --type text --watch cliphist store # clipboard store text data
 #exec-once = wl-paste --type image --watch cliphist store # clipboard store image data
 
 # Mako notifications center
-exec-once = mako
+exec-once = mako &
 
 # Walker, Spotlight replacement
-exec-once = elephant
-exec-once = walker --gapplication-service
+exec-once = elephant &
+exec-once = walker --gapplication-service &
 
 # Ashell, system menubar
-exec-once = ashell --config-path {{ join .chezmoi.homeDir ".config/ashell/config.toml" }}
+exec-once = ashell --config-path {{ join .chezmoi.homeDir ".config/ashell/config.toml" }} &
 
 # Playerctl daemon
-exec-once = playerctld
+exec-once = playerctld &
 
 {{- if .tags.zephyrus.enabled }}
 # ROG Control Center
-exec-once = rog-control-center
+exec-once = rog-control-center &
 {{- end }}
 
 
