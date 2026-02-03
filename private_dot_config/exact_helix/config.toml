@@ -1,0 +1,78 @@
+theme = "black_mocha"
+
+[editor]
+shell = ["bash", "-c"]
+line-number = "relative"
+mouse = true
+continue-comments = true
+bufferline = "multiple"
+default-line-ending = "native"
+insert-final-newline = false
+atomic-save = false
+trim-final-newlines = true
+trim-trailing-whitespace = true
+popup-border = "popup"
+auto-pairs = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+follow-symlinks = true
+ignore = false
+git-ignore = true
+git-global = false
+git-exclude = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name"]
+center = []
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+diagnostics = ["warning", "error"]
+workspace-diagnostics = ["warning", "error"]
+
+[editor.lsp]
+enable = true
+display-messages = true
+display-progress-messages = false
+
+[editor.search]
+smart-case = true
+wrap-around = true
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+nbsp = "none"
+nnbsp = "none"
+newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+nnbsp = "␣"
+tab = "→"
+newline = "⏎"
+tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+
+[editor.indent-guides]
+render = true
+character = "┆" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[editor.gutters.line-numbers]
+min-width = 1
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 25 # increase value to reduce forced mid-word wrapping
+max-indent-retain = 0
+wrap-indicator = " > "  # set wrap-indicator to "" to hide it
+wrap-at-text-width = false
