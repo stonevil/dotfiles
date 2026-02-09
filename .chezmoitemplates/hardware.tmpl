@@ -202,7 +202,7 @@ options iwlmvm power_scheme=3
 EOF
 
 # NetworkManager power save
-sudo sh -c 'cat > /etc/NetworkManager/conf.d/powersave.conf' << EOF
+sudo sh -c 'cat > /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf' << EOF
 [connection]
 wifi.powersave=1
 EOF
@@ -215,7 +215,7 @@ options iwlwifi power_save=1
 EOF
 
 # NetworkManager power save
-sudo sh -c 'cat > /etc/NetworkManager/conf.d/powersave.conf' << EOF
+sudo sh -c 'cat > /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf' << EOF
 [connection]
 wifi.powersave=2
 EOF
