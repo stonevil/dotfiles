@@ -464,6 +464,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"parallel",
 		"dua-cli",
+		"systemd-manager-tui",
+		"lazyjournal",
 	]
 	cargo = [
 		"battop",
@@ -1076,9 +1078,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $books }}
 	darwin = [
 		"calibre",
+		"bookokrat",
 	]
 	arch = [
 		"calibre",
+		"bookokrat-bin",
 	]
 
 [data.tags.virt]
