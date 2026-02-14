@@ -1,8 +1,12 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
 ui {
   border = 1
   gap = 2
   step = 100
-  font = "monospace 10"
+  font = "monospace 14"
 
   colorscheme {
     background = 0x282C34
@@ -19,7 +23,7 @@ ui {
 
 outputs {
   "*" {
-    background = "/usr/share/backgrounds/hikari/hikari_wallpaper.png"
+    background = "/home/huginn/.local/share/wallpapers/default.png"
   }
 }
 
@@ -63,7 +67,7 @@ layouts {
 }
 
 actions {
-  terminal = "$TERMINAL"
+  terminal = "foot"
 }
 
 bindings {
