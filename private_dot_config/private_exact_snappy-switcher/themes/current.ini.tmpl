@@ -1,0 +1,7 @@
+[colors]
+background = {{ if .theme.blackout }}#000000{{ else }}{{ (print "#" .colours.normal.background) }}{{ end }}
+card_bg = {{ (print "#" .colours.normal.surface0) }}
+card_selected = {{ (print "#" .colours.normal.black) }}
+text_color = {{ (print "#" .colours.normal.foreground) }}
+subtext_color = {{ (print "#" .colours.normal.indexed_colors.color16) }}
+border_color = {{ (print "#" .colours.normal.blue) }}
