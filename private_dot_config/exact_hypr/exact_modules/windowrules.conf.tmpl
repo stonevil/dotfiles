@@ -143,12 +143,12 @@ windowrule {
 # Thunderbird
 windowrule {
 	name = Thunderbird
-	match:class = (thunderbird)
+	match:class = ^(org.mozilla.Thunderbird)$
 	workspace = 4
 }
 windowrule {
-	name = Thunderbird Inbox
-	match:class = (thunderbird)
+	name = Thunderbird Float
+	match:class = ^(org.mozilla.Thunderbird)$
 	match:title = (Inbox.*|Msgcompose.*|Send.*|Write.*|Reminders.*|status)
 	workspace = 4
 	float = true
