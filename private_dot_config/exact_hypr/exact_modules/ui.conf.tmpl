@@ -80,18 +80,18 @@ group {
 	col.border_locked_inactive = {{ print "0x66" .colours.normal.base }}
 
 	groupbar {
-			# text_color =
-			# text_color_inactive =
-			# text_color_locked_active =
-			# text_color_locked_inactive =
-			col.active = {{ print "0x66" .colours.normal.blue }}
-			col.inactive = {{ print "0x66" .colours.normal.base }}
-			col.locked_active = {{ print "0x66" .colours.normal.flamingo }}
-			col.locked_inactive = {{ print "0x66" .colours.normal.base }}
-			gaps_in = 2
-			gaps_out = 2
-			blur = true
-		}
+		# text_color =
+		# text_color_inactive =
+		# text_color_locked_active =
+		# text_color_locked_inactive =
+		col.active = {{ print "0x66" .colours.normal.blue }}
+		col.inactive = {{ print "0x66" .colours.normal.base }}
+		col.locked_active = {{ print "0x66" .colours.normal.flamingo }}
+		col.locked_inactive = {{ print "0x66" .colours.normal.base }}
+		gaps_in = 2
+		gaps_out = 2
+		blur = true
+	}
 }
 
 # See https://wiki.hyprland.org/Configuring/Master-Layout/
@@ -129,4 +129,5 @@ xwayland {
 ecosystem {
 	no_update_news = true
 	no_donation_nag = true
+	enforce_permissions = true
 }
