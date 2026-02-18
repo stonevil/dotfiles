@@ -23,7 +23,7 @@ ui {
 
 outputs {
   "*" {
-    background = "/home/huginn/.local/share/wallpapers/default.png"
+    background = {{ (joinPath .chezmoi.homeDir ".local/share/wallpapers/default.png") | quote }}
   }
 }
 
