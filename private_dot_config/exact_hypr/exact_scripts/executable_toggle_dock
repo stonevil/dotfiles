@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-if pgrep -x "adock" > /dev/null
+if pgrep -x "ashell" > /dev/null
 then
-	pkill adock
+	pkill ashell
 else
-	adock & disown
+	ashell & disown
 fi
