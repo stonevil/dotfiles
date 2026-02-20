@@ -93,8 +93,8 @@ sudo sh -c 'cat > /etc/modules-load.d/ntsync.conf' << EOF
 ntsync
 EOF
 
-if [[ -z $(grep '@audio' "/etc/security/limits.conf") ]]; then
-sed -i '/# End of file/i \
+if [[ -n $(grep 'audio' "/etc/security/limits.conf") ]]; then
+sudo sed -i '/# End of file/i \
 @audio - rtprio 99' /etc/security/limits.conf
 fi
 	{{ end }}
