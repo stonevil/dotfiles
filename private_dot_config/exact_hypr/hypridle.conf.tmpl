@@ -1,33 +1,68 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
 general {
 	lock_cmd = pidof hyprlock || hyprlock # avoid starting multiple hyprlock instances
 	before_sleep_cmd = loginctl lock-session # lock before suspend
 	after_sleep_cmd = hyprctl dispatch dpms on # to avoid having to press a key twice to turn on the display
 }
 
+# Set monitor backlight to minimum, avoid 0 on OLED monitor
+# on battery
 listener {
-	timeout = 120 # 2min
-	on-timeout = brightnessctl -s set 10 # set monitor backlight to minimum, avoid 0 on OLED monitor
-	on-resume = brightnessctl -r # monitor backlight restore
+	timeout = 180 # 3min
+	on-timeout = systemd-ac-power || sudo brightnessctl -s set 20
+	on-resume = sudo brightnessctl -r
+}
+# on AC
+listener {
+	timeout = 1800 # 30min
+	on-timeout = systemd-ac-power && sudo brightnessctl -s set 20
+	on-resume = sudo brightnessctl -r
 }
 
+# Turn off keyboard backlight
 listener {
-	timeout = 120 # 2min.
-	on-timeout = brightnessctl -sd rgb:kbd_backlight set 0 # turn off keyboard backlight
-	on-resume = brightnessctl -rd rgb:kbd_backlight # turn on keyboard backlight
+	timeout = 180 # 3min.
+	on-timeout = sudo brightnessctl -sd '*::kbd_backlight' set 0
+	on-resume = sudo brightnessctl -rd '*::kbd_backlight'
 }
 
+# Lock screen when timeout has passed
+# on battery
 listener {
-	timeout = 300 # 5min
-	on-timeout = loginctl lock-session # lock screen when timeout has passed
+	timeout = 240 # 4min
+	on-timeout = systemd-ac-power || loginctl lock-session
 }
-
-listener {
-	timeout = 330 # 5.5min
-	on-timeout = hyprctl dispatch dpms off # screen off when timeout has passed
-	on-resume = hyprctl dispatch dpms on && brightnessctl -r # screen on when activity is detected after timeout has fired
-}
-
+# on AC
 listener {
 	timeout = 900 # 15min
-	on-timeout = systemctl suspend # suspend pc
+	on-timeout = systemd-ac-power && loginctl lock-session
+}
+
+# Screen off when timeout has passed
+# on battery
+listener {
+	timeout = 330 # 5.5min
+	on-timeout = systemd-ac-power || hyprctl dispatch dpms off
+	on-resume = hyprctl dispatch dpms on && brightnessctl -r
+}
+# on AC
+listener {
+	timeout = 1800 # 30min
+	on-timeout = systemd-ac-power && hyprctl dispatch dpms off
+	on-resume = hyprctl dispatch dpms on && brightnessctl -r
+}
+
+# Suspend computer
+# on battery
+listener {
+	timeout = 360 # 6min
+	on-timeout = systemd-ac-power || systemctl suspend
+}
+# on AC
+listener {
+	timeout = 1860 # 31min
+	on-timeout = systemd-ac-power && systemctl suspend
 }
