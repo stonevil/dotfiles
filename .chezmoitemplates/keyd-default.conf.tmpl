@@ -1,0 +1,52 @@
+{{- /*
+vim:ft=conf.gotexttmpl
+*/ -}}
+
+{{ if eq .chezmoi.os "linux" -}}
+sudo sh -c 'cat > /etc/keyd/default.conf' << EOF
+[ids]
+*
+
+[main]
+f23+leftshift+leftmeta = layer(rightalt)
+
+j+k = esc
+
+leftmeta = leftalt
+rightmeta = leftalt
+
+leftalt = leftmeta
+rightalt = rightmeta
+
+capslock = overload(control, esc)
+
+leftalt = layer(cmd)
+rightalt = layer(cmd)
+
+[cmd:C]
+
+# Switch directly to an open tab (e.g. Firefox, VS code)
+1 = A-1
+2 = A-2
+3 = A-3
+4 = A-4
+5 = A-5
+6 = A-6
+7 = A-7
+8 = A-8
+9 = A-9
+
+a = C-a
+b = C-b
+c = C-insert
+d = C-d
+v = S-insert
+
+x = S-delete
+
+# Move cursor to beginning of line
+left = home
+# Move cursor to end of Line
+right = end
+EOF
+{{ end -}}
