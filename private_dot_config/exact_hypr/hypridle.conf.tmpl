@@ -12,21 +12,21 @@ general {
 # on battery
 listener {
 	timeout = 180 # 3min
-	on-timeout = systemd-ac-power || sudo brightnessctl -s set 20
-	on-resume = sudo brightnessctl -r
+	on-timeout = systemd-ac-power || sudo brightnessctl --save set 20
+	on-resume = sudo brightnessctl --restore
 }
 # on AC
 listener {
 	timeout = 1800 # 30min
-	on-timeout = systemd-ac-power && sudo brightnessctl -s set 20
-	on-resume = sudo brightnessctl -r
+	on-timeout = systemd-ac-power && sudo brightnessctl --save set 20
+	on-resume = sudo brightnessctl --restore
 }
 
 # Turn off keyboard backlight
 listener {
 	timeout = 180 # 3min.
-	on-timeout = sudo brightnessctl -sd '*::kbd_backlight' set 0
-	on-resume = sudo brightnessctl -rd '*::kbd_backlight'
+	on-timeout = sudo brightnessctl --device='*::kbd_backlight' --save set 0
+	on-resume = sudo brightnessctl --device='*::kbd_backlight' --restore
 }
 
 # Lock screen when timeout has passed
@@ -46,13 +46,13 @@ listener {
 listener {
 	timeout = 330 # 5.5min
 	on-timeout = systemd-ac-power || hyprctl dispatch dpms off
-	on-resume = hyprctl dispatch dpms on && brightnessctl -r
+	on-resume = hyprctl dispatch dpms on && brightnessctl --restore
 }
 # on AC
 listener {
 	timeout = 1800 # 30min
 	on-timeout = systemd-ac-power && hyprctl dispatch dpms off
-	on-resume = hyprctl dispatch dpms on && brightnessctl -r
+	on-resume = hyprctl dispatch dpms on && brightnessctl --restore
 }
 
 # Suspend computer

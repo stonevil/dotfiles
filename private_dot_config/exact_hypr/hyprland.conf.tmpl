@@ -19,14 +19,16 @@ $notifications = mako
 $spotlight = walker
 $screenlock = playerctl --all-players pause; hyprlock
 
-$volumeup = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --inc
-$volumedown = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --dec
-$volumemute = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --toggle
+$current_keymap = $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')
 
-$backlightup = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --inc
-$backlightdown = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/backlight" }} --dec
+$volumeup = pamixer --increase 5 ; hyprctl notify 1 3000 0 "fontsize:16   Volume: $(pamixer --get-volume-human)"
+$volumedown = pamixer --decrease 5 ; hyprctl notify 1 3000 0 "fontsize:16   Volume: $(pamixer --get-volume-human)"
+$volumemute = pamixer --toggle-mute ; hyprctl notify 0 3000 0 "fontsize:16   Volume: $(pamixer --get-volume-human)"
 
-$micmute = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/volume" }} --toggle-mic
+$micmute = pamixer --default-source --toggle-mute ; hyprctl notify 0 10000 0 "fontsize:16   Mic status: $(pamixer --default-source --get-mute)"
+
+$backlightup = brightnessctl s +5% ; hyprctl notify 1 3000 0 "fontsize:16   Brightness level: $(brightnessctl g)"
+$backlightdown = brightnessctl s 5%- ; hyprctl notify 1 3000 0 "fontsize:16   Brightness level: $(brightnessctl g)"
 
 $toggledock = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/toggle_dock" }}
 
