@@ -2,9 +2,9 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
-max-history=50
 sort=+time
 history=1
+max-history=100
 default-timeout=5000
 
 #font=JetBrainsMono NFP 12
@@ -12,10 +12,17 @@ default-timeout=5000
 # Theme
 background-color={{ if $.theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.base }}{{ end }}
 text-color={{ print "#" .colours.normal.text }}
+text-alignment=right
 border-color={{ print "#" .colours.normal.mauve }}
 progress-color=over {{ print "#" .colours.normal.surface0 }}
 icons=1
 icon-path=/usr/share/icons/breeze-dark
 
-[urgency=high]
+[urgency=low]
+border-color={{ print "#" .colours.normal.green }}
+
+[urgency=normal]
+border-color={{ print "#" .colours.normal.mauve }}
+
+[urgency=critical]
 border-color={{ print "#" .colours.normal.red }}
