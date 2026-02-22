@@ -5,9 +5,6 @@
 # Switch keyboard language
 bindl = CTRL, SPACE, exec, hyprctl notify 1 3000 0 "fontsize:16   $current_keymap"
 
-# Apps Switcher
-bindd = SUPER, TAB, Apps Switcher, exec, $appsswitcher # macOS alike
-
 # Screenshots
 bindd = SUPER SHIFT, 3, Screenshot window, exec, hyprshot -m output # macOS alike
 bindd = SUPER SHIFT, 4, Screenshot area, exec, hyprshot -m window
@@ -19,10 +16,6 @@ bindd = SUPER, SPACE, Spotlight, exec, $spotlight
 
 # Notification Center
 bindd = SUPER CTRL, N, Notification Center, exec, $notifications
-
-# Command Tab
-bindd = SUPER, Tab, Switch to Next App, exec, snappy-switcher next
-bindd = SUPER SHIFT, Tab, Switch to Previous App, exec, snappy-switcher prev
 
 # Lock screen
 bindd = SUPER CTRL, L, Lock the screen, exec, $screenlock # macOS alike

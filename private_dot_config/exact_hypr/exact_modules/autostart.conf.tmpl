@@ -33,9 +33,6 @@ exec-once = ashell --config-path {{ joinPath .chezmoi.homeDir ".config/ashell/co
 # Playerctl daemon
 exec-once = playerctld &
 
-# Command Tab
-exec-once = snappy-switcher --daemon &
-
 {{- if .tags.zephyrus.enabled }}
 # ROG Control Center
 exec-once = rog-control-center &
