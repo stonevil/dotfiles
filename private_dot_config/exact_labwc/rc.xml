@@ -203,12 +203,12 @@
     <layoutScope>global</layoutScope>
     <repeatRate>25</repeatRate>
     <repeatDelay>600</repeatDelay>
-    <!-- <keybind key="w-Tab"> -->
-    <!--   <action name="NextWindow" /> -->
-    <!-- </keybind> -->
-    <!-- <keybind key="W-S-Tab"> -->
-    <!--   <action name="PreviousWindow" /> -->
-    <!-- </keybind> -->
+    <keybind key="W-Tab">
+      <action name="NextWindow" />
+    </keybind>
+    <keybind key="W-S-Tab">
+      <action name="PreviousWindow" />
+    </keybind>
     <keybind key="W-Return">
       <action name="Execute" command="foot" />
     </keybind>
