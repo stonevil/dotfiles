@@ -6,6 +6,7 @@ vim:ft=bash.gotexttmpl
 systemctl --user import-environment $(env | cut -d'=' -f 1) >/dev/null 2>&1 &
 systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP >/dev/null 2>&1 &
 dbus-update-activation-environment --systemd --all >/dev/null 2>&1 &
+dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus >/dev/null 2>&1 &
 
 # Disk automount
 udiskie -t >/dev/null 2>&1 &
@@ -18,7 +19,7 @@ hypridle --config {{ joinPath .chezmoi.homeDir ".config/hypr/hypridle.conf" }} >
 swaybg -i {{ joinPath .chezmoi.homeDir ".local/share/wallpapers/default.png" }} >/dev/null 2>&1 &
 
 # Mako notifications center
-#mako >/dev/null 2>&1 & # bus not available, research
+mako >/dev/null 2>&1 &
 
 # Walker, Spotlight replacement
 elephant >/dev/null 2>&1 &
