@@ -827,6 +827,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"sudo systemctl enable --now ly@tty2.service",
 		"sudo systemctl disable --now getty@tty2.service",
 	]
+	remove.arch = [
+		"sudo systemctl enable --now getty@tty2.service",
+	]
 
 [data.tags.spell]
 	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
@@ -921,6 +924,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"wf-recorder",
 		"xdgcli-git",
 		"satty",
+		"kanshi",
 	]
 
 [data.tags.hyprland]
