@@ -200,11 +200,26 @@
     <keybind key="W-Return">
       <action name="Execute" command="foot" />
     </keybind>
+    <keybind key="W-C-Return">
+      <action name="Execute" command="dolphin" />
+    </keybind>
+    <keybind key="W-C-A-Return">
+      <action name="Execute" command="foot -e yazi" />
+    </keybind>
+    <keybind key="W-C-b">
+      <action name="Execute" command="librewolf" />
+    </keybind>
+    <keybind key="W-C-m">
+      <action name="Execute" command="thunderbird" />
+    </keybind>
     <keybind key="W-Space">
       <action name="Execute" command="walker" />
     </keybind>
     <keybind key="W-S-v">
       <action name="Execute" command="walker --provider clipboard" />
+    </keybind>
+    <keybind key="W-C-l">
+      <action name="Execute" command="hyprlock" />
     </keybind>
     <!-- <keybind key="A-F4"> -->
     <!--   <action name="Close" /> -->
