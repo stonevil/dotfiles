@@ -82,6 +82,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $nvidia := false }}
 {{ $thinkpad := false }}
 {{ $xfce := false }}
+{{ $labwc := false }}
 {{ $plasma := false }}
 {{ $hyprland := false }}
 {{ $browsers := false }}
@@ -126,6 +127,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "nvidia" }}{{ $nvidia = .tags.nvidia.enabled }}{{ end }}
 	{{ if hasKey .tags "thinkpad" }}{{ $thinkpad = .tags.thinkpad.enabled }}{{ end }}
 	{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
+	{{ if hasKey .tags "labwc" }}{{ $labwc = .tags.labwc.enabled }}{{ end }}
 	{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
 	{{ if hasKey .tags "hyprland" }}{{ $hyprland = .tags.hyprland.enabled }}{{ end }}
 	{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
@@ -182,12 +184,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
 	{{ end }}
 
+	{{ $labwc = promptBool "Labwc DE" $labwc }}
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
 	{{ $hyprland = promptBool "Hyprland DE" $hyprland }}
 {{ end }}
 
 # Ask questin about environment if GUI env enabled
-{{ if or (or ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
+{{ if or (or ($labwc) ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" $browsers }}
 	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" $terminalEmulators }}
 	{{ $devTools = promptBool "DEV apps, like CotEditor" $devTools }}
@@ -818,7 +821,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.displayManager]
-	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
+	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"ly",
 		"brightnessctl",
@@ -832,7 +835,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.spell]
-	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
+	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"sonnet",
 		"hunspell",
@@ -841,7 +844,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.fontTools]
-	enabled = {{ if or ($hyprland) ($plasma) (eq .chezmoi.os "darwin") }} true {{ else}} false {{ end }}
+	enabled = {{ if or ($labwc) ($hyprland) ($plasma) (eq .chezmoi.os "darwin") }} true {{ else }} false {{ end }}
 	darwin = [
 		"fontconfig",
 	]
@@ -856,7 +859,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.printManager]
-	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
+	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"print-manager",
 		"cups",
@@ -877,7 +880,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.bluetooth]
-	enabled = {{ if or ($hyprland) ($plasma) }} true {{ else}} false {{ end }}
+	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"bluez",
 		"bluez-utils",
@@ -905,9 +908,47 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"mousepad",
 	]
 
-[data.tags.hyprenv]
+[data.tags.wayland]
+	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
+	arch = [
+		"gojq",
+		"archlinux-xdg-menu",
+		"wl-clipboard",
+		"wf-recorder",
+		"xdgcli-git",
+		"satty",
+		"kanshi",
+		"lswt",
+		"mako",
+		"wlr-randr",
+		"qt6-wayland",
+		"qt6ct-kde",
+		"udiskie",
+		"pamixer",
+		"playerctl",
+		"cliphist",
+		"nwg-look",
+		"wev",
+		"xwaylandvideobridge",
+		"wayland-satellite",
+	]
+
+[data.tags.labwc]
+	enabled = {{ $labwc }}
+	arch = [
+		"labwc",
+		"swaybg",
+	]
+
+[data.tags.hyprland]
 	enabled = {{ $hyprland }}
 	arch = [
+		"hyprland",
+		"hyprland-guiutils",
+		"xdg-desktop-portal-hyprland",
+		"hyprcursor",
+		"hyprshot",
+		"hyprpolkitagent",
 		"ashell",
 		"hypridle",
 		"hyprlock",
@@ -919,36 +960,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"elephant-files",
 		"elephant-menus",
 		"elephant-clipboard",
-		"mako",
-		"wl-clipboard",
-		"wf-recorder",
-		"xdgcli-git",
-		"satty",
-		"kanshi",
-	]
-
-[data.tags.hyprland]
-	enabled = {{ $hyprland }}
-	arch = [
-		"hyprland",
-		"hyprland-guiutils",
-		"xdg-desktop-portal-hyprland",
-		"archlinux-xdg-menu",
-		"hyprcursor",
-		"hyprshot",
-		"hyprpolkitagent",
-		"wlr-randr",
-		"qt6-wayland",
-		"qt6ct-kde",
-		"udiskie",
-		"pamixer",
-		"playerctl",
-		"gojq",
-		"cliphist",
-		"nwg-look",
-		"wev",
-		"xwaylandvideobridge",
-		"wayland-satellite",
 	]
 
 [data.tags.plasma]
