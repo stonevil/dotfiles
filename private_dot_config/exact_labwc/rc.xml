@@ -2,17 +2,13 @@
 
   <core>
     <decoration>server</decoration>
-    <gap>0</gap>
+    <gap>2</gap>
     <adaptiveSync>no</adaptiveSync>
     <allowTearing>no</allowTearing>
     <autoEnableOutputs>yes</autoEnableOutputs>
     <reuseOutputMode>no</reuseOutputMode>
     <xwaylandPersistence>no</xwaylandPersistence>
     <primarySelection>yes</primarySelection>
-    <!--
-      # See labwc-config(5) for details
-      <promptCommand></promptCommand>
-    -->
   </core>
 
   <placement>
@@ -152,8 +148,9 @@
 
 	<desktops>
 		<popupTime>500</popupTime>
-		<initial>term</initial>
+		<number>10</number>
 		<names>
+			<name>term</name>
 			<name>web</name>
 			<name>com</name>
 			<name>mail</name>
@@ -206,36 +203,42 @@
     <layoutScope>global</layoutScope>
     <repeatRate>25</repeatRate>
     <repeatDelay>600</repeatDelay>
-    <keybind key="w-Tab">
-      <action name="NextWindow" />
-    </keybind>
-    <keybind key="W-S-Tab">
-      <action name="PreviousWindow" />
-    </keybind>
+    <!-- <keybind key="w-Tab"> -->
+    <!--   <action name="NextWindow" /> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-S-Tab"> -->
+    <!--   <action name="PreviousWindow" /> -->
+    <!-- </keybind> -->
     <keybind key="W-Return">
       <action name="Execute" command="foot" />
     </keybind>
-    <keybind key="A-F4">
-      <action name="Close" />
+    <keybind key="W-Space">
+      <action name="Execute" command="walker" />
     </keybind>
-    <keybind key="W-a">
-      <action name="ToggleMaximize" />
+    <keybind key="W-S-v">
+      <action name="Execute" command="walker --provider clipboard" />
     </keybind>
-    <keybind key="W-Left">
-      <action name="SnapToEdge" direction="left" combine="yes" />
-    </keybind>
-    <keybind key="W-Right">
-      <action name="SnapToEdge" direction="right" combine="yes" />
-    </keybind>
-    <keybind key="W-Up">
-      <action name="SnapToEdge" direction="up" combine="yes" />
-    </keybind>
-    <keybind key="W-Down">
-      <action name="SnapToEdge" direction="down" combine="yes" />
-    </keybind>
-    <keybind key="A-Space">
-      <action name="ShowMenu" menu="client-menu" atCursor="no" />
-    </keybind>
+    <!-- <keybind key="A-F4"> -->
+    <!--   <action name="Close" /> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-a"> -->
+    <!--   <action name="ToggleMaximize" /> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-Left"> -->
+    <!--   <action name="SnapToEdge" direction="left" combine="yes" /> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-Right"> -->
+    <!--   <action name="SnapToEdge" direction="right" combine="yes" /> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-Up"> -->
+    <!--   <action name="SnapToEdge" direction="up" combine="yes" /> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="W-Down"> -->
+    <!--   <action name="SnapToEdge" direction="down" combine="yes" /> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="A-Space"> -->
+    <!--   <action name="ShowMenu" menu="client-menu" atCursor="no" /> -->
+    <!-- </keybind> -->
     <keybind key="XF86_AudioLowerVolume">
       <action name="Execute" command="amixer sset Master 5%-" />
     </keybind>
@@ -285,19 +288,19 @@
     </keybind>
 
     <!-- SendToDesktop -->
-    <keybind key="S-W-1">
-      <action name="SendToDesktop"><to>1</to></action>
-    </keybind>
+    <!-- <keybind key="S-W-1"> -->
+    <!--   <action name="SendToDesktop"><to>1</to></action> -->
+    <!-- </keybind> -->
 
     <!-- move window to left monitor -->
-    <keybind key="S-W-i">
-			<action name="MoveToOutput" direction="left"></action>
-    </keybind>
+			<!--  <keybind key="S-W-i"> -->
+			<!-- <action name="MoveToOutput" direction="left"></action> -->
+			<!--  </keybind> -->
 
     <!-- move window to right monitor -->
-    <keybind key="S-W-o">
-			<action name="MoveToOutput" direction="right"></action>
-    </keybind>
+			<!--  <keybind key="S-W-o"> -->
+			<!-- <action name="MoveToOutput" direction="right"></action> -->
+			<!--  </keybind> -->
 
   <!-- SnapToRegion via W-Numpad -->
   <!--
@@ -329,24 +332,15 @@
       <action name="SnapToRegion" region="bottom-right" />
     </keybind>
   -->
-  <!-- keybind for client-list-combined-menu - will center in middle of screen -->
-  <!--
-    <keybind key="W-Space">
+    <keybind key="A-Space">
       <action name="ShowMenu" menu="client-list-combined-menu" />
       <position>
         <x>center</x>
         <y>center</y>
       </position>
     </keybind>
-  -->
   </keyboard>
 
-  <!--
-    Multiple <mousebind> can exist within one <context>
-    Multiple <actions> can exist within one <mousebind>
-
-    Use <mouse><default /> to load all the default mousebinds (those listed below). If the default mousebinds are largely what you want, a sensible approach could be to start the <mouse> section with a <default /> element, and then (re-)define any special binds you need such as launching a custom menu when right-clicking on your desktop. See rc.xml for an example.
-  -->
   <mouse>
 
     <!-- time is in ms -->
@@ -501,30 +495,12 @@
 
   </mouse>
 
-  <!--
-    A touch configuration can be bound to a specific device. If device name is left empty, the touch configuration applies to all touch devices or functions as a fallback. Multiple touch configurations can exist. See the libinput device section for obtaining the device names.
-
-    Direct cursor movement to a specified output. If the compositor is running in nested mode, this does not take effect.
-
-    If mouseEmulation is enabled, all touch up/down/motion events are translated to mouse button and motion events.
-  -->
   <touch>
     <!-- <deviceName>ELAN2514:00 04F3:2AF1<deviceName> -->
     <!-- <mapToOutput>HDMI-A-1</mapToOutput> -->
     <mouseEmulation>no</mouseEmulation>
   </touch>
 
-  <!--
-    The tablet cursor movement can be restricted to a single output. If output is left empty or the output does not exists, the tablet will span all outputs.
-
-    The tablet orientation can be changed in 90 degree steps, thus *rotate* can be set to [0|90|180|270]. Rotation will be applied after applying tablet area transformation.
-
-    The active tablet area can be specified by setting the *top*/*left* coordinate (in mm) and/or *width*/*height* (in mm). If width or height are omitted or default (0.0), width/height will be set to the remaining width/height seen from top/left.
-
-    The tablet can be forced to always use mouse emulation. This prevents tablet specific restrictions, e.g. no support for drag&drop, but also omits tablet specific features like reporting pen pressure.
-
-    Pen buttons emulate regular mouse buttons. The pen *button* can be any of [Stylus|Stylus2|Stylus3] and can be mapped to mouse buttons [Right|Middle|Side]. Tablet pad buttons [Pad|Pad2|Pad3|..|Pad9] also emulate regular mouse buttons and can be mapped to any mouse button. When using mouse emulation, the pen tip [tip] and the stylus buttons can be set to any available mouse button [Left|Right|Middle|..|Task].
-  -->
   <tablet rotate="0" mouseEmulation="no">
     <!-- <mapToOutput>HDMI-A-1</mapToOutput> -->
     <!-- Active area dimensions are in mm -->
@@ -555,12 +531,11 @@
       - scrollFactor [float]
 
     The following <libinput>...</libinput> block may not be complete for your requirements. Default values are device specific. Only set an option if you require to override the default. Valid values must be inserted.
-
   -->
 
   <libinput>
     <device category="default">
-      <!-- <naturalScroll>no</naturalScroll> -->
+      <naturalScroll>yes</naturalScroll>
       <!-- <leftHanded>no</leftHanded> -->
       <!-- <pointerSpeed>0.0</pointerSpeed> -->
       <!-- <accelProfile>adaptive</accelProfile> -->
@@ -572,7 +547,7 @@
       <!-- <middleEmulation>no</middleEmulation> -->
       <!-- <disableWhileTyping>yes</disableWhileTyping> -->
       <!-- <clickMethod>buttonAreas</clickMethod> -->
-      <!-- <scrollMethod>twofinger</scrollMethod> -->
+      <scrollMethod>twofinger</scrollMethod>
       <!-- <sendEventsMode>yes</sendEventsMode> -->
       <!-- <calibrationMatrix>1 0 0 0 1 0</calibrationMatrix> -->
       <scrollFactor>1.0</scrollFactor>
