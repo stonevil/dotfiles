@@ -146,22 +146,22 @@
     <notifyClient>always</notifyClient>
   </snapping>
 
-	<desktops>
-		<popupTime>500</popupTime>
-		<number>10</number>
-		<names>
-			<name>term</name>
-			<name>web</name>
-			<name>com</name>
-			<name>mail</name>
-			<name>office</name>
-			<name>dev</name>
-			<name>7</name>
-			<name>8</name>
-			<name>9</name>
-			<name>10</name>
-		</names>
-	</desktops>
+  <desktops>
+    <popupTime>500</popupTime>
+    <number>10</number>
+    <names>
+      <name>term</name>
+      <name>web</name>
+      <name>com</name>
+      <name>mail</name>
+      <name>office</name>
+      <name>dev</name>
+      <name>7</name>
+      <name>8</name>
+      <name>9</name>
+      <name>10</name>
+    </names>
+  </desktops>
 
   <!--
     <margin> can be used to reserve space where new/maximized/tiled windows will not be placed. Clients using layer-shell protocol reserve space automatically, so <margin> is only intended for other, specialist cases.
@@ -243,7 +243,7 @@
       <action name="Execute" command="brightnessctl set 5%-" />
     </keybind>
 
-		<!-- GoToDesktop by number -->
+    <!-- GoToDesktop by number -->
     <keybind key="W-A-1">
       <action name="GoToDesktop"><to>1</to></action>
     </keybind>
@@ -281,14 +281,14 @@
     <!-- </keybind> -->
 
     <!-- move window to left monitor -->
-			<!--  <keybind key="S-W-i"> -->
-			<!-- <action name="MoveToOutput" direction="left"></action> -->
-			<!--  </keybind> -->
+      <!--  <keybind key="S-W-i"> -->
+      <!-- <action name="MoveToOutput" direction="left"></action> -->
+      <!--  </keybind> -->
 
     <!-- move window to right monitor -->
-			<!--  <keybind key="S-W-o"> -->
-			<!-- <action name="MoveToOutput" direction="right"></action> -->
-			<!--  </keybind> -->
+      <!--  <keybind key="S-W-o"> -->
+      <!-- <action name="MoveToOutput" direction="right"></action> -->
+      <!--  </keybind> -->
 
   <!-- SnapToRegion via W-Numpad -->
   <!--
