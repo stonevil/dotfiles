@@ -186,20 +186,8 @@
     </regions>
   -->
 
-  <!--
-    Keybind actions are specified in labwc-actions(5)
-    The following keybind modifiers are supported:
-      W - window/super/logo
-      A - alt
-      C - ctrl
-      S - shift
-
-    Use <keyboard><default /> to load all the default keybinds (those listed below). If the default keybinds are largely what you want, a sensible approach could be to start the <keyboard> section with a <default /> element, and then (re-)define any special binds you need such as launching your favourite terminal or application launcher. See rc.xml for an example. -->
   <keyboard>
-    <!--
-      # Numlock is not set by default
-      <numlock>on|off</numlock>
-    -->
+    <numlock>off</numlock>
     <layoutScope>global</layoutScope>
     <repeatRate>25</repeatRate>
     <repeatDelay>600</repeatDelay>
