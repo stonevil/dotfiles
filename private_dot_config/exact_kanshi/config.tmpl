@@ -2,20 +2,24 @@
 vim:ft=ini.gotexttmpl
 */ -}}
 
-{{- if .tags.zephyrus.enabled }}
+{{ if .tags.zephyrus.enabled -}}
 output "Samsung Electric Company LS28AG700N HCJT306236" {
-	position 1920,0
+	position -1920,0
 	scale 2.0
 	alias $ODYSSEY
 }
-ouput "eDP-1" {
+output "eDP-1" {
 	position 0,0
 	scale 1.666666
 	alias $G16
 }
 
-profile home_1 {
+profile docked {
   output $ODYSSEY enable
   output $G16 enable
 }
-{{- end }}
+
+profile single {
+  output $G16 enable
+}
+{{ end -}}
