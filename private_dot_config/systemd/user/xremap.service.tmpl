@@ -1,0 +1,17 @@
+{{- /*
+vim:ft=systemd.gotexttmpl
+*/ -}}
+
+[Unit]
+Description=Start remap
+
+[Service]
+Type=exec
+TimeOutStartSec=30
+WorkingDirectory={{ .chezmoi.homeDir }}
+StandardOutput=journal
+ExecStart=xremap {{ joinPath .chezmoi.homeDir ".config/xremap/config.yml" }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.targets
