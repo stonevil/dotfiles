@@ -39,17 +39,36 @@
   <item label="Terminal">
     <action name="Execute" command="foot" />
   </item>
+  <menu id="dev" label="Development">
+    <item label="Neovide">
+      <action name="Execute" command="neovide" />
+    </item>
+  </menu>
+  <menu id="web" label="Web">
+    <item label="Librewolf">
+      <action name="Execute" command="librewolf" />
+    </item>
+    <item label="Chromium">
+      <action name="Execute" command="chromium" />
+    </item>
+    <item label="Firefox">
+      <action name="Execute" command="firefox" />
+    </item>
+  </menu>
+  <menu id="office" label="Office">
+    <item label="File Browser">
+      <action name="Execute" command="dolphin" />
+    </item>
+    <item label="Mail">
+      <action name="Execute" command="thunderbird" />
+    </item>
+  </menu>
   <separator />
   <item label="Reconfigure">
     <action name="Reconfigure" />
   </item>
   <item label="Exit">
-    <action name="If">
-      <prompt message="Do you really want to exit the compositor?"/>
-      <then>
-        <action name="Exit"/>
-      </then>
-    </action>
+    <action name="Exit"/>
   </item>
 </menu>
 
