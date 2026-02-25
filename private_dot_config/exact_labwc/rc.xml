@@ -20,9 +20,10 @@
 		<icon>breeze-dark</icon>
 		<fallbackAppIcon>labwc</fallbackAppIcon>
 		<titlebar>
-			<layout>icon:iconify,max,close</layout>
+			<layout>icon:iconify,shade,desk,max,close</layout>
 			<showTitle>yes</showTitle>
 		</titlebar>
+		<animateIconify>yes</animateIconify>
 		<cornerRadius>0</cornerRadius>
 		<keepBorder>yes</keepBorder>
 		<maximizedDecoration>titlebar</maximizedDecoration>
@@ -586,11 +587,13 @@
 	</libinput>
 
 	<windowRules>
-		<windowRule identifier="*" serverDecoration="no"></windowRule>
-		<windowRule identifier="librewolf"><action name="SendToDesktop"><to>web</to></action></windowRule>
-		<windowRule identifier="chromium"><action name="SendToDesktop"><to>web</to></action></windowRule>
-		<windowRule identifier="org.mozilla.Thunderbird"><action name="SendToDesktop"><to>mail</to></action></windowRule>
-		<windowRule identifier="discord"><action name="SendToDesktop"><to>com</to></action></windowRule>
+    <windowRule identifier="*" serverDecoration="no"></windowRule>
+    <windowRule identifier="foot" serverDecoration="yes"></windowRule>
+    <windowRule identifier="librewolf"><action name="SendToDesktop"><to>web</to></action></windowRule>
+    <windowRule identifier="chromium"><action name="SendToDesktop"><to>web</to></action></windowRule>
+    <windowRule identifier="org.mozilla.Thunderbird"><action name="SendToDesktop"><to>mail</to></action></windowRule>
+    <windowRule identifier="discord"><action name="SendToDesktop"><to>com</to></action></windowRule>
+    <windowRule identifier="discord"><action name="SendToDesktop"><to>com</to></action></windowRule>
 	</windowRules>
 
 	<!--
@@ -655,5 +658,18 @@
 		<increment>0.2</increment>
 		<useFilter>yes</useFilter>
 	</magnifier>
+
+  <dock>
+    <position>TopRight</position>
+    <stacking>Normal</stacking>
+    <direction>Vertical</direction>
+    <floatingX>0</floatingX>
+    <floatingY>0</floatingY>
+    <autoHide>yes</autoHide>
+    <hideDelay>300</hideDelay>
+    <showDelay>300</showDelay>
+    <moveButton>Button8</moveButton>
+    <noStrut>yes</noStrut>
+  </dock>
 
 </labwc_config>
