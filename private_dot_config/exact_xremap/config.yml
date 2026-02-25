@@ -1,39 +1,34 @@
 modmap:
-	- name: CapsLock
-		exact_match: true
+  - name: Capslock
     remap:
       Capslock:
         held: Control_L
         alone: ESC
         alone_timeout_millis: 200
-
-modmap:
   - name: PCKeyboard
-		exact_match: true
-		remap:
-			SUPER_L: ALT_L
-			SUPER_R: ALT_R
-			ALT_R: SUPER_R
+    remap:
+      SUPER_L: ALT_L
+      SUPER_R: ALT_R
+      ALT_L: SUPER_L
+      ALT_R: SUPER_R
     device:
-      not: [nuphy-nuphy-air75-he, nuphy-nuphy-air75-he-keyboard]
+      not: ["NuPhy NuPhy Air75 HE", "NuPhy NuPhy Air75 HE Keyboard"]
 
 keymap:
   - name: Terminals
-		exact_match: true
     application:
       only: ["/foot/", "/foot-client/", "/alacritty/", "/kitty/"]
-		remap:
-			SUPER-c: Control-Shift-c
-			SUPER-v: Control-Shift-v
-			SUPER-x: Shift-Delete
-
-keymap:
+    remap:
+      SUPER-c: Control-Shift-c
+      SUPER-v: Control-Shift-v
+      SUPER-x: Shift-Delete
+    exact_match: true
   - name: Global
-		exact_match: true
-		remap:
-			SUPER-a: Control-a
-			SUPER-c: Control-c
-			SUPER-v: Control-v
-			SUPER-x: Control-x
-			SUPER-n: Control-n
-			SUPER-t: Control-t
+    remap:
+      SUPER-a: Control-a
+      SUPER-c: Control-c
+      SUPER-v: Control-v
+      SUPER-x: Control-x
+      SUPER-n: Control-n
+      SUPER-t: Control-t
+    exact_match: true
