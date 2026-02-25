@@ -7,7 +7,7 @@ menu.separator.padding.width: 10
 menu.separator.padding.height: 2
 
 menu.border.color: {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background }}{{ end }}
-menu.separator.color: {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background | quote }}{{ end }}
+menu.separator.color: {{ print "#" .colours.normal.foreground }}
 
 menu.title.bg: flat solid
 menu.title.bg.color: {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background }}{{ end }}
