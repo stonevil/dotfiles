@@ -51,13 +51,13 @@
     <item label="Chromium">
       <action name="Execute" command="chromium" />
     </item>
-    <item label="Firefox">
-      <action name="Execute" command="firefox" />
-    </item>
   </menu>
   <menu id="office" label="Office">
     <item label="File Browser">
       <action name="Execute" command="dolphin" />
+    </item>
+    <item label="Midnight Commander">
+      <action name="Execute" command="mc" />
     </item>
     <item label="Mail">
       <action name="Execute" command="thunderbird" />
