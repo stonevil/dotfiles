@@ -56,9 +56,6 @@
     <item label="File Browser">
       <action name="Execute" command="dolphin" />
     </item>
-    <item label="Midnight Commander">
-      <action name="Execute" command="mc" />
-    </item>
     <item label="Mail">
       <action name="Execute" command="thunderbird" />
     </item>
