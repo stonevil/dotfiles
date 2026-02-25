@@ -2,26 +2,55 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
-# XKB_DEFAULT_LAYOUT=se
-# XKB_DEFAULT_LAYOUT=se,us(intl)
-# XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle
-# XKB_DEFAULT_OPTIONS=grp:shift_caps_toggle
-
-## GTK4 started to require input methods like fcitx5 or ibus to handle
-## simple compose sequences. If you do not use input methods, uncomment
-## the following line to force GTK4 internal composing. For further
-## information see https://labwc.github.io/integration.html#gtk
-##
-# GTK_IM_MODULE=simple
-
-# XCURSOR_THEME=breeze_cursors
-# XCURSOR_THEME=capitaine-cursors
-# XCURSOR_SIZE=24
+# XKB_DEFAULT_LAYOUT=us,ua(macOS)
+# XKB_DEFAULT_VARIANT= ,macOS
+# XKB_DEFAULT_OPTIONS=grp:ctrl_space_toggle,ctrl:nocaps
 
 # WLR_NO_HARDWARE_CURSORS=1
 
-# _JAVA_AWT_WM_NONREPARENTING=0
-
-# XDG_CURRENT_DESKTOP=labwc:wlroots
-
 # LABWC_FALLBACK_OUTPUT=NOOP-fallback
+
+
+# Cursor size
+XCURSOR_SIZE=24
+# XCURSOR_THEME=breeze_cursors
+QT_CURSOR_SIZE=24
+RUST_BACKTRACE=1
+
+# Force all apps to use Wayland
+GDK_BACKEND=wayland,x11,*
+
+QT_QPA_PLATFORM=wayland;xcb
+QT_QPA_PLATFORMTHEME=qt6ct
+QT_QPA_PLATFORMTHEME_QT6=qt6ct
+QT_AUTO_SCREEN_SCALE_FACTOR=1
+QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+SDL_VIDEODRIVER=wayland
+CLUTTER_BACKEND=wayland
+GTK_THEME=Breeze-Dark
+# GTK_IM_MODULE=simple
+
+_JAVA_AWT_WM_NONREPARENTING=1
+MOZ_ENABLE_WAYLAND=1
+ELECTRON_OZONE_PLATFORM_HINT=wayland
+OZONE_PLATFORM=wayland
+
+# Allow better support for screen sharing (Google Meet, Discord, etc)
+XDG_CURRENT_DESKTOP=labwc:wlroots
+XDG_SESSION_TYPE=wayland
+XDG_SESSION_DESKTOP=labwc:wlroots
+
+XDG_MENU_PREFIX=arch-
+
+# Screnshots location
+HYPRSHOT_DIR={{ joinPath .chezmoi.homeDir "Downloads" }}
+
+# Use XCompose file
+XCOMPOSEFILE={{ joinPath .chezmoi.homeDir ".XCompose" }}
+
+{{- if .tags.nvidia.enabled }}
+GBM_BACKEND=nvidia-drm
+__GLX_VENDOR_LIBRARY_NAME=nvidia
+LIBVA_DRIVER_NAME=nvidia
+{{- end }}
