@@ -885,6 +885,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"bluez",
 		"bluez-utils",
 	]
+	post.arch = [
+		"sudo systemctl enable --now bluetooth",
+	]
 
 [data.tags.xfce]
 	enabled = {{ $xfce }}
@@ -932,6 +935,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"wev",
 		"xwaylandvideobridge",
 		"wayland-satellite",
+		"pipewire",
+		"wireplumber",
+		"waybar",
+		"pavucontrol",
+		"hypridle",
+		"hyprlock",
 	]
 
 [data.tags.labwc]
@@ -950,9 +959,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"hyprcursor",
 		"hyprshot",
 		"hyprpolkitagent",
-		"ashell",
-		"hypridle",
-		"hyprlock",
 		"hyprpaper",
 		"hyprpicker",
 		"walker",
@@ -973,7 +979,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"kcalc",
 		"dolphin",
 		"dolphin-plugins",
-		"konsole",
 		"kde-gtk-config",
 		"xdg-desktop-portal",
 		"xdg-desktop-portal-kde",
@@ -992,7 +997,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"print-manager",
 		"spectacle",
 		"partitionmanager",
-		"konqueror",
 		"marknote",
 		"kdialog",
 		"extra/qt6-tools",
