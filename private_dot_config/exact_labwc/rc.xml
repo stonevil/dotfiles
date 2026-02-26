@@ -244,10 +244,10 @@
 		<!--	 <action name="ShowMenu" menu="client-menu" atCursor="no" /> -->
 		<!-- </keybind> -->
 		<keybind key="XF86_AudioLowerVolume">
-			<action name="Execute" command="pamixer --increase 5" />
+			<action name="Execute" command="pamixer --decrease 5" />
 		</keybind>
 		<keybind key="XF86_AudioRaiseVolume">
-			<action name="Execute" command="pamixer --decrease 5" />
+			<action name="Execute" command="pamixer --increase 5" />
 		</keybind>
 		<keybind key="XF86_AudioMute">
 			<action name="Execute" command="pamixer --toggle-mute" />
