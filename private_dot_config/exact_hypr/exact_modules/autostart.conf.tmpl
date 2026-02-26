@@ -28,7 +28,7 @@ exec-once = elephant >/dev/null 2>&1 &
 exec-once = walker --gapplication-service >/dev/null 2>&1 &
 
 # Ashell, system menubar
-exec-once = ashell --config-path {{ joinPath .chezmoi.homeDir ".config/ashell/config.toml" }} >/dev/null 2>&1 &
+exec-once = waybar >/dev/null 2>&1 &
 
 # Playerctl daemon
 exec-once = playerctld >/dev/null 2>&1 &

@@ -192,13 +192,16 @@
 		<layoutScope>global</layoutScope>
 		<repeatRate>25</repeatRate>
 		<repeatDelay>600</repeatDelay>
+		<keybind key="W-C-q">
+			<action name="Close" />
+		</keybind>
 		<keybind key="W-Tab">
 			<action name="NextWindow" />
 		</keybind>
 		<keybind key="W-S-Tab">
 			<action name="PreviousWindow" />
 		</keybind>
-		<keybind key="W-Return">
+		<keybind key="  W-Return">
 			<action name="Execute" command="foot" />
 		</keybind>
 		<keybind key="W-C-Return">
@@ -208,7 +211,7 @@
 			<action name="Execute" command="foot -e yazi" />
 		</keybind>
 		<keybind key="W-C-b">
-			<action name="Execute" command="librewolf" />
+			<action name="󰈹  Execute" command="librewolf" />
 		</keybind>
 		<keybind key="W-C-m">
 			<action name="Execute" command="thunderbird" />

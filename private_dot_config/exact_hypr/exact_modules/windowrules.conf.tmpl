@@ -7,24 +7,17 @@ windowrule {
 	name = ROG
 	match:class = ^(rog-control-center)$
 	workspace = 7
-	maximize = true
 	float = true
+	center = true
 }
 
-# Librewolf
+# Browsers
 windowrule {
-	name = Librewolf
-	match:class = ^(librewolf)$
+	name = Browsers
+	match:class = ^(librewolf|chromium)$
 	workspace = 2
 	float = true
-}
-
-# Chromium
-windowrule {
-	name = Chromium
-	match:class = ^(chromium)$
-	workspace = 2
-	float = true
+	center = true
 }
 
 # MPV
@@ -33,13 +26,6 @@ windowrule {
 	match:class = ^(mpv)$
 	float = true
 	center = true
-}
-
-# Dolphin
-windowrule {
-	name = Dolphin
-	match:class = ^(dolphin)$
-	workspace = 1
 }
 
 # Discord
@@ -51,7 +37,7 @@ windowrule {
 
 # Terminal
 windowrule {
-	name = Foot
+	name = Terminals
 	match:class = ^(Alacritty|foot|kitty|wezterm|com.mitchellh.ghostty)$
 	opacity = 0.9
 }
@@ -64,20 +50,10 @@ windowrule {
 	center = true
 }
 
-# Blueman
-windowrule {
-	name = Blueman
-	match:class = (blueman)
-	size = 50%
-	center = true
-	float = true
-}
-
 # Pavucontrol
 windowrule {
 	name = Pavucontrol
-	match:class = ^(pavucontrol)$
-	size = 50%
+	match:class = pavucontrol
 	center = true
 	float = true
 }
@@ -166,22 +142,59 @@ windowrule {
 	opacity = 0.0
 }
 
-# Blur Waybar
-layerrule = match:namespace waybar, blur on
-layerrule = match:namespace waybar, ignore_alpha 0.5
-layerrule = match:namespace waybar, no_anim on
+windowrule {
+	name = KDE Dialog
+	match:class = org.kde.kdialog
+	center = true
+	float = true
+}
 
-# Blur SwayNC / Notifications
-layerrule = match:namespace (swaync-control-center|notifications), blur on
-layerrule = match:namespace (swaync-notification-window|notifications), blur on
-layerrule = match:namespace (swaync-control-center|notifications), ignore_alpha 0.5
-layerrule = match:namespace (swaync-notification-window|notifications), ignore_alpha 0.5
-layerrule = match:namespace (swaync-control-center|notifications), no_screen_share on
-layerrule = match:namespace (swaync-notification-window|notifications), no_screen_share on
+windowrule {
+	name = TUI apps in foot
+	match:class = (nmtui|blueman|bluetui|battop)
+	center = true
+	float = true
+}
 
-# Blur wlogout
-layerrule = match:namespace logout_dialog, animation fade
-layerrule = match:namespace logout_dialog, blur on
+# Waybar
+layerrule {
+	name = waybar
+	match:namespace = waybar
+	no_anim = on
+	blur = off
+	no_screen_share = on
+}
 
-# Rofi animation
-layerrule = match:namespace rofi, animation popin 90%
+# SwayNC / Notifications
+layerrule {
+	name = swaync
+	match:namespace = (swaync-control-center|notifications)
+	animation = slide
+	blur = on
+	no_screen_share = on
+}
+layerrule {
+	name = swaynotifications
+	match:namespace = (swaync-notification-window)
+	animation = slide
+	blur = on
+	no_screen_share = on
+}
+
+# Wlogout
+layerrule {
+	name = wlogout
+	match:namespace = logout_dialog
+	animation = fade
+	blur = on
+	no_screen_share = on
+}
+
+# Launchers
+layerrule {
+	name = rofi
+	match:namespace = (rofi|walker)
+	animation = popin 90%
+	blur = on
+	no_screen_share = on
+	}
