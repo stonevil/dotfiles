@@ -1,29 +1,39 @@
+{{- /*
+	vim:ft=jsonc.gotexttmpl
+*/ -}}
+
 // -*- mode: jsonc -*-
 {
 	"layer": "top",
 	// "output": "eDP-1",
 	"position": "bottom",
-	"height": 19,
+	// "height": 10,
 	// "width": 1280,
 	"spacing": 4,
 
 	"modules-left": [
+{{- if .tags.hyprland.enabled }}
 		"hyprland/workspaces",
+{{- end }}
 		"mpris",
 	],
 	"modules-center": [
 	],
 	"modules-right": [
 		"tray",
-		"pulseaudio",
+{{- if .tags.hyprland.enabled }}
+		"hyprland/language",
+{{- end }}
+		"wireplumber",
+		"wireplumber#source",
 		"temperature",
 		"bluetooth",
 		"network",
-		"hyprland/language",
 		"battery",
 		"clock",
 	],
 
+{{- if .tags.hyprland.enabled }}
 	"hyprland/workspaces": {
 		"format": "{name}: {icon}",
 		"format-icons": {
@@ -39,6 +49,20 @@
 			"10": "tō",
 			"active": "",
 			"default": "",
+		},
+	},
+{{- end }}
+
+	"mpris": {
+		"format": "{status_icon} {player}: {artist} {title}",
+		"format-paused": "{status_icon} {player}: <i>{artist} {title}</i>",
+		"max-length":80,
+		"player-icons": {
+			"default": "▶",
+			"mpv": "🎵",
+		},
+		"status-icons": {
+			"paused": "⏸",
 		},
 	},
 
@@ -69,69 +93,36 @@
 		"tooltip-format-disconnected": "MPD (disconnected)",
 	},
 
-	"mpris": {
-		"format": "{status_icon} {player}: {artist} {title}",
-		"format-paused": "{status_icon} {player}: <i>{artist} {title}</i>",
-		"max-length":80,
-		"player-icons": {
-			"default": "▶",
-			"mpv": "🎵"
-		},
-		"status-icons": {
-			"paused": "⏸"
-		},
-	},
-
 	"tray": {
-		// "icon-size": 21,
 		"spacing": 10,
-		// "icons": {
-		//   "blueman": "bluetooth",
-		// },
 	},
 
-	"clock": {
-		// "timezone": "America/New_York",
-		"format": "{:%a, %b %d, %H:%M} ",
-		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format-alt": "{:%Y-%m-%d}",
+	"wireplumber": {
+		"format": "{volume}% {icon}",
+		"max-volume": 150,
+		"scroll-step": 0.5,
+		"format-muted": "",
+		"on-click": {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle") | quote }},
+		"on-click-right": "wiremix",
+		"format-icons": ["", "", ""],
 	},
 
-	"cpu": {
-		"format": "{usage}% ",
-		"tooltip": false,
-	},
-
-	"memory": {
-		"format": "{}% ",
+	"wireplumber#source": {
+		"node-type": "Audio/Source",
+		"format": "{volume}% 󰍬",
+		"format-muted": "󰍭",
+		"on-click": {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute") | quote }},
+		"on-click-right": "wiremix",
+		"scroll-step": 5,
 	},
 
 	"temperature": {
 		// "thermal-zone": 2,
 		// "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-		"critical-threshold": 80,
+		"critical-threshold": 90,
 		// "format-critical": "{temperatureC}°C {icon}",
 		"format": "{temperatureC}°C {icon}",
 		"format-icons": ["", "", ""],
-	},
-
-	"battery": {
-		"bat": "BAT1",
-		"states": {
-			"good": 95,
-			"warning": 30,
-			"critical": 15
-		},
-		"format": "{capacity}% {icon}",
-		"format-full": "{capacity}% {icon}",
-		"format-charging": "{capacity}% ",
-		"format-plugged": "{capacity}% ",
-		"format-alt": "{time} {icon}",
-		// "format-good": "", // An empty format will hide the module
-		// "format-full": "",
-		"format-icons": ["", "", "", "", ""],
-		"on-click": "foot --app-id battop --window-size-chars=80x34 -e battop",
-		"on-click-right": "~/.local/bin/asus-switch-power-profile.sh",
 	},
 
 	"bluetooth": {
@@ -157,24 +148,37 @@
 		"on-click-right": "foot --app-id nmtui --window-size-chars=80x24 -e nmtui",
 	},
 
-	"pulseaudio": {
-		// "scroll-step": 1, // %, can be a float
-		"format": "{volume}% {icon} {format_source}",
-		"format-bluetooth": "{volume}% {icon} {format_source}",
-		"format-bluetooth-muted": " {icon} {format_source}",
-		"format-muted": " {format_source}",
-		"format-source": "{volume}% ",
-		"format-source-muted": "",
-		"format-icons": {
-			"headphone": "",
-			"hands-free": "",
-			"headset": "",
-			"phone": "",
-			"portable": "",
-			"car": "",
-			"default": ["", "", ""],
-		},
-		"on-click": "pavucontrol",
+{{- if .tags.hyprland.enabled }}
+	"hyprland/language": {
+		"format-en": "🇺🇸",
+		"format-uk": "🇺🇦",
 	},
+{{- end }}
 
+{{- if or (eq .tags.zephyrus.enabled true) (eq .tags.thinkpad.enabled true) }}
+	"battery": {
+		"bat": "BAT1",
+		"states": {
+			"good": 95,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{capacity}% {icon}",
+		"format-full": "{capacity}% {icon}",
+		"format-charging": "{capacity}% ",
+		"format-plugged": "{capacity}% ",
+		"format-alt": "{time} {icon}",
+		// "format-good": "", // An empty format will hide the module
+		// "format-full": "",
+		"format-icons": ["", "", "", "", ""],
+		"on-click": "foot --app-id battop --window-size-chars=80x34 -e battop",
+		"on-click-right": "~/.local/bin/asus-switch-power-profile.sh",
+	},
+{{- end }}
+
+	"clock": {
+		"format": "{:%a, %b %d, %H:%M} ",
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{:%Y-%m-%d} ",
+	},
 }
