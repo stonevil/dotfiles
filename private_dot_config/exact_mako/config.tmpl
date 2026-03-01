@@ -2,13 +2,12 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
-sort=+time
+sort=-time
 history=1
 max-history=100
 default-timeout=5000
 
 font=Iosevka Nerd Font Propo 12
-#font=JetBrainsMono NFP 12
 
 # Theme
 background-color={{ if $.theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.base }}{{ end }}
