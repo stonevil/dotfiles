@@ -21,18 +21,19 @@ $screenlock = playerctl --all-players pause; hyprlock
 
 $current_keymap = $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')
 
-$volumeup = pamixer --increase 5 ; hyprctl notify 1 3000 0 "fontsize:16    Volume: $(pamixer --get-volume-human)"
-$volumedown = pamixer --decrease 5 ; hyprctl notify 1 3000 0 "fontsize:16    Volume: $(pamixer --get-volume-human)"
-$volumemute = pamixer --toggle-mute ; hyprctl notify 0 3000 0 "fontsize:16    Volume: $(pamixer --get-volume-human)"
+$volumeup = {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "up") }}
+$volumedown = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "down" }}
+$volumemute = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle" }}
 
-$micmute = pamixer --default-source --toggle-mute ; hyprctl notify 0 10000 0 "fontsize:16   Mic status: $(pamixer --default-source --get-mute)"
+$micmute = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }}
 
-$backlightup = brightnessctl s +5% ; hyprctl notify 1 3000 0 "fontsize:16   Brightness level: $(brightnessctl g)"
-$backlightdown = brightnessctl s 5%- ; hyprctl notify 1 3000 0 "fontsize:16   Brightness level: $(brightnessctl g)"
+$backlightup = brightnessctl s +5%; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
+$backlightdown = brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
 
-$toggledock = {{ joinPath .chezmoi.homeDir ".config/hypr/scripts/toggle_dock" }}
+$toggledock = {{ joinPath .chezmoi.homeDir ".config/wayland/scripts/toggle_dock" }}
 
 $logout = hyprctl dispatch exit
+$logoutopts = wlogout
 
 
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/env.conf" }}
