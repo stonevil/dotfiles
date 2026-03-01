@@ -3,7 +3,7 @@
 */ -}}
 
 # Switch keyboard language
-bindl = CTRL, SPACE, exec, hyprctl notify 1 3000 0 "fontsize:16   $current_keymap"
+bindl = CTRL, SPACE, exec, notify-send --urgency=low --icon=language-chooser $current_keymap
 
 # Screenshots
 bindd = SUPER SHIFT, 3, Screenshot window, exec, hyprshot -m output # macOS alike
@@ -21,4 +21,5 @@ bindd = SUPER CTRL, N, Notification Center, exec, $notifications
 bindd = SUPER CTRL, L, Lock the screen, exec, $screenlock # macOS alike
 
 # Logout
-bindd = SUPER CTRL, Q, Exit Hyprland, exec, $logout # macOS alike
+bindd = SUPER CTRL, Q, Exit Hyprland, exec, $logout
+bindd = CTRL ALT, DEL, wlogout, exec, $logoutopts
