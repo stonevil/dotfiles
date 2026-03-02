@@ -38,7 +38,7 @@ $micmute = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") 
 $backlightup = brightnessctl s +5%; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
 $backlightdown = brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
 
-$toggledock = {{ joinPath .chezmoi.homeDir ".config/wayland/scripts/toggle_dock" }}
+$dock_toggle = {{ joinPath .chezmoi.homeDir ".config/wayland/scripts/dock_toggle" }}
 
 $logout = hyprctl dispatch exit
 
