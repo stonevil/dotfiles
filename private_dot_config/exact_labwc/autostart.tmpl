@@ -18,8 +18,8 @@ udiskie -t >/dev/null 2>&1 &
 hypridle --config {{ joinPath .chezmoi.homeDir ".config/hypr/hypridle.conf" }} >/dev/null 2>&1 &
 swaybg -i {{ joinPath .chezmoi.homeDir ".local/share/wallpapers/default.png" }} >/dev/null 2>&1 &
 
-# Mako notifications center
-mako >/dev/null 2>&1 &
+# Notifications center
+swaync >/dev/null 2>&1 &
 
 # Walker, Spotlight replacement
 elephant >/dev/null 2>&1 &
