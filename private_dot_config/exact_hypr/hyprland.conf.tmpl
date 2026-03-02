@@ -15,9 +15,15 @@ $editor = nvim
 $clipboard = walker --provider clipboard
 $colourpicker = hyprpicker --autocopy --format=hex --quiet --lowercase-hex
 
+$wallpaper = hyprpaper
+
+$idle = hypridle
+
 $notifications = mako
 $spotlight = walker
 $screenlock = playerctl --all-players pause; hyprlock
+
+$sysbar = waybar
 
 $current_keymap = $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')
 
@@ -33,7 +39,6 @@ $backlightdown = brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "
 $toggledock = {{ joinPath .chezmoi.homeDir ".config/wayland/scripts/toggle_dock" }}
 
 $logout = hyprctl dispatch exit
-$logoutopts = wlogout
 
 
 source = {{ joinPath .chezmoi.homeDir ".config/hypr/modules/env.conf" }}

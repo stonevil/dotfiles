@@ -13,22 +13,22 @@ exec-once = systemctl --user start hyprpolkitagent >/dev/null 2>&1 &
 # exec-once = /usr/lib/polkit-kde-authentication-agent-1 >/dev/null 2>&1 & # authentication dialogue for GUI apps
 
 # Idle, Lockscreen
-exec-once = hypridle --config {{ joinPath .chezmoi.homeDir ".config/hypr/hypridle.conf" }} >/dev/null 2>&1 &
-exec-once = hyprpaper >/dev/null 2>&1 &
+exec-once = $idle >/dev/null 2>&1 &
+exec-once = $wallpaper >/dev/null 2>&1 &
 
 # Clipboard
 #exec-once = wl-paste --type text --watch cliphist store # clipboard store text data >/dev/null 2>&1 &
 #exec-once = wl-paste --type image --watch cliphist store # clipboard store image data >/dev/null 2>&1 &
 
-# Mako notifications center
-exec-once = mako >/dev/null 2>&1 &
+# Notifications center
+exec-once = $notifications >/dev/null 2>&1 &
 
 # Walker, Spotlight replacement
 exec-once = elephant >/dev/null 2>&1 &
 exec-once = walker --gapplication-service >/dev/null 2>&1 &
 
-# Ashell, system menubar
-exec-once = waybar >/dev/null 2>&1 &
+# System bar
+exec-once = $sysbar >/dev/null 2>&1 &
 
 # Playerctl daemon
 exec-once = playerctld >/dev/null 2>&1 &
