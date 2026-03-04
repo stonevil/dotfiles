@@ -2,6 +2,15 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
+# Virt
+windowrule {
+	name = Virt
+	match:class = (org.gnome.Boxes|org.kde.karton|virt-manager)
+	workspace = 7
+	float = true
+	size = (monitor_w*0.6) (monitor_h*0.8)
+}
+
 # ROG
 windowrule {
 	name = ROG
@@ -17,7 +26,7 @@ windowrule {
 	match:class = ^(librewolf|chromium)$
 	workspace = 2
 	float = true
-	center = true
+	size = (monitor_w*0.7) (monitor_h)
 }
 
 # MPV
@@ -33,6 +42,14 @@ windowrule {
 	name = Discord
 	match:class = ^(discord)$
 	workspace = 3
+}
+
+# OpenSnitch
+windowrule {
+	name = OpenSnitch
+	match:class = opensnitch_ui
+	float = true
+	size = (monitor_w*0.7) (monitor_h*0.7)
 }
 
 # Terminal
