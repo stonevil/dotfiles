@@ -1,3 +1,7 @@
+{{- /*
+vim:ft=xml.gotexttmpl
+*/ -}}
+
 <labwc_config>
 
 	<core>
@@ -30,31 +34,31 @@
 		<dropShadows>no</dropShadows>
 		<dropShadowsOnTiled>no</dropShadowsOnTiled>
 		<font place="ActiveWindow">
-			<name>sans</name>
+			<name>Iosevka Nerd Font Propo</name>
 			<size>10</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="InactiveWindow">
-			<name>sans</name>
+			<name>Iosevka Nerd Font Propo</name>
 			<size>10</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="MenuHeader">
-			<name>sans</name>
+			<name>Iosevka Nerd Font Propo</name>
 			<size>10</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="MenuItem">
-			<name>sans</name>
+			<name>Iosevka Nerd Font Propo</name>
 			<size>10</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="OnScreenDisplay">
-			<name>sans</name>
+			<name>Iosevka Nerd Font Propo</name>
 			<size>10</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
@@ -151,16 +155,16 @@
 		<popupTime>500</popupTime>
 		<number>10</number>
 		<names>
-			<name>term</name>
-			<name>web</name>
-			<name>com</name>
-			<name>mail</name>
-			<name>office</name>
-			<name>dev</name>
-			<name>7</name>
-			<name>8</name>
-			<name>9</name>
-			<name>10</name>
+			<name>I</name>
+			<name>II</name>
+			<name>III</name>
+			<name>IV</name>
+			<name>V</name>
+			<name>VI</name>
+			<name>VII</name>
+			<name>VIII</name>
+			<name>IX</name>
+			<name>X</name>
 		</names>
 	</desktops>
 
@@ -201,7 +205,7 @@
 		<keybind key="W-S-Tab">
 			<action name="PreviousWindow" />
 		</keybind>
-		<keybind key="  W-Return">
+		<keybind key="W-Return">
 			<action name="Execute" command="foot" />
 		</keybind>
 		<keybind key="W-C-Return">
@@ -211,7 +215,7 @@
 			<action name="Execute" command="foot -e yazi" />
 		</keybind>
 		<keybind key="W-C-b">
-			<action name="󰈹  Execute" command="librewolf" />
+			<action name="Execute" command="librewolf" />
 		</keybind>
 		<keybind key="W-C-m">
 			<action name="Execute" command="thunderbird" />
@@ -225,11 +229,15 @@
 		<keybind key="W-C-l">
 			<action name="Execute" command="hyprlock" />
 		</keybind>
+		<keybind key="W-C-d">
+			<action name="Execute" command="{{ joinPath .chezmoi.homeDir ".config/wayland/scripts/dock_toggle" }}" />
+		</keybind>
 		<!-- <keybind key="A-F4"> -->
 		<!--	 <action name="Close" /> -->
 		<!-- </keybind> -->
 		<keybind key="W-C-f">
 			<action name="ToggleMaximize" />
+			<action name="ToggleDecorations" />
 		</keybind>
 		<!-- <keybind key="W-Left"> -->
 		<!--	 <action name="SnapToEdge" direction="left" combine="yes" /> -->
@@ -337,6 +345,16 @@
 
 		<keybind key="W-S-A-Right">
 			<action name="MoveToOutput" direction="right"></action>
+		</keybind>
+
+		<keybind key="W-C-l">
+			<action name="Execute" command="hypridle"/>
+		</keybind>
+		<keybind key="W-C-S-q">
+			<action name="Execute" command="systemctl suspend"/>
+		</keybind>
+		<keybind key="W-C-q">
+			<action name="Exit"/>
 		</keybind>
 
 	<!-- SnapToRegion via W-Numpad -->
@@ -591,12 +609,11 @@
 
 	<windowRules>
     <windowRule identifier="*" serverDecoration="no"></windowRule>
-    <windowRule identifier="foot" serverDecoration="yes"></windowRule>
-    <windowRule identifier="librewolf"><action name="SendToDesktop"><to>web</to></action></windowRule>
-    <windowRule identifier="chromium"><action name="SendToDesktop"><to>web</to></action></windowRule>
-    <windowRule identifier="org.mozilla.Thunderbird"><action name="SendToDesktop"><to>mail</to></action></windowRule>
-    <windowRule identifier="discord"><action name="SendToDesktop"><to>com</to></action></windowRule>
-    <windowRule identifier="discord"><action name="SendToDesktop"><to>com</to></action></windowRule>
+    <!-- <windowRule identifier="foot" serverDecoration="yes"></windowRule> -->
+    <windowRule identifier="librewolf"><action name="SendToDesktop"><to>II</to></action></windowRule>
+    <windowRule identifier="chromium"><action name="SendToDesktop"><to>II</to></action></windowRule>
+    <windowRule identifier="discord"><action name="SendToDesktop"><to>III</to></action></windowRule>
+    <windowRule identifier="org.mozilla.Thunderbird"><action name="SendToDesktop"><to>IV</to></action></windowRule>
 	</windowRules>
 
 	<!--

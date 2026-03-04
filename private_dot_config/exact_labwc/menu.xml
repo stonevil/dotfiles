@@ -1,72 +1,78 @@
 <openbox_menu>
-<menu id="client-menu">
-  <item label="Minimize">
-    <action name="Iconify" />
-  </item>
-  <item label="Maximize">
-    <action name="ToggleMaximize" />
-  </item>
-  <item label="Fullscreen">
-    <action name="ToggleFullscreen" />
-  </item>
-  <item label="Roll Up/Down">
-    <action name="ToggleShade" />
-  </item>
-  <item label="Decorations">
-    <action name="ToggleDecorations" />
-  </item>
-  <item label="Always on Top">
-    <action name="ToggleAlwaysOnTop" />
-  </item>
-	<menu id="workspaces" label="Workspace">
-    <item label="Move left">
-      <action name="SendToDesktop" to="left" />
-    </item>
-    <item label="Move right">
-      <action name="SendToDesktop" to="right" />
-    </item>
-    <separator />
-    <item label="Always on Visible Workspace">
-      <action name="ToggleOmnipresent" />
-    </item>
-  </menu>
-  <item label="Close">
-    <action name="Close" />
-  </item>
-</menu>
+	<menu id="client-menu">
+		<item label="Minimize">
+			<action name="Iconify" />
+		</item>
+		<item label="Maximize">
+			<action name="ToggleMaximize" />
+		</item>
+		<item label="Fullscreen">
+			<action name="ToggleFullscreen" />
+		</item>
+		<item label="Roll Up/Down">
+			<action name="ToggleShade" />
+		</item>
+		<item label="Decorations">
+			<action name="ToggleDecorations" />
+		</item>
+		<item label="Always on Top">
+			<action name="ToggleAlwaysOnTop" />
+		</item>
+		<menu id="workspaces" label="Workspace">
+			<item label="Move left">
+				<action name="SendToDesktop" to="left" />
+			</item>
+			<item label="Move right">
+				<action name="SendToDesktop" to="right" />
+			</item>
+			<separator />
+			<item label="Always on Visible Workspace">
+				<action name="ToggleOmnipresent" />
+			</item>
+		</menu>
+		<item label="Close">
+			<action name="Close" />
+		</item>
+	</menu>
 
-<menu id="root-menu">
-  <item label="Terminal">
-    <action name="Execute" command="foot" />
-  </item>
-  <menu id="dev" label="Development">
-    <item label="Neovide">
-      <action name="Execute" command="neovide" />
-    </item>
-  </menu>
-  <menu id="web" label="Web">
-    <item label="Librewolf">
-      <action name="Execute" command="librewolf" />
-    </item>
-    <item label="Chromium">
-      <action name="Execute" command="chromium" />
-    </item>
-  </menu>
-  <menu id="office" label="Office">
-    <item label="File Browser">
-      <action name="Execute" command="dolphin" />
-    </item>
-    <item label="Mail">
-      <action name="Execute" command="thunderbird" />
-    </item>
-  </menu>
-  <separator />
-  <item label="Reconfigure">
-    <action name="Reconfigure" />
-  </item>
-  <item label="Exit">
-    <action name="Exit"/>
-  </item>
-</menu>
-
+	<menu id="root-menu">
+		<item label="  Terminal">
+			<action name="Execute" command="foot" />
+		</item>
+		<menu id="dev" label="  Development">
+			<item label="  Neovide">
+				<action name="Execute" command="neovide" />
+			</item>
+		</menu>
+		<menu id="web" label="󰖟  Web">
+			<item label="  Librewolf">
+				<action name="Execute" command="librewolf" />
+			</item>
+			<item label="  Chromium">
+				<action name="Execute" command="chromium" />
+			</item>
+		</menu>
+		<menu id="office" label="󰏆  Office">
+			<item label="󱢴  File Browser">
+				<action name="Execute" command="dolphin" />
+			</item>
+			<item label="  Mail">
+				<action name="Execute" command="thunderbird" />
+			</item>
+		</menu>
+		<separator />
+		<item label="  Reconfigure">
+			<action name="Reconfigure" />
+		</item>
+		<separator />
+		<item label="  Lock">
+			<action name="Execute" command="hypridle"/>
+		</item>
+		<item label="󰒲  Sleep">
+			<action name="Execute" command="systemctl suspend"/>
+		</item>
+		<item label="󰿅  Exit">
+			<action name="Exit"/>
+		</item>
+	</menu>
 </openbox_menu>
