@@ -25,6 +25,9 @@ default = [
   "calc",
 ] # providers to be queried by default
 
+[[emergencies]]
+text = "Terminal"
+command = "foot"
 
 [[providers.prefixes]]
 prefix = ";"
@@ -49,6 +52,10 @@ provider = "calc"
 [[providers.prefixes]]
 prefix = ":"
 provider = "clipboard"
+
+[[providers.prefixes]]
+prefix = ">"
+provider = "runner"
 
 [providers.providerlist]
 default = "activate"
