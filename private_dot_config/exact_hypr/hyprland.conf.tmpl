@@ -25,6 +25,8 @@ $notifications_toggle = swaync-client --toggle-panel
 $spotlight = walker
 $screenlock = playerctl --all-players pause; hyprlock
 
+$suspend = systemctl suspend
+
 $sysbar = waybar
 
 $current_keymap = $(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')
