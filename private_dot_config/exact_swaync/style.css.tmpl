@@ -1,20 +1,45 @@
 /* SwayNC config	*/
-@define-color noti-border-color @color12;
-@define-color noti-bg #000000;
-@define-color noti-bg-alt #0e0e16;
-@define-color noti-bg-hover #0e0e16;
-@define-color text-color @foreground;
+@define-color rosewater {{ print "#" .colours.normal.rosewater }};
+@define-color flamingo {{ print "#" .colours.normal.flamingo }};
+@define-color pink {{ print "#" .colours.normal.pink }};
+@define-color mauve {{ print "#" .colours.normal.mauve }};
+@define-color red {{ print "#" .colours.normal.red }};
+@define-color maroon {{ print "#" .colours.normal.maroon }};
+@define-color peach {{ print "#" .colours.normal.peach }};
+@define-color yellow {{ print "#" .colours.normal.yellow }};
+@define-color green {{ print "#" .colours.normal.green }};
+@define-color teal {{ print "#" .colours.normal.teal }};
+@define-color sky {{ print "#" .colours.normal.sky }};
+@define-color sapphire {{ print "#" .colours.normal.sapphire }};
+@define-color blue {{ print "#" .colours.normal.blue }};
+@define-color lavender {{ print "#" .colours.normal.lavender }};
+@define-color text {{ print "#" .colours.normal.foreground }};
+@define-color subtext1 {{ print "#" .colours.normal.subtext1 }};
+@define-color subtext0 {{ print "#" .colours.normal.subtext0 }};
+@define-color overlay2 {{ print "#" .colours.normal.overlay2 }};
+@define-color overlay1 {{ print "#" .colours.normal.overlay1 }};
+@define-color overlay0 {{ print "#" .colours.normal.overlay0 }};
+@define-color surface2 {{ print "#" .colours.normal.surface2 }};
+@define-color surface1 {{ print "#" .colours.normal.surface1 }};
+@define-color surface0 {{ print "#" .colours.normal.surface0 }};
+@define-color base {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.base }}{{ end }};
+@define-color mantle {{ print "#" .colours.normal.mantle }};
+@define-color crust {{ print "#" .colours.normal.crust }};
+@define-color black {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.black }}{{ end }};
+@define-color white {{ print "#" .colours.normal.white }};
+
 
 * {
 	font-family: "Iosevka Nerd Font Propo";
 	font-weight: bold;
 	font-size: 1rem;
+	border-radius: 0px;
 }
 
 .control-center .notification-row:focus,
 .control-center .notification-row:hover {
 	opacity: 1;
-	background: #000000;
+	background: @black;
 }
 
 .notification-row {
