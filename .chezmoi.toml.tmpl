@@ -82,8 +82,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $nvidia := false }}
 {{ $thinkpad := false }}
 {{ $xfce := false }}
-{{ $labwc := false }}
 {{ $plasma := false }}
+{{ $labwc := false }}
 {{ $hyprland := false }}
 {{ $browsers := false }}
 {{ $terminalEmulators := false }}
@@ -127,8 +127,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "nvidia" }}{{ $nvidia = .tags.nvidia.enabled }}{{ end }}
 	{{ if hasKey .tags "thinkpad" }}{{ $thinkpad = .tags.thinkpad.enabled }}{{ end }}
 	{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
-	{{ if hasKey .tags "labwc" }}{{ $labwc = .tags.labwc.enabled }}{{ end }}
 	{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
+	{{ if hasKey .tags "labwc" }}{{ $labwc = .tags.labwc.enabled }}{{ end }}
 	{{ if hasKey .tags "hyprland" }}{{ $hyprland = .tags.hyprland.enabled }}{{ end }}
 	{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
 	{{ if hasKey .tags "terminalEmulators" }}{{ $terminalEmulators = .tags.terminalEmulators.enabled }}{{ end }}
@@ -184,9 +184,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
 	{{ end }}
 
-	{{ $labwc = promptBool "Labwc DE" $labwc }}
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
-	{{ $hyprland = promptBool "Hyprland DE" $hyprland }}
+	{{ $labwc = promptBool "Labwc" $labwc }}
+	{{ $hyprland = promptBool "Hyprland" $hyprland }}
 {{ end }}
 
 # Ask questin about environment if GUI env enabled
@@ -922,13 +922,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"xdgcli-git",
 		"satty",
 		"imv",
-		"kanshi",
-		"lswt",
 		"wlr-randr",
 		"qt6-wayland",
 		"qt6ct-kde",
 		"udiskie",
-		"pamixer",
 		"playerctl",
 		"cliphist",
 		"nwg-look",
@@ -942,13 +939,23 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"swaync",
 		"hypridle",
 		"hyprlock",
+		"hyprshot",
+		"hyprpicker",
+		"walker",
+		"elephant",
+		"elephant-desktopapplications",
+		"elephant-files",
+		"elephant-menus",
+		"elephant-clipboard",
 	]
 
 [data.tags.labwc]
 	enabled = {{ $labwc }}
 	arch = [
+		"lswt",
 		"labwc",
 		"swaybg",
+		"kanshi",
 	]
 
 [data.tags.hyprland]
@@ -958,16 +965,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"hyprland-guiutils",
 		"xdg-desktop-portal-hyprland",
 		"hyprcursor",
-		"hyprshot",
 		"hyprpolkitagent",
 		"hyprpaper",
-		"hyprpicker",
-		"walker",
-		"elephant",
-		"elephant-desktopapplications",
-		"elephant-files",
-		"elephant-menus",
-		"elephant-clipboard",
 	]
 
 [data.tags.plasma]
