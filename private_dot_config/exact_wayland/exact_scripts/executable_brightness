@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+opts=$@
+
+case "$opts" in
+	up)
+		brightnessctl --save set +5%; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
+		;;
+	down)
+		brightnessctl --save set 5%-; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
+		;;
+	off)
+		sudo brightnessctl --save set 20; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
+		;;
+	*)
+		notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
+		;;
+esac
