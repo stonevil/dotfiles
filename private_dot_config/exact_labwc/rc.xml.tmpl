@@ -24,13 +24,13 @@ vim:ft=xml.gotexttmpl
 		<icon>breeze-dark</icon>
 		<fallbackAppIcon>labwc</fallbackAppIcon>
 		<titlebar>
-			<layout>icon:iconify,shade,desk,max,close</layout>
+			<layout>icon:shade,desk,max,close</layout>
 			<showTitle>yes</showTitle>
 		</titlebar>
 		<animateIconify>yes</animateIconify>
 		<cornerRadius>0</cornerRadius>
 		<keepBorder>yes</keepBorder>
-		<maximizedDecoration>titlebar</maximizedDecoration>
+		<maximizedDecoration>none</maximizedDecoration>
 		<dropShadows>no</dropShadows>
 		<dropShadowsOnTiled>no</dropShadowsOnTiled>
 		<font place="ActiveWindow">
@@ -65,49 +65,14 @@ vim:ft=xml.gotexttmpl
 		</font>
 	</theme>
 
-	<windowSwitcher preview="yes" outlines="yes" unshade="yes">
+	<windowSwitcher preview="yes" outlines="yes" unshade="no">
 		<osd show="yes" style="classic" output="all" thumbnailLabelFormat="%T" />
 		<fields>
 			<field content="icon" width="5%" />
 			<field content="desktop_entry_name" width="30%" />
 			<field content="title" width="65%" />
-			<!--
-				Just as for window-rules, you can use 'identifier' or 'trimmed_identifier' to show the app_id for native wayland clients or WM_CLASS for XWayland clients.
-
-				<field content="trimmed_identifier" width="65%" />
-			-->
 		</fields>
 	</windowSwitcher>
-
-	<!--
-		Many other kinds of content are supported in the window switcher like below.
-		Some contents are fixed-length and others are variable-length.
-		See "man 5 labwc-config" for details.
-
-		<windowSwitcher preview="no" outlines="no">
-			<osd show="yes" />
-			<fields>
-				<field content="workspace" width="5%" />
-				<field content="state" width="3%" />
-				<field content="type_short" width="3%" />
-				<field content="output" width="9%" />
-				<field content="identifier" width="30%" />
-				<field content="title" width="50%" />
-			</fields>
-		</windowSwitcher>
-
-		custom format - (introduced in 0.7.2)
-		It allows one to replace all the above "fields" with one line, using a printf style format. For field explanations, see "man 5 labwc-config".
-
-		The example below would print "foobar", then type of window (wayland, X), then state of window (M/m/F), then output (shows if more than 1 active), then workspace name, then identifier/app-id, then the window title. It uses 100% of OSD window width.
-
-		<windowSwitcher preview="no" outlines="no">
-			<osd show="yes" />
-			<fields>
-				<field content="custom" format="foobar %b %3s %-10o %-20W %-10i %t" width="100%" />
-			</fields>
-		</windowSwitcher>
-	-->
 
 	<!-- edge strength is in pixels -->
 	<resistance>
@@ -226,18 +191,17 @@ vim:ft=xml.gotexttmpl
 		<keybind key="W-S-v">
 			<action name="Execute" command="walker --provider clipboard" />
 		</keybind>
-		<keybind key="W-C-l">
-			<action name="Execute" command="hyprlock" />
+		<keybind key="W-S-n">
+			<action name="Execute" command="swaync-client --toggle-panel" />
 		</keybind>
 		<keybind key="W-C-d">
 			<action name="Execute" command="{{ joinPath .chezmoi.homeDir ".config/wayland/scripts/dock_toggle" }}" />
 		</keybind>
-		<!-- <keybind key="A-F4"> -->
-		<!--	 <action name="Close" /> -->
-		<!-- </keybind> -->
 		<keybind key="W-C-f">
 			<action name="ToggleMaximize" />
-			<action name="ToggleDecorations" />
+		</keybind>
+		<keybind key="W-C-h">
+			<action name="ToggleShade" />
 		</keybind>
 		<!-- <keybind key="W-Left"> -->
 		<!--	 <action name="SnapToEdge" direction="left" combine="yes" /> -->
@@ -254,23 +218,23 @@ vim:ft=xml.gotexttmpl
 		<!-- <keybind key="A-Space"> -->
 		<!--	 <action name="ShowMenu" menu="client-menu" atCursor="no" /> -->
 		<!-- </keybind> -->
-		<keybind key="XF86_AudioLowerVolume">
-			<action name="Execute" command="pamixer --decrease 5" />
-		</keybind>
 		<keybind key="XF86_AudioRaiseVolume">
-			<action name="Execute" command="pamixer --increase 5" />
+			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "up") }}" />
+		</keybind>
+		<keybind key="XF86_AudioLowerVolume">
+			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "down") }}" />
 		</keybind>
 		<keybind key="XF86_AudioMute">
-			<action name="Execute" command="pamixer --toggle-mute" />
-		</keybind>
-		<keybind key="XF86_MonBrightnessUp">
-			<action name="Execute" command="brightnessctl s +5%" />
-		</keybind>
-		<keybind key="XF86_MonBrightnessDown">
-			<action name="Execute" command="brightnessctl s 5%-" />
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle" }}" />
 		</keybind>
 		<keybind key="XF86AudioMicMute">
-			<action name="Execute" command="pamixer --default-source --toggle-mute" />
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }}" />
+		</keybind>
+		<keybind key="XF86_MonBrightnessUp">
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "up" }}" />
+		</keybind>
+		<keybind key="XF86_MonBrightnessDown">
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "down" }}" />
 		</keybind>
 		<keybind key="XF86Launch1">
 			<action name="Execute" command="rog-control-center" />
@@ -347,14 +311,31 @@ vim:ft=xml.gotexttmpl
 			<action name="MoveToOutput" direction="right"></action>
 		</keybind>
 
+		<keybind key="W-S-3">
+			<action name="Execute" command="hyprshot -m output" />
+		</keybind>
+		<keybind key="W-S-4">
+			<action name="Execute" command="hyprshot -m window" />
+		</keybind>
+		<keybind key="W-S-5">
+			<action name="Execute" command="hyprshot -m region" />
+		</keybind>
+		<keybind key="PRINT">
+			<action name="Execute" command="hyprshot -m window" />
+		</keybind>
+		<keybind key="S-PRINT">
+			<action name="Execute" command="hyprshot -m region" />
+		</keybind>
+
 		<keybind key="W-C-l">
-			<action name="Execute" command="hypridle"/>
+			<action name="Execute" command="playerctl --all-players pause" />
+			<action name="Execute" command="loginctl lock-session" />
 		</keybind>
 		<keybind key="W-C-S-q">
-			<action name="Execute" command="systemctl suspend"/>
+			<action name="Execute" command="systemctl suspend" />
 		</keybind>
-		<keybind key="W-C-q">
-			<action name="Exit"/>
+		<keybind key="W-C-A-q">
+			<action name="Exit" />
 		</keybind>
 
 	<!-- SnapToRegion via W-Numpad -->
@@ -452,7 +433,7 @@ vim:ft=xml.gotexttmpl
 				<action name="Move" />
 			</mousebind>
 			<mousebind button="Left" action="DoubleClick">
-				<action name="ToggleMaximize" />
+				<action name="ToggleShade" />
 			</mousebind>
 			<mousebind button="Right" action="Click">
 				<action name="ShowMenu" menu="client-menu" />
@@ -608,26 +589,20 @@ vim:ft=xml.gotexttmpl
 	</libinput>
 
 	<windowRules>
-    <windowRule identifier="*" serverDecoration="no"></windowRule>
-    <!-- <windowRule identifier="foot" serverDecoration="yes"></windowRule> -->
+    <windowRule identifier="*" serverDecoration="yes"></windowRule>
     <windowRule identifier="librewolf"><action name="SendToDesktop"><to>II</to></action></windowRule>
     <windowRule identifier="chromium"><action name="SendToDesktop"><to>II</to></action></windowRule>
     <windowRule identifier="discord"><action name="SendToDesktop"><to>III</to></action></windowRule>
     <windowRule identifier="org.mozilla.Thunderbird"><action name="SendToDesktop"><to>IV</to></action></windowRule>
+    <windowRule identifier="virt-manager"><action name="SendToDesktop"><to>VII</to></action></windowRule>
 	</windowRules>
 
 	<!--
 		# Window Rules
-		#	 - Criteria can consist of 'identifier', 'title', 'sandboxEngine' or
-		#		 'sandboxAppId'. AND logic is used when multiple options are specified.
-		#	 - 'identifier' relates to app_id for native Wayland windows and
-		#		 WM_CLASS for XWayland clients.
-		#	 - Criteria can also contain `matchOnce="true"` meaning that the rule
-		#		 must only apply to the first instance of the window with that
-		#		 particular 'identifier' or 'title'.
-		#	 - Matching is case-insensitive and is performed using shell wildcard
-		#		 patterns (see glob(7)) so '\*' (not between brackets) matches any
-		#		 string and '?' matches any single character.
+		#	 - Criteria can consist of 'identifier', 'title', 'sandboxEngine' or 'sandboxAppId'. AND logic is used when multiple options are specified.
+		#	 - 'identifier' relates to app_id for native Wayland windows and WM_CLASS for XWayland clients.
+		#	 - Criteria can also contain `matchOnce="true"` meaning that the rule must only apply to the first instance of the window with that particular 'identifier' or 'title'.
+		#	 - Matching is case-insensitive and is performed using shell wildcard patterns (see glob(7)) so '\*' (not between brackets) matches any string and '?' matches any single character.
 
 		<windowRules>
 			<windowRule identifier="*"><action name="Maximize"/></windowRule>
