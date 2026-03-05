@@ -8,7 +8,7 @@ vim:ft=conf.gotexttmpl
 --disable-sync-preferences
 --ignore-gpu-blocklist
 --enable-zero-copy
-{{ if .tags.plasma.enabled -}}
+{{ if or (.tags.plasma.enabled) (.tags.labwc.enabled) (.tags.hyprland.enabled) -}}
 --password-store=kwallet6
 {{ end -}}
 {{ if eq .chezmoi.os "linux" -}}
