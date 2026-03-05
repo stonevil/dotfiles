@@ -8,6 +8,9 @@ systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP >/dev/nu
 dbus-update-activation-environment --systemd --all >/dev/null 2>&1 &
 dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus >/dev/null 2>&1 &
 
+# Let KWallet to use your login credentials automatically
+/usr/lib/pam_kwallet_init
+
 # Disk automount
 udiskie -t >/dev/null 2>&1 &
 

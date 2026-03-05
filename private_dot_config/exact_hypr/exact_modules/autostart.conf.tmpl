@@ -1,9 +1,16 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+
 # https://wiki.hypr.land/Configuring/Keywords/#executing
 
 # Slow app launch fix -- set systemd vars
 exec-once = systemctl --user import-environment $(env | cut -d'=' -f 1) >/dev/null 2>&1 &
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP >/dev/null 2>&1 &
 exec-once = dbus-update-activation-environment --systemd --all >/dev/null 2>&1 &
+
+# Let KWallet to use your login credentials automatically
+exec-once = pam_kwallet_init
 
 # Disk automount
 exec-once = udiskie -t >/dev/null 2>&1 &
