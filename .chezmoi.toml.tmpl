@@ -261,6 +261,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"unzip",
 		"watch",
 		"wget",
+		"fd",
 	]
 	arch = [
 		"yay",
@@ -285,7 +286,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"which",
 		"glibc-locales",
 		"networkmanager",
-		"bluetui",
+		"fd",
 	]
 	fedora = [
 		"bash",
@@ -947,6 +948,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"elephant-files",
 		"elephant-menus",
 		"elephant-clipboard",
+		"bluetui",
 	]
 
 [data.tags.labwc]
