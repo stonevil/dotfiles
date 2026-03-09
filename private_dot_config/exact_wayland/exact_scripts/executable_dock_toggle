@@ -6,3 +6,6 @@ then
 else
 	bash -ic "waybar >/dev/null 2>&1 & disown" # execute waybar with bash -i otherwise clock module is not working
 fi
+
+# pkill --signal SIGUSR1 waybar
+# SIGUSR1 can be used to hide/show waybar. But I do prefer kill process to free Memory and CPU
