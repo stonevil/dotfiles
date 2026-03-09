@@ -105,7 +105,7 @@
 		"node-type": "Audio/Source",
 		"format": "{volume}% 󰍬",
 		"format-muted": "󰍭",
-		"on-click": {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute") | quote }},
+		"on-click": {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle") | quote }},
 		"on-click-right": "wiremix",
 		"scroll-step": 5,
 	},

@@ -46,7 +46,7 @@ exec-once = sleep 10s; rog-control-center >/dev/null 2>&1 &
 exec-once = sleep 10s; $sysbar >/dev/null 2>&1 &
 
 # Mic mute at start
-exec-once = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }} >/dev/null 2>&1 &
+exec-once = sleep 10s; {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }} >/dev/null 2>&1 &
 
 # Switch to first workspace on start. Should be last line in autostart.
 exec-once = hyprctl dispatch workspace 1 >/dev/null 2>&1 &

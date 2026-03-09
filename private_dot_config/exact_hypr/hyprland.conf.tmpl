@@ -35,7 +35,7 @@ $volumeup = {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio"
 $volumedown = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "down" }}
 $volumemute = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle" }}
 
-$micmute = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }}
+$micmute = {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle" }}
 
 $backlightup = brightnessctl s +5%; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"
 $backlightdown = brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"

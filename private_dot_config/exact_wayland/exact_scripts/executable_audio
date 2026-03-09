@@ -12,8 +12,11 @@ case "$opts" in
 	down)
 		wpctl set-volume --limit 1.5 @DEFAULT_AUDIO_SINK@ 5%-; notify-send --urgency=low --icon=audio-volume-high "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
 		;;
-	micmute)
+	mictoggle)
 		wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; notify-send --urgency=low --icon=mic-on "$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@)"
+		;;
+	micmute)
+		wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1; notify-send --urgency=low --icon=mic-on "$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@)"
 		;;
 	*)
 		notify-send --urgency=low --icon=audio-volume "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
