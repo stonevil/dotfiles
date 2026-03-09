@@ -82,9 +82,7 @@ window#waybar.solo {
 #temperature,
 #network,
 #wireplumber,
-#custom-media,
-#tray,
-#mpd {
+#tray {
 	color: @black;
 }
 
@@ -192,30 +190,27 @@ window#waybar.solo {
 #tray {
 	background-color: transparent;
 }
-
 #tray > .passive {
 	-gtk-icon-effect: dim;
 }
-
 #tray > .needs-attention {
 	-gtk-icon-effect: highlight;
 	background-color: @red;
 }
 
-#mpd {
+#mpris, #mpd {
 	background-color: transparent;
-	color: @black;
+	color: @text;
 }
-
-#mpd.disconnected {
+#mpris.disconnected, #mpd.disconnected {
 	background-color: transparent;
+	color: @text;
 }
-
-#mpd.stopped {
+#mpris.stopped, #mpd.stopped {
 	background-color: transparent;
+	color: @text;
 }
-
-#mpd.paused {
+#mpris.paused, #mpd.paused {
 	background-color: transparent;
 	color: @red;
 }
