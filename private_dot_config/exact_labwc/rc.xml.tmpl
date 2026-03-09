@@ -34,32 +34,32 @@ vim:ft=xml.gotexttmpl
 		<dropShadows>no</dropShadows>
 		<dropShadowsOnTiled>no</dropShadowsOnTiled>
 		<font place="ActiveWindow">
-			<name>Iosevka Nerd Font Propo</name>
-			<size>10</size>
+			<name>{{ .theme.font }}</name>
+			<size>{{ .theme.fontSize }}</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="InactiveWindow">
-			<name>Iosevka Nerd Font Propo</name>
-			<size>10</size>
+			<name>{{ .theme.font }}</name>
+			<size>{{ .theme.fontSize }}</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="MenuHeader">
-			<name>Iosevka Nerd Font Propo</name>
-			<size>10</size>
+			<name>{{ .theme.font }}</name>
+			<size>{{ .theme.fontSize }}</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="MenuItem">
-			<name>Iosevka Nerd Font Propo</name>
-			<size>10</size>
+			<name>{{ .theme.font }}</name>
+			<size>{{ .theme.fontSize }}</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
 		<font place="OnScreenDisplay">
-			<name>Iosevka Nerd Font Propo</name>
-			<size>10</size>
+			<name>{{ .theme.font }}</name>
+			<size>{{ .theme.fontSize }}</size>
 			<slant>normal</slant>
 			<weight>normal</weight>
 		</font>
@@ -203,21 +203,22 @@ vim:ft=xml.gotexttmpl
 		<keybind key="W-C-h">
 			<action name="ToggleShade" />
 		</keybind>
-		<!-- <keybind key="W-Left"> -->
-		<!--	 <action name="SnapToEdge" direction="left" combine="yes" /> -->
-		<!-- </keybind> -->
-		<!-- <keybind key="W-Right"> -->
-		<!--	 <action name="SnapToEdge" direction="right" combine="yes" /> -->
-		<!-- </keybind> -->
-		<!-- <keybind key="W-Up"> -->
-		<!--	 <action name="SnapToEdge" direction="up" combine="yes" /> -->
-		<!-- </keybind> -->
-		<!-- <keybind key="W-Down"> -->
-		<!--	 <action name="SnapToEdge" direction="down" combine="yes" /> -->
-		<!-- </keybind> -->
-		<!-- <keybind key="A-Space"> -->
-		<!--	 <action name="ShowMenu" menu="client-menu" atCursor="no" /> -->
-		<!-- </keybind> -->
+
+		<!-- Snap to Edges -->
+		<keybind key="W-A-Left">
+			 <action name="SnapToEdge" direction="left" combine="yes" />
+		</keybind>
+		<keybind key="W-A-Right">
+			 <action name="SnapToEdge" direction="right" combine="yes" />
+		</keybind>
+		<keybind key="W-A-Up">
+			 <action name="SnapToEdge" direction="up" combine="yes" />
+		</keybind>
+		<keybind key="W-A-Down">
+			 <action name="SnapToEdge" direction="down" combine="yes" />
+		</keybind>
+
+		<!-- Media Keys -->
 		<keybind key="XF86_AudioRaiseVolume">
 			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "up") }}" />
 		</keybind>
@@ -230,17 +231,20 @@ vim:ft=xml.gotexttmpl
 		<keybind key="XF86AudioMicMute">
 			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }}" />
 		</keybind>
+
+		<!-- Monitor Brightness Keys -->
 		<keybind key="XF86_MonBrightnessUp">
 			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "up" }}" />
 		</keybind>
 		<keybind key="XF86_MonBrightnessDown">
 			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "down" }}" />
 		</keybind>
+
 		<keybind key="XF86Launch1">
 			<action name="Execute" command="rog-control-center" />
 		</keybind>
 
-		<!-- GoToDesktop by number -->
+		<!-- Go to Desktop by number -->
 		<keybind key="W-A-1">
 			<action name="GoToDesktop"><to>1</to></action>
 		</keybind>
@@ -272,6 +276,7 @@ vim:ft=xml.gotexttmpl
 			<action name="GoToDesktop"><to>10</to></action>
 		</keybind>
 
+		<!-- Move Window to Desktop by number -->
 		<keybind key="W-A-S-1">
 			<action name="SendToDesktop"><to>1</to></action>
 		</keybind>
@@ -303,14 +308,15 @@ vim:ft=xml.gotexttmpl
 			<action name="SendToDesktop"><to>10</to></action>
 		</keybind>
 
+		<!-- Move Window to Monitor -->
 		<keybind key="W-A-S-Left">
 			<action name="MoveToOutput" direction="left"></action>
 		</keybind>
-
 		<keybind key="W-S-A-Right">
 			<action name="MoveToOutput" direction="right"></action>
 		</keybind>
 
+		<!-- Screenshots -->
 		<keybind key="W-S-3">
 			<action name="Execute" command="hyprshot -m output" />
 		</keybind>
@@ -338,35 +344,8 @@ vim:ft=xml.gotexttmpl
 			<action name="Exit" />
 		</keybind>
 
-	<!-- SnapToRegion via W-Numpad -->
-	<!--
-		<keybind key="W-KP_7">
-			<action name="SnapToRegion" region="top-left" />
-		</keybind>
-		<keybind key="W-KP_8">
-			<action name="SnapToRegion" region="top" />
-		</keybind>
-		<keybind key="W-KP_9">
-			<action name="SnapToRegion" region="top-right" />
-		</keybind>
-		<keybind key="W-KP_4">
-			<action name="SnapToRegion" region="left" />
-		</keybind>
-		<keybind key="W-KP_5">
-			<action name="SnapToRegion" region="center" />
-		</keybind>
-		<keybind key="W-KP_6">
-			<action name="SnapToRegion" region="right" />
-		</keybind>
-		<keybind key="W-KP_1">
-			<action name="SnapToRegion" region="bottom-left" />
-		</keybind>
-		<keybind key="W-KP_2">
-			<action name="SnapToRegion" region="bottom" />
-		</keybind>
-		<keybind key="W-KP_3">
-			<action name="SnapToRegion" region="bottom-right" />
-		</keybind>
+
+		<!-- Menus -->
 		<keybind key="A-Space">
 			<action name="ShowMenu" menu="client-list-combined-menu" />
 			<position>
@@ -374,11 +353,16 @@ vim:ft=xml.gotexttmpl
 				<y>center</y>
 			</position>
 		</keybind>
-	-->
+		<keybind key="W-A-Space">
+			<action name="ShowMenu" menu="root-menu" />
+			<position>
+				<x>center</x>
+				<y>center</y>
+			</position>
+		</keybind>
 	</keyboard>
 
 	<mouse>
-
 		<!-- time is in ms -->
 		<doubleClickTime>500</doubleClickTime>
 
@@ -445,10 +429,10 @@ vim:ft=xml.gotexttmpl
 				<action name="ToggleMaximize" />
 			</mousebind>
 			<mousebind button="Right" action="Click">
-				<action name="ToggleMaximize" direction="horizontal" />
+				<action name="ToggleMaximize" direction="vertical" />
 			</mousebind>
 			<mousebind button="Middle" action="Click">
-				<action name="ToggleMaximize" direction="vertical" />
+				<action name="ToggleMaximize" direction="horizontal" />
 			</mousebind>
 		</context>
 
@@ -528,7 +512,6 @@ vim:ft=xml.gotexttmpl
 				<action name="GoToDesktop" to="right" wrap="yes" />
 			</mousebind>
 		</context>
-
 	</mouse>
 
 	<touch>
@@ -546,33 +529,14 @@ vim:ft=xml.gotexttmpl
 		<map button="Stylus2" to="Middle" />
 	</tablet>
 
-	<!--
-		All tablet tools, except of type mouse and lens, use absolute positioning by default. The *motion* attribute allows to set tools to relative motion instead. When using relative motion, *relativeMotionSensitivity* controls the speed of the cursor. Using a value lower than 1.0 decreases the speed, using a value greater than 1.0 increases the speed of the cursor.
-	-->
 	<tabletTool motion="absolute" relativeMotionSensitivity="1.0" />
-
-	<!--
-		The *category* attribute is optional and can be set to touch, touchpad, non-touch, default or the name of a device. You can obtain device names by running *libinput list-devices* as root or member of the input group.
-
-		Tap is set to *yes* by default. All others are left blank in order to use device defaults.
-
-		All values are [yes|no] except for:
-			- pointerSpeed [-1.0 to 1.0]
-			- accelProfile [flat|adaptive]
-			- tapButtonMap [lrm|lmr]
-			- clickMethod [none|buttonAreas|clickfinger]
-			- scrollMethod [twoFinger|edge|none]
-			- sendEventsMode [yes|no|disabledOnExternalMouse]
-			- calibrationMatrix [six float values split by space]
-			- scrollFactor [float]
-	-->
 
 	<libinput>
 		<device category="default">
 			<naturalScroll>yes</naturalScroll>
 			<!-- <leftHanded>no</leftHanded> -->
 			<!-- <pointerSpeed>0.0</pointerSpeed> -->
-			<!-- <accelProfile>adaptive</accelProfile> -->
+			<accelProfile>adaptive</accelProfile>
 			<tap>yes</tap>
 			<!-- <tapButtonMap>lrm</tapButtonMap> -->
 			<!-- <tapAndDrag>yes</tapAndDrag> -->
@@ -580,7 +544,7 @@ vim:ft=xml.gotexttmpl
 			<!-- <threeFingerDrag>yes</threeFingerDrag> -->
 			<!-- <middleEmulation>no</middleEmulation> -->
 			<!-- <disableWhileTyping>yes</disableWhileTyping> -->
-			<!-- <clickMethod>buttonAreas</clickMethod> -->
+			<clickMethod>clickfinger</clickMethod>
 			<scrollMethod>twofinger</scrollMethod>
 			<!-- <sendEventsMode>yes</sendEventsMode> -->
 			<!-- <calibrationMatrix>1 0 0 0 1 0</calibrationMatrix> -->
@@ -594,7 +558,7 @@ vim:ft=xml.gotexttmpl
     <windowRule identifier="chromium"><action name="SendToDesktop"><to>II</to></action></windowRule>
     <windowRule identifier="discord"><action name="SendToDesktop"><to>III</to></action></windowRule>
     <windowRule identifier="org.mozilla.Thunderbird"><action name="SendToDesktop"><to>IV</to></action></windowRule>
-    <windowRule identifier="virt-manager"><action name="SendToDesktop"><to>VII</to></action></windowRule>
+    <windowRule identifier="virt-manager"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
 	</windowRules>
 
 	<!--
@@ -603,32 +567,6 @@ vim:ft=xml.gotexttmpl
 		#	 - 'identifier' relates to app_id for native Wayland windows and WM_CLASS for XWayland clients.
 		#	 - Criteria can also contain `matchOnce="true"` meaning that the rule must only apply to the first instance of the window with that particular 'identifier' or 'title'.
 		#	 - Matching is case-insensitive and is performed using shell wildcard patterns (see glob(7)) so '\*' (not between brackets) matches any string and '?' matches any single character.
-
-		<windowRules>
-			<windowRule identifier="*"><action name="Maximize"/></windowRule>
-			<windowRule identifier="foo" serverDecoration="yes"/>
-			<windowRule title="bar" serverDecoration="yes"/>
-			<windowRule identifier="baz" title="quax" serverDecoration="yes"/>
-		</windowRules>
-
-		<windowRules>
-			<windowRule identifier="lxqt-panel" matchOnce="true">
-				<skipTaskbar>yes</skipTaskbar>
-				<action name="MoveTo" x="0" y="0" />
-				<action name="ToggleAlwaysOnTop"/>
-			</windowRule>
-			<windowRule title="pcmanfm-desktop*">
-				<skipTaskbar>yes</skipTaskbar>
-				<skipWindowSwitcher>yes</skipWindowSwitcher>
-				<fixedPosition>yes</fixedPosition>
-				<action name="MoveTo" x="0" y="0" />
-				<action name="ToggleAlwaysOnBottom"/>
-			</windowRule>
-			<windowRule identifier="org.qutebrowser.qutebrowser">
-				<action name="ResizeTo" width="1024" height="800" />
-				<action name="AutoPlace"/>
-			</windowRule>
-		</windowRules>
 	-->
 
 	<menu>
@@ -636,16 +574,6 @@ vim:ft=xml.gotexttmpl
 		<showIcons>yes</showIcons>
 	</menu>
 
-	<!--
-		Magnifier settings
-		'width' sets the width in pixels of the magnifier window.
-		'height' sets the height in pixels of the magnifier window.
-		'initScale' sets the initial magnification factor at boot.
-		'increment' sets the amount by which the magnification factor
-			changes when 'ZoomIn' or 'ZoomOut' are called.
-		'useFilter' sets whether to use a bilinear filter on the magnified
-			output or simply to take nearest pixel.
-	-->
 	<magnifier>
 		<width>400</width>
 		<height>400</height>
