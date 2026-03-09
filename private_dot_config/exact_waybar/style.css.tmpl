@@ -32,7 +32,7 @@
 @define-color white {{ print "#" .colours.normal.white }};
 
 * {
-	font-family: Iosevka Nerd Font Propo, sans-serif;
+	font-family: {{ .theme.font | quote }}, sans-serif;
 	font-size: 97%;
 	/* font-size: 13px; */
 	border: none;
@@ -166,7 +166,7 @@ window#waybar.solo {
 }
 
 #wireplumber {
-	background-color: @yellow;
+	background-color: @teal;
 	color: @black;
 }
 #wireplumber:hover {
