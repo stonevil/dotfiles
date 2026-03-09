@@ -36,3 +36,5 @@ kanshi >/dev/null 2>&1 &
 
 # System bar
 sleep 10; waybar >/dev/null 2>&1 &
+
+{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }} >/dev/null 2>&1 &
