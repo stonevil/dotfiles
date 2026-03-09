@@ -1,3 +1,7 @@
+{{- /*
+	vim:ft=dosini.gotexttmpl
+*/ -}}
+
 [Added Associations]
 x-scheme-handler/http=librewolf.desktop;calibre-ebook-edit.desktop;okularApplication_txt.desktop;
 x-scheme-handler/https=librewolf.desktop;calibre-ebook-edit.desktop;okularApplication_txt.desktop;
