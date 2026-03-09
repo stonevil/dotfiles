@@ -2,7 +2,7 @@
 	vim:ft=conf.gotexttmpl
 */ -}}
 
-font = "Iosevka Nerd Font Propo"
+font = {{ .theme.font | quote }}
 
 # https://wiki.hyprland.org/Configuring/Variables/#general
 general {
