@@ -4,5 +4,5 @@ if pgrep -x waybar >/dev/null
 then
 	pkill waybar
 else
-	waybar >/dev/null 2>&1 & disown
+	bash -ic "waybar >/dev/null 2>&1 & disown" # execute waybar with bash -i otherwise clock module is not working
 fi
