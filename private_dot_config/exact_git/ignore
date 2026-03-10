@@ -10,6 +10,8 @@
 *.7z
 *.dmg
 *.gz
+*.bz2
+*.xz
 *.iso
 *.jar
 *.rar

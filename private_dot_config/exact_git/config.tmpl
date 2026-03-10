@@ -3,13 +3,9 @@
 */ -}}
 
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = {{ joinPath .chezmoi.homeDir ".config/git/ignore" }}
 	editor = $EDITOR
-	{{ if lookPath "delta" }}
-	pager = delta --tabs {{ .env.tabs }}
-	{{ else }}
 	pager = less -R --tabs={{ .env.tabs }}
-	{{ end }}
 	autocrlf = false
 	safecrlf = true
 	whitespace = fix, indent-with-non-tab, space-before-tab, trailing-space, cr-at-eol, blank-at-eol, blank-at-eof, tabwidth = {{ .env.tabs }}
@@ -65,7 +61,7 @@
 	decorate = full
 
 [http]
-	cookiefile = ~/.gitcookies
+	cookiefile = {{ joinPath .chezmoi.homeDir ".gitcookies" }}
 
 [alias]
 	a = add
@@ -168,6 +164,7 @@
 
 [help]
 	autocorrect = 1
+
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -183,4 +180,4 @@
 	process = git-lfs filter-process
 
 [include]
-	path = ~/.gitconfig.d/*
+	path = {{ print .chezmoi.homeDir "/.config/git/conf.d/*" }}
