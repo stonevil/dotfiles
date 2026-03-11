@@ -1,7 +1,0 @@
-{
-  "name": "org.kde.plasma.browser_integration",
-  "description": "Native connector for KDE Plasma",
-  "path": "/usr/bin/plasma-browser-integration-host",
-  "type": "stdio",
-  "allowed_extensions": ["plasma-browser-integration@kde.org"]
-}
