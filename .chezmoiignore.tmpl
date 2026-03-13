@@ -82,7 +82,7 @@ Library
 .config/lazydocker
 {{ end }}
 {{ if and (not .tags.limaCli.enabled) (not .tags.k8sToolsCli.enabled) }}
-.lima
+.local/share/lima/templates
 {{ end }}
 {{ if not .tags.terminalEmulators.enabled }}
 .config/nvim/lua/plugins/wezterm.lua
