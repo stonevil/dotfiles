@@ -1,13 +1,4 @@
-# A template to use Podman instead of containerd & nerdctl
-# $ limactl shell podman podman run -it -v $HOME:$HOME --rm docker.io/library/alpine
-
-# To run `podman` on the host (assumes podman-remote is installed):
-# $ export CONTAINER_HOST=$(limactl list podman --format 'unix://{{.Dir}}/sock/podman.sock')
-# $ podman --remote ...
-
-# To run `docker` on the host (assumes docker-cli is installed):
-# $ export DOCKER_HOST=$(limactl list podman --format 'unix://{{.Dir}}/sock/podman.sock')
-# $ docker ...
+minimumLimaVersion: 2.0.0
 
 vmType: "qemu"
 arch: "x86_64"
@@ -24,6 +15,9 @@ images:
 containerd:
   system: false
   user: false
+
+ssh:
+  overVsock: false
 
 provision:
 - mode: system
