@@ -161,15 +161,37 @@ vim:ft=xml.gotexttmpl
 		<layoutScope>global</layoutScope>
 		<repeatRate>25</repeatRate>
 		<repeatDelay>600</repeatDelay>
-		<keybind key="W-C-q">
-			<action name="Close" />
+
+		<!-- Media Keys -->
+		<keybind key="XF86_AudioRaiseVolume">
+			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "up") }}" />
 		</keybind>
-		<keybind key="W-Tab">
-			<action name="NextWindow" />
+		<keybind key="XF86_AudioLowerVolume">
+			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "down") }}" />
 		</keybind>
-		<keybind key="W-S-Tab">
-			<action name="PreviousWindow" />
+		<keybind key="XF86_AudioMute">
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle" }}" />
 		</keybind>
+		<keybind key="XF86AudioMicMute">
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle" }}" />
+		</keybind>
+
+		<!-- Monitor Brightness Keys -->
+		<keybind key="XF86_MonBrightnessUp">
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "up" }}" />
+		</keybind>
+		<keybind key="XF86_MonBrightnessDown">
+			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "down" }}" />
+		</keybind>
+
+{{- if .tags.zephyrus.enabled }}
+		<!-- Execute ROG Control Center for ASUS ROG Laptops -->
+		<keybind key="XF86Launch1">
+			<action name="Execute" command="rog-control-center" />
+		</keybind>
+{{- end }}
+
+		<!-- Execute Applications -->
 		<keybind key="W-Return">
 			<action name="Execute" command="foot" />
 		</keybind>
@@ -194,9 +216,26 @@ vim:ft=xml.gotexttmpl
 		<keybind key="W-C-n">
 			<action name="Execute" command="swaync-client --toggle-panel" />
 		</keybind>
+
+		<!-- Toggle Dock -->
 		<keybind key="W-C-d">
 			<action name="Execute" command="{{ joinPath .chezmoi.homeDir ".config/wayland/scripts/dock_toggle" }}" />
 		</keybind>
+
+		<!-- Windows Switcher -->
+		<keybind key="W-Tab">
+			<action name="NextWindow" />
+		</keybind>
+		<keybind key="W-S-Tab">
+			<action name="PreviousWindow" />
+		</keybind>
+
+		<!-- Close Window -->
+		<keybind key="W-C-q">
+			<action name="Close" />
+		</keybind>
+
+		<!-- Toggle Windows State -->
 		<keybind key="W-C-f">
 			<action name="ToggleMaximize" />
 		</keybind>
@@ -216,32 +255,6 @@ vim:ft=xml.gotexttmpl
 		</keybind>
 		<keybind key="W-A-Down">
 			 <action name="SnapToEdge" direction="down" combine="yes" />
-		</keybind>
-
-		<!-- Media Keys -->
-		<keybind key="XF86_AudioRaiseVolume">
-			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "up") }}" />
-		</keybind>
-		<keybind key="XF86_AudioLowerVolume">
-			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "down") }}" />
-		</keybind>
-		<keybind key="XF86_AudioMute">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle" }}" />
-		</keybind>
-		<keybind key="XF86AudioMicMute">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle" }}" />
-		</keybind>
-
-		<!-- Monitor Brightness Keys -->
-		<keybind key="XF86_MonBrightnessUp">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "up" }}" />
-		</keybind>
-		<keybind key="XF86_MonBrightnessDown">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "down" }}" />
-		</keybind>
-
-		<keybind key="XF86Launch1">
-			<action name="Execute" command="rog-control-center" />
 		</keybind>
 
 		<!-- Go to Desktop by number -->
@@ -333,6 +346,7 @@ vim:ft=xml.gotexttmpl
 			<action name="Execute" command="hyprshot -m region" />
 		</keybind>
 
+		<!-- System State -->
 		<keybind key="W-C-l">
 			<action name="Execute" command="playerctl --all-players pause" />
 			<action name="Execute" command="loginctl lock-session" />
@@ -365,6 +379,8 @@ vim:ft=xml.gotexttmpl
 	<mouse>
 		<!-- time is in ms -->
 		<doubleClickTime>500</doubleClickTime>
+		<screenEdgeWarpTime>400</screenEdgeWarpTime>
+		<screenEdgeWarpMouse>false</screenEdgeWarpMouse>
 
 		<context name="Frame">
 			<mousebind button="W-Left" action="Press">
