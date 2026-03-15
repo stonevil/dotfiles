@@ -647,6 +647,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"qemu-full",
+		"swtpm",
 		"virtiofsd",
 	]
 	fedora = [
@@ -1121,6 +1122,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"sudo usermod -a -G libvirt-qemu ${USER}",
 		"sudo systemctl enable --now libvirtd.service",
 		"sudo systemctl enable --now libvirtd.socket",
+	]
+	remove.arch = [
+		"sudo systemctl disable --now libvirtd.service",
+		"sudo systemctl disable --now libvirtd.socket",
 	]
 
 [data.tags.tor]
