@@ -15,7 +15,7 @@ dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus >/dev/null 2>&1 &
 udiskie -t >/dev/null 2>&1 &
 
 # Auth agent
-/usr/lib/polkit-kde-authentication-agent-1 >/dev/null 2>&1 &
+systemctl --user start plasma-polkit-agent.service >/dev/null 2>&1 &
 
 # Idle, Lockscreen
 hypridle --config {{ joinPath .chezmoi.homeDir ".config/hypr/hypridle.conf" }} >/dev/null 2>&1 &
