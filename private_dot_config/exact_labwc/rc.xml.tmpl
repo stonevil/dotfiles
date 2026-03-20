@@ -418,6 +418,12 @@ vim:ft=xml.gotexttmpl
 				<action name="Focus" />
 				<action name="Raise" />
 			</mousebind>
+			<mousebind button="Left" action="DoubleClick">
+				<action name="ToggleShade" />
+			</mousebind>
+			<mousebind button="Right" action="DoubleClick">
+				<action name="ToggleMaximize" />
+			</mousebind>
 			<mousebind direction="Up" action="Scroll">
 				<action name="Unshade" />
 				<action name="Focus" />
@@ -434,6 +440,9 @@ vim:ft=xml.gotexttmpl
 			</mousebind>
 			<mousebind button="Left" action="DoubleClick">
 				<action name="ToggleShade" />
+			</mousebind>
+			<mousebind button="Right" action="DoubleClick">
+				<action name="ToggleMaximize" />
 			</mousebind>
 			<mousebind button="Right" action="Click">
 				<action name="ShowMenu" menu="client-menu" />
