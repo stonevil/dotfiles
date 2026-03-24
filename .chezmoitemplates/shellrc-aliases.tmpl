@@ -112,13 +112,13 @@ function docker_rmi_all() {
 function podman() {
 	{{- if eq .chezmoi.arch "arm64" }}
 	if [[ $ARCH == "amd64" ]]; then
-		limactl shell podman-amd64 podman $@
+		limactl shell amd64 podman $@
 	else
-		limactl shell podman-arm64 podman $@
+		limactl shell arm64 podman $@
 	fi
 	{{- else }}
 		{{- if eq .chezmoi.arch "amd64" }}
-	limactl shell podman-amd64 podman $@
+	limactl shell amd64 podman $@
 		{{- end }}
 	{{- end }}
 }
