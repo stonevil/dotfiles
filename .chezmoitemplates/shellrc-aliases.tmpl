@@ -107,6 +107,19 @@ function docker_rm_all() {
 function docker_rmi_all() {
 	docker rmi -f $(docker images --no-trunc=false -a -q)
 }
+function docker-compose() {
+	{{- if eq .chezmoi.arch "arm64" }}
+	if [[ $ARCH == "amd64" ]]; then
+		limactl shell docker-amd64 docker-compose $@
+	else
+		limactl shell docker-arm64 docker-compose $@
+	fi
+	{{- else }}
+		{{- if eq .chezmoi.arch "amd64" }}
+	limactl shell docker-amd64 docker-compose $@
+		{{- end }}
+	{{- end }}
+}
 
 # lima-vm to support genuine podman
 function podman() {
@@ -130,6 +143,19 @@ function podman_rm_all() {
 }
 function podman_rmi_all() {
 	podman rmi -f $(podman images --no-trunc=false -a -q)
+}
+function podman-compose() {
+	{{- if eq .chezmoi.arch "arm64" }}
+	if [[ $ARCH == "amd64" ]]; then
+		limactl shell amd64 podman-compose $@
+	else
+		limactl shell arm64 podman-compose $@
+	fi
+	{{- else }}
+		{{- if eq .chezmoi.arch "amd64" }}
+	limactl shell amd64 podman-compose $@
+		{{- end }}
+	{{- end }}
 }
 {{- end }}
 
