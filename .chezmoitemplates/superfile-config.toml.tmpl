@@ -3,7 +3,7 @@ vim:ft=toml.gotexttmpl
 */ -}}
 
 {{ if eq .theme.variant "latte" -}}
-theme = {{ print ((.theme.name) "-" (.theme.variant)) | quote }}
+theme = {{ print .theme.name "-" .theme.variant | quote }}
 {{ else -}}
 theme = {{ print (.theme.name) | quote }}
 {{ end }}

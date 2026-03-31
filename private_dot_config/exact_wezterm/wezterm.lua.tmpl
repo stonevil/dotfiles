@@ -56,10 +56,10 @@ local config = wezterm.config_builder()
 local scheme_current = wezterm.color.get_builtin_schemes()[{{ (print (.theme.name | title) " " (.theme.variant | title)) | quote }}]
 {{ if .theme.darkMode }}
 -- Override Schema Background
-scheme_current.background = "#000000"
-scheme_current.tab_bar.background = "#040404"
-scheme_current.tab_bar.inactive_tab.bg_color = "#0f0f0f"
-scheme_current.tab_bar.new_tab.bg_color = "#080808"
+scheme_current.background = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
+scheme_current.tab_bar.background = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
+scheme_current.tab_bar.inactive_tab.bg_color = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
+scheme_current.tab_bar.new_tab.bg_color = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
 {{ end }}
 
 config = {
