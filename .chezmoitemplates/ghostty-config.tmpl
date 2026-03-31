@@ -6,11 +6,7 @@ vim:ft=dosini.gotexttmpl
 
 #custom-shader = shaders/glitchy.glsl
 
-theme = {{ (print (.theme.name | lower) "-" (.theme.variant | lower)) }}
-{{- if .theme.darkMode }}
-background = 000000
-{{ end }}
-# split-divider-color = 2b415a
+theme = current
 
 font-family = {{ .env.font | quote }}
 font-size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
@@ -31,8 +27,8 @@ copy-on-select = true
 macos-option-as-alt = right
 
 macos-icon = custom-style
-macos-icon-ghost-color = ffffff
-macos-icon-screen-color = 000000
+macos-icon-ghost-color = {{ (print "#" .colours.normal.foreground) | quote }}
+macos-icon-screen-color = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
 
 confirm-close-surface = false
 
