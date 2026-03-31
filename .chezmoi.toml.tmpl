@@ -37,6 +37,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 {{ $themeDarkMode := true }}
 {{ $themeName := "catppuccin" }}
+{{ $themeCatppuccinVariants := list "mocha" "macchiato" "frappe" }}
 {{ $themeVariant := "mocha" }}
 {{ $themeBlackout := true }}
 
@@ -51,7 +52,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $themeName = promptChoice "Choose Theme" (list "catppuccin") $themeName }}
 {{ if eq $themeName "catppuccin" }}
 	{{ if $themeDarkMode }}
-		{{ $themeVariant = promptChoice "Theme Variant" (list "mocha") $themeVariant }}
+		{{ if not (has $themeVariant $themeCatppuccinVariants) }}
+			{{ $themeVariant = "mocha" }}
+		{{ end }}
+		{{ $themeVariant = promptChoice "Theme Variant" ($themeCatppuccinVariants) $themeVariant }}
 		{{ $themeBlackout = promptBool "Theme Black background" $themeBlackout }}
 	{{ else }}
 		{{ $themeVariant = "latte" }}
@@ -1360,5 +1364,38 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 			footer_bar = { foreground = "1e1e2e", background = "a6adc8" }
 			hints = { start = { foreground = "1e1e2e", background = "f9e2af" }, end = { foreground = "1e1e2e", background = "a6adc8" } }
 			selection = { text = "1e1e2e", background = "f5e0dc" }
+		{{ end }}
+
+		{{ if eq $themeVariant "macchiato" }}
+			normal = { black = "494d64", white = "b8c0e0", red = "ed8796", green = "a6da95", yellow = "eed49f", blue = "8aadf4", magenta = "f5bde6", cyan = "8bd5ca", indexed_colors = { color16 = "f5a97f", color17 = "f4dbd6" }, background = "24273a", foreground = "cad3f5", urls="f4dbd6", rosewater = "f4dbd6", flamingo = "f0c6c6", pink = "f5bde6", mauve = "c6a0f6", maroon = "ee99a0", peach = "f5a97f", teal = "8bd5ca", sky = "91d7e3", sapphire = "7dc4e4", lavender = "b7bdf8", text = "cad3f5", subtext1 = "b8c0e0", subtext0 = "a5adcb", overlay2 = "939ab7", overlay1 = "8087a2", overlay0 = "6e738d", surface2 = "5b6078", surface1 = "494d64", surface0 = "363a4f", base = "24273a", mantle = "1e2030", crust = "181926" }
+			bright = { black = "5b6078", white = "a5adcb", red = "ed8796", green = "a6da95", yellow = "eed49f", blue = "8aadf4", magenta = "f5bde6", cyan = "8bd5ca", background = "24273a", foreground = "cad3f5" }
+			dim = { foreground = "8087a2" }
+			cursor = { text = "24273a", cursor = "f4dbd6", vi_mode = { text = "24273a", cursor = "b7bdf8" }, line = "3b3f52", secondary = { cursor = "b6a6a7", select = "8b91bf", normal = "b6a6a7", insert = "80a57a" } }
+			search = { matches = { foreground = "24273a", background = "a5adcb" }, focused_match = { foreground = "24273a", background = "a6da95" } }
+			footer_bar = { foreground = "24273a", background = "a5adcb" }
+			hints = { start = { foreground = "24273a", background = "eed49f" }, end = { foreground = "24273a", background = "a5adcb" } }
+			selection = { text = "24273a", background = "f4dbd6" }
+		{{ end }}
+
+		{{ if eq $themeVariant "frappe" }}
+			normal = { black = "51576d", white = "b5bfe2", red = "e78284", green = "a6d189", yellow = "e5c890", blue = "8caaee", magenta = "f4b8e4", cyan = "81c8be", indexed_colors = { color16 = "ef9f76", color17 = "f2d5cf" }, background = "303446", foreground = "c6d0f5", urls="f2d5cf", rosewater = "f2d5cf", flamingo = "eebebe", pink = "f4b8e4", mauve = "ca9ee6", maroon = "ea999c", peach = "ef9f76", teal = "81c8be", sky = "99d1db", sapphire = "85c1dc", lavender = "babbf1", text = "c6d0f5", subtext1 = "b5bfe2", subtext0 = "a5adce", overlay2 = "949cbb", overlay1 = "838ba7", overlay0 = "737994", surface2 = "626880", surface1 = "51576d", surface0 = "414559", base = "303446", mantle = "292c3c", crust = "232634" }
+			bright = { black = "626880", white = "a5adce", red = "e78284", green = "a6d189", yellow = "e5c890", blue = "8caaee", magenta = "f4b8e4", cyan = "81c8be", background = "303446", foreground = "c6d0f5" }
+			dim = { foreground = "838ba7" }
+			cursor = { text = "303446", cursor = "f2d5cf", vi_mode = { text = "303446", cursor = "babbf1" }, line = "3b3f52", secondary = { cursor = "b8a5a6", select = "9192be", normal = "b8a5a6", insert = "83a275" } }
+			search = { matches = { foreground = "303446", background = "a5adce" }, focused_match = { foreground = "303446", background = "a6d189" } }
+			footer_bar = { foreground = "303446", background = "a5adce" }
+			hints = { start = { foreground = "303446", background = "e5c890" }, end = { foreground = "303446", background = "a5adce" } }
+			selection = { text = "303446", background = "f2d5cf" }
+		{{ end }}
+
+		{{ if eq $themeVariant "latte" }}
+			normal = { black = "bcc0cc", white = "5c5f77", red = "d20f39", green = "40a02b", yellow = "df8e1d", blue = "1e66f5", magenta = "ea76cb", cyan = "179299", indexed_colors = { color16 = "fe640b", color17 = "dc8a78" }, background = "eff1f5", foreground = "4c4f69", urls="dc8a78", rosewater = "dc8a78", flamingo = "dd7878", pink = "ea76cb", mauve = "8839ef", maroon = "e64553", peach = "fe640b", teal = "179299", sky = "04a5e5", sapphire = "209fb5", lavender = "7287fd", text = "4c4f69", subtext1 = "5c5f77", subtext0 = "6c6f85", overlay2 = "7c7f93", overlay1 = "8c8fa1", overlay0 = "9ca0b0", surface2 = "acb0be", surface1 = "bcc0cc", surface0 = "ccd0da", base = "eff1f5", mantle = "e6e9ef", crust = "dce0e8" }
+			bright = { black = "acb0be", white = "6c6f85", red = "d20f39", green = "40a02b", yellow = "df8e1d", blue = "1e66f5", magenta = "ea76cb", cyan = "179299", background = "eff1f5", foreground = "4c4f69" }
+			dim = { foreground = "8c8fa1" }
+			cursor = { text = "eff1f5", cursor = "dc8a78", vi_mode = { text = "eff1f5", cursor = "7287fd" }, line = "e8ecf1", secondary = { cursor = "e1a99d", select = "97a7fb", normal = "e1a99d", insert = "74b867" } }
+			search = { matches = { foreground = "eff1f5", background = "6c6f85" }, focused_match = { foreground = "eff1f5", background = "40a02b" } }
+			footer_bar = { foreground = "eff1f5", background = "6c6f85" }
+			hints = { start = { foreground = "eff1f5", background = "df8e1d" }, end = { foreground = "eff1f5", background = "6c6f85" } }
+			selection = { text = "eff1f5", background = "dc8a78" }
 		{{ end }}
 	{{ end }}
