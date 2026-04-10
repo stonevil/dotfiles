@@ -59,6 +59,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		{{ $themeBlackout = promptBool "Theme Black background" $themeBlackout }}
 	{{ else }}
 		{{ $themeVariant = "latte" }}
+		{{ $themeBlackout = false }}
 	{{ end }}
 {{ end }}
 
