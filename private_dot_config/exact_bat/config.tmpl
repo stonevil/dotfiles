@@ -2,7 +2,7 @@
 	vim:ft=toml.gotexttmpl
 */ -}}
 
---theme={{ (print .theme.name "-" .theme.variant) | quote }}
+--theme={{ (print (.theme.name | title) " " (.theme.variant | title)) | quote }}
 
 --style="numbers,changes,header"
 
