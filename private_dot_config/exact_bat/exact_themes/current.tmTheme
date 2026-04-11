@@ -3,7 +3,7 @@
     <plist version="1.0">
     <dict>
         <key>name</key>
-        <string>catppuccin</string>
+        <string>current</string>
         <key>settings</key>
         <array>
         <dict>
@@ -953,8 +953,8 @@
         <key>colorSpaceName</key>
         <string>sRGB</string>
         <key>semanticClass</key>
-        <string>theme.dark.Catppuccin</string>
+        <string>theme.dark.current</string>
         <key>author</key>
-        <string>BrunDerSchwarzmagier</string>
+        <string>stone</string>
     </dict>
     </plist>
