@@ -1253,7 +1253,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"libva-nvidia-driver",
 		"nvidia-prime",
 		{{- if $zephyrus }}
-		"supergfxctl",
+		"g14/supergfxctl",
 		"plasma6-applets-supergfxctl",
 		{{- end }}
 	]
@@ -1272,11 +1272,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.zephyrus]
 	enabled = {{ $zephyrus }}
 	arch = [
-		"asusctl",
+		"g14/asusctl",
+		"g14/rog-control-center",
+		"asus-hub",
 		"bat-asus-battery-bin",
-		"rog-control-center",
-		"linux-g14",
-		"linux-g14-headers",
 		"power-profiles-daemon",
 		"aic94xx-firmware",
 		"ast-firmware",

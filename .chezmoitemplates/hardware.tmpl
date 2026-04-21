@@ -187,6 +187,11 @@ options i915 enable_psr=0 xe.enable_psr=0 # to prevent flickering
 # Only for XE graphics
 options i915 enable_guc=3
 EOF
+
+sudo sh -c 'cat > /etc/modules-load.d/asus.conf' << EOF
+asus-armoury
+asus-wmi
+EOF
 	{{ end }}
 	{{ if eq .tags.thinkpad.enabled true }}
 sudo sh -c 'cat > /etc/modprobe.d/i915.conf' << EOF
