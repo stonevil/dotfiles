@@ -13,28 +13,82 @@ font-size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if g
 
 cursor-style = block
 cursor-style-blink = true
+mouse-hide-while-typing = true
+scroll-to-bottom = keystroke, no-output
+cursor-click-to-move = true
 
 background-opacity = {{ .env.opacity }}
-{{- if lt (.env.opacity | float64) 1.0 }}
+{{ if lt (.env.opacity | float64) 1.0 -}}
 background-blur-radius = {{ .env.blur }}
-{{ end }}
+{{ end -}}
 
-window-decoration = true
-macos-titlebar-style = hidden
+window-decoration = auto
 
-copy-on-select = true
-
+{{ if eq .chezmoi.os "darwin" -}}
 macos-option-as-alt = right
 
-macos-icon = custom-style
-macos-icon-ghost-color = {{ (print "#" .colours.normal.foreground) | quote }}
-macos-icon-screen-color = {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.background) | quote }}{{ end }}
+macos-window-buttons = visible
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = visible
+macos-dock-drop-behavior = new-tab
+macos-window-shadow = true
+macos-hidden = never
+macos-auto-secure-input = true
+macos-secure-input-indication = true
+
+maximize = false
+fullscreen = false
+macos-non-native-fullscreen = true
+
+macos-icon = glass
+{{ else -}}
+linux-cgroup = single-instance
+
+gtk-tabs-location = top
+gtk-titlebar-hide-when-maximized = true
+gtk-toolbar-style = flat
+gtk-titlebar-style = tabs
+
+maximize = false
+fullscreen =-false
+{{ end -}}
+
+copy-on-select = true
+clipboard-paste-protection = true
+
+right-click-action = context-menu
+
+scrollbar = never
+
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = no-bell, notify
+notify-on-command-finish-after = 1m
 
 confirm-close-surface = false
+
+working-directory = inherit
+window-inherit-working-directory = true
+tab-inherit-working-directory = true
+split-inherit-working-directory = true
+
+window-height = {{ if .tags.thinkpad.enabled }}{{ if ge (20 | sub .env.cols) 10 }}{{ 20 | sub .env.cols }}{{ else }}{{ .env.cols }}{{ end }}{{ else }}{{ .env.cols }}{{ end }}
+window-width = {{ if .tags.thinkpad.enabled }}{{ if ge (5 | sub .env.rows) 10 }}{{ 5 | sub .env.rows }}{{ else }}{{ .env.rows }}{{ end }}{{ else }}{{ .env.rows }}{{ end }}
+
+window-save-state = never
+window-step-resize = true
+
+window-padding-x = 5
+window-padding-y = 5
+window-padding-balance = true
+
+window-new-tab-position = current
+window-show-tab-bar = auto
 
 auto-update = off
 
 shell-integration = detect
+
+quit-after-last-window-closed = true
 
 keybind = global:super+option+/=toggle_quick_terminal
 
