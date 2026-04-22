@@ -136,13 +136,13 @@ function podman() {
 	{{- end }}
 }
 function podman_stop_all() {
-	podman stop $(podman ps -a -q)
+	podman stop --all
 }
 function podman_rm_all() {
-	podman rm -f $(podman ps -a -q)
+	podman rm --force --all
 }
 function podman_rmi_all() {
-	podman rmi -f $(podman images --no-trunc=false -a -q)
+	podman rmi --force --all
 }
 function podman-compose() {
 	{{- if eq .chezmoi.arch "arm64" }}
