@@ -1,5 +1,9 @@
+{{- /*
+	vim:ft=toml.gotexttmpl
+*/ -}}
+
 {{ if eq .chezmoi.os "darwin" -}}
-neovim-bin = "${HOME}/.brew/bin/nvim"
+neovim-bin = {{ (joinPath .chezmoi.homeDir ".brew/bin/nvim") | quote }}
 frame = "transparent" # options: full, none. macOS only: transparent, buttonless
 title-hidden = true # macOS only
 {{ else -}}
