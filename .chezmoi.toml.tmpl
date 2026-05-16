@@ -1017,6 +1017,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"kwallet-pam",
 		"ksshaskpass",
 	]
+	post.arch = [
+		"sudo ln -fs /usr/bin/qdbus6 qdbus",
+	]
 
 [data.tags.browsers]
 	enabled = {{ $browsers }}
