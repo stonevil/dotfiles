@@ -19,7 +19,7 @@
 	diffFilter = delta --color-only
 
 [delta "current"]
-	blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a"
+	blame-palette = "{{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background }}{{ end }} {{ (print "#" .colours.normal.mantle) | quote }} {{ (print "#" .colours.normal.crust) | quote }} {{ (print "#" .colours.normal.surface0) | quote }} {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background }}{{ end }}"
 	commit-decoration-style = {{ (print "#" .colours.normal.overlay0) | quote }} bold box ul
 	dark = {{ .theme.darkMode }}
 	file-decoration-style = {{ (print "#" .colours.normal.overlay0) | quote }}
