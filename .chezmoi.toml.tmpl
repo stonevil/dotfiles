@@ -776,6 +776,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"syncthing",
+		"syncthingtray-qt6",
 	]
 	post.darwin = [
 		"mkdir -p ${HOME}/Library/LaunchAgents && chflags nouchg ${HOME}/Library/LaunchAgents && brew services start syncthing && chflags uchg ${HOME}/Library/LaunchAgents",
