@@ -1,0 +1,8 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
+{{ if eq .chezmoi.os "linux" -}}
+[storage]
+driver = "vfs"
+{{ end -}}
