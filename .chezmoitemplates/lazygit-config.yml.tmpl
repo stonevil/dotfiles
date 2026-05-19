@@ -5,6 +5,11 @@
 reporting: "off"
 disableStartupPopups: true
 
+fetchAll: true
+
+update:
+  method: never
+
 gui:
   showIcons: true
   border: single
@@ -21,3 +26,33 @@ git:
 {{- if lookPath "delta" }}
       pager: delta --paging=never -s
 {{ end -}}
+
+theme:
+  activeBorderColor:
+    - {{ (print "#" .colours.normal.blue) | squote }}
+    - bold
+  inactiveBorderColor:
+    - {{ (print "#" .colours.normal.subtext0) | squote }}
+  searchingActiveBorderColor:
+    - {{ (print "#" .colours.normal.yellow) | squote }}
+  optionsTextColor:
+    - {{ (print "#" .colours.normal.blue) | squote }}
+  selectedLineBgColor:
+    - {{ (print "#" .colours.normal.surface0) | squote }}
+  inactiveViewSelectedLineBgColor:
+    - {{ (print "#" .colours.normal.overlay0) | squote }}
+  cherryPickedCommitFgColor:
+    - {{ (print "#" .colours.normal.lavender) | squote }}
+  cherryPickedCommitBgColor:
+    - {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.background) | squote }}{{ end }}
+  markedBaseCommitFgColor:
+    - {{ (print "#" .colours.normal.blue) | squote }}
+  markedBaseCommitBgColor:
+    - {{ (print "#" .colours.normal.yellow) | squote }}
+  unstagedChangesColor:
+    - {{ (print "#" .colours.normal.red) | squote }}
+  defaultFgColor:
+    - {{ (print "#" .colours.normal.foreground) | squote }}
+
+authorColors:
+  '*': {{ (print "#" .colours.normal.lavender) | squote }}
