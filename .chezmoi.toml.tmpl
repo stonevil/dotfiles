@@ -495,7 +495,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"ripgrep",
 		"universal-ctags",
 		"source-highlight",
-		"bat",
 		"jq",
 		"jless",
 		"stylua",
@@ -514,7 +513,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"the_silver_searcher",
 		"ripgrep",
 		"httpie",
-		"bat",
 		"jq",
 		"jless",
 		"stylua",
@@ -530,15 +528,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	npm = [
 		"@mermaid-js/mermaid-cli",
-	]
-	upgrade.darwin = [
-		"bat_cache_update",
-	]
-	upgrade.arch = [
-		"bat_cache_update",
-	]
-	upgrade.fedora = [
-		"bat_cache_update",
 	]
 
 [data.tags.dbToolsCli]
