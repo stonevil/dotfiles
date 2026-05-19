@@ -24,8 +24,8 @@ git:
   pagers:
     - colorArg: always
 {{- if lookPath "delta" }}
-      pager: delta --paging=never -s
-{{ end -}}
+      pager: delta --paging=never -s --config {{ (joinPath .chezmoi.homeDir ".config/git/config") | quote }}
+{{ end }}
 
 theme:
   activeBorderColor:
