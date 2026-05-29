@@ -62,10 +62,11 @@ macos-use-shadow = true
 [renderer]
 {{- if eq .chezmoi.os "linux" }}
 performance = "low"
+backend = "Vulkan"
 {{ else if eq .chezmoi.os "darwin" }}
 performance = "high"
+backend = "Metal"
 {{- end }}
-backend = "automatic"
 disable-unfocused-render = false
 disable-occluded-render = true
 # level = 1
@@ -113,9 +114,9 @@ size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 
 
 [navigation]
 {{- if eq .chezmoi.os "linux" }}
-mode = "Bookmark"
+mode = "Tab"
 {{ else if eq .chezmoi.os "darwin" }}
-mode = "Bookmark"
+mode = "NativeTab"
 # mode = "NativeTab" # disabled for now due Rio issues
 {{- end }}
 clickable = true
