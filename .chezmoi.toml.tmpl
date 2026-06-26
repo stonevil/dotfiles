@@ -1015,14 +1015,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $browsers }}
 	darwin = [
 		"librewolf",
-		"waterfox",
-		"stonevil/brew/ungoogled-chromium",
+		"helium-browser",
 	]
 	arch = [
 		"librewolf-bin",
 		"helium-browser-bin",
-		"waterfox-bin",
-		"ungoogled-chromium-bin",
 	]
 	pre.fedora = [
 		"curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
@@ -1400,5 +1397,43 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 			hints = { start = { foreground = "eff1f5", background = "df8e1d" }, end = { foreground = "eff1f5", background = "6c6f85" } }
 			selection = { text = "eff1f5", background = "dc8a78" }
 			delta = { red35 = "e5a2b3", red20 = "e9c4cf", green35 = "b2d5ae", green20 = "cce1cd", purple = "cbb1f2", blue = "a6c1f5", cyan = "9dd7ef", yellow = "eacfa9" }
+		{{ end }}
+	{{ end }}
+
+	{{ if eq $themeName "ayu" }}
+		{{ if eq $themeVariant "dark" }}
+			normal = { black = "01060e", white = "c7c7c7", red = "ea6c73", green = "91b362", yellow = "f9af4f", blue = "53bdfa", magenta = "fae994", cyan = "90e1c6", indexed_colors = { color16 = "", color17 = "" }, background = "0a0e14", foreground = "b3b1ad", urls="", rosewater = "", flamingo = "", pink = "", mauve = "", maroon = "", peach = "", teal = "", sky = "", sapphire = "", lavender = "", text = "", subtext1 = "", subtext0 = "", overlay2 = "", overlay1 = "", overlay0 = "", surface2 = "", surface1 = "", surface0 = "", base = "", mantle = "", crust = "" }
+			bright = { black = "686868", white = "ffffff", red = "f07178", green = "c2d94c", yellow = "ffb454", blue = "59c2ff", magenta = "ffee99", cyan = "95e6cb", background = "", foreground = "" }
+			dim = { foreground = "" }
+			cursor = { text = "0b0e14", cursor = "bfbdb6", vi_mode = { text = "", cursor = "" }, line = "", secondary = { cursor = "", select = "", normal = "", insert = "" } }
+			search = { matches = { foreground = "", background = "" }, focused_match = { foreground = "", background = "" } }
+			footer_bar = { foreground = "", background = "" }
+			hints = { start = { foreground = "", background = "" }, end = { foreground = "", background = "" } }
+			selection = { text = "bfbdb6", background = "1b3a5b" }
+			delta = { red35 = "", red20 = "", green35 = "", green20 = "", purple = "", blue = "", cyan = "", yellow = "" }
+		{{ end }}
+
+		{{ if eq $themeVariant "mirage" }}
+			normal = { black = "212733", white = "fafafa", red = "f08778", green = "53bf97", yellow = "fdcc60", blue = "60b8d6", magenta = "ec7171", cyan = "98e6ca", indexed_colors = { color16 = "", color17 = "" }, background = "1f2430", foreground = "cbccc6", urls="", rosewater = "", flamingo = "", pink = "", mauve = "", maroon = "", peach = "", teal = "", sky = "", sapphire = "", lavender = "", text = "", subtext1 = "", subtext0 = "", overlay2 = "", overlay1 = "", overlay0 = "", surface2 = "", surface1 = "", surface0 = "", base = "", mantle = "", crust = "" }
+			bright = { black = "343434", white = "dbdbdb", red = "ee9295", green = "9fd32f", yellow = "f0bc7b", blue = "6daee6", magenta = "b294d2", cyan = "75c7a8", background = "0a0e14", foreground = "f28779" }
+			dim = { foreground = "" }
+			cursor = { text = "0a0e14", cursor = "", vi_mode = { text = "0a0e14", cursor = "" }, line = "", secondary = { cursor = "", select = "", normal = "", insert = "" } }
+			search = { matches = { foreground = "0a0e14", background = "" }, focused_match = { foreground = "0a0e14", background = "" } }
+			footer_bar = { foreground = "0a0e14", background = "" }
+			hints = { start = { foreground = "0a0e14", background = "" }, end = { foreground = "0a0e14", background = "" } }
+			selection = { text = "0a0e14", background = "" }
+			delta = { red35 = "", red20 = "", green35 = "", green20 = "", purple = "", blue = "", cyan = "", yellow = "" }
+		{{ end }}
+
+		{{ if eq $themeVariant "light" }}
+			normal = { black = "010101", white = "c1c1c1", red = "e7666a", green = "80ab24", yellow = "eba54d", blue = "4196df", magenta = "9870c3", cyan = "51b891", indexed_colors = { color16 = "", color17 = "" }, background = "fcfcfc", foreground = "5c6166", urls="", rosewater = "", flamingo = "", pink = "", mauve = "", maroon = "", peach = "", teal = "", sky = "", sapphire = "", lavender = "", text = "", subtext1 = "", subtext0 = "", overlay2 = "", overlay1 = "", overlay0 = "", surface2 = "", surface1 = "", surface0 = "", base = "", mantle = "", crust = "" }
+			bright = { black = "343434", white = "dbdbdb", red = "ee9295", green = "9fd32f", yellow = "f0bc7b", blue = "6daee6", magenta = "b294d2", cyan = "75c7a8", background = "", foreground = "" }
+			dim = { foreground = "" }
+			cursor = { text = "", cursor = "", vi_mode = { text = "", cursor = "" }, line = "", secondary = { cursor = "", select = "", normal = "", insert = "" } }
+			search = { matches = { foreground = "", background = "" }, focused_match = { foreground = "", background = "" } }
+			footer_bar = { foreground = "", background = "" }
+			hints = { start = { foreground = "", background = "" }, end = { foreground = "", background = "" } }
+			selection = { text = "", background = "" }
+			delta = { red35 = "", red20 = "", green35 = "", green20 = "", purple = "", blue = "", cyan = "", yellow = "" }
 		{{ end }}
 	{{ end }}
