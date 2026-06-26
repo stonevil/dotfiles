@@ -1,0 +1,9 @@
+{{- /*
+	vim:ft=conf.gotexttmpl
+*/ -}}
+
+{{ if eq .chezmoi.os "linux" }}
+	{{ if stat ("/etc/containers/storage.conf") }}
+sudo sed -i 's/^driver =.*/driver = "vfs"/g' /etc/containers/storage.conf || true
+	{{ end }}
+{{ end }}
