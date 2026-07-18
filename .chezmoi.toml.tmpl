@@ -475,6 +475,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"dua-cli",
 		"systemd-manager-tui",
 		"lazyjournal",
+		"ntfs-3g",
+		"ntfsprogs",
 	]
 	cargo = [
 		"battop",
@@ -761,20 +763,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.syncTools]
 	enabled = {{ if ($syncTools) }} true {{ else }} false {{ end }}
 	darwin = [
-		"syncthing",
 	]
 	arch = [
 		"syncthing",
 		"syncthingtray-qt6",
 	]
-	post.darwin = [
-		"mkdir -p ${HOME}/Library/LaunchAgents && chflags nouchg ${HOME}/Library/LaunchAgents && brew services start syncthing && chflags uchg ${HOME}/Library/LaunchAgents",
-	]
 	post.arch = [
 		"systemctl --user enable syncthing.service",
-	]
-	remove.darwin = [
-		"mkdir -p ${HOME}/Library/LaunchAgents && chflags nouchg ${HOME}/Library/LaunchAgents && brew services stop syncthing && chflags uchg ${HOME}/Library/LaunchAgents",
 	]
 
 [data.tags.hashiCli]
