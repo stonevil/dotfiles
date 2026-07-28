@@ -135,12 +135,12 @@ end)
 hl.gesture({
 	fingers = 2,
 	direction = "pinch",
-	action = "mod: SUPER",
-	-- TODO: manual review — extra gesture field "resize"
+	mods = "SUPER",
+	actions = "resize",
 })
 hl.gesture({
 	fingers = 2,
 	direction = "swipe",
-	action = "mod: SUPER",
-	-- TODO: manual review — extra gesture field "move"
+	mods = "SUPER",
+	actions = "move",
 })

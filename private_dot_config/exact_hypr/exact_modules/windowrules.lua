@@ -219,7 +219,7 @@ hl.layer_rule({
 		namespace = "waybar",
 	},
 	no_anim = true,
-	-- TODO: manual review — disable "blur" has no layer_rule directive analog
+	blur = true,
 	no_screen_share = true,
 })
 
