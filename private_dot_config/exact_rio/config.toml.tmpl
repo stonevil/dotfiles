@@ -23,7 +23,14 @@ option-as-alt = 'right'
 
 confirm-before-quit = false
 
+copy-on-selectb = true
+
 draw-bold-text-with-light-colors = {{ .env.fontBoldBright }}
+
+ignore-selection-foreground-color = false
+
+enable-scroll-bar = false
+scrollback-history-limit = 10000
 
 [cursor]
 shape = 'block'
@@ -44,6 +51,10 @@ program = "vi"
 {{ end }}
 # args = []
 
+[effects]
+custom-mouse-cursor = false
+trail-cursor = false
+
 [window]
 width = 800
 height = 600
@@ -60,13 +71,6 @@ macos-use-shadow = true
 # colorspace = "display-p3"
 
 [renderer]
-{{- if eq .chezmoi.os "linux" }}
-performance = "low"
-backend = "Vulkan"
-{{ else if eq .chezmoi.os "darwin" }}
-performance = "high"
-backend = "Metal"
-{{- end }}
 disable-unfocused-render = false
 disable-occluded-render = true
 # level = 1
@@ -87,6 +91,8 @@ use-drawable-chars = true
 #   { start = "2297", end = "2299", font-family = "Cascadia Code NF" }
 # ]
 size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
+
+disable-warnings-not-found = true
 
 # [fonts.regular]
 # family = "{{ .env.font }}"
@@ -113,18 +119,12 @@ size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 
 # divider = 1.0
 
 [navigation]
-{{- if eq .chezmoi.os "linux" }}
-mode = "Tab"
-{{ else if eq .chezmoi.os "darwin" }}
-mode = "NativeTab"
-# mode = "NativeTab" # disabled for now due Rio issues
-{{- end }}
 clickable = true
 hide-if-single = true
 use-current-path = true
 # color-automation = []
 use-split = false
-navigation.unfocused-split-opacity = {{ if ge (float64 (0.2 | sub .env.opacity)) 0.1 }}{{ 0.2 | sub .env.opacity }}{{ else }}{{ .env.opacity }}{{ end }}
+unfocused-split-opacity = {{ if ge (float64 (0.2 | sub .env.opacity)) 0.1 }}{{ 0.2 | sub .env.opacity }}{{ else }}{{ .env.opacity }}{{ end }}
 
 [shell]
 program = "{{ .env.shellPath }}"
@@ -137,9 +137,13 @@ args = ["--login"]
 #   { key = "l", with = "control", esc = "\u001b[2J\u001b[H" }
 # ]
 
-# [platform]
-# linux.shell.program = "tmux"
-# linux.shell.args = ["new-session", "-c", "/var/www"]
+[platform]
+macos.navigation.mode = "Tab"
+macos.renderer.performance = "high"
+macos.renderer.backend = "Metal"
+linux.navigation.mode = "NativeTab"
+linux.renderer.performance = "low"
+linux.renderer.backend = "Vulkan"
 
 [developer]
 log-level = "OFF"
