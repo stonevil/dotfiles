@@ -1,0 +1,196 @@
+-- https://wiki.hyprland.org/Configuring/Variables/#general
+
+hl.font = {{ .theme.font | quote }}
+
+hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1.0 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
+hl.animation({
+	leaf = "global",
+	enabled = true,
+	speed = 10,
+	bezier = "default",
+})
+hl.animation({
+	leaf = "border",
+	enabled = true,
+	speed = 5.39,
+	bezier = "easeOutQuint",
+})
+hl.animation({
+	leaf = "windows",
+	enabled = true,
+	speed = 4.79,
+	bezier = "easeOutQuint",
+})
+hl.animation({
+	leaf = "windowsIn",
+	enabled = true,
+	speed = 4.1,
+	bezier = "easeOutQuint",
+	style = "popin 87%",
+})
+hl.animation({
+	leaf = "windowsOut",
+	enabled = true,
+	speed = 1.49,
+	bezier = "linear",
+	style = "popin 87%",
+})
+hl.animation({
+	leaf = "fadeIn",
+	enabled = true,
+	speed = 1.73,
+	bezier = "almostLinear",
+})
+hl.animation({
+	leaf = "fadeOut",
+	enabled = true,
+	speed = 1.46,
+	bezier = "almostLinear",
+})
+hl.animation({
+	leaf = "fade",
+	enabled = true,
+	speed = 3.03,
+	bezier = "quick",
+})
+hl.animation({
+	leaf = "layers",
+	enabled = true,
+	speed = 3.81,
+	bezier = "easeOutQuint",
+})
+hl.animation({
+	leaf = "layersIn",
+	enabled = true,
+	speed = 4,
+	bezier = "easeOutQuint",
+	style = "fade",
+})
+hl.animation({
+	leaf = "layersOut",
+	enabled = true,
+	speed = 1.5,
+	bezier = "linear",
+	style = "fade",
+})
+hl.animation({
+	leaf = "fadeLayersIn",
+	enabled = true,
+	speed = 1.79,
+	bezier = "almostLinear",
+})
+hl.animation({
+	leaf = "fadeLayersOut",
+	enabled = true,
+	speed = 1.39,
+	bezier = "almostLinear",
+})
+hl.animation({
+	leaf = "workspaces",
+	enabled = false,
+	speed = 0,
+	bezier = "ease",
+})
+
+hl.config({
+	general = {
+		gaps_in = 2,
+		gaps_out = 2,
+		float_gaps = 2,
+		border_size = 1,
+		layout = "master",
+		resize_on_border = true,
+		col = {
+			active_border = "{{ print \"0xff\" .colours.normal.blue }}",
+			inactive_border = "{{ print \"0xff\" .colours.normal.base }}",
+			nogroup_border_active = "{{ print \"0xff\" .colours.normal.flamingo }}",
+			nogroup_border = "{{ print \"0xff\" .colours.normal.base }}",
+		},
+		snap = {
+			enabled = true,
+		},
+	},
+	-- https://wiki.hyprland.org/Configuring/Variables/#decoration
+	decoration = {
+		rounding = 0,
+		active_opacity = "{{ .env.opacity }}",
+		inactive_opacity = "{{ .env.opacityInactive }}",
+		fullscreen_opacity = "{{ .env.opacity }}",
+		dim_inactive = "{{ .env.dimInactive }}",
+		dim_strength = "{{ .env.dimStrength }}",
+		shadow = {
+			enabled = false,
+		},
+		-- https://wiki.hyprland.org/Configuring/Variables/#blur
+		blur = {
+			enabled = true,
+			new_optimizations = true,
+			special = true,
+			popups = true,
+		},
+	},
+	-- https://wiki.hyprland.org/Configuring/Variables/#animations
+	animations = {
+		enabled = true,
+		-- Default animations, see https://wiki.hyprland.org/Configuring/Animations/
+	},
+	group = {
+		col = {
+			border_active = "{{ print \"0x66\" .colours.normal.blue }}",
+			border_inactive = "{{ print \"0x66\" .colours.normal.base }}",
+			border_locked_active = "{{ print \"0x66\" .colours.normal.flamingo }}",
+			border_locked_inactive = "{{ print \"0x66\" .colours.normal.base }}",
+		},
+		groupbar = {
+			-- text_color =
+			-- text_color_inactive =
+			-- text_color_locked_active =
+			-- text_color_locked_inactive =
+			col = {
+				active = "{{ print \"0x66\" .colours.normal.blue }}",
+				inactive = "{{ print \"0x66\" .colours.normal.base }}",
+				locked_active = "{{ print \"0x66\" .colours.normal.flamingo }}",
+				locked_inactive = "{{ print \"0x66\" .colours.normal.base }}",
+			},
+			gaps_in = 2,
+			gaps_out = 2,
+			blur = true,
+		},
+	},
+	-- See https://wiki.hyprland.org/Configuring/Master-Layout/
+	master = {
+		new_status = "master",
+	},
+	-- https://wiki.hypr.land/Configuring/Dwindle-Layout/
+	dwindle = {
+		pseudotile = true,
+		preserve_split = true,
+	},
+	-- https://wiki.hyprland.org/Configuring/Variables/#misc
+	misc = {
+		vfr = true,
+		disable_hyprland_logo = true,
+		disable_splash_rendering = true,
+		focus_on_activate = true,
+		anr_missed_pings = 3,
+		allow_session_lock_restore = true,
+		background_color = "{{ if .theme.blackout }}0x000000{{ else }}{{ print \"0x\" .colours.normal.background }}{{ end }}",
+	},
+	-- https://wiki.hypr.land/Configuring/Variables/#cursor
+	cursor = {
+		hide_on_key_press = false,
+	},
+	xwayland = {
+		force_zero_scaling = true,
+	},
+	-- Don't show update on first launch
+	ecosystem = {
+		no_update_news = true,
+		no_donation_nag = true,
+		enforce_permissions = true,
+	},
+})
