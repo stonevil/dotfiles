@@ -30,7 +30,7 @@ hl.config({
 			-- Use two-finger clicks for right-click instead of lower-right corner
 			clickfinger_behavior = true,
 			-- Disable tapping
-			["tap-to-click"] = false,
+			tap_to_click = false,
 			-- Disable the trackpad while typing (accidental tapping etc.)
 			disable_while_typing = true,
 			-- Control the speed of your scrolling

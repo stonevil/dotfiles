@@ -1,6 +1,9 @@
 -- Screencopy
-hl.permission({ binary = "/usr/(bin/hyprshot|bin/hyprlock|sbin/grim)", type = "screencopy", allow = "allow" })
-hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", allow = "allow" })
+hl.permission({ binary = "/usr/bin/(hyprshot|hyprlock|grim)", type = "screencopy", mode = "allow" })
+
+hl.permission({ binary = "/usr/lib/xdg-desktop-portal-hyprlandn/grim", type = "screencopy", mode = "allow" })
+
+hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
 
 -- Keyboards
 -- hl.permission({ binary = "(video-bus|power-button|sleep-button|asus-wmi-hotkeys)", type = "keyboard", allow = "allow" })
@@ -11,4 +14,4 @@ hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland",
 -- hl.permission({ binary = ".*", type = "keyboard", allow = "deny" })
 
 -- Hyprland Plugins Manager
-hl.permission({ binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", allow = "allow" })
+hl.permission({ binary = "/usr/(bin|local/bin)/hyprpm", type = "plugin", mode = "allow" })

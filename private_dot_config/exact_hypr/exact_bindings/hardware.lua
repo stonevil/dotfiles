@@ -1,11 +1,11 @@
 hl.bind(
 	"XF86MonBrightnessUp",
-	hl.dsp.exec_cmd("$backlightup"),
+	hl.dsp.exec_cmd(backLightUp),
 	{ locked = true, repeating = true, description = "Brightness increase" }
 )
 hl.bind(
 	"XF86MonBrightnessDown",
-	hl.dsp.exec_cmd("$backlightdown"),
+	hl.dsp.exec_cmd(backLightDown),
 	{ locked = true, repeating = true, description = "Brightness decrease" }
 )
 

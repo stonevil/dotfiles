@@ -24,10 +24,9 @@ hl.window_rule({
 hl.window_rule({
 	name = "Browsers",
 	match = {
-		class = "^(librewolf|chromium)$",
+		class = "^(librewolf|chromium|helium)$",
 	},
 	workspace = "2",
-	float = true,
 	size = "(monitor_w*0.7) (monitor_h)",
 })
 

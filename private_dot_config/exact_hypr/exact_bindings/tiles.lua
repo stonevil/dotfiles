@@ -136,11 +136,11 @@ hl.gesture({
 	fingers = 2,
 	direction = "pinch",
 	mods = "SUPER",
-	actions = "resize",
+	action = "resize",
 })
 hl.gesture({
 	fingers = 2,
 	direction = "swipe",
 	mods = "SUPER",
-	actions = "move",
+	action = "move",
 })

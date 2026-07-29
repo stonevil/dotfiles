@@ -1,93 +1,58 @@
-local mainMod = "SUPER"
+homeDirPath = os.getenv("HOME")
 
-local terminal = "foot"
-local filemanager = "dolphin"
-local fm = 'foot -e {{ (joinPath .chezmoi.homeDir ".local/bin/yazi") | quote }}'
-local browser = "librewolf"
-local mail = "thunderbird"
-local editor = "nvim"
+mainMod = "SUPER"
 
-local clipboard = "walker --provider clipboard"
-local colourpicker = "hyprpicker --autocopy --format=hex --quiet --lowercase-hex"
+terminal = "foot"
+fileManager = "dolphin"
+fm = "foot -e" .. " " .. "yazi"
+browser = "librewolf"
+mail = "thunderbird"
+editor = "nvim"
 
-local wallpaper = "hyprpaper"
+clipboard = "walker --provider clipboard"
+colourPicker = "hyprpicker --autocopy --format=hex --quiet --lowercase-hex"
 
-local idle = "hypridle"
+wallpaper = "hyprpaper"
 
-local notifications = "swaync"
-local notifications_toggle = "swaync-client --toggle-panel"
+idle = "hypridle"
 
-local spotlight = "walker"
-local screenlock = "playerctl --all-players pause; hyprlock"
+notifications = "swaync"
+notificationsToggle = "swaync-client --toggle-panel"
 
-local suspend = "systemctl suspend"
+spotLight = "walker"
+screenLock = "playerctl --all-players pause; hyprlock"
 
-local sysbar = "waybar"
+suspend = "systemctl suspend"
 
-local current_keymap = "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')"
+sysBar = "waybar"
 
-local volumeup = '{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "up") }}'
-local volumedown = '{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "down" }}'
-local volumemute = '{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle" }}'
+currentKeymap = "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')"
 
-local micmute = '{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle" }}'
+volumeUp = homeDirPath .. "/.config/wayland/scripts/audio up"
+volumeDown = homeDirPath .. "/.config/wayland/scripts/audio down"
+volumeMute = homeDirPath .. "/.config/wayland/scripts/audio toggle"
 
-local backlightup = 'brightnessctl s +5%; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"'
-local backlightdown = 'brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"'
+micMute = homeDirPath .. "/.config/wayland/scripts/audio mictoggle"
 
-local dock_toggle = '{{ joinPath .chezmoi.homeDir ".config/wayland/scripts/dock_toggle" }}'
+backLightUp = 'brightnessctl s +5%; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"'
+backLightDown = 'brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"'
 
-local logout = "hyprctl dispatch exit"
+dockToggle = homeDirPath .. "/.config/wayland/scripts/dock_toggle"
 
-if is_file_exists(HOME .. "/.config/hypr/theme.lua") then
-	require("theme")
-end
+logout = "hyprctl dispatch exit"
 
-if is_file_exists(HOME .. "/.config/hypr/modules/env.lua") then
-	require("modules.env")
-end
-
-if is_file_exists(HOME .. "/.config/hypr/modules/autostart.lua") then
-	require("modules.autostart")
-end
-
-if is_file_exists(HOME .. "/.config/hypr/modules/input.lua") then
-	require("modules.input")
-end
-if is_file_exists(HOME .. "/.config/hypr/modules/monitors.lua") then
-	require("modules.monitors")
-end
-
-if is_file_exists(HOME .. "/.config/hypr/modules/windowrules.lua") then
-	require("modules.windowrules")
-end
-if is_file_exists(HOME .. "/.config/hypr/modules/workspaces.lua") then
-	require("modules.workspaces")
-end
-
-if is_file_exists(HOME .. "/.config/hypr/modules/ui.lua") then
-	require("modules.ui")
-end
-
-if is_file_exists(HOME .. "/.config/hypr/modules/permissions.lua") then
-	require("modules.permissions")
-end
-
-if is_file_exists(HOME .. "/.config/hypr/bindings/general.lua") then
-	require("bindings.general")
-end
-if is_file_exists(HOME .. "/.config/hypr/bindings/applications.lua") then
-	require("bindings.applications")
-end
-if is_file_exists(HOME .. "/.config/hypr/bindings/tiles.lua") then
-	require("bindings.tiles")
-end
-if is_file_exists(HOME .. "/.config/hypr/bindings/macos.lua") then
-	require("bindings.macos")
-end
-if is_file_exists(HOME .. "/.config/hypr/bindings/media.lua") then
-	require("bindings.media")
-end
-if is_file_exists(HOME .. "/.config/hypr/bindings/hardware.lua") then
-	require("bindings.hardware")
-end
+require("theme")
+require("modules.env")
+require("modules.autostart")
+require("modules.input")
+require("modules.monitors")
+require("modules.windowrules")
+require("modules.workspaces")
+require("modules.ui")
+require("modules.permissions")
+require("bindings.general")
+require("bindings.applications")
+require("bindings.tiles")
+require("bindings.macos")
+require("bindings.media")
+require("bindings.hardware")
