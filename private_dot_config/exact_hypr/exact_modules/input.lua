@@ -37,7 +37,7 @@ hl.config({
 			scroll_factor = 0.4,
 		},
 		natural_scroll = true,
-		follow_mouse = 2,
+		follow_mouse = 0,
 		mouse_refocus = false,
 	},
 })
