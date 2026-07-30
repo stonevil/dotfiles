@@ -1,35 +1,44 @@
 log_level = "error"
-outputs = { Targets = ["eDP-1"] }
+# outputs = { Targets = ["eDP-1"] }
 position = "Bottom"
 
 app_launcher_cmd = "walker"
 
 [settings]
 lock_cmd = "playerctl --all-players pause; hyprlock &"
+wifi_more_cmd = "foot --app-id nmtui --window-size-chars=80x24 -e nmtui"
+bluetooth_more_cmd = "foot --app-id bluetui --window-size-chars=100x32 -e bluetui"
+audio_sinks_more_cmd = "foot --app-id wiremix --window-size-chars=100x32 -e wiremix"
+audio_sources_more_cmd = "foot --app-id wiremix --window-size-chars=100x32 -e wiremix"
 
 
 [modules]
-left = [[ "Workspaces" ], [ "WindowTitle" ]]
-center = [ "MediaPlayer" ]
-right = [[ "Tray" ], [ "SystemInfo" ], [ "Privacy" ], [ "Clock", "Settings" ]]
+left = [[ "Workspaces" ], [ "WindowTitle" ], [ "MediaPlayer" ]]
+center = []
+right = [[ "Tray" ], [ "KeyboardLayout", "KeyboardSubmap" ], [ "SystemInfo" ], [ "Privacy" ], [ "Clock", "Settings" ]]
+
 
 [workspaces]
 visibility_mode = "All"
 max_workspaces = 10
+workspace_names = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+
 
 [window_title]
 mode = "Title"
 truncate_title_after_length = 50
 
+
 [media_player]
 max_title_length = 50
+
 
 [system_info]
 indicators = [ "Cpu", "Memory", "Temperature" ]
 
-# Theme
+
 [appearance]
-font_name = "JetBrainsMono NFP"
+font_name = {{ .theme.font | quote }}
 scale_factor = 1.0
 opacity = {{ if ge (float64 (0.5 | sub .env.opacityInactive)) 0.1 }}{{ (0.5 | sub .env.opacityInactive) }}{{ else }}0.1{{ end }}
 
@@ -38,10 +47,11 @@ style = "Islands"
 success_color = {{ (print "#" .colours.normal.green) | quote }}
 text_color = {{ (print "#" .colours.normal.text) | quote }}
 
-workspace_colors = [ {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}, {{ (print "#" .colours.normal.lavender) | quote }}, {{ (print "#" .colours.normal.mauve) | quote }} ]
+workspace_colors = [ {{ (print "#" .colours.normal.white) | quote }}, {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.black) | quote }}{{ end }}, {{ (print "#" .colours.normal.white) | quote }} ]
+
 
 [appearance.menu]
-opacity = 0.5
+opacity = 1
 backdrop = 0.3
 
 [appearance.primary_color]
