@@ -31,7 +31,7 @@
 
 	"ext/workspaces": {
 		"format": "{icon}",
-		"sort-by-number": true,
+		"sort-by-number": false,
 		"on-click": "activate",
 		"format-icons": {
 			"1": "I",
@@ -97,7 +97,7 @@
 		"scroll-step": 0.5,
 		"format-muted": "",
 		"on-click": {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle") | quote }},
-		"on-click-right": "wiremix",
+		"on-click-right": "foot --app-id wiremix --window-size-chars=100x32 -e wiremix",
 		"format-icons": ["", "", ""],
 	},
 
@@ -106,7 +106,7 @@
 		"format": "{volume}% 󰍬",
 		"format-muted": "󰍭",
 		"on-click": {{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle") | quote }},
-		"on-click-right": "wiremix",
+		"on-click-right": "foot --app-id wiremix --window-size-chars=100x32 -e wiremix",
 		"scroll-step": 5,
 	},
 
