@@ -134,11 +134,11 @@ hl.bind(
 	hl.dsp.send_shortcut({ mods = "CTRL SHIFT", key = "U", window = "" }),
 	{ repeating = true }
 )
-hl.bind(
-	"SUPER + SHIFT + V",
-	hl.dsp.send_shortcut({ mods = "CTRL SHIFT", key = "V", window = "" }),
-	{ repeating = true }
-)
+-- hl.bind(
+-- 	"SUPER + SHIFT + V",
+-- 	hl.dsp.send_shortcut({ mods = "CTRL SHIFT", key = "V", window = "" }),
+-- 	{ repeating = true }
+-- )
 hl.bind(
 	"SUPER + SHIFT + W",
 	hl.dsp.send_shortcut({ mods = "CTRL SHIFT", key = "W", window = "" }),

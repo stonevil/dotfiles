@@ -17,4 +17,4 @@ hl.bind("SUPER + CTRL + L", hl.dsp.exec_cmd(screenLock), { description = "Lock t
 
 hl.bind("SUPER + CTRL + SHIFT + Q", hl.dsp.exec_cmd(suspend), { description = "Suspend" })
 
-hl.bind("SUPER + CTRL + ALT + Q", hl.dsp.exec_cmd(logout), { description = "Exit Hyprland" })
+hl.bind("SUPER + CTRL + ALT + Q", hl.dsp.exec_cmd(logOut), { description = "Exit Hyprland" })

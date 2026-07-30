@@ -39,7 +39,7 @@ backLightDown = 'brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "
 
 dockToggle = homeDirPath .. "/.config/wayland/scripts/dock_toggle"
 
-logout = "hyprctl dispatch exit"
+logOut = "hyprshutdown"
 
 require("theme")
 require("modules.env")
