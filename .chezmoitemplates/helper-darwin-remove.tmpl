@@ -13,8 +13,8 @@ vim:ft=bash.gotexttmpl
 {{- end }}
 
 {{- if index . "darwinhead" }}
-	echo "DARWIN: remove brew --HEAD packages"
-	yr --HEAD {{ join " " (.darwinhead | uniq | sortAlpha) }} || true
+	echo "DARWIN: remove brew packages"
+	yr {{ join " " (.darwinhead | uniq | sortAlpha) }} || true
 {{- end }}
 
 {{- if index . "darwin" }}
