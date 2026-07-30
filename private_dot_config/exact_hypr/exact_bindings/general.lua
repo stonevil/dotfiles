@@ -4,10 +4,13 @@ hl.bind(
 	{ locked = true }
 )
 
-hl.bind("SUPER + SHIFT + 3", hl.dsp.exec_cmd("hyprshot -m output"), { description = "Screenshot window" })
-hl.bind("SUPER + SHIFT + 4", hl.dsp.exec_cmd("hyprshot -m window"), { description = "Screenshot area" })
-hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m window"), { description = "Screenshot window" })
-hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m region"), { description = "Screenshot area" })
+hl.bind("SUPER + SHIFT + 3", hl.dsp.exec_cmd(screenshotOutput), { description = "Screenshot Screen" })
+hl.bind("SUPER + SHIFT + 4", hl.dsp.exec_cmd(screenshotRegion), { description = "Screenshot Area" })
+hl.bind("SUPER + SHIFT + 5", hl.dsp.exec_cmd(screenshotWindow), { description = "Screenshot Window" })
+
+hl.bind("SUPER + SHIFT + ALT + 3", hl.dsp.exec_cmd(screenshotOutput2Clipboard), { description = "Screenshot Screen" })
+hl.bind("SUPER + SHIFT + ALT + 4", hl.dsp.exec_cmd(screenshotRegion2Clipboard), { description = "Screenshot Area" })
+hl.bind("SUPER + SHIFT + ALT + 5", hl.dsp.exec_cmd(screenshotWindow2Clipboard), { description = "Screenshot Window" })
 
 hl.bind("SUPER + SPACE", hl.dsp.exec_cmd(spotLight), { description = "Spotlight" })
 

@@ -205,7 +205,7 @@ hl.window_rule({
 hl.window_rule({
 	name = "TUI apps in foot",
 	match = {
-		class = "(nmtui|blueman|bluetui|battop)",
+		class = "(nmtui|blueman|bluetui|battop|wiremix)",
 	},
 	center = true,
 	float = true,

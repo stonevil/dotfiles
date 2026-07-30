@@ -114,8 +114,8 @@ hl.bind("SUPER + ALT + SHIFT + RIGHT", function()
 end, { description = "Move workspace to right monitor" })
 
 -- Move/resize windows with SUPER + LMB/RMB and dragging
-hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { description = "Move window" })
-hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { description = "Resize window" })
+hl.bind("SUPER + CTRL + mouse:272", hl.dsp.window.drag(), { description = "Move window" })
+hl.bind("SUPER + CTRL + mouse:273", hl.dsp.window.resize(), { description = "Resize window" })
 
 -- Resize submap
 hl.bind("SUPER + CTRL + R", hl.dsp.submap("resize"))

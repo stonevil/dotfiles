@@ -1,31 +1,29 @@
 -- See https://wiki.hyprland.org/Configuring/Monitors/
 -- List current monitors and resolutions possible: hyprctl monitors
 
-hl.env("GDK_SCALE", "1.666666")
-
 -- Odyssey G70A
 hl.monitor({
-    output = "desc:Samsung Electric Company LS28AG700N HCJT306236",
-    mode = "3840x2160@144",
-    position = "auto-left",
-    scale = "2.0",
+	output = "desc:Samsung Electric Company LS28AG700N HCJT306236",
+	mode = "3840x2160@120",
+	position = "auto-left",
+	scale = "2.0",
 })
 
 -- Built-in display
 {{- if .tags.zephyrus.enabled }}
 hl.monitor({
-    output = "eDP-1",
-    mode = "2560x1600@60",
-    position = "auto",
-    scale = "1.666666",
+	output = "eDP-1",
+	mode = "2560x1600@60",
+	position = "auto",
+	scale = "1.666666",
 })
 {{- else }}
 {{- if .tags.thinkpad.enabled }}
 hl.monitor({
-    output = "eDP-1",
-    mode = "preferred",
-    position = "auto",
-    scale = "1.666666",
+	output = "eDP-1",
+	mode = "preferred",
+	position = "auto",
+	scale = "1.666666",
 })
 {{- end }}
 {{- end }}

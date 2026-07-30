@@ -12,6 +12,14 @@ editor = "nvim"
 clipboard = "walker --provider clipboard"
 colourPicker = "hyprpicker --autocopy --format=hex --quiet --lowercase-hex"
 
+screenshotOutput = "hyprshot -m output"
+screenshotWindow = "hyprshot -m window"
+screenshotRegion = "hyprshot -m region"
+
+screenshotOutput2Clipboard = "hyprshot -m output --clipboard-only"
+screenshotWindow2Clipboard = "hyprshot -m window --clipboard-only"
+screenshotRegion2Clipboard = "hyprshot -m region --clipboard-only"
+
 wallpaper = "hyprpaper"
 
 idle = "hypridle"
