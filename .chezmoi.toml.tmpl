@@ -1109,7 +1109,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"utm",
 	]
 	arch = [
-		" dnsmasq",
+		"dnsmasq",
 		"virt-manager",
 	]
 	post.arch = [
@@ -1159,13 +1159,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $terminalEmulators }}
 	darwin = [
 		"timg",
-		"wezterm",
 	]
 	arch = [
 		"timg",
 		"foot",
 		"foot-terminfo",
-		"wezterm",
 	]
 
 [data.tags.modeling]
@@ -1173,12 +1171,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	darwin = [
 		"freecad",
 		"blender",
-		"handbrake",
 	]
 	arch = [
 		"freecad",
 		"blender",
-		"handbrake",
 	]
 
 [data.tags.graphics]
