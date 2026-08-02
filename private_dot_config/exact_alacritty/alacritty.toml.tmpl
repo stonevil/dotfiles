@@ -18,6 +18,7 @@ duration = 100
 
 [colors]
 draw_bold_text_with_bright_colors = {{ .env.fontBoldBright }}
+transparent_background_colors = true
 
 [cursor]
 blink_interval = 750
@@ -627,7 +628,7 @@ decorations = "none"
 decorations = "buttonless"
 {{- end }}
 decorations_theme_variant = "Dark"
-dynamic_padding = false
+dynamic_padding = true
 dynamic_title = true
 opacity = {{ .env.opacity }}
 {{ if lt (float64 .env.opacity) 1.0 -}}
