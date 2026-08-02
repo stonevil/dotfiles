@@ -603,7 +603,7 @@ mode = "~Search"
 mods = "Command"
 
 [mouse]
-hide_when_typing = false
+hide_when_typing = true
 
 [[mouse.bindings]]
 action = "PasteSelection"
@@ -635,7 +635,9 @@ blur = true
 {{ else -}}
 blur = false
 {{ end -}}
+{{ if eq .chezmoi.os "darwin" -}}
 option_as_alt = "OnlyRight"
+{{ end -}}
 resize_increments = false
 startup_mode = "Windowed"
 title = "Alacritty"
