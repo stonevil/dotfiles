@@ -315,7 +315,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"glibc-common",
 	]
 	pre.fedora = [
-		"rpmfusion_add",
+		"sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm",
 	]
 	upgrade.darwin = [
 		"yu",
@@ -374,6 +374,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"delve",
 		"golangci-lint",
 	]
+	fedora = [
+		"golang",
+		"delve",
+		"golangci-lint",
+	]
 
 [data.tags.rust]
 	enabled = {{ if or ($neovimCli) ($utilsCli) }} true {{ else }} false {{ end }}
@@ -383,6 +388,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"cargo-update",
 	]
 	arch = [
+		"rust",
+		"cargo-binstall",
+		"cargo-update",
+	]
+	fedora = [
 		"rust",
 		"cargo-binstall",
 		"cargo-update",
@@ -422,10 +432,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"luarocks",
 		"lua-luv",
 	]
+	fedora = [
+		"lua",
+		"luajit",
+		"luarocks",
+		"lua-luv",
+	]
 
 [data.tags.ruby]
 	enabled = {{ if $neovimCli }} true {{ else }} false {{ end }}
 	arch = [
+		"ruby",
+	]
+	fedora = [
 		"ruby",
 	]
 
@@ -443,6 +462,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"hub",
 		"lazygit",
 	]
+	fedora = [
+		"git",
+		"gh",
+		"lazygit",
+	]
+	pre.fedora = [
+		"sudo dnf copr enable -y atim/lazygit",
+	]
 
 [data.tags.terminalMultiplexer]
 	enabled = {{ $terminalMultiplexer }}
@@ -450,6 +477,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"tmux",
 	]
 	arch = [
+		"tmux",
+	]
+	fedora = [
 		"tmux",
 	]
 	upgrade.darwin = [
@@ -1001,8 +1031,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"kwallet-pam",
 		"ksshaskpass",
 	]
+	fedora = [
+		"@kde-desktop",
+	]
 	post.arch = [
 		"sudo ln -fs /usr/bin/qdbus6 qdbus",
+	]
+	post.fedora = [
+		"sudo dnf remove -y abrt plasma-welcome plasma-discover kinfocenter kdebugsettings khelpcenter",
 	]
 
 [data.tags.browsers]
@@ -1015,8 +1051,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"librewolf-bin",
 		"ungoogled-chromium-bin",
 	]
+	fedora = [
+		"helium-bin",
+	]
 	pre.fedora = [
 		"curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
+		"sudo dnf copr enable imput/helium",
 	]
 	cleanup.fedora = [
 		"sudo rm -f /etc/yum.repos.d/librewolf.repo",
@@ -1039,6 +1079,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"kommit",
 	]
 	arch = [
+		"kdiff3",
+		"kompare",
+		"kommit",
+	]
+	fedora = [
 		"kdiff3",
 		"kompare",
 		"kommit",
@@ -1074,6 +1119,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"thunderbird-dark-reader",
 		"thunderbird-ublock-origin",
 	]
+	fedora = [
+		"thunderbird",
+	]
 
 [data.tags.media]
 	enabled = {{ $media }}
@@ -1090,6 +1138,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	fedora = [
 		"mpv",
+		"kid3",
+		"HandBrake",
+		"HandBrake-gui",
 	]
 
 [data.tags.books]
@@ -1101,6 +1152,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"calibre",
 		"bookokrat-bin",
+	]
+	fedora = [
+		"calibre",
 	]
 
 [data.tags.virt]
@@ -1165,6 +1219,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"foot",
 		"foot-terminfo",
 	]
+	fedora = [
+		"timg",
+		"foot",
+		"foot-terminfo",
+	]
 
 [data.tags.modeling]
 	enabled = {{ $modeling }}
@@ -1174,6 +1233,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"freecad",
+		"blender",
+	]
+	fedora = [
 		"blender",
 	]
 
@@ -1186,6 +1248,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"inkscape",
 	]
 	arch = [
+		"optiimage",
+		"krita",
+		"gimp",
+		"inkscape",
+	]
+	fedora = [
 		"optiimage",
 		"krita",
 		"gimp",
