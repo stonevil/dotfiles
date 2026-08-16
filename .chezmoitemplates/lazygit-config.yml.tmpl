@@ -21,10 +21,10 @@ gui:
   filterMode: fuzzy
 
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
 {{- if lookPath "delta" }}
-      pager: delta --paging=never -s --config {{ (joinPath .chezmoi.homeDir ".config/git/config") | quote }}
+      command: delta --paging=never -s --config {{ (joinPath .chezmoi.homeDir ".config/git/config") | quote }}
 {{ end }}
 
 theme:
