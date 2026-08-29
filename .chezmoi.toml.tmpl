@@ -197,7 +197,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 # Ask questin about environment if GUI env enabled
 {{ if or (or ($labwc) ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" $browsers }}
-	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like WezTerm" $terminalEmulators }}
+	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like Alacritty" $terminalEmulators }}
 	{{ $devTools = promptBool "DEV apps, like CotEditor" $devTools }}
 	{{ $dbTools = promptBool "DB management tools, like DBeaver" $dbTools }}
 	{{ $messengers = promptBool "Messengers apps, like Discord" $messengers }}
@@ -1210,6 +1210,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $terminalEmulators }}
 	darwin = [
 		"timg",
+		"stonevil/brew/alacritty",
 	]
 	arch = [
 		"timg",
