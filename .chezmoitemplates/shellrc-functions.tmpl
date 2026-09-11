@@ -155,7 +155,7 @@ function mwatch() {
 			hash_new=$(md5 "$filename.mmd")
 			if [[ $hash_new != $hash_current ]]; then
 				mmdc -i "$filename.mmd" -o "$filename.png" -s 10 &&
-					timg -p k "$filename.png"
+					viu -t "$filename.png"
 				hash_current="$hash_new"
 			fi
 			sleep 5
