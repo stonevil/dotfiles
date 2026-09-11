@@ -1311,20 +1311,26 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.terminalEmulators]
 	enabled = {{ $terminalEmulators }}
 	darwin = [
+		"ghostty",
 		"stonevil/brew/alacritty",
 		"viu",
 	]
 	arch = [
+		"extra/ghostty",
 		"extra/foot",
 		"extra/foot-terminfo",
 		"extra/viu",
 	]
 	fedora = [
+		"ghostty",
 		"foot",
 		"foot-terminfo",
 	]
 	cargo = [
 		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"viu",{{ end }}
+	]
+	pre.fedora = [
+		"sudo dnf copr enable -y scottames/ghostty",
 	]
 
 [data.tags.modeling]
