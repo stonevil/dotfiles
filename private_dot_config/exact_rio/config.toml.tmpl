@@ -2,20 +2,17 @@
 vim:ft=toml.gotexttmpl
 */ -}}
 
-hide-cursor-when-typing = false
+hide-mouse-cursor-when-typing = false
 
 # ignore-selection-foreground-color = false
 
 theme = 'current'
 
-# padding-x = 10
-# padding-y = [30, 10]
-
 option-as-alt = 'right'
 
 # line-height = 1.2
 
-# working_directory = {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
+working-dir = {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
 
 # env-vars = []
 
@@ -23,7 +20,7 @@ option-as-alt = 'right'
 
 confirm-before-quit = false
 
-copy-on-selectb = true
+copy-on-select = true
 
 draw-bold-text-with-light-colors = {{ .env.fontBoldBright }}
 
@@ -53,7 +50,7 @@ program = "vi"
 
 [effects]
 custom-mouse-cursor = false
-trail-cursor = false
+trail-cursor = true
 
 [window]
 width = 800
@@ -66,7 +63,7 @@ blur = true
 blur = false
 {{ end }}
 decorations = "transparent"
-macos-use-unified-titlebar = false
+macos-use-unified-titlebar = true
 macos-use-shadow = true
 # colorspace = "display-p3"
 
@@ -83,36 +80,11 @@ disable-occluded-render = true
 
 [fonts]
 use-drawable-chars = true
-# family = "{{ .env.font }}" # disabled for now due Rio issues with fonts in macOS
-# extras = [{ family = "Microsoft JhengHei" }]
-# features = ["ss02", "ss03", "ss05", "ss19"]
-# hinting = false
-# symbol-map = [
-#   { start = "2297", end = "2299", font-family = "Cascadia Code NF" }
-# ]
+family = "{{ .env.font }}"
+hinting = true
 size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
 
 disable-warnings-not-found = true
-
-# [fonts.regular]
-# family = "{{ .env.font }}"
-# style = "{{ .env.fontNormal }}"
-# weight = 400
-
-# [fonts.bold]
-# family = "{{ .env.font }}"
-# style = "{{ .env.fontBold }}"
-# weight = 800
-
-# [fonts.italic]
-# family = "{{ .env.font }}"
-# style = "{{ .env.fontItalic }}"
-# weight = 400
-
-# [fonts.bold-italic]
-# family = "{{ .env.font }}"
-# style = "{{ .env.fontBoldItalic }}"
-# weight = 800
 
 # [scroll]
 # multiplier = 3.0
