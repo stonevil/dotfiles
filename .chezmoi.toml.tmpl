@@ -1018,6 +1018,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"aur/gojq",
 		"aur/qt6ct-kde",
 	]
+	go = [
+		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"github.com/itchyny/gojq/cmd/gojq@latest",{{ end }}
+	]
 
 [data.tags.labwc]
 	enabled = {{ $labwc }}
@@ -1309,17 +1312,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $terminalEmulators }}
 	darwin = [
 		"stonevil/brew/alacritty",
-		"timg",
+		"viu",
 	]
 	arch = [
 		"extra/foot",
 		"extra/foot-terminfo",
-		"aur/timg",
+		"extra/viu",
 	]
 	fedora = [
 		"foot",
 		"foot-terminfo",
-		"timg",
+	]
+	cargo = [
+		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"viu",{{ end }}
 	]
 
 [data.tags.modeling]
@@ -1381,9 +1386,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"pciutils",
 		"extra/bolt",
 		"extra/nvme-cli",
-		"aur/powerstat",
 		"extra/upower",
 		"extra/easyeffects",
+		"aur/powerstat",
 	]
 	fedora = [
 		"usbutils",
