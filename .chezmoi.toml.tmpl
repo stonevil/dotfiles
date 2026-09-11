@@ -315,7 +315,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"glibc-common",
 	]
 	pre.fedora = [
-		"sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm",
+		"sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm",
+		"sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm",
 	]
 	upgrade.darwin = [
 		"yu",
@@ -371,7 +372,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"extra/go",
-		"delve",
+		"extra/delve",
 		"extra/golangci-lint",
 	]
 	fedora = [
@@ -503,13 +504,18 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/parallel",
 		"extra/dua-cli",
-		"aur/systemd-manager-tui-bin",
-		"aur/lazyjournal-bin",
 		"extra/ntfs-3g",
 		"extra/ntfsprogs",
+		"extra/systemctl-tui",
+	]
+	go = [
+		{{ if eq .chezmoi.os "linux" }}"github.com/Lifailon/lazyjournal@latest",{{ end }}
 	]
 	cargo = [
+		{{- if eq .chezmoi.os "linux" }}
 		"battop",
+		"systemctl-tui",
+		{{- end }}
 	]
 
 [data.tags.devToolsCli]
@@ -567,8 +573,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	darwin = [
 		"xo/xo/usql",
 	]
-	arch = [
-		"aur/usql-bin",
+	go = [
+		{{ if eq .chezmoi.os "linux" }}"github.com/xo/usql@latest",{{ end }}
 	]
 
 [data.tags.k8sToolsCli]
@@ -725,6 +731,16 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	fedora = [
 		"ImageMagick",
+		"AtomicParsley"
+	]
+	uv = [
+		{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}
+		"yt-dlp",
+		"yt-dlp-ejs",
+		{{- end }}
+	]
+	npm = [
+		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"deno",{{ end }}
 	]
 	pre.fedora = [
 		"sudo dnf swap -y --allowerasing ffmpeg-free ffmpeg",
@@ -800,10 +816,15 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $hashiCli }}
 	darwin = [
 		"opentofu",
+		"terragrunt",
 	]
 	arch = [
 		"extra/opentofu",
 		"extra/terragrunt",
+	]
+	fedora = [
+		"opentofu",
+		"terragrunt",
 	]
 
 [data.tags.vagrantCli]
@@ -847,6 +868,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/ly",
 		"extra/brightnessctl",
 	]
+	fedora = [
+		"brightnessctl",
+	]
 	post.arch = [
 		"sudo systemctl enable --now ly@tty2.service",
 		"sudo systemctl disable --now getty@tty2.service",
@@ -863,6 +887,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/hunspell-en_us",
 		"extra/hunspell-en_gb",
 	]
+	fedora = [
+		"kf6-sonnet",
+		"kf6-sonnet-hunspell",
+		"hunspell-en",
+		"hunspell-en-GB",
+		"hunspell-uk",
+	]
 
 [data.tags.fontTools]
 	enabled = {{ if or ($labwc) ($hyprland) ($plasma) (eq .chezmoi.os "darwin") }} true {{ else }} false {{ end }}
@@ -872,10 +903,16 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/fontconfig",
 	]
+	fedora = [
+		"fontconfig",
+	]
 	upgrade.darwin = [
 		"fonts_cache_update",
 	]
 	upgrade.arch = [
+		"fonts_cache_update",
+	]
+	upgrade.fedora = [
 		"fonts_cache_update",
 	]
 
@@ -893,8 +930,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/foomatic-db-engine",
 		"extra/foomatic-db-nonfree",
 		"extra/foomatic-db-ppds",
-		"extra/gutenprint",
 		"extra/foomatic-db-gutenprint-ppds",
+	]
+	fedora = [
+		"plasma-print-manager",
+		"cups",
+		"cups-pdf",
+		"system-config-printer",
+		"system-config-printer-applet",
+		"ghostscript",
+		"gutenprint",
+		"gutenprint-cups",
+		"foomatic-db",
+		"foomatic-db-ppds",
 	]
 	upgrade.arch = [
 		"sudo cups-genppdupdate",
@@ -905,6 +953,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/bluez",
 		"extra/bluez-utils",
+	]
+	fedora = [
+		"bluez",
+		"bluez-tools",
 	]
 	post.arch = [
 		"sudo systemctl enable --now bluetooth",
@@ -935,14 +987,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.wayland]
 	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
-		"aur/gojq",
 		"extra/wl-clipboard",
 		"extra/wf-recorder",
 		"extra/satty",
 		"extra/imv",
 		"extra/wlr-randr",
 		"extra/qt6-wayland",
-		"aur/qt6ct-kde",
 		"extra/udiskie",
 		"extra/playerctl",
 		"extra/cliphist",
@@ -965,6 +1015,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"aur/elephant-menus",
 		"aur/elephant-clipboard",
 		"aur/xwaylandvideobridge",
+		"aur/gojq",
+		"aur/qt6ct-kde",
 	]
 
 [data.tags.labwc]
@@ -1049,11 +1101,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"aur/ungoogled-chromium",
 	]
 	fedora = [
+		"librewolf",
 		"helium-bin",
+		"waterfox",
 	]
 	pre.fedora = [
 		"curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
-		"sudo dnf copr enable imput/helium",
+		"sudo dnf copr enable -y imput/helium",
+		"sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/isv:/BrowserWorks/Fedora_44/isv:BrowserWorks.repo",
 	]
 	cleanup.fedora = [
 		"sudo rm -f /etc/yum.repos.d/librewolf.repo",
@@ -1066,22 +1121,36 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/libvncserver",
 		"extra/freerdp",
 	]
+	fedora = [
+		"krdc",
+		"libvncserver",
+		"freerdp",
+	]
 
 [data.tags.devTools]
 	enabled = {{ $devTools }}
 	darwin = [
+		"neovide",
 		"coteditor",
-		"keycastr",
 		"visualdiffer",
+		"keycastr",
 	]
 	arch = [
+		"extra/neovide",
 		"extra/kdiff3",
 		"extra/kommit",
+		"extra/showmethekey",
 	]
 	fedora = [
 		"kdiff3",
-		"kompare",
 		"kommit",
+		"showmethekey",
+	]
+	cargo = [
+		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"neovide",{{ end }}
+	]
+	pre.fedora = [
+		"sudo dnf copr enable -y pesader/showmethekey"
 	]
 
 [data.tags.dbTools]
@@ -1092,11 +1161,20 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/dbeaver",
 	]
+	fedora = [
+		"dbeaver-ce",
+	]
+	pre.fedora = [
+		"sudo dnf copr enable -y copart/dbeaver",
+	]
 
 [data.tags.messengers]
 	enabled = {{ $messengers }}
 	arch = [
 		"extra/discord",
+	]
+	fedora = [
+		"discord",
 	]
 
 [data.tags.mail]
@@ -1128,12 +1206,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/mpv",
 		"extra/kid3",
 		"extra/handbrake",
+		"extra/soundconverter",
 	]
 	fedora = [
 		"mpv",
 		"kid3",
 		"HandBrake",
 		"HandBrake-gui",
+		"soundconverter",
 	]
 
 [data.tags.books]
@@ -1144,10 +1224,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"extra/calibre",
-		"aur/bookokrat-bin",
 	]
 	fedora = [
 		"calibre",
+	]
+	cargo = [
+		{{ if eq .chezmoi.os "linux" }}"bookokrat",{{ end }}
 	]
 
 [data.tags.virt]
@@ -1159,12 +1241,25 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/dnsmasq",
 		"extra/virt-manager",
 	]
+	fedora = [
+		"dnsmasq",
+		"virt-manager",
+	]
 	post.arch = [
 		"sudo usermod -a -G libvirt-qemu ${USER}",
 		"sudo systemctl enable --now libvirtd.service",
 		"sudo systemctl enable --now libvirtd.socket",
 	]
 	remove.arch = [
+		"sudo systemctl disable --now libvirtd.service",
+		"sudo systemctl disable --now libvirtd.socket",
+	]
+	post.fedora = [
+		"sudo usermod -a -G libvirt-qemu ${USER}",
+		"sudo systemctl enable --now libvirtd.service",
+		"sudo systemctl enable --now libvirtd.socket",
+	]
+	remove.fedora = [
 		"sudo systemctl disable --now libvirtd.service",
 		"sudo systemctl disable --now libvirtd.socket",
 	]
@@ -1176,6 +1271,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"extra/torbrowser-launcher",
+	]
+	fedora = [
+		"torbrowser-launcher",
 	]
 
 [data.tags.torrent]
@@ -1199,15 +1297,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"homebrew/cask/sloth",
 	]
 	arch = [
-		"extra/kdiskmark",
 		"extra/exfatprogs",
+		"extra/kdiskmark",
+	]
+	fedora = [
+		"exfatprogs",
+		"kdiskmark",
 	]
 
 [data.tags.terminalEmulators]
 	enabled = {{ $terminalEmulators }}
 	darwin = [
-		"timg",
 		"stonevil/brew/alacritty",
+		"timg",
 	]
 	arch = [
 		"extra/foot",
@@ -1261,7 +1363,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/kicad",
 		"extra/kicad-library",
 		"extra/kicad-library-3d",
-		"python-kikit",
+		"extra/python-kikit",
 		"extra/python-pcbnewtransition",
 		"aur/openboardview",
 	]
@@ -1269,6 +1371,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"kicad",
 		"kicad-doc",
 		"kicad-packages3d",
+		"pcb",
 	]
 
 [data.tags.laptop]
@@ -1282,6 +1385,15 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/upower",
 		"extra/easyeffects",
 	]
+	fedora = [
+		"usbutils",
+		"pciutils",
+		"bolt",
+		"nvme-cli",
+		"powerstat",
+		"upower",
+		"easyeffects",
+	]
 
 [data.tags.intel]
 	enabled = {{ if or ($zephyrus) ($thinkpad) }}true{{ else }}false{{ end }}
@@ -1292,6 +1404,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/intel-gpu-tools",
 		"extra/smartmontools",
 		"aur/libva-intel-driver-irql",
+	]
+	fedora = [
+		"smartmontools",
 	]
 
 [data.tags.nvidia]
@@ -1343,6 +1458,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $thinkpad }}
 	arch = [
 		"extra/sof-firmware",
+	]
+	fedora = [
+		"alsa-sof-firmware",
 	]
 
 # Define terminal, DE like Hyprland env like tabs width, opacity, etc.
