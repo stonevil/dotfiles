@@ -269,7 +269,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"fd",
 	]
 	arch = [
-		"yay",
+		"aur/yay",
 		"bash",
 		"bash-completion",
 		"zsh",
@@ -338,8 +338,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"python",
-		"python-pip",
-		"uv",
+		"extra/python-pip",
+		"extra/uv",
 	]
 	uv = [
 		"wheel",
@@ -370,9 +370,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"golangci-lint",
 	]
 	arch = [
-		"go",
+		"extra/go",
 		"delve",
-		"golangci-lint",
+		"extra/golangci-lint",
 	]
 	fedora = [
 		"golang",
@@ -388,9 +388,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"cargo-update",
 	]
 	arch = [
-		"rust",
-		"cargo-binstall",
-		"cargo-update",
+		"extra/rust",
+		"extra/cargo-binstall",
+		"extra/cargo-update",
 	]
 	fedora = [
 		"rust",
@@ -404,8 +404,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"node",
 	]
 	arch = [
-		"nodejs",
-		"npm",
+		"extra/nodejs",
+		"extra/npm",
 	]
 	npm = [
 		"yarn",
@@ -426,11 +426,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"luarocks",
 	]
 	arch = [
-		"lua51",
-		"lua",
-		"luajit",
-		"luarocks",
-		"lua-luv",
+		"extra/lua51",
+		"extra/lua",
+		"extra/luajit",
+		"extra/luarocks",
+		"extra/lua-luv",
 	]
 	fedora = [
 		"lua",
@@ -442,7 +442,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.ruby]
 	enabled = {{ if $neovimCli }} true {{ else }} false {{ end }}
 	arch = [
-		"ruby",
+		"extra/ruby",
 	]
 	fedora = [
 		"ruby",
@@ -457,10 +457,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"lazygit",
 	]
 	arch = [
-		"git",
-		"git-lfs",
-		"hub",
-		"lazygit",
+		"extra/git",
+		"extra/git-lfs",
+		"extra/hub",
+		"extra/lazygit",
 	]
 	fedora = [
 		"git",
@@ -477,7 +477,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"tmux",
 	]
 	arch = [
-		"tmux",
+		"extra/tmux",
 	]
 	fedora = [
 		"tmux",
@@ -501,12 +501,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"dua-cli",
 	]
 	arch = [
-		"parallel",
-		"dua-cli",
-		"systemd-manager-tui",
-		"lazyjournal",
-		"ntfs-3g",
-		"ntfsprogs",
+		"extra/parallel",
+		"extra/dua-cli",
+		"aur/systemd-manager-tui-bin",
+		"aur/lazyjournal-bin",
+		"extra/ntfs-3g",
+		"extra/ntfsprogs",
 	]
 	cargo = [
 		"battop",
@@ -538,21 +538,21 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"base-devel",
-		"ctags",
-		"eslint",
-		"ninja",
-		"source-highlight",
-		"the_silver_searcher",
-		"ripgrep",
-		"httpie",
-		"jq",
-		"jless",
-		"stylua",
-		"git-delta",
-		"curlie",
-		"ast-grep",
-		"shellcheck",
-		"marksman",
+		"extra/ctags",
+		"extra/eslint",
+		"extra/ninja",
+		"extra/source-highlight",
+		"extra/the_silver_searcher",
+		"extra/ripgrep",
+		"extra/httpie",
+		"extra/jq",
+		"extra/jless",
+		"extra/stylua",
+		"extra/git-delta",
+		"extra/curlie",
+		"extra/ast-grep",
+		"extra/shellcheck",
+		"extra/marksman",
 	]
 	uv = [
 		"httpie",
@@ -568,7 +568,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"xo/xo/usql",
 	]
 	arch = [
-		"usql-bin",
+		"aur/usql-bin",
 	]
 
 [data.tags.k8sToolsCli]
@@ -581,11 +581,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"helm",
 	]
 	arch = [
-		"kubectl",
-		"krew",
-		"k9s",
-		"stern",
-		"helm",
+		"extra/kubectl",
+		"extra/krew",
+		"extra/k9s",
+		"extra/stern",
+		"extra/helm",
 	]
 	krew = [
 		"ctr",
@@ -629,8 +629,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"lua-language-server",
 	]
 	arch = [
-		"neovim",
-		"lua-language-server",
+		"extra/neovim",
+		"extra/lua-language-server",
 	]
 	fedora = [
 		"neovim",
@@ -672,10 +672,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"qemu",
 	]
 	arch = [
-		"qemu-full",
-		"swtpm",
-		"virtiofsd",
-		"smolvm",
+		"extra/qemu-full",
+		"extra/swtpm",
+		"extra/virtiofsd",
+		"extra/smolvm",
 	]
 	fedora = [
 		"qemu",
@@ -685,7 +685,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.fwupdCli]
 	enabled = {{ $fwupdCli }}
 	arch = [
-		"fwupd",
+		"extra/fwupd",
 	]
 	fedora = [
 		"fwupd",
@@ -716,13 +716,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"yt-dlp",
 	]
 	arch = [
-		"imagemagick",
-		"ffmpeg",
-		"yt-dlp",
-		"yt-dlp-ejs",
-		"deno",
-		"xytz-bin",
-		"atomicparsley",
+		"extra/imagemagick",
+		"extra/ffmpeg",
+		"extra/yt-dlp",
+		"extra/yt-dlp-ejs",
+		"extra/deno",
+		"extra/atomicparsley",
 	]
 	fedora = [
 		"ImageMagick",
@@ -735,7 +734,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.adsToolsCli]
 	enabled = {{ $adsToolsCli }}
 	arch = [
-		"hblock",
+		"extra/hblock",
 	]
 	upgrade.arch = [
 		"hblock_update",
@@ -747,13 +746,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.gamesCli]
 	enabled = {{ $gamesCli }}
 	darwin = [
-		"typioca",
 	]
 	arch = [
-		"typioca-bin",
-	]
-	go = [
-		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora" ) }}"github.com/bloznelis/typioca@latest",{{ end }}
 	]
 
 [data.tags.dekCli]
@@ -768,8 +762,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"newsboat",
 	]
 	arch = [
-		"newsboat",
-		"curl-impersonate",
+		"extra/newsboat",
+		"extra/curl-impersonate",
 	]
 
 [data.tags.mailCli]
@@ -778,7 +772,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"neomutt",
 	]
 	arch = [
-		"neomutt",
+		"extra/neomutt",
 	]
 
 [data.tags.networkToolsCli]
@@ -787,7 +781,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"nmap",
 	]
 	arch = [
-		"nmap",
+		"extra/nmap",
 	]
 
 [data.tags.syncTools]
@@ -795,8 +789,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	darwin = [
 	]
 	arch = [
-		"syncthing",
-		"syncthingtray-qt6",
+		"extra/syncthing",
+		"aur/syncthingtray-qt6",
 	]
 	post.arch = [
 		"systemctl --user enable syncthing.service",
@@ -808,13 +802,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"opentofu",
 	]
 	arch = [
-		"opentofu",
+		"extra/opentofu",
+		"extra/terragrunt",
 	]
 
 [data.tags.vagrantCli]
 	enabled = {{ $vagrantCli }}
 	arch = [
-		"vagrant",
+		"aur/vagrant",
 	]
 	vagrant = [
 		{{- if eq .chezmoi.os "linux" }}
@@ -849,8 +844,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.displayManager]
 	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
-		"ly",
-		"brightnessctl",
+		"extra/ly",
+		"extra/brightnessctl",
 	]
 	post.arch = [
 		"sudo systemctl enable --now ly@tty2.service",
@@ -863,10 +858,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.spell]
 	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
-		"sonnet",
-		"hunspell",
-		"hunspell-en_us",
-		"hunspell-en_gb",
+		"extra/sonnet",
+		"extra/hunspell",
+		"extra/hunspell-en_us",
+		"extra/hunspell-en_gb",
 	]
 
 [data.tags.fontTools]
@@ -875,7 +870,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"fontconfig",
 	]
 	arch = [
-		"fontconfig",
+		"extra/fontconfig",
 	]
 	upgrade.darwin = [
 		"fonts_cache_update",
@@ -887,19 +882,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.printManager]
 	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
-		"print-manager",
-		"cups",
-		"cups-pdf",
-		"system-config-printer",
-		"ghostscript",
-		"gsfonts",
-		"gutenprint",
-		"foomatic-db",
-		"foomatic-db-engine",
-		"foomatic-db-nonfree",
-		"foomatic-db-ppds",
-		"gutenprint",
-		"foomatic-db-gutenprint-ppds",
+		"extra/print-manager",
+		"extra/cups",
+		"extra/cups-pdf",
+		"extra/system-config-printer",
+		"extra/ghostscript",
+		"extra/gsfonts",
+		"extra/gutenprint",
+		"extra/foomatic-db",
+		"extra/foomatic-db-engine",
+		"extra/foomatic-db-nonfree",
+		"extra/foomatic-db-ppds",
+		"extra/gutenprint",
+		"extra/foomatic-db-gutenprint-ppds",
 	]
 	upgrade.arch = [
 		"sudo cups-genppdupdate",
@@ -908,8 +903,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.bluetooth]
 	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
-		"bluez",
-		"bluez-utils",
+		"extra/bluez",
+		"extra/bluez-utils",
 	]
 	post.arch = [
 		"sudo systemctl enable --now bluetooth",
@@ -940,96 +935,95 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.wayland]
 	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
-		"gojq",
-		"archlinux-xdg-menu",
-		"wl-clipboard",
-		"wf-recorder",
-		"satty",
-		"imv",
-		"wlr-randr",
-		"qt6-wayland",
-		"qt6ct-kde",
-		"udiskie",
-		"playerctl",
-		"cliphist",
-		"nwg-look",
-		"wev",
-		"xwaylandvideobridge",
-		"pipewire",
-		"wireplumber",
-		"wiremix",
-		"waybar",
-		"swaync",
-		"hypridle",
-		"hyprlock",
-		"hyprshot",
-		"hyprpicker",
-		"walker",
-		"elephant",
-		"elephant-desktopapplications",
-		"elephant-files",
-		"elephant-menus",
-		"elephant-clipboard",
-		"bluetui",
+		"aur/gojq",
+		"extra/wl-clipboard",
+		"extra/wf-recorder",
+		"extra/satty",
+		"extra/imv",
+		"extra/wlr-randr",
+		"extra/qt6-wayland",
+		"aur/qt6ct-kde",
+		"extra/udiskie",
+		"extra/playerctl",
+		"extra/cliphist",
+		"extra/nwg-look",
+		"extra/wev",
+		"extra/bluetui",
+		"extra/pipewire",
+		"extra/wireplumber",
+		"extra/wiremix",
+		"extra/waybar",
+		"extra/swaync",
+		"extra/hypridle",
+		"extra/hyprlock",
+		"extra/hyprshot",
+		"extra/hyprpicker",
+		"aur/walker",
+		"aur/elephant",
+		"aur/elephant-desktopapplications",
+		"aur/elephant-files",
+		"aur/elephant-menus",
+		"aur/elephant-clipboard",
+		"aur/xwaylandvideobridge",
 	]
 
 [data.tags.labwc]
 	enabled = {{ $labwc }}
 	arch = [
-		"lswt",
-		"labwc",
-		"swaybg",
-		"kanshi",
+		"extra/labwc",
+		"extra/swaybg",
+		"extra/kanshi",
+		"aur/lswt",
 	]
 
 [data.tags.hyprland]
 	enabled = {{ $hyprland }}
 	arch = [
-		"hyprland",
-		"hyprland-guiutils",
-		"xdg-desktop-portal-hyprland",
-		"hyprcursor",
-		"hyprpolkitagent",
-		"hyprpaper",
-		"hyprshutdown",
+		"extra/hyprland",
+		"extra/hyprland-guiutils",
+		"extra/hyprcursor",
+		"extra/hyprpolkitagent",
+		"extra/hyprpaper",
+		"extra/hyprshutdown",
+		"extra/xdg-desktop-portal-hyprland",
 	]
 
 [data.tags.plasma]
 	enabled = {{ $plasma }}
 	arch = [
-		"plasma-desktop",
-		"kscreen",
-		"okular",
-		"ark",
-		"kcalc",
-		"dolphin",
-		"dolphin-plugins",
-		"kde-gtk-config",
-		"xdg-desktop-portal",
-		"xdg-desktop-portal-kde",
-		"kscreenlocker",
-		"plasma-pa",
-		"plasma-nm",
-		"breeze",
-		"breeze-gtk",
-		"kpipewire",
-		"plasma-disks",
-		"plasma-browser-integration",
-		"plasma-systemmonitor",
-		"plasma-thunderbolt",
-		"bluedevil",
-		"powerdevil",
-		"print-manager",
-		"spectacle",
-		"partitionmanager",
-		"marknote",
-		"kdialog",
+		"extra/plasma-desktop",
+		"extra/kscreen",
+		"extra/okular",
+		"extra/ark",
+		"extra/kcalc",
+		"extra/dolphin",
+		"extra/dolphin-plugins",
+		"extra/kde-gtk-config",
+		"extra/xdg-desktop-portal",
+		"extra/xdg-desktop-portal-kde",
+		"extra/kscreenlocker",
+		"extra/plasma-pa",
+		"extra/plasma-pass",
+		"extra/plasma-nm",
+		"extra/breeze",
+		"extra/breeze-gtk",
+		"extra/kpipewire",
+		"extra/plasma-disks",
+		"extra/plasma-browser-integration",
+		"extra/plasma-systemmonitor",
+		"extra/plasma-thunderbolt",
+		"extra/bluedevil",
+		"extra/powerdevil",
+		"extra/print-manager",
+		"extra/spectacle",
+		"extra/partitionmanager",
+		"extra/marknote",
+		"extra/kdialog",
 		"extra/qt6-tools",
-		"wl-clipboard",
-		"kwallet",
-		"kwalletmanager",
-		"kwallet-pam",
-		"ksshaskpass",
+		"extra/kwallet",
+		"extra/kwalletmanager",
+		"extra/kwallet-pam",
+		"extra/ksshaskpass",
 	]
 	fedora = [
 		"@kde-desktop",
@@ -1046,10 +1040,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	darwin = [
 		"stonevil/brew/librewolf",
 		"helium-browser",
+		"waterfox",
 	]
 	arch = [
-		"librewolf-bin",
-		"ungoogled-chromium-bin",
+		"extra/librewolf",
+		"aur/helium-browser-bin",
+		"aur/waterfox-bin",
+		"aur/ungoogled-chromium",
 	]
 	fedora = [
 		"helium-bin",
@@ -1065,23 +1062,21 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.networkTools]
 	enabled = {{ $networkTools }}
 	arch = [
-		"krdc",
-		"libvncserver",
-		"freerdp",
+		"extra/krdc",
+		"extra/libvncserver",
+		"extra/freerdp",
 	]
 
 [data.tags.devTools]
 	enabled = {{ $devTools }}
 	darwin = [
-		"kdiff3",
 		"coteditor",
 		"keycastr",
-		"kommit",
+		"visualdiffer",
 	]
 	arch = [
-		"kdiff3",
-		"kompare",
-		"kommit",
+		"extra/kdiff3",
+		"extra/kommit",
 	]
 	fedora = [
 		"kdiff3",
@@ -1095,14 +1090,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"dbeaver-community",
 	]
 	arch = [
-		"dbeaver",
+		"extra/dbeaver",
 	]
 
 [data.tags.messengers]
 	enabled = {{ $messengers }}
 	arch = [
-		"discord",
-		"whatsie",
+		"extra/discord",
 	]
 
 [data.tags.mail]
@@ -1111,10 +1105,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"thunderbird",
 	]
 	arch = [
-		"thunderbird",
-		"thunderbird-i18n-uk",
-		"thunderbird-dark-reader",
-		"thunderbird-ublock-origin",
+		"extra/thunderbird",
+		"extra/thunderbird-i18n-en-us",
+		"extra/thunderbird-i18n-en-gb",
+		"extra/thunderbird-i18n-uk",
+		"extra/thunderbird-dark-reader",
+		"extra/thunderbird-ublock-origin",
 	]
 	fedora = [
 		"thunderbird",
@@ -1129,9 +1125,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"handbrake",
 	]
 	arch = [
-		"mpv",
-		"kid3",
-		"handbrake",
+		"extra/mpv",
+		"extra/kid3",
+		"extra/handbrake",
 	]
 	fedora = [
 		"mpv",
@@ -1147,8 +1143,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"bookokrat",
 	]
 	arch = [
-		"calibre",
-		"bookokrat-bin",
+		"extra/calibre",
+		"aur/bookokrat-bin",
 	]
 	fedora = [
 		"calibre",
@@ -1160,8 +1156,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"utm",
 	]
 	arch = [
-		"dnsmasq",
-		"virt-manager",
+		"extra/dnsmasq",
+		"extra/virt-manager",
 	]
 	post.arch = [
 		"sudo usermod -a -G libvirt-qemu ${USER}",
@@ -1179,7 +1175,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"tor-browser",
 	]
 	arch = [
-		"torbrowser-launcher",
+		"extra/torbrowser-launcher",
 	]
 
 [data.tags.torrent]
@@ -1188,7 +1184,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"stonevil/brew/qbittorrent",
 	]
 	arch = [
-		"qbittorrent",
+		"extra/qbittorrent",
 	]
 	fedora = [
 		"qbittorrent",
@@ -1203,8 +1199,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"homebrew/cask/sloth",
 	]
 	arch = [
-		"kdiskmark",
-		"exfatprogs",
+		"extra/kdiskmark",
+		"extra/exfatprogs",
 	]
 
 [data.tags.terminalEmulators]
@@ -1214,14 +1210,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"stonevil/brew/alacritty",
 	]
 	arch = [
-		"timg",
-		"foot",
-		"foot-terminfo",
+		"extra/foot",
+		"extra/foot-terminfo",
+		"aur/timg",
 	]
 	fedora = [
-		"timg",
 		"foot",
 		"foot-terminfo",
+		"timg",
 	]
 
 [data.tags.modeling]
@@ -1231,8 +1227,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"blender",
 	]
 	arch = [
-		"freecad",
-		"blender",
+		"extra/freecad",
+		"extra/blender",
 	]
 	fedora = [
 		"blender",
@@ -1247,10 +1243,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"inkscape",
 	]
 	arch = [
-		"optiimage",
-		"krita",
-		"gimp",
-		"inkscape",
+		"extra/optiimage",
+		"extra/krita",
+		"extra/gimp",
+		"extra/inkscape",
 	]
 	fedora = [
 		"optiimage",
@@ -1262,12 +1258,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.schematics]
 	enabled = {{ $schematics }}
 	arch = [
-		"kicad",
-		"kicad-library",
-		"kicad-library-3d",
+		"extra/kicad",
+		"extra/kicad-library",
+		"extra/kicad-library-3d",
 		"python-kikit",
-		"python-pcbnewtransition",
-		"openboardview",
+		"extra/python-pcbnewtransition",
+		"aur/openboardview",
 	]
 	fedora = [
 		"kicad",
@@ -1278,36 +1274,36 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.laptop]
 	enabled = {{ if or ($zephyrus) ($thinkpad) }}true{{ else }}false{{ end }}
 	arch = [
-		"bolt",
-		"nvme-cli",
-		"powerstat",
-		"upower",
 		"usbutils",
 		"pciutils",
-		"easyeffects",
+		"extra/bolt",
+		"extra/nvme-cli",
+		"aur/powerstat",
+		"extra/upower",
+		"extra/easyeffects",
 	]
 
 [data.tags.intel]
 	enabled = {{ if or ($zephyrus) ($thinkpad) }}true{{ else }}false{{ end }}
 	arch = [
-		"intel-ucode",
-		"intel-media-driver",
-		"intel-gpu-tools",
-		"smartmontools",
 		"linux-firmware-intel",
-		"libva-intel-driver-irql",
+		"extra/intel-ucode",
+		"extra/intel-media-driver",
+		"extra/intel-gpu-tools",
+		"extra/smartmontools",
+		"aur/libva-intel-driver-irql",
 	]
 
 [data.tags.nvidia]
 	enabled = {{ $nvidia }}
 	arch = [
-		"nvidia-open-dkms",
-		"nvidia-utils",
-		"libva-nvidia-driver",
-		"nvidia-prime",
+		"extra/nvidia-open-dkms",
+		"extra/nvidia-utils",
+		"extra/libva-nvidia-driver",
+		"extra/nvidia-prime",
 		{{- if $zephyrus }}
 		"g14/supergfxctl",
-		"plasma6-applets-supergfxctl",
+		"aur/plasma6-applets-supergfxctl",
 		{{- end }}
 	]
 	post.arch = [
@@ -1327,14 +1323,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"g14/asusctl",
 		"g14/rog-control-center",
-		"bat-asus-battery-bin",
-		"power-profiles-daemon",
-		"aic94xx-firmware",
-		"ast-firmware",
-		"upd72020x-fw",
-		"linux-firmware-qlogic",
-		"wd719x-firmware",
-		"sof-firmware",
+		"extra/power-profiles-daemon",
+		"extra/sof-firmware",
 	]
 	pre.arch = [
 		"cd /tmp && wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
@@ -1352,8 +1342,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.thinkpad]
 	enabled = {{ $thinkpad }}
 	arch = [
-		"sof-firmware",
-		"easyeffects",
+		"extra/sof-firmware",
 	]
 
 # Define terminal, DE like Hyprland env like tabs width, opacity, etc.
