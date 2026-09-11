@@ -10,19 +10,40 @@ theme = current
 
 font-family = {{ .env.font | quote }}
 font-size = {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
+font-thicken = true
 
 cursor-style = block
 cursor-style-blink = true
 mouse-hide-while-typing = true
+mouse-reporting = true
 scroll-to-bottom = keystroke, no-output
 cursor-click-to-move = true
 
 background-opacity = {{ .env.opacity }}
+background-opacity-cells = true
 {{ if lt (.env.opacity | float64) 1.0 -}}
+{{ if eq .chezmoi.os "darwin" -}}
+background-blur = macos-glass-regular
+{{ else }}
+background-blur = true
+{{ end -}}
 background-blur-radius = {{ .env.blur }}
+{{ else }}
+background-blur = false
 {{ end -}}
 
 window-decoration = auto
+window-theme = auto
+
+window-new-tab-position = current
+window-show-tab-bar = auto
+
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection =  true
+copy-on-select = true
+right-click-action = context-menu
+
+quick-terminal-position = top
 
 {{ if eq .chezmoi.os "darwin" -}}
 macos-option-as-alt = right
@@ -35,11 +56,7 @@ macos-window-shadow = true
 macos-hidden = never
 macos-auto-secure-input = true
 macos-secure-input-indication = true
-
-maximize = false
-fullscreen = false
-macos-non-native-fullscreen = true
-
+macos-non-native-fullscreen = false
 macos-icon = glass
 {{ else -}}
 linux-cgroup = single-instance
@@ -48,10 +65,10 @@ gtk-tabs-location = top
 gtk-titlebar-hide-when-maximized = true
 gtk-toolbar-style = flat
 gtk-titlebar-style = tabs
+{{ end -}}
 
 maximize = false
-fullscreen =-false
-{{ end -}}
+fullscreen = false
 
 copy-on-select = true
 clipboard-paste-protection = true
@@ -60,13 +77,13 @@ right-click-action = context-menu
 
 scrollbar = never
 
-notify-on-command-finish = unfocused
+notify-on-command-finish = always
 notify-on-command-finish-action = no-bell, notify
 notify-on-command-finish-after = 1m
 
 confirm-close-surface = false
 
-working-directory = inherit
+working-directory = home
 window-inherit-working-directory = true
 tab-inherit-working-directory = true
 split-inherit-working-directory = true
@@ -74,7 +91,7 @@ split-inherit-working-directory = true
 window-height = {{ if .tags.thinkpad.enabled }}{{ if ge (20 | sub .env.rows) 10 }}{{ 20 | sub .env.rows }}{{ else }}{{ .env.rows }}{{ end }}{{ else }}{{ .env.rows }}{{ end }}
 window-width = {{ if .tags.thinkpad.enabled }}{{ if ge (5 | sub .env.cols) 10 }}{{ 5 | sub .env.cols }}{{ else }}{{ .env.cols }}{{ end }}{{ else }}{{ .env.cols }}{{ end }}
 
-window-save-state = never
+window-save-state = always
 window-step-resize = true
 
 window-padding-x = 5
@@ -87,23 +104,26 @@ window-show-tab-bar = auto
 auto-update = off
 
 shell-integration = detect
+shell-integration-features = cursor, sudo, title, ssh-env, ssh-terminfo, path
 
 quit-after-last-window-closed = true
 
-keybind = global:super+option+/=toggle_quick_terminal
+command = {{ .env.shellPath }} --login
+
+keybind = global:super+option+`=toggle_quick_terminal
 
 # Only required if not using tmux
-# keybind = shift+option+\=new_split:right
-# keybind = shift+option+-=new_split:down
-#
-# keybind = super+option+up=goto_split:up
-# keybind = super+option+down=goto_split:down
-# keybind = super+option+left=goto_split:left
-# keybind = super+option+right=goto_split:right
-#
-# keybind = shift+option+up=resize_split:up,10
-# keybind = shift+option+down=resize_split:down,10
-# keybind = shift+option+left=resize_split:left,10
-# keybind = shift+option+right=resize_split:right,10
-#
-# keybind = shift+option+z=toggle_split_zoom
+keybind = shift+option+\=new_split:right
+keybind = shift+option+-=new_split:down
+
+keybind = option+up=goto_split:up
+keybind = option+down=goto_split:down
+keybind = option+left=goto_split:left
+keybind = option+right=goto_split:right
+
+keybind = shift+option+up=resize_split:up,10
+keybind = shift+option+down=resize_split:down,10
+keybind = shift+option+left=resize_split:left,10
+keybind = shift+option+right=resize_split:right,10
+
+keybind = shift+option+z=toggle_split_zoom
