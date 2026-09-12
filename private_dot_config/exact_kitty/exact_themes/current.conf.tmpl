@@ -26,6 +26,7 @@ active_tab_background {{ print "#" .colours.cursor.cursor }}
 inactive_tab_foreground {{ print "#" .colours.bright.foreground }}
 inactive_tab_background {{ print "#" .colours.bright.background }}
 tab_bar_background {{ if .theme.blackout }}#000000{{ else }}{{ print "#" .colours.normal.background }}{{ end }}
+tab_bar_margin_color none
 
 # Colors for marks (marked text in the terminal)
 mark1_foreground {{ print "#" .colours.cursor.text }}
