@@ -15,7 +15,7 @@ font_size {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge 
 # force_ltr no
 # symbol_map
 # narrow_symbols
-# disable_ligatures never
+disable_ligatures never
 # font_features
 # modify_font
 # box_drawing_scale 0.001, 1, 1.5, 2
@@ -31,14 +31,14 @@ cursor_shape block
 # cursor_underline_thickness 2.0
 # cursor_blink_interval -1
 # cursor_stop_blinking_after 15.0
-# cursor_trail 0
+cursor_trail 1
 # cursor_trail_decay 0.1 0.4
 # cursor_trail_start_threshold 2
 # cursor_trail_color none
 
 #: Scrollback
 scrollback_lines 10000
-# scrollbar scrolled
+scrollbar scrolled
 # scrollbar_interactive yes
 # scrollbar_jump_on_click yes
 # scrollbar_width 0.5
@@ -73,8 +73,8 @@ progress_bar top
 # underline_hyperlinks hover
 copy_on_select yes
 # clear_selection_on_clipboard_loss no
-# paste_actions quote-urls-at-prompt,confirm
-# strip_trailing_spaces never
+paste_actions quote-urls-at-prompt,confirm,confirm-if-large
+strip_trailing_spaces smart
 # select_by_word_characters @-./_~?&=%+#
 # select_by_word_characters_forward
 # click_interval -1.0
@@ -90,7 +90,7 @@ copy_on_select yes
 # mouse_map shift+left click grabbed,ungrabbed mouse_handle_click selection link prompt
 # mouse_map ctrl+shift+left release grabbed,ungrabbed mouse_handle_click link
 # mouse_map ctrl+shift+left press grabbed discard_event
-# mouse_map middle release ungrabbed paste_from_selection
+mouse_map middle release ungrabbed paste_from_selection
 
 #: Start selecting text
 # mouse_map left press ungrabbed mouse_selection normal
@@ -148,16 +148,16 @@ copy_on_select yes
 
 #: Terminal bell
 enable_audio_bell no
-# visual_bell_duration 0.0
+visual_bell_duration 2.0 ease-in linear
 # visual_bell_color none
 
-# window_alert_on_bell yes
+window_alert_on_bell yes
 
 bell_on_tab "🔔 "
 
 # command_on_bell none
 
-# macos_dock_badge_on_bell yes
+macos_dock_badge_on_bell yes
 
 # bell_path none
 
@@ -168,7 +168,7 @@ remember_window_size  yes
 initial_window_width  1024
 initial_window_height 820
 
-# remember_window_position no
+remember_window_position no
 
 # enabled_layouts *
 
@@ -189,7 +189,7 @@ initial_window_height 820
 
 # single_window_padding_width -1
 
-# placement_strategy center
+placement_strategy center
 
 # inactive_text_alpha 1.0
 
@@ -228,7 +228,7 @@ hide_window_decorations no
 
 # window_title_bar_inactive_background none
 
-# window_title_bar_align center
+window_title_bar_align left
 
 #: Tab bar
 # tab_bar_edge bottom
@@ -348,7 +348,7 @@ macos_thicken_font 0.75
 # macos_colorspace srgb
 
 #: Keyboard shortcuts
-# kitty_mod ctrl+shift
+kitty_mod super
 # clear_all_shortcuts no
 # map_timeout 0.0
 # action_alias
