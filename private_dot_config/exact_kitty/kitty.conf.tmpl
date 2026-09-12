@@ -225,7 +225,7 @@ hide_window_decorations no
 # window_title_bar top
 # window_title_bar_min_windows 0
 
-# window_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.window}{progress_percent}{title}"
+# window_title_template "{{`{`}}fmt.fg.red{{`}`}}`{{`{`}}bell_symbol{{`}`}}{{`{`}}activity_symbol{{`}`}}{{`{`}}fmt.fg.window{{`}`}}{{`{`}}progress_percent{{`}`}}{{`{`}}title{{`}`}}"
 
 # active_window_title_template none
 
@@ -259,7 +259,7 @@ tab_powerline_style angled
 
 # tab_title_max_length 0
 
-# tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{secure_input_symbol}{fmt.fg.tab}{tab.last_focused_progress_percent}{title}"
+# tab_title_template "{{`{`}}fmt.fg.red{{`}`}}{{`{`}}bell_symbol{{`}`}}{{`{`}}activity_symbol{{`}`}}{{`{`}}secure_input_symbol{{`}`}}{{`{`}}fmt.fg.tab{{`}`}}{{`{`}}tab.last_focused_progress_percent{{`}`}}{{`{`}}title{{`}`}}"
 
 # active_tab_title_template none
 
@@ -550,7 +550,7 @@ macos_thicken_font 0.75
 #: Next layout
 # map --allow-fallback=shifted,ascii kitty_mod+l next_layout
 
-#: Font sizes {{{
+#: Font sizes
 # map kitty_mod+equal  change_font_size all +2.0
 # map kitty_mod+plus   change_font_size all +2.0
 # map kitty_mod+kp_add change_font_size all +2.0
@@ -598,7 +598,7 @@ macos_thicken_font 0.75
 #: Open the selected hyperlink
 # map --allow-fallback=shifted,ascii kitty_mod+p>y kitten hints --type hyperlink
 
-#: Miscellaneous {{{
+#: Miscellaneous
 
 #: Show documentation
 # map kitty_mod+f1 show_kitty_doc overview
