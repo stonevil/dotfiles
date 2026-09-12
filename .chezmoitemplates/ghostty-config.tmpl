@@ -2,9 +2,7 @@
 vim:ft=dosini.gotexttmpl
 */ -}}
 
-# TODO: sync keys with wezterm, tmux. Impossible for now. No intergration with NeoVim
-
-#custom-shader = shaders/glitchy.glsl
+#custom-shader = shaders/galaxy.glsl
 
 theme = current
 
@@ -118,7 +116,9 @@ keybind = global:super+option+`=toggle_quick_terminal
 
 # Only required if not using tmux
 keybind = shift+option+\=new_split:right
+keybind = super+d=new_split:right
 keybind = shift+option+-=new_split:down
+keybind = super+shift+d=new_split:down
 
 keybind = option+up=goto_split:up
 keybind = option+down=goto_split:down
