@@ -2,181 +2,176 @@
 vim:ft=conf.gotexttmpl
 */ -}}
 
-# vim:ft=conf
+# vim:fileencoding=utf-8:foldmethod=marker
 
 #: Fonts
-
-font_family      {{ .env.font }}
-bold_font        auto
-italic_font      auto
+font_family {{ .env.font }}
+bold_font auto
+italic_font auto
 bold_italic_font auto
 
 font_size {{ if or (.tags.zephyrus.enabled) (.tags.thinkpad.enabled) }}{{ if ge (4 | sub .env.fontSize) 10 }}{{ 4 | sub .env.fontSize }}{{ else }}{{ .env.fontSize }}{{ end }}{{ else }}{{ .env.fontSize }}{{ end }}
 
 # force_ltr no
-
 # symbol_map
-
 # narrow_symbols
-
 # disable_ligatures never
-
 # font_features
-
 # modify_font
-
 # box_drawing_scale 0.001, 1, 1.5, 2
-
 # undercurl_style thin-sparse
+# underline_exclusion 1
+# text_composition_strategy platform
+# text_fg_override_threshold 0
 
-
-#: Cursor customization
-
+#: Text cursor customization
 # cursor #cccccc
-
 # cursor_text_color #111111
-
-# cursor_shape block
-
+cursor_shape block
+# cursor_shape_unfocused hollow
 # cursor_beam_thickness 1.5
-
 # cursor_underline_thickness 2.0
-
 # cursor_blink_interval -1
-
 # cursor_stop_blinking_after 15.0
-
+# cursor_trail 0
+# cursor_trail_decay 0.1 0.4
+# cursor_trail_start_threshold 2
+# cursor_trail_color none
 
 #: Scrollback
-
 scrollback_lines 10000
-
+# scrollbar scrolled
+# scrollbar_interactive yes
+# scrollbar_jump_on_click yes
+# scrollbar_width 0.5
+# scrollbar_hover_width 1
+# scrollbar_handle_opacity 0.5
+# scrollbar_radius 0.3
+# scrollbar_gap 0.1
+# scrollbar_min_handle_height 1
+# scrollbar_hitbox_expansion 0.25
+# scrollbar_track_opacity 0
+# scrollbar_track_hover_opacity 0.1
+# scrollbar_handle_color foreground
+# scrollbar_track_color foreground
+# progress_bar top
 # scrollback_pager less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
-
 # scrollback_pager_history_size 0
-
 # scrollback_fill_enlarged_window no
-
 # wheel_scroll_multiplier 5.0
-
 # wheel_scroll_min_lines 1
-
 # touch_scroll_multiplier 1.0
-
+# pixel_scroll yes
+# momentum_scroll 0.96
 
 #: Mouse
-
 # mouse_hide_wait 3.0
-
 # url_color #0087bd
 # url_style curly
-
 # open_url_with default
-
 # url_prefixes file ftp ftps gemini git gopher http https irc ircs kitty mailto news sftp ssh
-
 # detect_urls yes
-
 # url_excluded_characters
-
-# show_hyperlink_targets no
-
-# copy_on_select no
-
-# paste_actions quote-urls-at-prompt
-
+# show_hyperlink_targets never
+# underline_hyperlinks hover
+copy_on_select yes
+# clear_selection_on_clipboard_loss no
+# paste_actions quote-urls-at-prompt,confirm
 # strip_trailing_spaces never
-
 # select_by_word_characters @-./_~?&=%+#
-
 # select_by_word_characters_forward
-
 # click_interval -1.0
-
 # focus_follows_mouse no
-
 # pointer_shape_when_grabbed arrow
-
 # default_pointer_shape beam
-
-# pointer_shape_when_dragging beam
-
+# pointer_shape_when_dragging beam crosshair
+# drag_threshold 5
 
 #: Mouse actions
-
 # clear_all_mouse_actions no
-
 # mouse_map left click ungrabbed mouse_handle_click selection link prompt
-
 # mouse_map shift+left click grabbed,ungrabbed mouse_handle_click selection link prompt
-
 # mouse_map ctrl+shift+left release grabbed,ungrabbed mouse_handle_click link
-
 # mouse_map ctrl+shift+left press grabbed discard_event
-
 # mouse_map middle release ungrabbed paste_from_selection
 
+#: Start selecting text
 # mouse_map left press ungrabbed mouse_selection normal
 
+#: Start selecting text in a rectangle
 # mouse_map ctrl+alt+left press ungrabbed mouse_selection rectangle
 
+#: Select a word
 # mouse_map left doublepress ungrabbed mouse_selection word
 
+#: Select a line
 # mouse_map left triplepress ungrabbed mouse_selection line
 
+#: Select line from first cell
+# mouse_map alt+left triplepress ungrabbed mouse_selection line_from_begin
+
+#: Select line from point
 # mouse_map ctrl+alt+left triplepress ungrabbed mouse_selection line_from_point
-
 # mouse_map right press ungrabbed mouse_selection extend
-
+# mouse_map shift+left press ungrabbed mouse_selection extend
 # mouse_map shift+middle release ungrabbed,grabbed paste_selection
 # mouse_map shift+middle press grabbed discard_event
 
-# mouse_map shift+left press ungrabbed,grabbed mouse_selection normal
+#: Start selecting text even when grabbed
+# mouse_map shift+left press grabbed mouse_selection normal
 
+#: Start selecting text in a rectangle even when grabbed
 # mouse_map ctrl+shift+alt+left press ungrabbed,grabbed mouse_selection rectangle
 
+#: Select a word even when grabbed
 # mouse_map shift+left doublepress ungrabbed,grabbed mouse_selection word
 
+#: Select a line even when grabbed
 # mouse_map shift+left triplepress ungrabbed,grabbed mouse_selection line
 
+#: Select line from first cell even when grabbed
+# mouse_map shift+alt+left triplepress ungrabbed,grabbed mouse_selection line_from_begin
+
+#: Select line from point even when grabbed
 # mouse_map ctrl+shift+alt+left triplepress ungrabbed,grabbed mouse_selection line_from_point
 
+#: Extend the current selection even when grabbed
 # mouse_map shift+right press ungrabbed,grabbed mouse_selection extend
 
+#: Show clicked command output in pager
 # mouse_map ctrl+shift+right press ungrabbed mouse_show_command_output
 
 
 #: Performance tuning
-
 # repaint_delay 10
 
 # input_delay 3
 
 # sync_to_monitor yes
 
-
 #: Terminal bell
-
-# enable_audio_bell yes
-
+enable_audio_bell no
 # visual_bell_duration 0.0
-
 # visual_bell_color none
 
 # window_alert_on_bell yes
 
-# bell_on_tab "🔔 "
+bell_on_tab "🔔 "
 
 # command_on_bell none
 
+# macos_dock_badge_on_bell yes
+
 # bell_path none
 
+# linux_bell_theme __custom
 
 #: Window layout
-
 remember_window_size  yes
 initial_window_width  1024
 initial_window_height 820
+
+# remember_window_position no
 
 # enabled_layouts *
 
@@ -187,11 +182,15 @@ initial_window_height 820
 
 # draw_minimal_borders yes
 
+# draw_window_borders_for_single_window no
+
 # window_margin_width 0
 
 # single_window_margin_width -1
 
 # window_padding_width 0
+
+# single_window_padding_width -1
 
 # placement_strategy center
 
@@ -211,9 +210,9 @@ hide_window_decorations no
 
 # window_logo_alpha 0.5
 
-# resize_debounce_time 0.1
+# window_logo_scale 0
 
-# resize_draw_strategy static
+# resize_debounce_time 0.1 0.5
 
 # resize_in_steps no
 
@@ -221,21 +220,34 @@ hide_window_decorations no
 
 # confirm_os_window_close -1
 
+# window_drag_tolerance 2
+
+# window_title_bar top
+# window_title_bar_min_windows 0
+
+# window_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.window}{progress_percent}{title}"
+
+# active_window_title_template none
+
+# window_title_bar_active_foreground none
+
+# window_title_bar_active_background none
+
+# window_title_bar_inactive_foreground none
+
+# window_title_bar_inactive_background none
+
+# window_title_bar_align center
 
 #: Tab bar
-
 # tab_bar_edge bottom
-
 # tab_bar_margin_width 0.0
-
 # tab_bar_margin_height 0.0 0.0
-
-tab_bar_style powerline
-
-tab_bar_align left
-
-# tab_bar_min_tabs 2
-
+tab_bar_style fade
+tab_bar_align start
+# tab_bar_filter
+tab_bar_show_new_tab_button no
+tab_bar_min_tabs 2
 # tab_switch_strategy previous
 
 # tab_fade 0.25 0.5 0.75 1
@@ -243,12 +255,11 @@ tab_bar_align left
 # tab_separator " ┇"
 
 tab_powerline_style angled
-
 # tab_activity_symbol none
 
 # tab_title_max_length 0
 
-# tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}"
+# tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{secure_input_symbol}{fmt.fg.tab}{tab.last_focused_progress_percent}{title}"
 
 # active_tab_title_template none
 
@@ -265,28 +276,24 @@ tab_powerline_style angled
 
 
 #: Color scheme
-
 include themes/current.conf
-
 background_opacity {{ .env.opacity }}
 
-# background_image none
+# background_blur 0
 
-# background_image_layout tiled
-
-# background_image_linear no
+# transparent_background_colors
 
 # dynamic_background_opacity no
 
+# background_image none
+# background_image_layout tiled
+# background_image_linear no
 # background_tint 0.0
-
 # background_tint_gaps 1.0
 
 dim_opacity 0.75
 
-
 #: Advanced
-
 shell {{ .env.shellPath }} --login
 
 editor .
@@ -294,8 +301,7 @@ editor .
 # close_on_child_death no
 
 # remote_control_password
-
-allow_remote_control yes
+allow_remote_control no
 
 {{- if eq .chezmoi.os "darwin" }}
 listen_on unix:/tmp/mykitty
@@ -303,38 +309,17 @@ listen_on unix:/tmp/mykitty
 listen_on unix:@mykitty
 {{- end }}
 
-map alt+left neighboring_window down
-map alt+down neighboring_window up
-map alt+up neighboring_window left
-map alt+right neighboring_window right
-
-# Unset the mapping to pass the keys to neovim
-map --when-focus-on var:IS_NVIM alt+left
-map --when-focus-on var:IS_NVIM alt+down
-map --when-focus-on var:IS_NVIM alt+up
-map --when-focus-on var:IS_NVIM alt+right
-
-# the 3 here is the resize amount, adjust as needed
-map alt+shift+left kitten relative_resize.py down  3
-map alt+shift+down kitten relative_resize.py up    3
-map alt+shift+up kitten relative_resize.py left  3
-map alt+shift+right kitten relative_resize.py right 3
-
-map --when-focus-on var:IS_NVIM alt+shift+left
-map --when-focus-on var:IS_NVIM alt+shift+down
-map --when-focus-on var:IS_NVIM alt+shift+up
-map --when-focus-on var:IS_NVIM alt+shift+right
-
-# TODO: sync with NVim and WezTerm
-# map alt+p kitten pass_keys.py neighboring_window prev alt+p
-
 # env
+
+# filter_notification
 
 # watcher
 
 # exe_search_path
 
 # update_check_interval 24
+
+# auto_reload_config 0.1
 
 # startup_session none
 
@@ -346,190 +331,226 @@ map --when-focus-on var:IS_NVIM alt+shift+right
 
 # allow_hyperlinks yes
 
-# shell_integration enabled
+shell_integration enabled
 
 # allow_cloning ask
 
 # clone_source_strategies venv,conda,env_var,path
 
+# notify_on_cmd_finish never
+
 # term xterm-kitty
 
+# terminfo_type path
+
+# forward_stdio no
+
+# menu_map
 
 #: OS specific tweaks
-
-# wayland_titlebar_color system
-
-# macos_titlebar_color system
-
-macos_option_as_alt right
-
-# macos_hide_from_tasks no
-
-macos_quit_when_last_window_closed yes
-
-# macos_window_resizable yes
-
-macos_thicken_font 0.75
-
-# macos_traditional_fullscreen no
-
-# macos_show_window_title_in all
-
-# macos_menubar_title_max_length 0
-
-# macos_custom_beam_cursor no
-
-# macos_colorspace srgb
-
+wayland_titlebar_color system
+# wayland_enable_ime yes
 # linux_display_server auto
 
+macos_titlebar_color system
+macos_option_as_alt right
+# macos_hide_from_tasks no
+macos_quit_when_last_window_closed yes
+# macos_window_resizable yes
+macos_thicken_font 0.75
+# macos_traditional_fullscreen no
+# macos_fullscreen_ignore_safe_area_insets no
+# macos_use_physical_screen_frame no
+# macos_ns_window_layer unset
+# macos_show_window_title_in all
+# macos_menubar_title_max_length 0
+# macos_custom_beam_cursor no
+# macos_colorspace srgb
 
 #: Keyboard shortcuts
-
 # kitty_mod ctrl+shift
-
 # clear_all_shortcuts no
-
+# map_timeout 0.0
 # action_alias
-
 # kitten_alias
 
-# map kitty_mod+c copy_to_clipboard
-# map cmd+c       copy_to_clipboard
+#: Clipboard
+# map --allow-fallback=shifted,ascii kitty_mod+c copy_to_clipboard
+# map --allow-fallback=shifted,ascii cmd+c copy_or_noop
 
-# map kitty_mod+v paste_from_clipboard
-# map cmd+v       paste_from_clipboard
+#: Paste from clipboard
+# map --allow-fallback=shifted,ascii kitty_mod+v paste_from_clipboard
+# map --allow-fallback=shifted,ascii cmd+v paste_from_clipboard
 
-# map kitty_mod+s  paste_from_selection
-# map shift+insert paste_from_selection
+#: Paste from selection
+# map --allow-fallback=shifted,ascii kitty_mod+s paste_from_selection
+# map shift+insert                   paste_from_selection
 
-# map kitty_mod+o pass_selection_to_program
-
+#: Pass selection to program
+# map --allow-fallback=shifted,ascii kitty_mod+o pass_selection_to_program
 
 #: Scrolling
 
-# map kitty_mod+up    scroll_line_up
-# map kitty_mod+k     scroll_line_up
-# map opt+cmd+page_up scroll_line_up
-# map cmd+up          scroll_line_up
+#: Scroll line up
+# map kitty_mod+up                   scroll_line_up smooth
+# map --allow-fallback=shifted,ascii kitty_mod+k scroll_line_up smooth
+# map opt+cmd+page_up                scroll_line_up smooth
+# map cmd+up                         scroll_line_up smooth
 
-# map kitty_mod+down    scroll_line_down
-# map kitty_mod+j       scroll_line_down
-# map opt+cmd+page_down scroll_line_down
-# map cmd+down          scroll_line_down
+#: Scroll line down
+# map kitty_mod+down                 scroll_line_down smooth
+# map --allow-fallback=shifted,ascii kitty_mod+j scroll_line_down smooth
+# map opt+cmd+page_down              scroll_line_down smooth
+# map cmd+down                       scroll_line_down smooth
 
+#: Scroll page up
 # map kitty_mod+page_up scroll_page_up
 # map cmd+page_up       scroll_page_up
 
+#: Scroll page down
 # map kitty_mod+page_down scroll_page_down
 # map cmd+page_down       scroll_page_down
 
+#: Scroll to top
 # map kitty_mod+home scroll_home
 # map cmd+home       scroll_home
 
+#: Scroll to bottom
 # map kitty_mod+end scroll_end
 # map cmd+end       scroll_end
 
-# map kitty_mod+z scroll_to_prompt -1
+#: Scroll to previous shell prompt
+# map --allow-fallback=shifted,ascii kitty_mod+z scroll_to_prompt -1
 
-# map kitty_mod+x scroll_to_prompt 1
+#: Scroll to next shell prompt
+# map --allow-fallback=shifted,ascii kitty_mod+x scroll_to_prompt 1
 
-# map kitty_mod+h show_scrollback
+#: Browse scrollback buffer in pager
+# map --allow-fallback=shifted,ascii kitty_mod+h show_scrollback
 
-# map kitty_mod+g show_last_command_output
+#: Browse output of the last shell command in pager
+# map --allow-fallback=shifted,ascii kitty_mod+g show_last_command_output
 
+
+#: Search the scrollback within a pager
+# map kitty_mod+/                    search_scrollback
+# map --allow-fallback=shifted,ascii cmd+f search_scrollback
 
 #: Window management
 
+#: New window
 # map kitty_mod+enter new_window
 # map cmd+enter       new_window
 
-# map kitty_mod+n new_os_window
-# map cmd+n       new_os_window
+#: New OS window
+# map --allow-fallback=shifted,ascii kitty_mod+n new_os_window
+# map --allow-fallback=shifted,ascii cmd+n new_os_window
 
-# map kitty_mod+w close_window
-# map shift+cmd+d close_window
+#: Close window
+# map --allow-fallback=shifted,ascii kitty_mod+w close_window
+# map --allow-fallback=shifted,ascii shift+cmd+d close_window
 
+#: Next window
 # map kitty_mod+] next_window
 
+#: Previous window
 # map kitty_mod+[ previous_window
 
-# map kitty_mod+f move_window_forward
+#: Move window forward
+# map --allow-fallback=shifted,ascii kitty_mod+f move_window_forward
 
-# map kitty_mod+b move_window_backward
+#: Move window backward
+# map --allow-fallback=shifted,ascii kitty_mod+b move_window_backward
 
+#: Move window to top
 # map kitty_mod+` move_window_to_top
 
-# map kitty_mod+r start_resizing_window
-# map cmd+r       start_resizing_window
+#: Start resizing window
+# map --allow-fallback=shifted,ascii kitty_mod+r start_resizing_window
+# map --allow-fallback=shifted,ascii cmd+r start_resizing_window
 
+#: First window
 # map kitty_mod+1 first_window
 # map cmd+1       first_window
 
+#: Second window
 # map kitty_mod+2 second_window
 # map cmd+2       second_window
 
+#: Third window
 # map kitty_mod+3 third_window
 # map cmd+3       third_window
 
+#: Fourth window
 # map kitty_mod+4 fourth_window
 # map cmd+4       fourth_window
 
+#: Fifth window
 # map kitty_mod+5 fifth_window
 # map cmd+5       fifth_window
 
+#: Sixth window
 # map kitty_mod+6 sixth_window
 # map cmd+6       sixth_window
 
+#: Seventh window
 # map kitty_mod+7 seventh_window
 # map cmd+7       seventh_window
 
+#: Eighth window
 # map kitty_mod+8 eighth_window
 # map cmd+8       eighth_window
 
+#: Ninth window
 # map kitty_mod+9 ninth_window
 # map cmd+9       ninth_window
 
+#: Tenth window
 # map kitty_mod+0 tenth_window
 
+#: Visually select and focus window
 # map kitty_mod+f7 focus_visible_window
 
+#: Visually swap window with another
 # map kitty_mod+f8 swap_with_window
 
-
 #: Tab management
-
+#: Next tab
 # map kitty_mod+right next_tab
 # map shift+cmd+]     next_tab
 # map ctrl+tab        next_tab
 
+#: Previous tab
 # map kitty_mod+left previous_tab
 # map shift+cmd+[    previous_tab
 # map ctrl+shift+tab previous_tab
 
-# map kitty_mod+t new_tab
-# map cmd+t       new_tab
+#: New tab
+# map --allow-fallback=shifted,ascii kitty_mod+t new_tab
+# map --allow-fallback=shifted,ascii cmd+t new_tab
 
-# map kitty_mod+q close_tab
-# map cmd+w       close_tab
+#: Close tab
+# map --allow-fallback=shifted,ascii kitty_mod+q close_tab
+# map --allow-fallback=shifted,ascii cmd+w close_tab
 
-# map shift+cmd+w close_os_window
+#: Close OS window
+# map --allow-fallback=shifted,ascii shift+cmd+w close_os_window
 
+#: Move tab forward
 # map kitty_mod+. move_tab_forward
 
+#: Move tab backward
 # map kitty_mod+, move_tab_backward
 
-# map kitty_mod+alt+t set_tab_title
-# map shift+cmd+i     set_tab_title
-
+#: Set tab title
+# map --allow-fallback=shifted,ascii kitty_mod+alt+t set_tab_title
+# map --allow-fallback=shifted,ascii shift+cmd+i set_tab_title
 
 #: Layout management
+#: Next layout
+# map --allow-fallback=shifted,ascii kitty_mod+l next_layout
 
-# map kitty_mod+l next_layout
-
-
-#: Font sizes
-
+#: Font sizes {{{
 # map kitty_mod+equal  change_font_size all +2.0
 # map kitty_mod+plus   change_font_size all +2.0
 # map kitty_mod+kp_add change_font_size all +2.0
@@ -537,76 +558,128 @@ macos_thicken_font 0.75
 # map cmd+equal        change_font_size all +2.0
 # map shift+cmd+equal  change_font_size all +2.0
 
+#: Decrease font size
 # map kitty_mod+minus       change_font_size all -2.0
 # map kitty_mod+kp_subtract change_font_size all -2.0
 # map cmd+minus             change_font_size all -2.0
 # map shift+cmd+minus       change_font_size all -2.0
 
+#: Reset font size
 # map kitty_mod+backspace change_font_size all 0
 # map cmd+0               change_font_size all 0
 
+#: Open URL
+# map --allow-fallback=shifted,ascii kitty_mod+e open_url_with_hints
 
-# map kitty_mod+e open_url_with_hints
+#: Insert selected path
+# map --allow-fallback=shifted,ascii kitty_mod+p>f kitten hints --type path --program -
 
-# map kitty_mod+p>f kitten hints --type path --program -
+#: Open selected path
+# map --allow-fallback=shifted,ascii kitty_mod+p>shift+f kitten hints --type path
 
-# map kitty_mod+p>shift+f kitten hints --type path
+#: Insert chosen file
+# map --allow-fallback=shifted,ascii kitty_mod+p>c kitten choose-files
 
-# map kitty_mod+p>l kitten hints --type line --program -
+#: Insert chosen directory
+# map --allow-fallback=shifted,ascii kitty_mod+p>d kitten choose-files --mode=dir
 
-# map kitty_mod+p>w kitten hints --type word --program -
+#: Insert selected line
+# map --allow-fallback=shifted,ascii kitty_mod+p>l kitten hints --type line --program -
 
-# map kitty_mod+p>h kitten hints --type hash --program -
+#: Insert selected word
+# map --allow-fallback=shifted,ascii kitty_mod+p>w kitten hints --type word --program -
 
-# map kitty_mod+p>n kitten hints --type linenum
+#: Insert selected hash
+# map --allow-fallback=shifted,ascii kitty_mod+p>h kitten hints --type hash --program -
 
-# map kitty_mod+p>y kitten hints --type hyperlink
+#: Open the selected file at the selected line
+# map --allow-fallback=shifted,ascii kitty_mod+p>n kitten hints --type linenum
 
+#: Open the selected hyperlink
+# map --allow-fallback=shifted,ascii kitty_mod+p>y kitten hints --type hyperlink
 
-#: Miscellaneous
+#: Miscellaneous {{{
 
+#: Show documentation
 # map kitty_mod+f1 show_kitty_doc overview
 
-# map kitty_mod+f11 toggle_fullscreen
-# map ctrl+cmd+f    toggle_fullscreen
+#: Command palette
+# map kitty_mod+f3 command_palette
 
+#: Toggle fullscreen
+# map kitty_mod+f11                  toggle_fullscreen
+# map --allow-fallback=shifted,ascii ctrl+cmd+f toggle_fullscreen
+
+#: Toggle maximized
 # map kitty_mod+f10 toggle_maximized
 
-# map opt+cmd+s toggle_macos_secure_keyboard_entry
+#: Toggle macOS secure keyboard entry
+# map --allow-fallback=shifted,ascii opt+cmd+s toggle_macos_secure_keyboard_entry
 
-# map kitty_mod+u    kitten unicode_input
-# map ctrl+cmd+space kitten unicode_input
+#: macOS Cycle through OS Windows
+# map cmd+` macos_cycle_through_os_windows
 
+#: macOS Cycle through OS Windows backwards
+# map cmd+shift+` macos_cycle_through_os_windows_backwards
+
+#: Unicode input
+# map --allow-fallback=shifted,ascii kitty_mod+u kitten unicode_input
+# map ctrl+cmd+space                 kitten unicode_input
+
+#: Edit config file
 # map kitty_mod+f2 edit_config_file
 # map cmd+,        edit_config_file
 
+#: Open the kitty command shell
 # map kitty_mod+escape kitty_shell window
 
-# map kitty_mod+a>m set_background_opacity +0.1
+#: Increase background opacity
+# map --allow-fallback=shifted,ascii kitty_mod+a>m set_background_opacity +0.1
 
-# map kitty_mod+a>l set_background_opacity -0.1
+#: Decrease background opacity
+# map --allow-fallback=shifted,ascii kitty_mod+a>l set_background_opacity -0.1
 
-# map kitty_mod+a>1 set_background_opacity 1
+#: Make background fully opaque
+# map --allow-fallback=shifted,ascii kitty_mod+a>1 set_background_opacity 1
 
-# map kitty_mod+a>d set_background_opacity default
+#: Reset background opacity
+# map --allow-fallback=shifted,ascii kitty_mod+a>d set_background_opacity default
 
+#: Reset the terminal
 # map kitty_mod+delete clear_terminal reset active
 # map opt+cmd+r        clear_terminal reset active
 
+#: Clear to start
 # map cmd+k clear_terminal to_cursor active
 
+#: Clear scrollback
+# map option+cmd+k clear_terminal scrollback active
+
+#: Clear the last command
+# map cmd+l clear_terminal last_command active
+
+#: Clear screen
+# map cmd+ctrl+l clear_terminal to_cursor_scroll active
+
+#: Reload kitty.conf
 # map kitty_mod+f5 load_config_file
 # map ctrl+cmd+,   load_config_file
 
+#: Debug kitty configuration
 # map kitty_mod+f6 debug_config
 # map opt+cmd+,    debug_config
 
+#: Open kitty Website
 # map shift+cmd+/ open_url https://sw.kovidgoyal.net/kitty/
 
+#: Hide macOS kitty application
 # map cmd+h hide_macos_app
 
+#: Hide macOS other applications
 # map opt+cmd+h hide_macos_other_apps
 
+#: Minimize macOS window
 # map cmd+m minimize_macos_window
 
+#: Quit kitty
 # map cmd+q quit
