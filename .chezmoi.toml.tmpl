@@ -1022,11 +1022,16 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"github.com/itchyny/gojq/cmd/gojq@latest",{{ end }}
 	]
 
+[data.tags.noctalia]
+	enabled = {{ if $labwc }} true {{ else }} false {{ end }}
+	arch = [
+		"extra/noctalia",
+	]
+
 [data.tags.labwc]
 	enabled = {{ $labwc }}
 	arch = [
 		"extra/labwc",
-		"extra/swaybg",
 		"extra/kanshi",
 		"aur/lswt",
 	]
