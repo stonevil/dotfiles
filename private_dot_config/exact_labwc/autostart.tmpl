@@ -17,25 +17,8 @@ udiskie -t >/dev/null 2>&1 &
 # Auth agent
 systemctl --user start plasma-polkit-agent.service >/dev/null 2>&1 &
 
-# Idle, Lockscreen
-hypridle --config {{ joinPath .chezmoi.homeDir ".config/hypr/hypridle.conf" }} >/dev/null 2>&1 &
-swaybg -i {{ joinPath .chezmoi.homeDir ".local/share/wallpapers/default.png" }} >/dev/null 2>&1 &
-
-# Notifications center
-swaync >/dev/null 2>&1 &
-
-# Walker, Spotlight replacement
-elephant >/dev/null 2>&1 &
-walker --gapplication-service >/dev/null 2>&1 &
-
-# Playerctl daemon
-playerctld >/dev/null 2>&1 &
-
 # Display manager
 kanshi >/dev/null 2>&1 &
 
-# System bar
-sleep 10; waybar >/dev/null 2>&1 &
-
-# Mic mute at start
-sleep 10; {{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "micmute" }} >/dev/null 2>&1 &
+# System shell
+noctalia >/dev/null 2>&1 &
