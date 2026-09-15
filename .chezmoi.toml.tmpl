@@ -218,7 +218,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 {{ $tabs := 2 }}
 {{ $shellPath := "/bin/zsh" }}
-{{ $opacity := 1.0 }}
+{{ $opacity := 0.9 }}
 {{ $opacityInactive := 0.8 }}
 {{ $dimInactive := false }}
 {{ $dimStrength := 0.5 }}
@@ -427,8 +427,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"luarocks",
 	]
 	arch = [
-		"extra/lua51",
 		"extra/lua",
+		"extra/lua51",
 		"extra/luajit",
 		"extra/luarocks",
 		"extra/lua-luv",
@@ -503,10 +503,18 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"extra/parallel",
+		"extra/smartmontools",
 		"extra/dua-cli",
 		"extra/ntfs-3g",
 		"extra/ntfsprogs",
 		"extra/systemctl-tui",
+	]
+	fedora = [
+		"parallel",
+		"smartmontools",
+		"dua-cli",
+		"ntfs-3g",
+		"ntfsprogs",
 	]
 	go = [
 		{{ if eq .chezmoi.os "linux" }}"github.com/Lifailon/lazyjournal@latest",{{ end }}
@@ -761,9 +769,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 [data.tags.gamesCli]
 	enabled = {{ $gamesCli }}
-	darwin = [
-	]
-	arch = [
+	go = [
+		"github.com/bloznelis/typioca@latest"
 	]
 
 [data.tags.dekCli]
@@ -799,6 +806,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/nmap",
 	]
+	fedora = [
+		"nmap",
+	]
 
 [data.tags.syncTools]
 	enabled = {{ if ($syncTools) }} true {{ else }} false {{ end }}
@@ -806,7 +816,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"extra/syncthing",
-		"aur/syncthingtray-qt6",
 	]
 	post.arch = [
 		"systemctl --user enable syncthing.service",
@@ -1002,28 +1011,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/pipewire",
 		"extra/wireplumber",
 		"extra/wiremix",
-		"extra/waybar",
-		"extra/swaync",
-		"extra/hypridle",
-		"extra/hyprlock",
-		"extra/hyprshot",
-		"extra/hyprpicker",
-		"aur/walker",
-		"aur/elephant",
-		"aur/elephant-desktopapplications",
-		"aur/elephant-files",
-		"aur/elephant-menus",
-		"aur/elephant-clipboard",
+		"extra/xdg-desktop-portal",
 		"aur/xwaylandvideobridge",
-		"aur/gojq",
 		"aur/qt6ct-kde",
-	]
-	go = [
-		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"github.com/itchyny/gojq/cmd/gojq@latest",{{ end }}
 	]
 
 [data.tags.noctalia]
-	enabled = {{ if $labwc }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($labwc) ($hyprland) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/noctalia",
 	]
@@ -1043,8 +1037,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/hyprland-guiutils",
 		"extra/hyprcursor",
 		"extra/hyprpolkitagent",
-		"extra/hyprpaper",
-		"extra/hyprshutdown",
+		"extra/hyprpicker",
 		"extra/xdg-desktop-portal-hyprland",
 	]
 
@@ -1059,7 +1052,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/dolphin",
 		"extra/dolphin-plugins",
 		"extra/kde-gtk-config",
-		"extra/xdg-desktop-portal",
 		"extra/xdg-desktop-portal-kde",
 		"extra/kscreenlocker",
 		"extra/plasma-pa",
@@ -1098,20 +1090,23 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.browsers]
 	enabled = {{ $browsers }}
 	darwin = [
+		"firefox",
 		"stonevil/brew/librewolf",
-		"helium-browser",
 		"waterfox",
+		"helium-browser",
 	]
 	arch = [
+		"extra/firefox"
 		"extra/librewolf",
-		"aur/helium-browser-bin",
 		"aur/waterfox-bin",
+		"aur/helium-browser-bin",
 		"aur/ungoogled-chromium",
 	]
 	fedora = [
+		"firefox",
 		"librewolf",
-		"helium-bin",
 		"waterfox",
+		"helium-bin",
 	]
 	pre.fedora = [
 		"curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo",
@@ -1381,7 +1376,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/kicad-library-3d",
 		"extra/python-kikit",
 		"extra/python-pcbnewtransition",
-		"aur/openboardview",
 	]
 	fedora = [
 		"kicad",
@@ -1400,6 +1394,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/upower",
 		"extra/easyeffects",
 		"aur/powerstat",
+		"extra/sof-firmware",
 	]
 	fedora = [
 		"usbutils",
@@ -1409,6 +1404,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"powerstat",
 		"upower",
 		"easyeffects",
+		"alsa-sof-firmware",
 	]
 
 [data.tags.intel]
@@ -1418,11 +1414,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/intel-ucode",
 		"extra/intel-media-driver",
 		"extra/intel-gpu-tools",
-		"extra/smartmontools",
 		"aur/libva-intel-driver-irql",
 	]
 	fedora = [
-		"smartmontools",
 	]
 
 [data.tags.nvidia]
@@ -1455,7 +1449,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"g14/asusctl",
 		"g14/rog-control-center",
 		"extra/power-profiles-daemon",
-		"extra/sof-firmware",
 	]
 	pre.arch = [
 		"cd /tmp && wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
@@ -1473,15 +1466,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.thinkpad]
 	enabled = {{ $thinkpad }}
 	arch = [
-		"extra/sof-firmware",
 	]
 	fedora = [
-		"alsa-sof-firmware",
 	]
 
 # Define terminal, DE like Hyprland env like tabs width, opacity, etc.
 [data.env]
-	fontsList = ["FiraCode", "Iosevka", "IosevkaTerm", "MartianMono", "RobotoMono", "JetBrainsMono"]
+	fontsList = ["FiraCode", "Iosevka", "IosevkaTerm", "MartianMono", "RobotoMono", "JetBrainsMono", "IntelOneMono"]
 	font = "JetBrainsMono Nerd Font"
 	fontNormal = "Regular"
 	fontBold = "Regular Bold"
