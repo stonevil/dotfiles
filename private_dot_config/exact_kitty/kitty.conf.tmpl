@@ -261,7 +261,11 @@ tab_powerline_style slanted
 include themes/current.conf
 background_opacity {{ .env.opacity }}
 
+{{ if lt (float64 .env.opacity) 1.0 -}}
+background_blur {{ .env.blur }}
+{{ else -}}
 # background_blur 0
+{{ end -}}
 
 # transparent_background_colors
 
@@ -370,7 +374,6 @@ kitty_mod super
 # map --allow-fallback=shifted,ascii kitty_mod+o pass_selection_to_program
 
 #: Scrolling
-
 #: Scroll line up
 # map kitty_mod+up                   scroll_line_up smooth
 # map --allow-fallback=shifted,ascii kitty_mod+k scroll_line_up smooth
@@ -411,13 +414,11 @@ kitty_mod super
 #: Browse output of the last shell command in pager
 # map --allow-fallback=shifted,ascii kitty_mod+g show_last_command_output
 
-
 #: Search the scrollback within a pager
 # map kitty_mod+/                    search_scrollback
 # map --allow-fallback=shifted,ascii cmd+f search_scrollback
 
 #: Window management
-
 #: New window
 # map kitty_mod+enter new_window
 # map cmd+enter       new_window
@@ -579,7 +580,6 @@ kitty_mod super
 # map --allow-fallback=shifted,ascii kitty_mod+p>y kitten hints --type hyperlink
 
 #: Miscellaneous
-
 #: Show documentation
 # map kitty_mod+f1 show_kitty_doc overview
 
@@ -587,20 +587,20 @@ kitty_mod super
 # map kitty_mod+f3 command_palette
 
 #: Toggle fullscreen
-# map kitty_mod+f11                  toggle_fullscreen
+map kitty_mod+ctrl+f toggle_fullscreen
 # map --allow-fallback=shifted,ascii ctrl+cmd+f toggle_fullscreen
 
 #: Toggle maximized
-# map kitty_mod+f10 toggle_maximized
+map kitty_mod+enter toggle_maximized
 
 #: Toggle macOS secure keyboard entry
 # map --allow-fallback=shifted,ascii opt+cmd+s toggle_macos_secure_keyboard_entry
 
 #: macOS Cycle through OS Windows
-# map cmd+` macos_cycle_through_os_windows
+map cmd+` macos_cycle_through_os_windows
 
 #: macOS Cycle through OS Windows backwards
-# map cmd+shift+` macos_cycle_through_os_windows_backwards
+map cmd+shift+` macos_cycle_through_os_windows_backwards
 
 #: Unicode input
 # map --allow-fallback=shifted,ascii kitty_mod+u kitten unicode_input
@@ -653,13 +653,13 @@ kitty_mod super
 # map shift+cmd+/ open_url https://sw.kovidgoyal.net/kitty/
 
 #: Hide macOS kitty application
-# map cmd+h hide_macos_app
+map cmd+h hide_macos_app
 
 #: Hide macOS other applications
-# map opt+cmd+h hide_macos_other_apps
+map opt+cmd+h hide_macos_other_apps
 
 #: Minimize macOS window
-# map cmd+m minimize_macos_window
+map cmd+m minimize_macos_window
 
 #: Quit kitty
-# map cmd+q quit
+map cmd+q quit
