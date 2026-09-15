@@ -66,7 +66,7 @@ vim:ft=xml.gotexttmpl
 	</theme>
 
 	<windowSwitcher preview="yes" outlines="yes" unshade="no">
-		<osd show="yes" style="classic" output="all" thumbnailLabelFormat="%T" />
+		<osd show="yes" style="thumbnail" output="all" thumbnailLabelFormat="%T" />
 		<fields>
 			<field content="icon" width="5%" />
 			<field content="desktop_entry_name" width="30%" />
@@ -164,13 +164,13 @@ vim:ft=xml.gotexttmpl
 
 		<!-- Media Keys -->
 		<keybind key="XF86_AudioRaiseVolume">
-			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "up") }}" />
+			<action name="Execute" command="noctalia msg volume-up" />
 		</keybind>
 		<keybind key="XF86_AudioLowerVolume">
-			<action name="Execute" command="{{ (print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "down") }}" />
+			<action name="Execute" command="noctalia msg volume-down" />
 		</keybind>
 		<keybind key="XF86_AudioMute">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "toggle" }}" />
+			<action name="Execute" command="noctalia msg volume-mute" />
 		</keybind>
 		<keybind key="XF86AudioMicMute">
 			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle" }}" />
@@ -178,10 +178,10 @@ vim:ft=xml.gotexttmpl
 
 		<!-- Monitor Brightness Keys -->
 		<keybind key="XF86_MonBrightnessUp">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "up" }}" />
+			<action name="Execute" command="noctalia msg brightness-up" />
 		</keybind>
 		<keybind key="XF86_MonBrightnessDown">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/brightness") " " "down" }}" />
+			<action name="Execute" command="noctalia msg brightness-down" />
 		</keybind>
 
 {{- if .tags.zephyrus.enabled }}
@@ -208,18 +208,18 @@ vim:ft=xml.gotexttmpl
 			<action name="Execute" command="thunderbird" />
 		</keybind>
 		<keybind key="W-Space">
-			<action name="Execute" command="walker" />
+			<action name="Execute" command="noctalia msg panel-toggle launcher"/>
 		</keybind>
 		<keybind key="W-S-v">
-			<action name="Execute" command="walker --provider clipboard" />
+			<action name="Execute" command="noctalia msg panel-toggle clipboard" />
 		</keybind>
 		<keybind key="W-C-n">
-			<action name="Execute" command="swaync-client --toggle-panel" />
+			<action name="Execute" command="noctalia msg panel-toggle control-center" />
 		</keybind>
 
 		<!-- Toggle Dock -->
 		<keybind key="W-C-d">
-			<action name="Execute" command="{{ joinPath .chezmoi.homeDir ".config/wayland/scripts/dock_toggle" }}" />
+			<action name="Execute" command="noctalia msg bar-toggle" />
 		</keybind>
 
 		<!-- Windows Switcher -->
@@ -331,42 +331,25 @@ vim:ft=xml.gotexttmpl
 
 		<!-- Screenshots -->
 		<keybind key="W-S-3">
-			<action name="Execute" command="hyprshot -m output" />
+			<action name="Execute" command="noctalia msg screenshot-fullscreen pick" />
 		</keybind>
 		<keybind key="W-S-4">
-			<action name="Execute" command="hyprshot -m window" />
-		</keybind>
-		<keybind key="W-S-5">
-			<action name="Execute" command="hyprshot -m region" />
+			<action name="Execute" command="noctalia msg screenshot-region" />
 		</keybind>
 		<keybind key="PRINT">
-			<action name="Execute" command="hyprshot -m window" />
+			<action name="Execute" command="noctalia msg screenshot-fullscreen pick" />
 		</keybind>
 		<keybind key="S-PRINT">
-			<action name="Execute" command="hyprshot -m region" />
+			<action name="Execute" command="noctalia msg screenshot-region" />
 		</keybind>
 
 		<!-- System State -->
 		<keybind key="W-C-l">
 			<action name="Execute" command="playerctl --all-players pause" />
-			<action name="Execute" command="loginctl lock-session" />
+			<action name="Execute" command="noctalia msg session lock" />
 		</keybind>
-		<keybind key="W-C-S-q">
-			<action name="Execute" command="systemctl suspend" />
-		</keybind>
-		<keybind key="W-C-A-q">
-			<action name="Exit" />
-		</keybind>
-
 
 		<!-- Menus -->
-		<keybind key="A-Space">
-			<action name="ShowMenu" menu="client-list-combined-menu" />
-			<position>
-				<x>center</x>
-				<y>center</y>
-			</position>
-		</keybind>
 		<keybind key="W-A-Space">
 			<action name="ShowMenu" menu="root-menu" />
 			<position>

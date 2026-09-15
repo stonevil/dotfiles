@@ -52,13 +52,17 @@
 				<action name="Execute" command="chromium" />
 			</item>
 		</menu>
-		<menu id="office" label="󰏆  Office">
+		<menu id="office" icon="" label="󰏆  Office">
 			<item label="󱢴  File Browser">
 				<action name="Execute" command="dolphin" />
 			</item>
 			<item label="  Mail">
 				<action name="Execute" command="thunderbird" />
 			</item>
+		</menu>
+		<separator />
+		<menu id="Next" icon="next" label="Running...">
+			<menu id="client-list-combined-menu" />
 		</menu>
 		<separator />
 		<item label="  Reconfigure">

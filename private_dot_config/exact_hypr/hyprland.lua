@@ -7,47 +7,33 @@ fileManager = "dolphin"
 fm = "foot -e" .. " " .. "yazi"
 browser = "librewolf"
 mail = "thunderbird"
-editor = "nvim"
+editor = "neovide"
 
-clipboard = "walker --provider clipboard"
-colourPicker = "hyprpicker --autocopy --format=hex --quiet --lowercase-hex"
+clipboardToggle = "noctalia msg panel-toggle clipboard"
+colourPickerToggle = "hyprpicker --autocopy --format=hex --quiet --lowercase-hex"
 
-screenshotOutput = "hyprshot -m output"
-screenshotWindow = "hyprshot -m window"
-screenshotRegion = "hyprshot -m region"
+screenshotOutput = "noctalia msg screenshot-fullscreen pick"
+screenshotRegion = "noctalia msg screenshot-region"
 
-screenshotOutput2Clipboard = "hyprshot -m output --clipboard-only"
-screenshotWindow2Clipboard = "hyprshot -m window --clipboard-only"
-screenshotRegion2Clipboard = "hyprshot -m region --clipboard-only"
+notificationsToggle = "noctalia msg panel-toggle control-center"
 
-wallpaper = "hyprpaper"
+spotLightToggle = "noctalia msg panel-toggle launcher"
+screenLock = "playerctl --all-players pause; noctalia msg session lock"
 
-idle = "hypridle"
-
-notifications = "swaync"
-notificationsToggle = "swaync-client --toggle-panel"
-
-spotLight = "walker"
-screenLock = "playerctl --all-players pause; hyprlock"
-
-suspend = "systemctl suspend"
-
-sysBar = "waybar"
+sysBar = "noctalia"
 
 currentKeymap = "$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | first(.active_keymap)')"
 
-volumeUp = homeDirPath .. "/.config/wayland/scripts/audio up"
-volumeDown = homeDirPath .. "/.config/wayland/scripts/audio down"
-volumeMute = homeDirPath .. "/.config/wayland/scripts/audio toggle"
+volumeUp = "noctalia msg volume-up"
+volumeDown = "noctalia msg volume-down"
+volumeMute = "noctalia msg volume-mute"
 
 micMute = homeDirPath .. "/.config/wayland/scripts/audio mictoggle"
 
-backLightUp = 'brightnessctl s +5%; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"'
-backLightDown = 'brightnessctl s 5%-; notify-send --urgency=low --icon=monitor "$(brightnessctl g)"'
+backLightUp = "noctalia msg brightness-up"
+backLightDown = "noctalia msg brightness-down"
 
-dockToggle = homeDirPath .. "/.config/wayland/scripts/dock_toggle"
-
-logOut = "hyprshutdown"
+dockToggle = "noctalia msg bar-toggle"
 
 require("theme")
 require("modules.env")
