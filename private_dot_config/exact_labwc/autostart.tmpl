@@ -12,7 +12,7 @@ dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus >/dev/null 2>&1 &
 /usr/lib/pam_kwallet_init >/dev/null 2>&1 &
 
 # Disk automount
-udiskie -t >/dev/null 2>&1 &
+# udiskie -t >/dev/null 2>&1 &
 
 # Auth agent
 systemctl --user start plasma-polkit-agent.service >/dev/null 2>&1 &
@@ -20,16 +20,10 @@ systemctl --user start plasma-polkit-agent.service >/dev/null 2>&1 &
 # Display manager
 kanshi >/dev/null 2>&1 &
 
-# System shell
-noctalia >/dev/null 2>&1 &
-
 {{ if .tags.laptop.enabled -}}
 # Audio effects
 easyeffects --hide-window >/dev/null 2>&1 &
-{{ end -}}
-
-# Mute mic
-noctalia msg mic-mute >/dev/null 2>&1 &
+{{ end }}
 
 {{ if .tags.syncTools.enabled -}}
 # LocalSend
@@ -37,9 +31,15 @@ localsend >/dev/null 2>&1 &
 
 # Syncthing Tray
 syncthingtray-qt6 >/dev/null 2>&1 &
-{{ end -}}
+{{ end }}
 
 {{ if .tags.zephyrus.enabled -}}
 # ROG Control Center
 rog-control-center >/dev/null 2>&1 &
-{{ end -}}
+{{ end }}
+
+# System shell
+noctalia >/dev/null 2>&1 &
+
+# Mute mic
+noctalia msg mic-mute >/dev/null 2>&1 &
