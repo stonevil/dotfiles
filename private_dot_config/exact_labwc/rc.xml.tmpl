@@ -173,15 +173,15 @@ vim:ft=xml.gotexttmpl
 			<action name="Execute" command="noctalia msg volume-mute" />
 		</keybind>
 		<keybind key="XF86AudioMicMute">
-			<action name="Execute" command="{{ print (joinPath .chezmoi.homeDir ".config/wayland/scripts/audio") " " "mictoggle" }}" />
+			<action name="Execute" command="noctalia msg mic-mute" />
 		</keybind>
 
 		<!-- Monitor Brightness Keys -->
 		<keybind key="XF86_MonBrightnessUp">
-			<action name="Execute" command="noctalia msg brightness-up" />
+			<action name="Execute" command="noctalia msg brightness-up current" />
 		</keybind>
 		<keybind key="XF86_MonBrightnessDown">
-			<action name="Execute" command="noctalia msg brightness-down" />
+			<action name="Execute" command="noctalia msg brightness-down current" />
 		</keybind>
 
 {{- if .tags.zephyrus.enabled }}
@@ -345,7 +345,8 @@ vim:ft=xml.gotexttmpl
 
 		<!-- System State -->
 		<keybind key="W-C-l">
-			<action name="Execute" command="playerctl --all-players pause" />
+			<action name="Execute" command="noctalia msg mic-mute" />
+			<action name="Execute" command="noctalia msg media pause" />
 			<action name="Execute" command="noctalia msg session lock" />
 		</keybind>
 
@@ -563,10 +564,17 @@ vim:ft=xml.gotexttmpl
 	<windowRules>
     <windowRule identifier="*" serverDecoration="yes"></windowRule>
     <windowRule identifier="librewolf"><action name="SendToDesktop"><to>II</to></action></windowRule>
+    <windowRule identifier="waterfox"><action name="SendToDesktop"><to>II</to></action></windowRule>
+    <windowRule identifier="firefox"><action name="SendToDesktop"><to>II</to></action></windowRule>
+    <windowRule identifier="helium"><action name="SendToDesktop"><to>II</to></action></windowRule>
     <windowRule identifier="chromium"><action name="SendToDesktop"><to>II</to></action></windowRule>
     <windowRule identifier="discord"><action name="SendToDesktop"><to>III</to></action></windowRule>
     <windowRule identifier="org.mozilla.Thunderbird"><action name="SendToDesktop"><to>IV</to></action></windowRule>
     <windowRule identifier="virt-manager"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
+    <windowRule identifier="org.gnome.Boxes"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
+    <windowRule identifier="org.kde.karton"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
+    <windowRule identifier="org.kde.krdc"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
+    <windowRule identifier="com.mitchellh.ghostty"><action name="SendToDesktop"><to>X</to></action></windowRule>
 	</windowRules>
 
 	<!--

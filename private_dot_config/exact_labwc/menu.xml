@@ -61,7 +61,7 @@
 			</item>
 		</menu>
 		<separator />
-		<menu id="Next" icon="next" label="Running...">
+		<menu id="Next" icon="next" label="  Running...">
 			<menu id="client-list-combined-menu" />
 		</menu>
 		<separator />
@@ -70,7 +70,7 @@
 		</item>
 		<separator />
 		<item label="  Lock">
-			<action name="Execute" command="loginctl lock-session" />
+			<action name="Execute" command="noctalia msg session lock" />
 		</item>
 		<item label="󰒲  Sleep">
 			<action name="Execute" command="systemctl suspend"/>
