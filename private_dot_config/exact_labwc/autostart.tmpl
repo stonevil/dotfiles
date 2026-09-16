@@ -27,7 +27,7 @@ easyeffects --hide-window >/dev/null 2>&1 &
 
 {{ if .tags.syncTools.enabled -}}
 # LocalSend
-localsend >/dev/null 2>&1 &
+localsend --hidden >/dev/null 2>&1 &
 
 # Syncthing Tray
 syncthingtray-qt6 >/dev/null 2>&1 &
@@ -35,7 +35,7 @@ syncthingtray-qt6 >/dev/null 2>&1 &
 
 {{ if .tags.zephyrus.enabled -}}
 # ROG Control Center
-rog-control-center >/dev/null 2>&1 &
+rog-control-center --background >/dev/null 2>&1 &
 {{ end }}
 
 # System shell
