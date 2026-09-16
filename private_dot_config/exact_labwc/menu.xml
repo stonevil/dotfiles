@@ -69,14 +69,20 @@
 			<action name="Reconfigure" />
 		</item>
 		<separator />
+		<item label="󰿅  Exit">
+			<action name="Exit"/>
+		</item>
 		<item label="  Lock">
 			<action name="Execute" command="noctalia msg session lock" />
 		</item>
 		<item label="󰒲  Sleep">
-			<action name="Execute" command="systemctl suspend"/>
+			<action name="Execute" command="noctalia msg session lock-and-suspend"/>
 		</item>
-		<item label="󰿅  Exit">
-			<action name="Exit"/>
+		<item label="  Reboot">
+			<action name="Execute" command="noctalia msg session reboot"/>
+		</item>
+		<item label="  Shutdown">
+			<action name="Execute" command="noctalia msg session shutdown"/>
 		</item>
 	</menu>
 </openbox_menu>

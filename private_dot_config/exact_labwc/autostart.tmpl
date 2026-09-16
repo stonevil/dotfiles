@@ -29,6 +29,9 @@ easyeffects >/dev/null 2>&1 &
 # Mute mic
 noctalia msg mic-mute 2>&1 &
 
+# LocalSend
+localsend 2>&1 &
+
 {{ if .tags.zephyrus.enabled -}}
 # ROG Control Center
 rog-control-center >/dev/null 2>&1 &
