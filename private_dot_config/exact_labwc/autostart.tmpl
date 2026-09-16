@@ -23,14 +23,21 @@ kanshi >/dev/null 2>&1 &
 # System shell
 noctalia >/dev/null 2>&1 &
 
+{{ if .tags.laptop.enabled -}}
 # Audio effects
 easyeffects >/dev/null 2>&1 &
+{{ end -}}
 
 # Mute mic
-noctalia msg mic-mute 2>&1 &
+noctalia msg mic-mute >/dev/null 2>&1 &
 
+{{ if .tags.syncTools.enabled -}}
 # LocalSend
-localsend 2>&1 &
+localsend >/dev/null 2>&1 &
+
+# Syncthing Tray
+syncthingtray-qt6 >/dev/null 2>&1 &
+{{ end -}}
 
 {{ if .tags.zephyrus.enabled -}}
 # ROG Control Center
