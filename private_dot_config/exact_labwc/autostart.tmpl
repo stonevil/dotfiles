@@ -25,7 +25,7 @@ noctalia >/dev/null 2>&1 &
 
 {{ if .tags.laptop.enabled -}}
 # Audio effects
-easyeffects >/dev/null 2>&1 &
+easyeffects --hide-window >/dev/null 2>&1 &
 {{ end -}}
 
 # Mute mic
