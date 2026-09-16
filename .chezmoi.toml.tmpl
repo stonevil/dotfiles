@@ -816,6 +816,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	arch = [
 		"extra/syncthing",
+		"aur/localsend-bin",
 	]
 	post.arch = [
 		"systemctl --user enable syncthing.service",
@@ -1011,6 +1012,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/pipewire",
 		"extra/wireplumber",
 		"extra/wiremix",
+		"extra/libayatana-indicator",
 		"extra/xdg-desktop-portal",
 		"aur/xwaylandvideobridge",
 		"aur/qt6ct-kde",
@@ -1426,7 +1428,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/libva-nvidia-driver",
 		"extra/nvidia-prime",
 		{{- if $zephyrus }}
-		"g14/supergfxctl",
+		"aur/supergfxctl",
 		"aur/plasma6-applets-supergfxctl",
 		{{- end }}
 	]
@@ -1445,9 +1447,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.zephyrus]
 	enabled = {{ $zephyrus }}
 	arch = [
-		"g14/asusctl",
-		"g14/rog-control-center",
+		"extra/asusctl",
+		"extra/rog-control-center",
 		"extra/power-profiles-daemon",
+		"aur/asus-fan-control-ec-git",
 	]
 	pre.arch = [
 		"cd /tmp && wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
