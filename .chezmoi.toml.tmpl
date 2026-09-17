@@ -877,9 +877,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/ly",
 		"extra/brightnessctl",
+		"extra/ddcutil",
 	]
 	fedora = [
 		"brightnessctl",
+		"ddcutil",
 	]
 	post.arch = [
 		"sudo systemctl enable --now ly@tty2.service",
