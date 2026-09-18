@@ -77,7 +77,7 @@ disable-warnings-not-found = true
 clickable = true
 hide-if-single = true
 use-current-path = true
-use-split = false
+use-split = true
 unfocused-split-opacity = {{ if ge (float64 (0.2 | sub .env.opacity)) 0.1 }}{{ 0.2 | sub .env.opacity }}{{ else }}{{ .env.opacity }}{{ end }}
 
 [shell]
@@ -85,12 +85,80 @@ program = "{{ .env.shellPath }}"
 args = ["--login"]
 
 [platform]
+{{ if eq .chezmoi.os "darwin" -}}
 macos.navigation.mode = "Tab"
 macos.renderer.performance = "low"
 macos.renderer.backend = "Metal"
+{{ else }}
 linux.navigation.mode = "Tab"
 linux.renderer.performance = "low"
 linux.renderer.backend = "Vulkan"
+{{ end -}}
+
+[bindings]
+keys = [
+	{ key = "n", with = "super", action = "CreateWindow" },
+	{ key = "t", with = "super", action = "CreateTab" },
+
+	{ key = "a", with = "super", action = "SelectAll" },
+	{ key = "c", with = "super", action = "Copy" },
+	{ key = "v", with = "super", action = "Paste" },
+
+	{ key = "=", with = "super", action = "IncreaseFontSize" },
+	{ key = "-", with = "super", action = "DecreaseFontSize" },
+	{ key = "0", with = "super", action = "ResetFontSize" },
+
+	{ key = "p", with = "super | shift", action = "OpenCommandPalette" },
+	{ key = "q", with = "super", action = "Quit" },
+
+	{ key = "f", with = "super | control", action = "ToggleFullscreen" },
+
+	{ key = "n", with = "super", action = "CreateWindow" },
+	{ key = "t", with = "super", action = "CreateTab" },
+	{ key = "w", with = "super", action = "CloseSplitOrTab" },
+	{ key = "]", with = "super | shift", action = "SelectNextTab" },
+	{ key = "[", with = "super | shift", action = "SelectPrevTab" },
+
+# Panel split
+	{ key = "d", with = "super", action = "SplitRight" },
+	{ key = "\\", with = "option", action = "SplitRight" },
+	{ key = "d", with = "super | shift", action = "SplitDown" },
+	{ key = "-", with = "option", action = "SplitDown" },
+
+# Panel resize
+	# { key = "up", with = "super | control", action = "MoveDividerUp" },
+	{ key = "up", with = "option | shift", action = "MoveDividerUp" },
+	# { key = "down", with = "super | control", action = "MoveDividerDown" },
+	{ key = "down", with = "option | shift", action = "MoveDividerDown" },
+	# { key = "left", with = "super | control", action = "MoveDividerLeft" },
+	{ key = "left", with = "option | shift", action = "MoveDividerLeft" },
+	# { key = "right", with = "super | control", action = "MoveDividerRight" },
+	{ key = "right", with = "option | shift", action = "MoveDividerRight" },
+
+# Send escape sequence to clear screen and move cursor to home
+	{ key = "l", with = "control", esc = "\u001b[2J\u001b[H" },
+
+# Clear screen (ESC [ 2 J)
+	{ key = "k", with = "control", esc = "\u001b[2J" },
+
+# Send form feed character (Ctrl+L) — works in most shells
+	{ key = "l", with = "control", esc = "\u000c" },
+
+# Move cursor to beginning of line (ESC [ H)
+	{ key = "a", with = "control", esc = "\u001b[H" },
+
+# Delete from cursor to end of line (ESC [ K)
+	{ key = "k", with = "control", esc = "\u001b[K" },
+
+# Send custom escape sequence (example: tmux prefix)
+	{ key = "a", with = "control", esc = "\u001ba" },
+
+# Page Up (ESC [ 5 ~)
+	{ key = "PageUp", esc = "\u001b[5~" },
+
+# Page Down (ESC [ 6 ~)
+	{ key = "PageDown", esc = "\u001b[6~" },
+]
 
 [developer]
 log-level = "OFF"
