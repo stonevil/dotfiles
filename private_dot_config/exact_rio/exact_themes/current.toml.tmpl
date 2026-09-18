@@ -1,7 +1,33 @@
 [colors]
 
-# Normal
-cursor     = {{ (print "#" .colours.cursor.cursor) | squote }}
+# UI colors
+cursor       = {{ (print "#" .colours.cursor.cursor) | squote }}
+vi-cursor    = {{ (print "#" .colours.cursor.vi_mode.cursor) | squote }}
+
+tabs         = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.background) | squote }}{{ end }}
+tabs-active  = {{ (print "#" .colours.cursor.vi_mode.cursor) | squote }}
+split        = {{ (print "#" .colours.normal.blue) | squote }}
+split-active = {{ (print "#" .colours.normal.blue) | squote }}
+
+
+# Search
+search-match-background         = {{ (print "#" .colours.search.matches.background) | squote }}
+search-match-foreground         = {{ (print "#" .colours.search.matches.foreground) | squote }}
+search-focused-match-background = {{ (print "#" .colours.search.focused_match.background) | squote }}
+search-focused-match-foreground = {{ (print "#" .colours.search.focused_match.foreground) | squote }}
+
+
+# Hints
+hint-foreground = {{ (print "#" .colours.hints.start.foreground) | squote }}
+hint-background = {{ (print "#" .colours.hints.start.background) | squote }}
+
+
+# Selection
+selection-foreground   = {{ (print "#" .colours.selection.text) | squote }}
+selection-background   = {{ (print "#" .colours.selection.background) | squote }}
+
+
+# Regular
 foreground = {{ (print "#" .colours.normal.foreground) | squote }}
 background = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.background) | squote }}{{ end }}
 black      = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.black) | squote }}{{ end }}
@@ -13,14 +39,6 @@ magenta    = {{ (print "#" .colours.normal.magenta) | squote }}
 red        = {{ (print "#" .colours.normal.red) | squote }}
 yellow     = {{ (print "#" .colours.normal.yellow) | squote }}
 
-# UI colors
-tabs                   = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.background) | squote }}{{ end }}
-tabs-foreground        = {{ (print "#" .colours.normal.foreground) | squote }}
-tabs-active            = {{ (print "#" .colours.cursor.vi_mode.cursor) | squote }}
-tabs-active-highlight  = {{ (print "#" .colours.cursor.vi_mode.cursor) | squote }}
-tabs-active-foreground = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.normal.crust) | squote }}{{ end }}
-selection-foreground   = {{ if .theme.blackout }}'#000000'{{ else }}{{ (print "#" .colours.cursor.text) | squote }}{{ end }}
-selection-background   = {{ (print "#" .colours.cursor.cursor) | squote }}
 
 # Dim colors
 dim-foreground  = {{ (print "#" .colours.normal.foreground) | squote }}
@@ -32,6 +50,7 @@ dim-green       = {{ (print "#" .colours.normal.green) | squote }}
 dim-magenta     = {{ (print "#" .colours.normal.magenta) | squote }}
 dim-red         = {{ (print "#" .colours.normal.red) | squote }}
 dim-yellow      = {{ (print "#" .colours.normal.yellow) | squote }}
+
 
 # Light colors
 light-foreground = {{ (print "#" .colours.bright.foreground) | squote }}
