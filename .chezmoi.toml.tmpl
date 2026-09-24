@@ -135,7 +135,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
 	{{ if hasKey .tags "labwc" }}{{ $labwc = .tags.labwc.enabled }}{{ end }}
 	{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
-	{{ if hasKey .tags "office" }}{{ $offcie = .tags.office.enabled }}{{ end }}
+	{{ if hasKey .tags "office" }}{{ $office = .tags.office.enabled }}{{ end }}
 	{{ if hasKey .tags "terminalEmulators" }}{{ $terminalEmulators = .tags.terminalEmulators.enabled }}{{ end }}
 	{{ if hasKey .tags "devTools" }}{{ $devTools = .tags.devTools.enabled }}{{ end }}
 	{{ if hasKey .tags "dbTools" }}{{ $dbTools = .tags.dbTools.enabled }}{{ end }}
@@ -210,10 +210,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ $schematics = promptBool "Electronics and PCB design apps, like KiCad" $schematics }}
 {{ end }}
 	{{ $networkTools = promptBool "Network apps, like VNC/RDP clients" $networkTools }}
-	{{ $virt = promptBool "Virtualisation apps, like UTM for macOS" $virt }}
-	{{ $tor = promptBool "Tor network apps, like Tor Browser for macOS" $tor }}
+	{{ $virt = promptBool "Virtualisation apps, like UTM or virt" $virt }}
+	{{ $tor = promptBool "Tor network apps, like Tor Browser" $tor }}
 	{{ $torrent = promptBool "Torrent network apps, like qBittorrent" $torrent }}
-	{{ $utils = promptBool "Utils apps, like OnyX for macOS" $utils }}
+	{{ $utils = promptBool "Utils apps, like OnyX or KDiskMark" $utils }}
 {{ end }}
 
 {{ $tabs := 2 }}
