@@ -142,13 +142,6 @@
 		"on-click-right": "foot --app-id nmtui --window-size-chars=80x24 -e nmtui",
 	},
 
-{{ if .tags.hyprland.enabled }}
-	"hyprland/language": {
-		"format-en": "🇺🇸",
-		"format-uk": "🇺🇦",
-	},
-{{- end }}
-
 {{ if or (eq .tags.zephyrus.enabled true) (eq .tags.thinkpad.enabled true) }}
 	"battery": {
 		"bat": "BAT1",

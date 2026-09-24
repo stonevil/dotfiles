@@ -10,7 +10,7 @@ I'm doing a lot R'n'D and consulting for different companies and this requires t
 This configurations reflects my specific requirements to manage all this laptops (usually macOS), workstations, home servers, and containers and VM's flotilla.
 
 Build in mind for macOS 25.x and higher and Linux and latest technology.
-ArchLinux with Hyprland and mostly KDE Plasma is use.
+ArchLinux with Labwc and mostly KDE Plasma is use.
 Fedora Linux mostly used for home / work servers and containers required some GUI/VNC access. Also most Lima-VM VM's based on the Fedora Linux. Both **amd64** and **arm64**.
 
 

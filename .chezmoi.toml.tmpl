@@ -89,8 +89,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $xfce := false }}
 {{ $plasma := false }}
 {{ $labwc := false }}
-{{ $hyprland := false }}
 {{ $browsers := false }}
+{{ $office := false }}
 {{ $terminalEmulators := false }}
 {{ $devTools := false }}
 {{ $dbTools := false }}
@@ -134,8 +134,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
 	{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
 	{{ if hasKey .tags "labwc" }}{{ $labwc = .tags.labwc.enabled }}{{ end }}
-	{{ if hasKey .tags "hyprland" }}{{ $hyprland = .tags.hyprland.enabled }}{{ end }}
 	{{ if hasKey .tags "browsers" }}{{ $browsers = .tags.browsers.enabled }}{{ end }}
+	{{ if hasKey .tags "office" }}{{ $offcie = .tags.office.enabled }}{{ end }}
 	{{ if hasKey .tags "terminalEmulators" }}{{ $terminalEmulators = .tags.terminalEmulators.enabled }}{{ end }}
 	{{ if hasKey .tags "devTools" }}{{ $devTools = .tags.devTools.enabled }}{{ end }}
 	{{ if hasKey .tags "dbTools" }}{{ $dbTools = .tags.dbTools.enabled }}{{ end }}
@@ -191,12 +191,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
 	{{ $labwc = promptBool "Labwc" $labwc }}
-	{{ $hyprland = promptBool "Hyprland" $hyprland }}
 {{ end }}
 
 # Ask questin about environment if GUI env enabled
-{{ if or (or ($labwc) ($plasma) ($hyprland)) (eq .chezmoi.os "darwin") }}
+{{ if or (or ($labwc) ($plasma)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" $browsers }}
+	{{ $office = promptBool "Office apps, like LibreOffice" $office }}
 	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like Alacritty" $terminalEmulators }}
 	{{ $devTools = promptBool "DEV apps, like CotEditor" $devTools }}
 	{{ $dbTools = promptBool "DB management tools, like DBeaver" $dbTools }}
@@ -873,7 +873,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.displayManager]
-	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($labwc) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/ly",
 		"extra/brightnessctl",
@@ -892,7 +892,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.spell]
-	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($labwc) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/sonnet",
 		"extra/hunspell",
@@ -908,7 +908,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.fontTools]
-	enabled = {{ if or ($labwc) ($hyprland) ($plasma) (eq .chezmoi.os "darwin") }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($labwc) ($plasma) (eq .chezmoi.os "darwin") }} true {{ else }} false {{ end }}
 	darwin = [
 		"fontconfig",
 	]
@@ -929,7 +929,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.printManager]
-	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($labwc) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/print-manager",
 		"extra/cups",
@@ -961,7 +961,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.bluetooth]
-	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($labwc) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/bluez",
 		"extra/bluez-utils",
@@ -997,7 +997,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.wayland]
-	enabled = {{ if or ($labwc) ($hyprland) ($plasma) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($labwc) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/wl-clipboard",
 		"extra/wf-recorder",
@@ -1024,7 +1024,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.noctalia]
-	enabled = {{ if or ($labwc) ($hyprland) }} true {{ else }} false {{ end }}
+	enabled = {{ if $labwc }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/noctalia",
 	]
@@ -1035,16 +1035,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/labwc",
 		"extra/kanshi",
 		"aur/lswt",
-	]
-
-[data.tags.hyprland]
-	enabled = {{ $hyprland }}
-	arch = [
-		"extra/hyprland",
-		"extra/hyprland-guiutils",
-		"extra/hyprcursor",
-		"extra/hyprpolkitagent",
-		"extra/xdg-desktop-portal-hyprland",
 	]
 
 [data.tags.plasma]
@@ -1217,6 +1207,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/kid3",
 		"extra/handbrake",
 		"extra/soundconverter",
+		"extra/elisa",
+		"extra/krecorder",
 	]
 	fedora = [
 		"mpv",
@@ -1224,6 +1216,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"HandBrake",
 		"HandBrake-gui",
 		"soundconverter",
+		"elisa-player",
+		"krecorder",
 	]
 
 [data.tags.books]
@@ -1242,10 +1236,27 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		{{ if eq .chezmoi.os "linux" }}"bookokrat",{{ end }}
 	]
 
+[data.tags.office]
+	enabled = {{ $office }}
+	darwin = [
+		"libreoffice",
+	]
+	arch = [
+		"extra/kolourpaint",
+		"extra/kcolorchooser",
+		"extra/libreoffice-fresh",
+		"extra/koko",
+	]
+	fedora = [
+		"kolourpaint",
+		"kcolorchooser",
+		"libreoffice",
+		"koko",
+	]
+
 [data.tags.virt]
 	enabled = {{ $virt }}
 	darwin = [
-		"utm",
 	]
 	arch = [
 		"extra/dnsmasq",
@@ -1309,10 +1320,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/exfatprogs",
 		"extra/kdiskmark",
+		"extra/sweeper",
+		"extra/isoimagewriter",
 	]
 	fedora = [
 		"exfatprogs",
 		"kdiskmark",
+		"sweeper",
+		"isoimagewriter",
 	]
 
 [data.tags.terminalEmulators]
@@ -1478,7 +1493,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	fedora = [
 	]
 
-# Define terminal, DE like Hyprland env like tabs width, opacity, etc.
+# Define terminal, DE like labwc env like tabs width, opacity, etc.
 [data.env]
 	fontsList = ["FiraCode", "Iosevka", "IosevkaTerm", "MartianMono", "RobotoMono", "JetBrainsMono", "IntelOneMono"]
 	font = "JetBrainsMono Nerd Font"
