@@ -1,0 +1,19 @@
+minimumLimaVersion: 2.0.0
+
+vmType: "qemu"
+arch: "x86_64"
+
+mounts:
+- location: "~"
+  writable: false
+
+images:
+- location: "https://geo.mirror.pkgbuild.com/images/v20260715.556894/Arch-Linux-x86_64-cloudimg-20260715.556894.qcow2"
+  arch: "x86_64"
+  digest: "sha256:f419d4e29aebfc017ad4c9de330a3be0d7eefba710b269108b116aaca1122926"
+
+ssh:
+  overVsock: false
+
+env:
+  CODESPACES: true
