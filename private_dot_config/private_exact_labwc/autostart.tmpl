@@ -2,6 +2,9 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 
+# Integration with systemd
+systemctl -q --no-block --user start labwc-session.target
+
 # Slow app launch fix -- set systemd vars
 systemctl --user import-environment $(env | cut -d'=' -f 1) >/dev/null 2>&1 &
 systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP >/dev/null 2>&1 &
