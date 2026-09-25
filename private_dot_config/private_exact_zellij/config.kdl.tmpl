@@ -1,12 +1,15 @@
-// If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
+{{- /*
+	vim:ft=kdl.gotexttmpl
+*/ -}}
+
 keybinds {
 	normal {
-		// uncomment this and adjust key if using copy_on_select=false
-		// bind "Alt c" { Copy; }
 	}
+
 	locked {
 		bind "Ctrl g" { SwitchToMode "Normal"; }
 	}
+
 	resize {
 		bind "Ctrl n" { SwitchToMode "Normal"; }
 		bind "h" "Left" { Resize "Increase Left"; }
@@ -20,6 +23,7 @@ keybinds {
 		bind "=" "+" { Resize "Increase"; }
 		bind "-" { Resize "Decrease"; }
 	}
+
 	pane {
 		bind "Ctrl p" { SwitchToMode "Normal"; }
 		bind "h" "Left" { MoveFocus "Left"; }
@@ -30,13 +34,17 @@ keybinds {
 		bind "n" { NewPane; SwitchToMode "Normal"; }
 		bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
 		bind "r" { NewPane "Right"; SwitchToMode "Normal"; }
+		bind "s" { NewPane "stacked"; SwitchToMode "Normal"; }
 		bind "x" { CloseFocus; SwitchToMode "Normal"; }
 		bind "f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+		bind "Shift f" { ToggleFocusNoUiFullscreen; SwitchToMode "Normal"; }
 		bind "z" { TogglePaneFrames; SwitchToMode "Normal"; }
 		bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
 		bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
 		bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+		bind "i" { TogglePanePinned; SwitchToMode "Normal"; }
 	}
+
 	move {
 		bind "Ctrl h" { SwitchToMode "Normal"; }
 		bind "n" "Tab" { MovePane; }
@@ -46,6 +54,7 @@ keybinds {
 		bind "k" "Up" { MovePane "Up"; }
 		bind "l" "Right" { MovePane "Right"; }
 	}
+
 	tab {
 		bind "Ctrl t" { SwitchToMode "Normal"; }
 		bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
@@ -68,6 +77,7 @@ keybinds {
 		bind "9" { GoToTab 9; SwitchToMode "Normal"; }
 		bind "Tab" { ToggleTab; }
 	}
+
 	scroll {
 		bind "Ctrl s" { SwitchToMode "Normal"; }
 		bind "e" { EditScrollback; SwitchToMode "Normal"; }
@@ -79,9 +89,14 @@ keybinds {
 		bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
 		bind "d" { HalfPageScrollDown; }
 		bind "u" { HalfPageScrollUp; }
+		bind "[" { ScrollToPreviousPrompt; }
+		bind "]" { ScrollToNextPrompt; }
+		bind "m" { SelectCommandAtScrollPosition; }
+		bind "c" { CopyLastCommandOutput; SwitchToMode "Normal"; }
 		// uncomment this and adjust key if using copy_on_select=false
 		// bind "Alt c" { Copy; }
 	}
+
 	search {
 		bind "Ctrl s" { SwitchToMode "Normal"; }
 		bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
@@ -91,36 +106,79 @@ keybinds {
 		bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
 		bind "d" { HalfPageScrollDown; }
 		bind "u" { HalfPageScrollUp; }
+		bind "[" { ScrollToPreviousPrompt; }
+		bind "]" { ScrollToNextPrompt; }
+		bind "m" { SelectCommandAtScrollPosition; }
 		bind "n" { Search "down"; }
 		bind "p" { Search "up"; }
 		bind "c" { SearchToggleOption "CaseSensitivity"; }
 		bind "w" { SearchToggleOption "Wrap"; }
 		bind "o" { SearchToggleOption "WholeWord"; }
 	}
+
 	entersearch {
 		bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
 		bind "Enter" { SwitchToMode "Search"; }
 	}
+
 	renametab {
 		bind "Ctrl c" { SwitchToMode "Normal"; }
 		bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
 	}
+
 	renamepane {
 		bind "Ctrl c" { SwitchToMode "Normal"; }
 		bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
 	}
+
 	session {
 		bind "Ctrl o" { SwitchToMode "Normal"; }
 		bind "Ctrl s" { SwitchToMode "Scroll"; }
 		bind "d" { Detach; }
 		bind "w" {
-			LaunchOrFocusPlugin "zellij:session-manager" {
+			LaunchOrFocusPlugin "session-manager" {
+				floating true
+				move_to_focused_tab true
+			};
+			SwitchToMode "Normal"
+		}
+		bind "c" {
+			LaunchOrFocusPlugin "configuration" {
+				floating true
+				move_to_focused_tab true
+			};
+			SwitchToMode "Normal"
+		}
+		bind "p" {
+			LaunchOrFocusPlugin "plugin-manager" {
+				floating true
+				move_to_focused_tab true
+			};
+			SwitchToMode "Normal"
+		}
+		bind "a" {
+			LaunchOrFocusPlugin "zellij:about" {
+				floating true
+				move_to_focused_tab true
+			};
+			SwitchToMode "Normal"
+		}
+		bind "s" {
+			LaunchOrFocusPlugin "zellij:share" {
+				floating true
+				move_to_focused_tab true
+			};
+			SwitchToMode "Normal"
+		}
+		bind "l" {
+			LaunchOrFocusPlugin "zellij:layout-manager" {
 				floating true
 				move_to_focused_tab true
 			};
 			SwitchToMode "Normal"
 		}
 	}
+
 	tmux {
 		bind "[" { SwitchToMode "Scroll"; }
 		bind "Ctrl b" { Write 2; SwitchToMode "Normal"; }
@@ -140,14 +198,19 @@ keybinds {
 		bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
 		bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
 		bind "o" { FocusNextPane; }
+		bind ";" { FocusLastPane; }
 		bind "d" { Detach; }
 		bind "Space" { NextSwapLayout; }
 		bind "x" { CloseFocus; SwitchToMode "Normal"; }
 	}
+
 	shared_except "locked" {
 		bind "Ctrl g" { SwitchToMode "Locked"; }
 		bind "Ctrl q" { Quit; }
+		bind "Alt f" { ToggleFloatingPanes; }
 		bind "Alt n" { NewPane; }
+		bind "Alt i" { MoveTab "Left"; }
+		bind "Alt o" { MoveTab "Right"; }
 		bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
 		bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
 		bind "Alt j" "Alt Down" { MoveFocus "Down"; }
@@ -156,82 +219,160 @@ keybinds {
 		bind "Alt -" { Resize "Decrease"; }
 		bind "Alt [" { PreviousSwapLayout; }
 		bind "Alt ]" { NextSwapLayout; }
+		bind "Alt p" { TogglePaneInGroup; }
+		bind "Alt Shift p" { ToggleGroupMarking; }
+		bind "Alt \\" { FocusLastPane; }
 	}
+
 	shared_except "normal" "locked" {
 		bind "Enter" "Esc" { SwitchToMode "Normal"; }
 	}
+
 	shared_except "pane" "locked" {
 		bind "Ctrl p" { SwitchToMode "Pane"; }
 	}
+
 	shared_except "resize" "locked" {
 		bind "Ctrl n" { SwitchToMode "Resize"; }
 	}
+
 	shared_except "scroll" "locked" {
 		bind "Ctrl s" { SwitchToMode "Scroll"; }
 	}
+
 	shared_except "session" "locked" {
 		bind "Ctrl o" { SwitchToMode "Session"; }
 	}
+
 	shared_except "tab" "locked" {
 		bind "Ctrl t" { SwitchToMode "Tab"; }
 	}
+
 	shared_except "move" "locked" {
 		bind "Ctrl h" { SwitchToMode "Move"; }
 	}
+
 	shared_except "tmux" "locked" {
 		bind "Ctrl b" { SwitchToMode "Tmux"; }
 	}
 }
 
 plugins {
-	tab-bar { path "tab-bar"; }
-	status-bar { path "status-bar"; }
-	strider { path "strider"; }
-	compact-bar { path "compact-bar"; }
-	session-manager { path "session-manager"; }
-}
-
-ui {
-	pane_frames {
-		rounded_corners false
-		hide_session_name true
+	tab-bar location="zellij:tab-bar"
+	status-bar location="zellij:status-bar"
+	strider location="zellij:strider"
+	compact-bar location="zellij:compact-bar"
+	session-manager location="zellij:session-manager"
+	welcome-screen location="zellij:session-manager" {
+		welcome_screen false
 	}
+
+	filepicker location="zellij:strider" {
+		cwd "/"
+	}
+
+	configuration location="zellij:configuration"
+	plugin-manager location="zellij:plugin-manager"
+	about location="zellij:about"
 }
 
-// on_force_close "quit"
+load_plugins {
+	"zellij:link"
+}
 
-// simplified_ui true
+on_force_close "quit"
 
-// default_shell "fish"
+simplified_ui false
 
-// default_cwd ""
+// default_shell {{ (print .env.shellPath " --login") | quote }}
 
-pane_frames false
+default_cwd {{ (joinPath .chezmoi.homeDir "Downloads") | quote }}
 
-// auto_layout true
+// pane_frames true
+// pane_frame_style "titles"
 
-theme "darkfox"
+// ui {
+//	pane_frames {
+//	 rounded_corners false
+//	 border_style "single"
+//	 border_top "double"
+//	 border_right "single"
+//	 border_bottom "single"
+//	 border_left "single"
+//	 floating_border_style "double"
+//	 floating_border_top "double"
+//	 floating_border_right "double"
+//	 floating_border_bottom "double"
+//	 floating_border_left "double"
+//	 floating_border_rounded_corners false
+//	 }
+// }
 
-// default_layout "default"
+auto_layout true
 
-// default_mode "default"
+// session_serialization false
+
+// serialize_pane_viewport true
+
+scrollback_lines_to_serialize 10000
+
+theme "current"
+
+// default_layout "compact"
+
+// default_mode "locked"
 
 mouse_mode true
 
-// scroll_buffer_size 10000
+scroll_buffer_size 10000
 
 // copy_command "xclip -selection clipboard" // x11
-// copy_command "wl-copy" // wayland
-// copy_command "pbcopy" // osx
+// copy_command "wl-copy"										// wayland
+// copy_command "pbcopy"										 // osx
 
-// copy_clipboard "system"
+copy_clipboard "system"
 
-// copy_on_select true
+copy_on_select true
 
-// scrollback_editor "/usr/bin/vim"
+crollback_editor "$EDITOR"
 
-// mirror_session false
+// mirror_session true
 
 // layout_dir "/path/to/my/layout_dir"
-
 // theme_dir "/path/to/my/theme_dir"
+
+styled_underlines true
+
+disable_session_metadata false
+
+support_kitty_keyboard_protocol true
+support_kitty_graphics_protocol true
+
+web_server false
+web_sharing "disabled"
+// web_server_ip "127.0.0.1"
+// web_server_cert "/path/to/my/cert.pem"
+// web_server_key "/path/to/my/key.pem"
+// enforce_https_for_localhost true
+// web_server_port 8082
+
+stacked_resize true
+stacked_pane_list true
+
+show_release_notes false
+
+advanced_mouse_actions true
+mouse_scroll_resize true
+scroll_mode_sync true
+mouse_hover_effects true
+mouse_hover_tips true
+
+osc8_hyperlinks true
+
+// post_command_discovery_hook "echo $RESURRECT_COMMAND | sed <your_regex_here>"
+
+// client_async_worker_tasks 4
+
+web_client {
+	font "monospace"
+}

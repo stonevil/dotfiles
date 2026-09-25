@@ -1,0 +1,124 @@
+{{- /*
+	vim:ft=kdl.gotexttmpl
+*/ -}}
+
+themes {
+	current {
+		text_unselected {
+			base {{ (print "#" .colours.normal.foreground) | quote }}
+			background {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.bright.green) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		text_selected {
+			base {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
+			background {{ (print "#" .colours.normal.surface2) | quote }}
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.bright.green) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		ribbon_selected {
+			base {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
+			background {{ (print "#" .colours.bright.blue) | quote }}
+			emphasis_0 {{ (print "#" .colours.bright.red) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_2 {{ (print "#" .colours.normal.magenta) | quote }}
+			emphasis_3 {{ (print "#" .colours.bright.blue) | quote }}
+		}
+		ribbon_unselected {
+			base {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
+			background {{ (print "#" .colours.normal.surface2) | quote }}
+			emphasis_0 {{ (print "#" .colours.normal.red) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.foreground) | quote }}
+			emphasis_2 {{ (print "#" .colours.normal.urls) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		table_title {
+			base {{ (print "#" .colours.bright.blue) | quote }}
+			background 0
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.bright.blue) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		table_cell_selected {
+			base {{ (print "#" .colours.bright.foreground) | quote }}
+			background {{ (print "#" .colours.normal.surface2) | quote }}
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.normal.blue) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		table_cell_unselected {
+			base {{ (print "#" .colours.normal.foreground) | quote }}
+			background {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.normal.blue) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		list_selected {
+			base {{ (print "#" .colours.bright.foreground) | quote }}
+			background {{ (print "#" .colours.normal.surface2) | quote }}
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.normal.blue) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		list_unselected {
+			base {{ (print "#" .colours.normal.foreground) | quote }}
+			background {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.bright.green) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.magenta) | quote }}
+		}
+		frame_selected {
+			base {{ (print "#" .colours.normal.blue) | quote }}
+			background 0
+			emphasis_0 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_2 {{ (print "#" .colours.normal.magenta) | quote }}
+			emphasis_3 0
+		}
+		frame_highlight {
+			base {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			background 0
+			emphasis_0 {{ (print "#" .colours.normal.magenta) | quote }}
+			emphasis_1 {{ (print "#" .colours.normal.peach) | quote }}
+			emphasis_2 {{ (print "#" .colours.normal.indexed_colors.color16) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.peach) | quote }}
+		}
+		exit_code_success {
+			base {{ (print "#" .colours.normal.green) | quote }}
+			background 0
+			emphasis_0 {{ (print "#" .colours.normal.sky) | quote }}
+			emphasis_1 {{ if .theme.blackout }}"#000000"{{ else }}{{ (print "#" .colours.normal.mantle) | quote }}{{ end }}
+			emphasis_2 {{ (print "#" .colours.normal.pink) | quote }}
+			emphasis_3 {{ (print "#" .colours.normal.blue) | quote }}
+		}
+		exit_code_error {
+			base {{ (print "#" .colours.normal.red) | quote }}
+			background 0
+			emphasis_0 {{ (print "#" .colours.normal.yellow) | quote }}
+			emphasis_1 0
+			emphasis_2 0
+			emphasis_3 0
+		}
+		multiplayer_user_colors {
+			player_1 {{ (print "#" .colours.normal.pink) | quote }}
+			player_2 {{ (print "#" .colours.normal.blue) | quote }}
+			player_3 0
+			player_4 {{ (print "#" .colours.normal.yellow) | quote }}
+			player_5 {{ (print "#" .colours.normal.sky) | quote }}
+			player_6 0
+			player_7 {{ (print "#" .colours.normal.red) | quote }}
+			player_8 0
+			player_9 0
+			player_10 0
+		}
+	}
+}
