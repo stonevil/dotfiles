@@ -476,12 +476,18 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $terminalMultiplexer }}
 	darwin = [
 		"tmux",
+		"zellij",
 	]
 	arch = [
 		"extra/tmux",
+		"extra/zellij",
 	]
 	fedora = [
 		"tmux",
+		"zellij",
+	]
+	pre.fedora = [
+		"sudo dnf copr enable -y varlad/zellij",
 	]
 	upgrade.darwin = [
 		"tmux_plugins_update",
