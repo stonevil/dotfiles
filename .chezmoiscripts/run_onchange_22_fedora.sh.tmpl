@@ -2,7 +2,6 @@
 vim:ft=bash.gotexttmpl
 */ -}}
 #!/usr/bin/env bash
-# vim:ft=bash.gotexttmpl
 
 trap "exit" INT
 
@@ -30,7 +29,7 @@ trap "exit" INT
 	{{ template "locales.tmpl" . }}
 
 	echo "FEDORA: install basic tools"
-	sudo install -y bash less curl tar wget git base-devel || exit 1
+	sudo dnf install -y bash less curl tar wget git @development-tools || exit 1
 
 	{{ template "helper.tmpl" . }}
 {{ end }}
