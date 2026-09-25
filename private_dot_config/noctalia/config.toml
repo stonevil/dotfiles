@@ -146,6 +146,7 @@ corner_radius_scale = 0.0
 builtin = "Catppuccin"
 community_palette = "Oxocarbon"
 mode = "dark"
+pure_black_dark = true
 source = "builtin"
 wallpaper_scheme = "vibrant"
 
