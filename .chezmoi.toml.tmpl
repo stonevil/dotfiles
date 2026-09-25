@@ -364,7 +364,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.go]
-	enabled = {{ if or ($neovimCli) ($gamesCli) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($neovimCli) ($gamesCli) ($utilsCli) ($devToolsCli) ($dbToolsCli) ($newsCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"go",
 		"delve",
@@ -1322,7 +1322,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.utils]
-	enabled = {{ $tor }}
+	enabled = {{ $utils }}
 	darwin = [
 		"keepingyouawake",
 		"onyx",
