@@ -1,0 +1,174 @@
+config_version = 14
+
+[bar.default]
+background_opacity = 0.79999998211860657
+center = [ "clock" ]
+end = [
+    "keyboard_layout",
+    "status",
+    "tray",
+    "volume",
+    "caffeine",
+    "notifications",
+    "clipboard",
+    "bluetooth",
+    "network",
+    "fan-control",
+    "battery",
+    "control-center",
+    "session"
+]
+position = "bottom"
+radius = 0
+start = [ "launcher", "workspaces" ]
+
+[battery.device."/org/freedesktop/UPower/devices/battery_hidpp_battery_0"]
+warning_threshold = 10
+
+[brightness]
+enable_ddcutil = true
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 300.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[location]
+address = "Dublin, California"
+
+[lockscreen]
+fingerprint = false
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 960.0
+    cy = 670.5
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 767.0
+    cy = 777.0
+    output = "eDP-1"
+    placement_height = 959.0
+    placement_width = 1534.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[osd]
+background_opacity = 0.89999997988343239
+orientation = "vertical"
+position = "top_right"
+position_vertical = "top_right"
+
+[plugins]
+enabled = [
+    "cleboost/asus-fans-controller-ec",
+    "aristides/udiskie",
+    "yocraft/battery-widget",
+    "gustav0ar/drive-health",
+    "grassyloki/kwallet-secrets",
+    "thepunkoff/pomodoro",
+    "andrewdems/printers",
+    "harveywuk/pulsar-mouse",
+    "tmelik/system-monitor"
+]
+
+[shell]
+corner_radius_scale = 0.0
+
+    [shell.panel]
+    borders = false
+    shadow = false
+
+[theme]
+builtin = "Catppuccin"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "builtin"
+wallpaper_scheme = "vibrant"
+
+[wallpaper.default]
+path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+
+[wallpaper.last]
+path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+
+[wallpaper.monitors.DP-1]
+path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+
+[wallpaper.monitors.eDP-1]
+path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+
+[widget.clock]
+format = "{:%D: %H:%M}"
+
+[widget.fan-control]
+type = "cleboost/asus-fans-controller-ec:fan-control"
+
+[widget.status]
+type = "aristides/udiskie:status"
+
+[widget.workspaces]
+max_label_chars = 5
