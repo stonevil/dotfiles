@@ -17,8 +17,6 @@ vim:ft=zsh.gotexttmpl
 
 {{ template "shellrc-aliases.tmpl" . }}
 
-# {{ template "shellrc-wezterm.tmpl" . }}
-
 {{ template "shellrc-functions.tmpl" . }}
 
 {{- if stat (joinPath .chezmoi.homeDir ".local/zsh/completions") }}

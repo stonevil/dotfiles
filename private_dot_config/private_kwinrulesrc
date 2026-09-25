@@ -1,11 +1,3 @@
-[4d40f8ea-c72c-4afe-8bb0-38378a57b81c]
-Description=WezTerm
-desktops=fea678ff-a41e-4e19-a45a-7b09aa36998d
-desktopsrule=2
-wmclass=org.wezfurlong.wezterm
-wmclasscomplete=true
-wmclassmatch=1
-
 [6bb70df4-b62e-44ed-af3b-574dc54f97cf]
 Description=Chromium
 desktops=6ce7601b-8f2f-4620-9231-b4e995fcb7c2

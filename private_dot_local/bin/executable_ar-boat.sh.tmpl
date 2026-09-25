@@ -18,17 +18,6 @@ ar() {
 }
 
 case "$TERM_PROGRAM" in
-	WezTerm)
-		nwar() {
-			wezterm cli spawn --new-window -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
-		}
-		slar() {
-			wezterm cli split-pane --left -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
-		}
-		srar() {
-			wezterm cli split-pane --right -- bash -c "reader --image-mode kitty --terminal-width $ARTICLEREADER_WIDTH $@; sleep 5m"
-		}
-	;;
 	tmux)
 		nwar() {
 			tmux popup -d "#{pane_current_path}" -xC -yC -w60% -h90% "reader --image-mode ansi --terminal-width $ARTICLEREADER_WIDTH $@ | less -R"

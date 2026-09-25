@@ -549,6 +549,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"ast-grep",
 		"shellcheck",
 		"marksman",
+		"revive",
+		"d2",
 	]
 	arch = [
 		"base-devel",
@@ -567,6 +569,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/ast-grep",
 		"extra/shellcheck",
 		"extra/marksman",
+		"extra/revive",
+		"extra/d2",
+	]
+	fedora = [
 	]
 	uv = [
 		"httpie",
@@ -574,6 +580,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	npm = [
 		"@mermaid-js/mermaid-cli",
+	]
+	cargo = [
+		"spacer",
 	]
 
 [data.tags.dbToolsCli]
@@ -770,7 +779,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.gamesCli]
 	enabled = {{ $gamesCli }}
 	go = [
-		"github.com/bloznelis/typioca@latest"
+		"github.com/bloznelis/typioca@latest",
 	]
 
 [data.tags.dekCli]
@@ -787,6 +796,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/newsboat",
 		"extra/curl-impersonate",
+	]
+	go = [
+		"github.com/mrusme/reader@latest",
 	]
 
 [data.tags.mailCli]
