@@ -2,20 +2,19 @@ config_version = 14
 
 [bar.default]
 background_opacity = 0.79999998211860657
-center = [ "clock" ]
 end = [
     "keyboard_layout",
     "status",
     "tray",
-    "volume",
     "caffeine",
+    "volume",
     "notifications",
     "clipboard",
     "bluetooth",
     "network",
+    "printer",
     "fan-control",
     "battery",
-    "control-center",
     "session"
 ]
 position = "bottom"
@@ -127,12 +126,10 @@ enabled = [
     "cleboost/asus-fans-controller-ec",
     "aristides/udiskie",
     "yocraft/battery-widget",
-    "gustav0ar/drive-health",
     "grassyloki/kwallet-secrets",
-    "thepunkoff/pomodoro",
     "andrewdems/printers",
-    "harveywuk/pulsar-mouse",
-    "tmelik/system-monitor"
+    "tmelik/system-monitor",
+    "noctalia/screen_recorder"
 ]
 
 [shell]
@@ -163,10 +160,13 @@ path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
 path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
 
 [widget.clock]
-format = "{:%D: %H:%M}"
+format = "{:%a %b %d  %H:%M}"
 
 [widget.fan-control]
 type = "cleboost/asus-fans-controller-ec:fan-control"
+
+[widget.printer]
+type = "andrewdems/printers:printer"
 
 [widget.status]
 type = "aristides/udiskie:status"
