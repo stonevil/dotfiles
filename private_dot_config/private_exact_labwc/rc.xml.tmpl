@@ -525,8 +525,6 @@ vim:ft=xml.gotexttmpl
 			</mousebind>
 			<mousebind button="Middle" action="Press">
 				<action name="ShowMenu" menu="root-menu" />
-				<!-- openbox default, swap with above line to activate -->
-				<!-- <action name="ShowMenu" menu="client-list-combined-menu" /> -->
 			</mousebind>
 			<mousebind direction="Up" action="Scroll">
 				<action name="GoToDesktop" to="left" wrap="yes" />
@@ -607,16 +605,16 @@ vim:ft=xml.gotexttmpl
     <windowRule identifier="virt-manager"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
     <windowRule identifier="org.gnome.Boxes"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
     <windowRule identifier="org.kde.karton"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
-    <windowRule identifier="org.kde.krdc"><action name="SendToDesktop"><to>VIII</to></action></windowRule>
+    <windowRule identifier="org.kde.krdc"><action name="SendToDesktop"><to>IX</to></action></windowRule>
     <windowRule identifier="com.mitchellh.ghostty"><action name="SendToDesktop"><to>X</to></action></windowRule>
 	</windowRules>
 
 	<!--
 		# Window Rules
-		#	 - Criteria can consist of 'identifier', 'title', 'sandboxEngine' or 'sandboxAppId'. AND logic is used when multiple options are specified.
-		#	 - 'identifier' relates to app_id for native Wayland windows and WM_CLASS for XWayland clients.
-		#	 - Criteria can also contain `matchOnce="true"` meaning that the rule must only apply to the first instance of the window with that particular 'identifier' or 'title'.
-		#	 - Matching is case-insensitive and is performed using shell wildcard patterns (see glob(7)) so '\*' (not between brackets) matches any string and '?' matches any single character.
+		# - Criteria can consist of 'identifier', 'title', 'sandboxEngine' or 'sandboxAppId'. AND logic is used when multiple options are specified.
+		# - 'identifier' relates to app_id for native Wayland windows and WM_CLASS for XWayland clients.
+		# - Criteria can also contain `matchOnce="true"` meaning that the rule must only apply to the first instance of the window with that particular 'identifier' or 'title'.
+		# - Matching is case-insensitive and is performed using shell wildcard patterns (see glob(7)) so '\*' (not between brackets) matches any string and '?' matches any single character.
 	-->
 
 	<menu>
