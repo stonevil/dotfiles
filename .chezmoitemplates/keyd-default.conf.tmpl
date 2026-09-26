@@ -3,25 +3,40 @@ vim:ft=conf.gotexttmpl
 */ -}}
 
 {{ if eq .chezmoi.os "linux" -}}
+sudo mkdir -p /etc/keyd
+
 sudo sh -c 'cat > /etc/keyd/default.conf' << EOF
+[global]
+
 [ids]
 *
 
 [main]
-f23+leftshift+leftmeta = layer(rightalt)
+capslock = overload(control, esc)
+EOF
 
-j+k = esc
+
+sudo sh -c 'cat > /etc/keyd/default.conf' << EOF
+[ids]
+0b05:19b6
+
+[main]
+f23+leftshift+leftmeta = rightalt
 
 leftmeta = leftalt
-rightmeta = leftalt
+rightmeta = rightalt
 
 leftalt = leftmeta
 rightalt = rightmeta
 
-capslock = overload(control, esc)
+# leftalt = layer(cmd)
+# rightalt = layer(cmd)
 
-leftalt = layer(cmd)
-rightalt = layer(cmd)
+# include common
+EOF
+
+sudo sh -c 'cat > /etc/keyd/common' << EOF
+j+k = esc
 
 [cmd:C]
 
@@ -43,10 +58,5 @@ d = C-d
 v = S-insert
 
 x = S-delete
-
-# Move cursor to beginning of line
-left = home
-# Move cursor to end of Line
-right = end
 EOF
 {{ end -}}
