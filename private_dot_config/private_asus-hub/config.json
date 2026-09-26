@@ -1,0 +1,22 @@
+{
+  "farbskala_index": 0,
+  "oled_care_pixel_refresh": true,
+  "oled_care_panel_autohide": true,
+  "oled_care_transparenz": true,
+  "battery_tiefschlaf_aktiv": false,
+  "fan_profil": 1,
+  "input_gesten_aktiv": false,
+  "input_fn_key_gesperrt": false,
+  "kbd_aufhellung_aktiv": false,
+  "kbd_abdunklung_aktiv": false,
+  "kbd_timeout_modus": 0,
+  "kbd_timeout_akku_netz_index": 0,
+  "kbd_timeout_nur_akku_index": 0,
+  "kbd_aufhellung_schwelle": 12.0,
+  "kbd_abdunklung_schwelle": 35.0,
+  "touchpad_aktiv": true,
+  "language": "en",
+  "audio_profil": 1,
+  "oled_dc_dimming": 60,
+  "zielmodus_aktiv": false
+}

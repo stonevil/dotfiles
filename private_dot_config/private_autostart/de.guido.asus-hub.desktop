@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Asus Hub
+Exec=asus-hub --hidden
+Hidden=false
+StartupNotify=false
+X-GNOME-Autostart-enabled=true

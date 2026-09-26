@@ -1,0 +1,7 @@
+[Libinput][10248][537][ASUF1209:00 2808:0219 Touchpad]
+ClickMethod=2
+NaturalScroll=true
+TapToClick=false
+
+[Libinput][1133][16495][Logitech MX Ergo]
+NaturalScroll=true
