@@ -1146,13 +1146,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.devTools]
 	enabled = {{ $devTools }}
 	darwin = [
-		"neovide",
 		"coteditor",
 		"visualdiffer",
 		"keycastr",
 	]
 	arch = [
-		"extra/neovide",
 		"extra/kdiff3",
 		"extra/kommit",
 		"extra/showmethekey",
@@ -1161,9 +1159,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"kdiff3",
 		"kommit",
 		"showmethekey",
-	]
-	cargo = [
-		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"neovide",{{ end }}
 	]
 	pre.fedora = [
 		"sudo dnf copr enable -y pesader/showmethekey"
