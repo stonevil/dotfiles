@@ -376,6 +376,15 @@ vim:ft=xml.gotexttmpl
 		<screenEdgeWarpTime>400</screenEdgeWarpTime>
 		<screenEdgeWarpMouse>false</screenEdgeWarpMouse>
 
+		<context name="All">
+			<mousebind direction="W-C-Up" action="Scroll">
+				<action name="GoToDesktop" to="right"/>
+			</mousebind>
+			<mousebind direction="W-C-Down" action="Scroll">
+				<action name="GoToDesktop" to="left"/>
+			</mousebind>
+		</context>
+
 		<context name="Frame">
 			<mousebind button="W-C-Left" action="Press">
 				<action name="Focus" />
