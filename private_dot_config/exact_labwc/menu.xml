@@ -1,36 +1,36 @@
 <openbox_menu>
 	<menu id="client-menu">
-		<item label="Minimize">
+		<item label="  Minimize">
 			<action name="Iconify" />
 		</item>
-		<item label="Maximize">
+		<item label="  Maximize">
 			<action name="ToggleMaximize" />
 		</item>
-		<item label="Fullscreen">
+		<item label="  Fullscreen">
 			<action name="ToggleFullscreen" />
 		</item>
-		<item label="Roll Up/Down">
+		<item label="  Shade">
 			<action name="ToggleShade" />
 		</item>
-		<item label="Decorations">
-			<action name="ToggleDecorations" />
-		</item>
-		<item label="Always on Top">
+		<item label="  On Top">
 			<action name="ToggleAlwaysOnTop" />
 		</item>
-		<menu id="workspaces" label="Workspace">
-			<item label="Move left">
+		<item label="  On Bottom">
+			<action name="ToggleAlwaysOnBottom" />
+		</item>
+		<menu id="workspaces" label="  Workspace">
+			<item label="  Move left">
 				<action name="SendToDesktop" to="left" />
 			</item>
-			<item label="Move right">
+			<item label="  Move right">
 				<action name="SendToDesktop" to="right" />
 			</item>
 			<separator />
-			<item label="Always on Visible Workspace">
+			<item label="  Sticky">
 				<action name="ToggleOmnipresent" />
 			</item>
 		</menu>
-		<item label="Close">
+		<item label="  Close">
 			<action name="Close" />
 		</item>
 	</menu>
@@ -52,7 +52,7 @@
 				<action name="Execute" command="chromium" />
 			</item>
 		</menu>
-		<menu id="office" icon="" label="󰏆  Office">
+		<menu id="office" label="󰏆  Office">
 			<item label="󱢴  File Browser">
 				<action name="Execute" command="dolphin" />
 			</item>
@@ -61,7 +61,7 @@
 			</item>
 		</menu>
 		<separator />
-		<menu id="Next" icon="next" label="  Running...">
+		<menu id="Next" label="  Running...">
 			<menu id="client-list-combined-menu" />
 		</menu>
 		<separator />
@@ -69,7 +69,7 @@
 			<action name="Reconfigure" />
 		</item>
 		<separator />
-		<menu id="system" icon="" label="  System">
+		<menu id="system" label="  System">
 			<item label="󰿅  Exit">
 				<action name="Exit"/>
 			</item>
