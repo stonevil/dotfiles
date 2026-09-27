@@ -1058,11 +1058,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	arch = [
 		"extra/plasma-desktop",
 		"extra/kscreen",
-		"extra/okular",
-		"extra/ark",
-		"extra/kcalc",
-		"extra/dolphin",
-		"extra/dolphin-plugins",
 		"extra/kde-gtk-config",
 		"extra/xdg-desktop-portal-kde",
 		"extra/kscreenlocker",
@@ -1080,15 +1075,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/powerdevil",
 		"extra/print-manager",
 		"extra/spectacle",
-		"extra/partitionmanager",
-		"extra/marknote",
 		"extra/kdialog",
 		"extra/qt6-tools",
 		"extra/kwallet",
 		"extra/kwalletmanager",
 		"extra/kwallet-pam",
 		"extra/ksshaskpass",
+		"extra/dolphin",
+		"extra/dolphin-plugins",
+		"extra/ark",
+		"extra/okular",
+		"extra/kcalc",
 		"extra/drawy",
+		"extra/marknote",
 	]
 	fedora = [
 		"@kde-desktop",
@@ -1151,13 +1150,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"keycastr",
 	]
 	arch = [
+		"extra/kate",
 		"extra/kdiff3",
-		"extra/kommit",
 		"extra/showmethekey",
 	]
 	fedora = [
+		"kate",
 		"kdiff3",
-		"kommit",
 		"showmethekey",
 	]
 	pre.fedora = [
@@ -1183,6 +1182,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $messengers }}
 	arch = [
 		"extra/discord",
+		"extra/konversation",
+		"extra/neochat",
 	]
 	fedora = [
 		"discord",
@@ -1333,6 +1334,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/kdiskmark",
 		"extra/sweeper",
 		"extra/isoimagewriter",
+		"extra/partitionmanager",
 	]
 	fedora = [
 		"exfatprogs",
