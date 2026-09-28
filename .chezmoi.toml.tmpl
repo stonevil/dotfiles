@@ -1039,6 +1039,17 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"aur/qt6ct-kde",
 	]
 
+[data.tags.keybinding]
+	enabled = {{ if or ($labwc) ($plasma) }} true {{ else }} false {{ end }}
+	arch = [
+		"extra/keyd",
+	]
+	post.arch = [
+		"sudo usermod -a -G keyd ${USER}",
+		"sudo systemctl enable --now keyd.service",
+		"systemctl --user enable --now keyd-application-mapper.service",
+	]
+
 [data.tags.noctalia]
 	enabled = {{ if $labwc }} true {{ else }} false {{ end }}
 	arch = [
