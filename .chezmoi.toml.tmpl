@@ -483,9 +483,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	fedora = [
 		"tmux",
 	]
-	pre.fedora = [
-		"sudo dnf copr enable -y varlad/zellij",
-	]
 	upgrade.darwin = [
 		"tmux_plugins_update",
 	]
