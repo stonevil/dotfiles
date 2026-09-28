@@ -476,15 +476,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ $terminalMultiplexer }}
 	darwin = [
 		"tmux",
-		"zellij",
 	]
 	arch = [
 		"extra/tmux",
-		"extra/zellij",
 	]
 	fedora = [
 		"tmux",
-		"zellij",
 	]
 	pre.fedora = [
 		"sudo dnf copr enable -y varlad/zellij",
@@ -497,6 +494,9 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 	upgrade.fedora = [
 		"tmux_plugins_update",
+	]
+	go = [
+		"github.com/Gaurav-Gosain/tuios/cmd/tuios@latest",
 	]
 
 [data.tags.utilsCli]
@@ -1346,18 +1346,15 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.terminalEmulators]
 	enabled = {{ $terminalEmulators }}
 	darwin = [
-		"ghostty",
 		"stonevil/brew/alacritty",
 		"viu",
 	]
 	arch = [
-		"extra/ghostty",
 		"extra/foot",
 		"extra/foot-terminfo",
 		"extra/viu",
 	]
 	fedora = [
-		"ghostty",
 		"foot",
 		"foot-terminfo",
 	]
