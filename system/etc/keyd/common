@@ -1,0 +1,167 @@
+[control:C]
+
+
+[shift:S]
+
+
+[cmd:M]
+# forward and back
+] = A-right
+[ = A-left
+
+# switch directly to an open tab
+1 = A-1
+2 = A-2
+3 = A-3
+4 = A-4
+5 = A-5
+6 = A-6
+7 = A-7
+8 = A-8
+9 = A-9
+0 = A-0
+
+a = C-a
+b = C-b
+c = C-c
+d = C-d
+e = C-e
+f = C-f
+g = C-g
+h = C-h
+i = C-h
+j = C-j
+k = C-k
+l = C-l
+m = C-m
+n = C-n
+o = C-o
+p = C-p
+q = C-q
+r = C-r
+s = C-s
+t = C-t
+u = C-u
+v = C-v
+w = C-w
+x = C-x
+y = C-y
+z = C-z
+
+0 = C-0
+= = C-=
+- = C--
+
+
+# Move cursor to beginning of line
+left = home
+# Move cursor to end of Line
+right = end
+
+
+[alt:A]
+
+
+[cmd+alt]
+1 = M-A-1
+2 = M-A-2
+3 = M-A-3
+4 = M-A-4
+5 = M-A-5
+6 = M-A-6
+7 = M-A-7
+8 = M-A-8
+9 = M-A-9
+0 = M-A-0
+
+a = M-A-a
+b = M-A-b
+c = M-A-c
+d = M-A-d
+e = M-A-e
+f = M-A-f
+g = M-A-g
+h = M-A-h
+i = M-A-h
+j = M-A-j
+k = M-A-k
+l = M-A-l
+m = M-A-m
+n = M-A-n
+o = M-A-o
+p = M-A-p
+q = M-A-q
+r = M-A-r
+s = M-A-s
+t = M-A-t
+u = M-A-u
+v = M-A-v
+w = M-A-w
+x = M-A-x
+y = M-A-y
+z = M-A-z
+
+
+[cmd+shift]
+# clipboard history
+v = M-S-v
+
+a = C-S-a
+b = C-S-b
+c = C-S-c
+d = C-S-d
+e = C-S-e
+f = C-S-f
+g = C-S-g
+h = C-S-h
+i = C-S-h
+j = C-S-j
+k = C-S-k
+l = C-S-l
+m = C-S-m
+n = C-S-n
+o = C-S-o
+p = C-S-p
+q = C-S-q
+r = C-S-r
+s = C-S-s
+t = C-S-t
+u = C-S-u
+# v = C-S-v
+w = C-S-w
+x = C-S-x
+y = C-S-y
+z = C-S-z
+
+# back and forward tab
+] = C-tab
+[ = C-S-tab
+
+
+[cmd+control]
+a = M-C-a
+b = M-C-b
+c = M-C-c
+d = M-C-d
+e = M-C-e
+f = M-C-f
+g = M-C-g
+h = M-C-h
+i = M-C-h
+j = M-C-j
+k = M-C-k
+l = M-C-l
+m = M-C-m
+n = M-C-n
+o = M-C-o
+p = M-C-p
+q = M-C-q
+r = M-C-r
+s = M-C-s
+t = M-C-t
+u = M-C-u
+v = M-C-v
+w = M-C-w
+x = M-C-x
+y = M-C-y
+z = M-C-z
