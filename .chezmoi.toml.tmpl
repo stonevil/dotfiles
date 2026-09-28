@@ -1047,7 +1047,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	post.arch = [
 		"sudo usermod -a -G keyd ${USER}",
 		"sudo systemctl enable --now keyd.service",
-		"systemctl --user enable --now keyd-application-mapper.service",
 	]
 	pre.fedora = [
 		"sudo dnf copr enable -y alternateved/keyd",

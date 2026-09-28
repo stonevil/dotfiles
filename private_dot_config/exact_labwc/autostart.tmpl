@@ -46,3 +46,8 @@ noctalia >/dev/null 2>&1 &
 
 # Mute mic
 noctalia msg mic-mute >/dev/null 2>&1 &
+
+{{ if .tags.keybinding.enabled -}}
+# keyd mapper for apps
+keyd-application-mapper >/dev/null 2>&1 &
+{{ end -}}
