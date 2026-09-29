@@ -1040,6 +1040,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ if or ($labwc) ($plasma) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/keyd",
+		"extra/python-dbus",
 	]
 	fedora = [
 		"keyd",
