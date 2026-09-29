@@ -33,7 +33,7 @@ easyeffects --hide-window >/dev/null 2>&1 &
 localsend --hidden >/dev/null 2>&1 &
 
 # Syncthing Tray
-syncthingtray-qt6 >/dev/null 2>&1 &
+syncthingtray --wait --single-instance >/dev/null 2>&1 &
 {{ end }}
 
 {{ if .tags.zephyrus.enabled -}}
