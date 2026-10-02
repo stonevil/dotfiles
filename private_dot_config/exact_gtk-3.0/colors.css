@@ -1,4 +1,4 @@
-@define-color borders_breeze #3c3c3c;
+@define-color borders_breeze #303030;
 @define-color content_view_bg_breeze #000000;
 @define-color error_color_backdrop_breeze #da4453;
 @define-color error_color_breeze #da4453;
@@ -7,7 +7,7 @@
 @define-color insensitive_base_color_breeze #000000;
 @define-color insensitive_base_fg_color_breeze #505050;
 @define-color insensitive_bg_color_breeze #000000;
-@define-color insensitive_borders_breeze #141414;
+@define-color insensitive_borders_breeze #101010;
 @define-color insensitive_fg_color_breeze #505050;
 @define-color insensitive_selected_bg_color_breeze #000000;
 @define-color insensitive_selected_fg_color_breeze #505050;
@@ -74,10 +74,10 @@
 @define-color theme_view_active_decoration_color_breeze #3daee9;
 @define-color theme_view_hover_decoration_color_breeze #3daee9;
 @define-color tooltip_background_breeze #000000;
-@define-color tooltip_border_breeze #3c3c3c;
+@define-color tooltip_border_breeze #303030;
 @define-color tooltip_text_breeze #eff0f1;
-@define-color unfocused_borders_breeze #3c3c3c;
-@define-color unfocused_insensitive_borders_breeze #141414;
+@define-color unfocused_borders_breeze #303030;
+@define-color unfocused_insensitive_borders_breeze #101010;
 @define-color warning_color_backdrop_breeze #f67400;
 @define-color warning_color_breeze #f67400;
 @define-color warning_color_insensitive_backdrop_breeze #522700;

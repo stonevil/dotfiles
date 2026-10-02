@@ -1,0 +1,20 @@
+{
+    "KPlugin": {
+        "Id": "org.kde.plasma.sysmonitor.modern",
+        "Name": "Modern SysMonitor",
+        "Description": "Monitor de sistema moderno e transparente (CPU, GPU, RAM, Rede)",
+        "Icon": "utilities-system-monitor",
+        "Version": "1.1",
+        "Authors": [
+            {
+                "Name": "Joao Gabriel Medeiros by Gemini CLI",
+                "Email": "jgm.canais@gmail.com"
+            }
+        ],
+        "Category": "System Information",
+        "License": "GPL-2.0-or-later",
+        "Website": "https://kde.org/"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

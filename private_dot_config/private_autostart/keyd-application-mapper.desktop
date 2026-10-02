@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/usr/bin/keyd-application-mapper -d
+Icon=
+Name=keyd-application-mapper
+Path=
+Terminal=False
+Type=Application

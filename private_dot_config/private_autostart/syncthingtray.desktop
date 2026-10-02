@@ -1,10 +1,34 @@
 [Desktop Entry]
-Name=Syncthing Tray
-Exec="/usr/bin/syncthingtray-qt6" qt-widgets-gui --single-instance --wait
+Actions=ShowTrayMenu;ShowSyncthing;RescanAll;PauseAllDevs;ResumeAllDevs;Restart
+Categories=Network;FileTransfer
 Comment=Tray application for Syncthing
+Exec=syncthingtray
+GenericName=Syncthing Tray
 Icon=syncthingtray
-Type=Application
+Name=Syncthing Tray
 Terminal=false
-X-GNOME-Autostart-Delay=0
-X-GNOME-Autostart-enabled=true
-X-LXQt-Need-Tray=true
+Type=Application
+
+[Desktop Action PauseAllDevs]
+Exec=syncthingctl pause --all-devs
+Name=Pause all devices (of local Syncthing instance)
+
+[Desktop Action RescanAll]
+Exec=syncthingctl rescan-all
+Name=Rescan all folders (of local Syncthing instance)
+
+[Desktop Action Restart]
+Exec=syncthingctl restart
+Name=Restart Syncthing (local instance)
+
+[Desktop Action ResumeAllDevs]
+Exec=syncthingctl resume --all-devs
+Name=Resume all devices (of local Syncthing instance)
+
+[Desktop Action ShowSyncthing]
+Exec=syncthingtray qt-widgets-gui --webui
+Name=Show Syncthing (currently selected instance)
+
+[Desktop Action ShowTrayMenu]
+Exec=syncthingtray qt-widgets-gui --trigger
+Name=Show tray menu
