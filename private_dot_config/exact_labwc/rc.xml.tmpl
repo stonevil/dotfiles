@@ -342,16 +342,19 @@ vim:ft=xml.gotexttmpl
 
 		<!-- Screenshots -->
 		<keybind key="W-S-3">
-			<action name="Execute" command="noctalia msg screenshot-fullscreen pick" />
+			<action name="Execute" command="hyprshot -m output" />
 		</keybind>
 		<keybind key="W-S-4">
-			<action name="Execute" command="noctalia msg screenshot-region" />
+			<action name="Execute" command="hyprshot -m window" />
+		</keybind>
+		<keybind key="W-S-5">
+			<action name="Execute" command="hyprshot -m region" />
 		</keybind>
 		<keybind key="PRINT">
-			<action name="Execute" command="noctalia msg screenshot-fullscreen pick" />
+			<action name="Execute" command="hyprshot -m window" />
 		</keybind>
 		<keybind key="S-PRINT">
-			<action name="Execute" command="noctalia msg screenshot-region" />
+			<action name="Execute" command="hyprshot -m region" />
 		</keybind>
 
 		<!-- System State -->
