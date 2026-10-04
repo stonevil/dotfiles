@@ -18,6 +18,7 @@ node_modules
 .resources
 .stfolder
 .stignore
+
 {{ if ne .chezmoi.os "darwin" }}
 Library
 {{ else if ne .chezmoi.os "linux" }}
@@ -76,14 +77,20 @@ Library
 .themes
 .icons
 {{ end }}
+
 {{ if not .tags.adsToolsCli.enabled }}
 .config/hblock
 {{ end }}
+
 {{ if or (and (not .tags.devToolsCli.enabled) (not .tags.neovimCli.enabled)) (ne .chezmoi.os "linux") }}
 .config/lazygit
 .config/lazydocker
 {{ end }}
+
 {{ if and (not .tags.limaCli.enabled) (not .tags.k8sToolsCli.enabled) }}
 .local/share/lima/templates
 {{ end }}
-.stignore
+
+{{ if not .tags.terminalMultiplexer.enabled }}
+.config/nvim/lua/plugins/tuios.lua
+{{ end }}
