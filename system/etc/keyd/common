@@ -52,7 +52,6 @@ z = C-z
 = = C-=
 - = C--
 
-
 # Move cursor to beginning of line
 left = home
 # Move cursor to end of Line
