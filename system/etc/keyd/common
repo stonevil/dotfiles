@@ -4,10 +4,11 @@
 [shift:S]
 
 
-[alt:A]
-
-
 [cmd:M]
+# forward and back
+] = A-right
+[ = A-left
+
 # switch directly to an open tab
 1 = A-1
 2 = A-2
@@ -51,14 +52,14 @@ z = C-z
 = = C-=
 - = C--
 
-# forward and back
-] = A-right
-[ = A-left
 
 # Move cursor to beginning of line
 left = home
 # Move cursor to end of Line
 right = end
+
+
+[alt:A]
 
 
 [cmd+alt]
@@ -99,6 +100,11 @@ w = M-A-w
 x = M-A-x
 y = M-A-y
 z = M-A-z
+
+left = M-A-left
+right = M-A-right
+up = M-A-up
+down = M-A-down
 
 
 [cmd+shift]
@@ -147,6 +153,11 @@ z = C-S-z
 ] = C-tab
 [ = C-S-tab
 
+left = C-S-left
+right = C-S-right
+up = C-S-up
+down = C-S-down
+
 
 [cmd+control]
 1 = M-C-1
@@ -186,3 +197,8 @@ w = M-C-w
 x = M-C-x
 y = M-C-y
 z = M-C-z
+
+left = M-C-left
+right = M-C-right
+up = M-C-up
+down = M-C-down
