@@ -17,11 +17,11 @@ alias more='less'
 
 alias mtar='tar --exclude="*.DS_Store" --no-acls --no-fflags --no-xattr --no-mac-metadata'
 
-alias gr="grep -r"
+alias gr='grep -r'
 
-alias k="kill -9 $(ps -aux | fzf --header-lines=1 | awk '{print $2}')"
+alias k='kill -9 $(ps -aux | fzf --header-lines=1 | awk "{print $2}")'
 
-alias j="fg %$(jobs -l | fzf | awk -F '[][]' '{print $2}')"
+# alias j='fg %$(jobs -l | fzf | awk -F "[][]" "{print $2}")'
 
 {{ if lookPath "git" }}
 alias g='git'
