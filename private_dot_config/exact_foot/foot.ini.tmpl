@@ -8,7 +8,7 @@ include={{ (joinPath .chezmoi.homeDir ".config/foot/themes/current.ini") }}
 
 shell={{ .env.shellPath }} --login
 # login-shell=no
-# term=foot (or xterm-256color if built with -Dterminfo=disabled)
+term=xterm-256color
 
 # app-id=foot
 # title=foot
@@ -44,8 +44,10 @@ bold-text-in-bright=yes
 term=xterm-256color
 
 [bell]
+# system=yes
 # urgent=no
 # notify=no
+# visual=no
 # command=
 # command-focused=no
 
