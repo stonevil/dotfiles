@@ -7,7 +7,7 @@ vim:ft=xml.gotexttmpl
 	<core>
 		<decoration>server</decoration>
 		<gap>2</gap>
-		<adaptiveSync>no</adaptiveSync>
+		<adaptiveSync>yes</adaptiveSync>
 		<allowTearing>no</allowTearing>
 		<autoEnableOutputs>yes</autoEnableOutputs>
 		<reuseOutputMode>no</reuseOutputMode>
@@ -91,12 +91,8 @@ vim:ft=xml.gotexttmpl
 		<drawContents>yes</drawContents>
 		<!-- Borders are effectively 8 pixels wide regardless of visual appearance -->
 		<minimumArea>8</minimumArea>
-
-		<!--
-			Set cornerRange to a positive value to increase the size of corner regions for mouse actions and diagonal window resizing. When omitted, the default size of the corner region is half of the titlebar height.
-
-			<cornerRange>8</cornerRange>
-		-->
+		<!-- Set cornerRange to a positive value to increase the size of corner regions for mouse actions and diagonal window resizing. When omitted, the default size of the corner region is half of the titlebar height. -->
+		<cornerRange>8</cornerRange>
 	</resize>
 
 	<focus>
@@ -182,12 +178,12 @@ vim:ft=xml.gotexttmpl
 			<action name="Execute" command="noctalia msg brightness-down current" />
 		</keybind>
 
-{{- if .tags.zephyrus.enabled }}
+{{ if .tags.zephyrus.enabled -}}
 		<!-- Execute ROG Control Center for ASUS ROG Laptops -->
 		<keybind key="XF86Launch1">
 			<action name="Execute" command="rog-control-center" />
 		</keybind>
-{{- end }}
+{{ end -}}
 
 		<keybind key="XF86TouchpadToggle">
 			<action name="Execute" command="" />
