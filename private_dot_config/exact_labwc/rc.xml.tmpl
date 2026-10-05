@@ -66,11 +66,11 @@ vim:ft=xml.gotexttmpl
 	</theme>
 
 	<windowSwitcher preview="yes" outlines="yes" unshade="no">
-		<osd show="yes" style="thumbnail" output="all" thumbnailLabelFormat="%T" />
+		<osd show="yes" style="thumbnail" output="all" thumbnailLabelFormat="%T"/>
 		<fields>
-			<field content="icon" width="5%" />
-			<field content="desktop_entry_name" width="30%" />
-			<field content="title" width="65%" />
+			<field content="icon" width="5%"/>
+			<field content="desktop_entry_name" width="30%"/>
+			<field content="title" width="65%"/>
 		</fields>
 	</windowSwitcher>
 
@@ -103,10 +103,10 @@ vim:ft=xml.gotexttmpl
 
 	<snapping>
 		<!-- Set inner and outer range to 0 to disable window snapping completely -->
-		<range inner="0" outer="0" />
+		<range inner="0" outer="0"/>
 		<cornerRange>50</cornerRange>
 		<overlay enabled="yes">
-			<delay inner="500" outer="500" />
+			<delay inner="500" outer="500"/>
 		</overlay>
 		<topMaximize>no</topMaximize>
 		<notifyClient>always</notifyClient>
@@ -139,15 +139,15 @@ vim:ft=xml.gotexttmpl
 
 	<!-- Percent based regions based on output usable area, % char is required -->
 	<regions>
-		<region name="top-left" x="0%" y="0%" height="50%" width="50%" />
-		<region name="top" x="0%" y="0%" height="50%" width="100%" />
-		<region name="top-right" x="50%" y="0%" height="50%" width="50%" />
-		<region name="left" x="0%" y="0%" height="100%" width="50%" />
-		<region name="center" x="20%" y="10%" height="80%" width="60%" />
-		<region name="right" x="50%" y="0%" height="100%" width="50%" />
-		<region name="bottom-left" x="0%" y="50%" height="50%" width="50%" />
-		<region name="bottom" x="0%" y="50%" height="50%" width="100%" />
-		<region name="bottom-right" x="50%" y="50%" height="50%" width="50%" />
+		<region name="top-left" x="0%" y="0%" height="50%" width="50%"/>
+		<region name="top" x="0%" y="0%" height="50%" width="100%"/>
+		<region name="top-right" x="50%" y="0%" height="50%" width="50%"/>
+		<region name="left" x="0%" y="0%" height="100%" width="50%"/>
+		<region name="center" x="20%" y="10%" height="80%" width="60%"/>
+		<region name="right" x="50%" y="0%" height="100%" width="50%"/>
+		<region name="bottom-left" x="0%" y="50%" height="50%" width="50%"/>
+		<region name="bottom" x="0%" y="50%" height="50%" width="100%"/>
+		<region name="bottom-right" x="50%" y="50%" height="50%" width="50%"/>
 	</regions>
 
 	<keyboard>
@@ -158,110 +158,110 @@ vim:ft=xml.gotexttmpl
 
 		<!-- Media Keys -->
 		<keybind key="XF86_AudioRaiseVolume">
-			<action name="Execute" command="noctalia msg volume-up" />
+			<action name="Execute" command="noctalia msg volume-up"/>
 		</keybind>
 		<keybind key="XF86_AudioLowerVolume">
-			<action name="Execute" command="noctalia msg volume-down" />
+			<action name="Execute" command="noctalia msg volume-down"/>
 		</keybind>
 		<keybind key="XF86_AudioMute">
-			<action name="Execute" command="noctalia msg volume-mute" />
+			<action name="Execute" command="noctalia msg volume-mute"/>
 		</keybind>
 		<keybind key="XF86AudioMicMute">
-			<action name="Execute" command="noctalia msg mic-mute" />
+			<action name="Execute" command="noctalia msg mic-mute"/>
 		</keybind>
 
 		<!-- Monitor Brightness Keys -->
 		<keybind key="XF86_MonBrightnessUp">
-			<action name="Execute" command="noctalia msg brightness-up current" />
+			<action name="Execute" command="noctalia msg brightness-up current"/>
 		</keybind>
 		<keybind key="XF86_MonBrightnessDown">
-			<action name="Execute" command="noctalia msg brightness-down current" />
+			<action name="Execute" command="noctalia msg brightness-down current"/>
 		</keybind>
 
 {{ if .tags.zephyrus.enabled -}}
 		<!-- Execute ROG Control Center for ASUS ROG Laptops -->
 		<keybind key="XF86Launch1">
-			<action name="Execute" command="rog-control-center" />
+			<action name="Execute" command="rog-control-center"/>
 		</keybind>
 {{ end -}}
 
 		<keybind key="XF86TouchpadToggle">
-			<action name="Execute" command="" />
+			<action name="Execute" command=""/>
 		</keybind>
 
 		<!-- Execute Applications -->
 		<keybind key="W-Return">
-			<action name="Execute" command="foot" />
+			<action name="Execute" command="foot"/>
 		</keybind>
 		<keybind key="W-C-Return">
-			<action name="Execute" command="dolphin" />
+			<action name="Execute" command="dolphin"/>
 		</keybind>
 		<keybind key="W-C-A-Return">
-			<action name="Execute" command="foot -e yazi" />
+			<action name="Execute" command="foot -e yazi"/>
 		</keybind>
 		<keybind key="W-C-b">
-			<action name="Execute" command="librewolf" />
+			<action name="Execute" command="librewolf"/>
 		</keybind>
 		<keybind key="W-C-m">
-			<action name="Execute" command="thunderbird" />
+			<action name="Execute" command="thunderbird"/>
 		</keybind>
 		<keybind key="W-Space">
 			<action name="Execute" command="noctalia msg panel-toggle launcher"/>
 		</keybind>
 		<keybind key="W-S-v">
-			<action name="Execute" command="noctalia msg panel-toggle clipboard" />
+			<action name="Execute" command="noctalia msg panel-toggle clipboard"/>
 		</keybind>
 		<keybind key="W-C-n">
-			<action name="Execute" command="noctalia msg panel-toggle control-center" />
+			<action name="Execute" command="noctalia msg panel-toggle control-center"/>
 		</keybind>
 
 		<!-- Toggle Dock -->
 		<keybind key="W-C-d">
-			<action name="Execute" command="noctalia msg bar-toggle" />
+			<action name="Execute" command="noctalia msg bar-toggle"/>
 		</keybind>
 
 		<!-- Windows Switcher -->
 		<keybind key="W-Tab">
-			<action name="NextWindow" />
+			<action name="NextWindow"/>
 		</keybind>
 		<keybind key="W-S-Tab">
-			<action name="PreviousWindow" />
+			<action name="PreviousWindow"/>
 		</keybind>
 
 		<!-- Close Window -->
 		<keybind key="W-C-q">
-			<action name="Close" />
+			<action name="Close"/>
 		</keybind>
 
 		<!-- Toggle Windows State -->
 		<keybind key="W-C-f">
-			<action name="ToggleMaximize" />
+			<action name="ToggleMaximize"/>
 		</keybind>
 		<keybind key="W-A-f">
-			<action name="ToggleMaximize" direction="vertical" />
+			<action name="ToggleMaximize" direction="vertical"/>
 		</keybind>
 		<keybind key="W-C-p">
-			<action name="ToggleOmnipresent" />
+			<action name="ToggleOmnipresent"/>
 		</keybind>
 		<keybind key="W-C-h">
-			<action name="ToggleShade" />
+			<action name="ToggleShade"/>
 		</keybind>
 
 		<!-- Snap to Edges -->
 		<keybind key="W-A-Left">
-			 <action name="ToggleSnapToEdge" direction="left" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="left" combine="yes"/>
 		</keybind>
 		<keybind key="W-A-Right">
-			 <action name="ToggleSnapToEdge" direction="right" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="right" combine="yes"/>
 		</keybind>
 		<keybind key="W-A-Up">
-			 <action name="ToggleSnapToEdge" direction="up" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="up" combine="yes"/>
 		</keybind>
 		<keybind key="W-A-Down">
-			 <action name="ToggleSnapToEdge" direction="down" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="down" combine="yes"/>
 		</keybind>
 		<keybind key="W-A-c">
-			 <action name="ToggleSnapToRegion" region="center" />
+			 <action name="ToggleSnapToRegion" region="center"/>
 		</keybind>
 
 		<!-- Go to Desktop by number -->
@@ -338,31 +338,31 @@ vim:ft=xml.gotexttmpl
 
 		<!-- Screenshots -->
 		<keybind key="W-S-3">
-			<action name="Execute" command="hyprshot -m output" />
+			<action name="Execute" command="hyprshot -m output"/>
 		</keybind>
 		<keybind key="W-S-4">
-			<action name="Execute" command="hyprshot -m window" />
+			<action name="Execute" command="hyprshot -m window"/>
 		</keybind>
 		<keybind key="W-S-5">
-			<action name="Execute" command="hyprshot -m region" />
+			<action name="Execute" command="hyprshot -m region"/>
 		</keybind>
 		<keybind key="PRINT">
-			<action name="Execute" command="hyprshot -m output" />
+			<action name="Execute" command="hyprshot -m output"/>
 		</keybind>
 		<keybind key="S-PRINT">
-			<action name="Execute" command="hyprshot -m region" />
+			<action name="Execute" command="hyprshot -m region"/>
 		</keybind>
 
 		<!-- System State -->
 		<keybind key="W-C-l">
-			<action name="Execute" command="noctalia msg mic-mute" />
-			<action name="Execute" command="noctalia msg media pause" />
-			<action name="Execute" command="noctalia msg session lock" />
+			<action name="Execute" command="noctalia msg mic-mute"/>
+			<action name="Execute" command="noctalia msg media pause"/>
+			<action name="Execute" command="noctalia msg session lock"/>
 		</keybind>
 
 		<!-- Menus -->
 		<keybind key="W-A-Space">
-			<action name="ShowMenu" menu="root-menu" />
+			<action name="ShowMenu" menu="root-menu"/>
 			<position>
 				<x>center</x>
 				<y>center</y>
@@ -387,39 +387,39 @@ vim:ft=xml.gotexttmpl
 
 		<context name="Frame">
 			<mousebind button="W-C-Left" action="Press">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="W-C-Left" action="Drag">
-				<action name="Move" />
+				<action name="Move"/>
 			</mousebind>
 			<mousebind button="W-C-Right" action="Press">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="W-C-Right" action="Drag">
-				<action name="Resize" />
+				<action name="Resize"/>
 			</mousebind>
 		</context>
 
 		<context name="Border">
 			<mousebind button="Left" action="Press">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="Left" action="Drag">
-				<action name="Resize" />
+				<action name="Resize"/>
 			</mousebind>
 		</context>
 
 		<context name="TitleBar">
 			<mousebind button="Left" action="Press">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="Right" action="Click">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="Lef" action="DoubleClick">
 				<action name="if">
@@ -433,18 +433,18 @@ vim:ft=xml.gotexttmpl
 				</action>
 			</mousebind>
 			<mousebind direction="Up" action="Scroll">
-				<action name="Unshade" />
-				<action name="Focus" />
+				<action name="Unshade"/>
+				<action name="Focus"/>
 			</mousebind>
 			<mousebind direction="Down" action="Scroll">
-				<action name="Unfocus" />
-				<action name="Shade" />
+				<action name="Unfocus"/>
+				<action name="Shade"/>
 			</mousebind>
 		</context>
 
 		<context name="Title">
 			<mousebind button="Left" action="Drag">
-				<action name="Move" />
+				<action name="Move"/>
 			</mousebind>
 			<mousebind button="Lef" action="DoubleClick">
 				<action name="if">
@@ -458,94 +458,94 @@ vim:ft=xml.gotexttmpl
 				</action>
 			</mousebind>
 			<mousebind button="Right" action="Click">
-				<action name="ShowMenu" menu="client-menu" />
+				<action name="ShowMenu" menu="client-menu"/>
 			</mousebind>
 		</context>
 
 		<context name="Maximize">
 			<mousebind button="Left" action="Click">
-				<action name="ToggleMaximize" />
+				<action name="ToggleMaximize"/>
 			</mousebind>
 			<mousebind button="Right" action="Click">
-				<action name="ToggleMaximize" direction="vertical" />
+				<action name="ToggleMaximize" direction="vertical"/>
 			</mousebind>
 			<mousebind button="Middle" action="Click">
-				<action name="ToggleMaximize" direction="horizontal" />
+				<action name="ToggleMaximize" direction="horizontal"/>
 			</mousebind>
 		</context>
 
 		<context name="WindowMenu">
 			<mousebind button="Left" action="Click">
-				<action name="ShowMenu" menu="client-menu" atCursor="no" />
+				<action name="ShowMenu" menu="client-menu" atCursor="no"/>
 			</mousebind>
 			<mousebind button="Right" action="Click">
-				<action name="ShowMenu" menu="client-menu" atCursor="no" />
+				<action name="ShowMenu" menu="client-menu" atCursor="no"/>
 			</mousebind>
 		</context>
 
 		<context name="Icon">
 			<mousebind button="Left" action="Click">
-				<action name="ShowMenu" menu="client-menu" atCursor="no" />
+				<action name="ShowMenu" menu="client-menu" atCursor="no"/>
 			</mousebind>
 			<mousebind button="Right" action="Click">
-				<action name="ShowMenu" menu="client-menu" atCursor="no" />
+				<action name="ShowMenu" menu="client-menu" atCursor="no"/>
 			</mousebind>
 		</context>
 
 		<context name="Shade">
 			<mousebind button="Left" action="Click">
-				<action name="ToggleShade" />
+				<action name="ToggleShade"/>
 			</mousebind>
 		</context>
 
 		<context name="AllDesktops">
 			<mousebind button="Left" action="Click">
-				<action name="ToggleOmnipresent" />
+				<action name="ToggleOmnipresent"/>
 			</mousebind>
 		</context>
 
 		<context name="Iconify">
 			<mousebind button="Left" action="Click">
-				<action name="Iconify" />
+				<action name="Iconify"/>
 			</mousebind>
 		</context>
 
 		<context name="Close">
 			<mousebind button="Left" action="Click">
-				<action name="Close" />
+				<action name="Close"/>
 			</mousebind>
 		</context>
 
 		<context name="Client">
 			<mousebind button="Left" action="Press">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="Middle" action="Press">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="Right" action="Press">
-				<action name="Focus" />
-				<action name="Raise" />
+				<action name="Focus"/>
+				<action name="Raise"/>
 			</mousebind>
 		</context>
 
 		<context name="Root">
 			<mousebind button="Left" action="Press">
-				<action name="ShowMenu" menu="root-menu" />
+				<action name="ShowMenu" menu="root-menu"/>
 			</mousebind>
 			<mousebind button="Right" action="Press">
-				<action name="ShowMenu" menu="root-menu" />
+				<action name="ShowMenu" menu="root-menu"/>
 			</mousebind>
 			<mousebind button="Middle" action="Press">
-				<action name="ShowMenu" menu="root-menu" />
+				<action name="ShowMenu" menu="root-menu"/>
 			</mousebind>
 			<mousebind direction="Up" action="Scroll">
-				<action name="GoToDesktop" to="left" wrap="yes" />
+				<action name="GoToDesktop" to="left" wrap="yes"/>
 			</mousebind>
 			<mousebind direction="Down" action="Scroll">
-				<action name="GoToDesktop" to="right" wrap="yes" />
+				<action name="GoToDesktop" to="right" wrap="yes"/>
 			</mousebind>
 		</context>
 	</mouse>
@@ -559,13 +559,13 @@ vim:ft=xml.gotexttmpl
 	<tablet rotate="0" mouseEmulation="no">
 		<!-- <mapToOutput>HDMI-A-1</mapToOutput> -->
 		<!-- Active area dimensions are in mm -->
-		<area top="0.0" left="0.0" width="0.0" height="0.0" />
-		<map button="Tip" to="Left" />
-		<map button="Stylus" to="Right" />
-		<map button="Stylus2" to="Middle" />
+		<area top="0.0" left="0.0" width="0.0" height="0.0"/>
+		<map button="Tip" to="Left"/>
+		<map button="Stylus" to="Right"/>
+		<map button="Stylus2" to="Middle"/>
 	</tablet>
 
-	<tabletTool motion="absolute" relativeMotionSensitivity="1.0" />
+	<tabletTool motion="absolute" relativeMotionSensitivity="1.0"/>
 
 	<libinput>
 		<device category="default">
