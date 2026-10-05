@@ -142,19 +142,17 @@ vim:ft=xml.gotexttmpl
 	-->
 
 	<!-- Percent based regions based on output usable area, % char is required -->
-	<!--
-		<regions>
-			<region name="top-left" x="0%" y="0%" height="50%" width="50%" />
-			<region name="top" x="0%" y="0%" height="50%" width="100%" />
-			<region name="top-right" x="50%" y="0%" height="50%" width="50%" />
-			<region name="left" x="0%" y="0%" height="100%" width="50%" />
-			<region name="center" x="10%" y="10%" height="80%" width="80%" />
-			<region name="right" x="50%" y="0%" height="100%" width="50%" />
-			<region name="bottom-left" x="0%" y="50%" height="50%" width="50%" />
-			<region name="bottom" x="0%" y="50%" height="50%" width="100%" />
-			<region name="bottom-right" x="50%" y="50%" height="50%" width="50%" />
-		</regions>
-	-->
+	<regions>
+		<region name="top-left" x="0%" y="0%" height="50%" width="50%" />
+		<region name="top" x="0%" y="0%" height="50%" width="100%" />
+		<region name="top-right" x="50%" y="0%" height="50%" width="50%" />
+		<region name="left" x="0%" y="0%" height="100%" width="50%" />
+		<region name="center" x="20%" y="10%" height="80%" width="60%" />
+		<region name="right" x="50%" y="0%" height="100%" width="50%" />
+		<region name="bottom-left" x="0%" y="50%" height="50%" width="50%" />
+		<region name="bottom" x="0%" y="50%" height="50%" width="100%" />
+		<region name="bottom-right" x="50%" y="50%" height="50%" width="50%" />
+	</regions>
 
 	<keyboard>
 		<numlock>off</numlock>
@@ -255,19 +253,19 @@ vim:ft=xml.gotexttmpl
 
 		<!-- Snap to Edges -->
 		<keybind key="W-A-Left">
-			 <action name="SnapToEdge" direction="left" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="left" combine="yes" />
 		</keybind>
 		<keybind key="W-A-Right">
-			 <action name="SnapToEdge" direction="right" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="right" combine="yes" />
 		</keybind>
 		<keybind key="W-A-Up">
-			 <action name="SnapToEdge" direction="up" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="up" combine="yes" />
 		</keybind>
 		<keybind key="W-A-Down">
-			 <action name="SnapToEdge" direction="down" combine="yes" />
+			 <action name="ToggleSnapToEdge" direction="down" combine="yes" />
 		</keybind>
 		<keybind key="W-A-c">
-			 <action name="SnapToEdge" direction="center" combine="yes" />
+			 <action name="ToggleSnapToRegion" region="center" />
 		</keybind>
 
 		<!-- Go to Desktop by number -->
