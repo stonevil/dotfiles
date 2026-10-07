@@ -59,6 +59,9 @@ right = end
 
 
 [alt:A]
+# macOS like move cursor by word
+left = C-left
+right = C-right
 
 
 [cmd+alt]
