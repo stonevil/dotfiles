@@ -225,4 +225,21 @@ sudo sh -c 'cat > /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf' << 
 wifi.powersave=2
 EOF
 	{{ end }}
+
+	{{ if (eq .tags.boostoff.enabled true) }}
+sudo sh -c 'cat > /etc/systemd/system/intel-boostoff.service' << EOF
+[Unit]
+Description=Disable Turbo Boost at Startup
+After=sysinit.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo'
+ExecStop=/bin/sh -c 'echo 0 > /sys/devices/system/cpu/intel_pstate/no_turbo'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+	{{ end }}
 {{ end }}

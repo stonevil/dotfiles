@@ -86,6 +86,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $zephyrus := false }}
 {{ $nvidia := false }}
 {{ $thinkpad := false }}
+{{ $boostoff := false }}
 {{ $xfce := false }}
 {{ $plasma := false }}
 {{ $labwc := false }}
@@ -1467,6 +1468,25 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"aur/libva-intel-driver-irql",
 	]
 	fedora = [
+	]
+
+[data.tags.boostoff]
+	enabled = {{ if or ($boostoff) {{ end }}
+	post.arch = [
+		"sudo systemctl daemon-reload",
+		"sudo systemctl enable --now intel-boostoff.service",
+	]
+	post.fedora = [
+		"sudo systemctl daemon-reload",
+		"sudo systemctl enable --now intel-boostoff.service",
+	]
+	remove.arch = [
+		"sudo systemctl daemon-reload",
+		"sudo systemctl disable --now intel-boostoff.service",
+	]
+	remove.fedora = [
+		"sudo systemctl daemon-reload",
+		"sudo systemctl disable --now intel-boostoff.service",
 	]
 
 [data.tags.nvidia]
