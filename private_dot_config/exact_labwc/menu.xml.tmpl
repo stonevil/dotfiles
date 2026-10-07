@@ -1,3 +1,7 @@
+{{- /*
+	vim:ft=xml.gotexttmpl
+*/ -}}
+
 <openbox_menu>
 	<menu id="client-menu">
 		<item label="  Minimize">
@@ -43,7 +47,14 @@
 			<item label="  NeoVim">
 				<action name="Execute" command="foot -e nvim" />
 			</item>
+			<item label="󰪶  Yazi">
+				<action name="Execute" command="foot -e yazi" />
+			</item>
+			<item label="  Chezmoi">
+				<action name="Execute" command="foot -D ~/.local/share/chezmoi" />
+			</item>
 		</menu>
+	{{ if .tags.browsers.enabled -}}
 		<menu id="web" label="󰖟  Web">
 			<item label="  Librewolf">
 				<action name="Execute" command="librewolf" />
@@ -52,14 +63,27 @@
 				<action name="Execute" command="chromium" />
 			</item>
 		</menu>
+	{{ end -}}
 		<menu id="office" label="󰏆  Office">
 			<item label="󱢴  File Browser">
 				<action name="Execute" command="dolphin" />
 			</item>
+	{{ if .tags.mail.enabled -}}
 			<item label="  Mail">
 				<action name="Execute" command="thunderbird" />
 			</item>
+	{{ end -}}
 		</menu>
+	{{ if .tags.plasma.enabled -}}
+		<menu id="office" label="󱁤  Tools">
+			<item label="󰍺  KDE KRDC">
+				<action name="Execute" command="krdc" />
+			</item>
+			<item label="󰨇  KDE System Monitor">
+				<action name="Execute" command="plasma-systemmonitor" />
+			</item>
+		</menu>
+	{{ end -}}
 		<separator />
 		<menu id="Next" label="  Running...">
 			<menu id="client-list-combined-menu" />

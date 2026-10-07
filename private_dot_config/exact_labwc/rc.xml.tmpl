@@ -193,18 +193,27 @@ vim:ft=xml.gotexttmpl
 		<keybind key="W-Return">
 			<action name="Execute" command="foot"/>
 		</keybind>
+{{ if .tags.plasma.enabled -}}
 		<keybind key="W-C-Return">
 			<action name="Execute" command="dolphin"/>
 		</keybind>
+{{ end -}}
 		<keybind key="W-C-A-Return">
 			<action name="Execute" command="foot -e yazi"/>
 		</keybind>
+		<keybind key="W-C-A-S-Return">
+			<action name="Execute" command="foot -D ~/.local/share/chezmoi"/>
+		</keybind>
+{{ if .tags.browsers.enabled -}}
 		<keybind key="W-C-b">
 			<action name="Execute" command="librewolf"/>
 		</keybind>
+{{ end -}}
+{{ if .tags.office.enabled -}}
 		<keybind key="W-C-m">
 			<action name="Execute" command="thunderbird"/>
 		</keybind>
+{{ end -}}
 		<keybind key="W-Space">
 			<action name="Execute" command="noctalia msg panel-toggle launcher"/>
 		</keybind>
