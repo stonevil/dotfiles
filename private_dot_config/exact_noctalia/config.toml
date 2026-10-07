@@ -137,7 +137,6 @@ enabled = [
     "yocraft/battery-widget",
     "grassyloki/kwallet-secrets",
     "andrewdems/printers",
-    "tmelik/system-monitor",
     "noctalia/screen_recorder"
 ]
 
