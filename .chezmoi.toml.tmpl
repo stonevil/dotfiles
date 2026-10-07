@@ -1472,7 +1472,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.boostoff]
-	enabled = {{ if or ($boostoff) {{ end }}
+	enabled = {{ $boostoff }}
 	post.arch = [
 		"sudo systemctl daemon-reload",
 		"sudo systemctl enable --now intel-boostoff.service",
