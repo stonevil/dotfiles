@@ -441,15 +441,7 @@ vim:ft=xml.gotexttmpl
 				<action name="Move"/>
 			</mousebind>
 			<mousebind button="Left" action="DoubleClick">
-				<action name="If">
-					<shaded>no</shaded>
-					<then>
-						<action name="Shade"/>
-					</then>
-					<else>
-						<action name="Unshade"/>
-					</else>
-				</action>
+				<action name="ToggleShade"/>
 			</mousebind>
 			<mousebind button="Right" action="Click">
 				<action name="ShowMenu" menu="client-menu"/>
