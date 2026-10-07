@@ -132,6 +132,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "zephyrus" }}{{ $zephyrus = .tags.zephyrus.enabled }}{{ end }}
 	{{ if hasKey .tags "nvidia" }}{{ $nvidia = .tags.nvidia.enabled }}{{ end }}
 	{{ if hasKey .tags "thinkpad" }}{{ $thinkpad = .tags.thinkpad.enabled }}{{ end }}
+	{{ if hasKey .tags "boostoff" }}{{ $boostoff = .tags.boostoff.enabled }}{{ end }}
 	{{ if hasKey .tags "xfce" }}{{ $xfce = .tags.xfce.enabled }}{{ end }}
 	{{ if hasKey .tags "plasma" }}{{ $plasma = .tags.plasma.enabled }}{{ end }}
 	{{ if hasKey .tags "labwc" }}{{ $labwc = .tags.labwc.enabled }}{{ end }}
@@ -184,10 +185,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ $zephyrus = promptBool "Is this ASUS Zephyrus line laptop" $zephyrus }}
 	{{ if $zephyrus }}
 		{{ $nvidia = promptBool "Enable Nvidia GPU" $nvidia }}
+		{{ $boostoff = promptBool "Disable Intel CPU Frequency Boost" $boostoff }}
 	{{ end }}
 
 	{{ if eq $zephyrus false }}
 		{{ $thinkpad = promptBool "Is this Lenovo Thinkpad line laptop" $thinkpad }}
+		{{ $boostoff = promptBool "Disable Intel CPU Frequency Boost" $boostoff }}
 	{{ end }}
 
 	{{ $plasma = promptBool "KDE Plasma DE" $plasma }}
