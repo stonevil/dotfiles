@@ -829,6 +829,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.syncTools]
 	enabled = {{ if ($syncTools) }} true {{ else }} false {{ end }}
 	darwin = [
+		"syncthing-app",
 	]
 	arch = [
 		"extra/syncthing",
