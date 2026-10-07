@@ -390,15 +390,11 @@ vim:ft=xml.gotexttmpl
 
 		<context name="Frame">
 			<mousebind button="W-C-Left" action="Press">
-				<action name="Focus"/>
-				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="W-C-Left" action="Drag">
 				<action name="Move"/>
 			</mousebind>
 			<mousebind button="W-C-Right" action="Press">
-				<action name="Focus"/>
-				<action name="Raise"/>
 			</mousebind>
 			<mousebind button="W-C-Right" action="Drag">
 				<action name="Resize"/>
@@ -413,6 +409,12 @@ vim:ft=xml.gotexttmpl
 			<mousebind button="Left" action="Drag">
 				<action name="Resize"/>
 			</mousebind>
+			<mousebind button="Left" action="DoubleClick">
+				<action name="ToggleMaximize" direction="vertical"/>
+			</mousebind>
+			<mousebind button="A-Left" action="DoubleClick">
+				<action name="ToggleMaximize" direction="vertical"/>
+			</mousebind>
 		</context>
 
 		<context name="TitleBar">
@@ -423,17 +425,6 @@ vim:ft=xml.gotexttmpl
 			<mousebind button="Right" action="Click">
 				<action name="Focus"/>
 				<action name="Raise"/>
-			</mousebind>
-			<mousebind button="Left" action="DoubleClick">
-				<action name="if">
-					<shaded>no</shaded>
-					<then>
-						<action name="Shade"/>
-					</then>
-					<else>
-						<action name="Unshade"/>
-					</else>
-				</action>
 			</mousebind>
 			<mousebind direction="Up" action="Scroll">
 				<action name="Unshade"/>
@@ -450,7 +441,7 @@ vim:ft=xml.gotexttmpl
 				<action name="Move"/>
 			</mousebind>
 			<mousebind button="Left" action="DoubleClick">
-				<action name="if">
+				<action name="If">
 					<shaded>no</shaded>
 					<then>
 						<action name="Shade"/>
