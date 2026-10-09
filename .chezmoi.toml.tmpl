@@ -107,6 +107,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $tor := false }}
 {{ $torrent := false }}
 {{ $utils := false }}
+{{ $security := false }}
 
 {{ if hasKey . "tags" }}
 	{{ if hasKey .tags "neovimCli" }}{{ $neovimCli = .tags.neovimCli.enabled }}{{ end }}
@@ -153,6 +154,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "tor" }}{{ $tor = .tags.tor.enabled }}{{ end }}
 	{{ if hasKey .tags "torrent" }}{{ $torrent = .tags.torrent.enabled }}{{ end }}
 	{{ if hasKey .tags "utils" }}{{ $utils = .tags.utils.enabled }}{{ end }}
+	{{ if hasKey .tags "security" }}{{ $security = .tags.security.enabled }}{{ end }}
 {{ end }}
 
 {{ $neovimCli = promptBool "NeoVIM IDE" $neovimCli }}
@@ -218,6 +220,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ $tor = promptBool "Tor network apps, like Tor Browser" $tor }}
 	{{ $torrent = promptBool "Torrent network apps, like qBittorrent" $torrent }}
 	{{ $utils = promptBool "Utils apps, like OnyX or KDiskMark" $utils }}
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" }}
+	{{ $security = promptBool "Enable extra security like USBGuard" $security }}
 {{ end }}
 
 {{ $tabs := 2 }}
@@ -1437,6 +1443,22 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"kicad-doc",
 		"kicad-packages3d",
 		"pcb",
+	]
+
+[data.tags.security]
+	enabled = {{ $security }}
+	arch =- [
+		"extra/usbguard",
+		"aur/usbguard-notifier",
+	]
+	fedora = [
+		"usbguard",
+		"usbguard-notifier",
+	]
+	post.arch = [
+		"sudo systemctl daemon-reload",
+		"sudo systemctl enable --now usbguard.service",
+		"sudo systemctl enable --now usbguard-dbus.service",
 	]
 
 [data.tags.laptop]
