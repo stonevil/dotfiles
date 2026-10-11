@@ -17,7 +17,7 @@ vim:ft=bash.gotexttmpl
 {{- if index . "pip" }}
 	echo "PYTHON3: install pip3 packages"
 	for pip_p in {{ join " " (.pip | uniq | sortAlpha) }}; do
-		uv_install "$pip_p"
+		pip_install "$pip_p"
 	done
 {{- end }}
 
