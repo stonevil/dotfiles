@@ -749,26 +749,23 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"deno",
 		"atomicparsley",
 	]
-	darwinhead = [
-		"yt-dlp",
-	]
 	arch = [
 		"extra/imagemagick",
 		"extra/ffmpeg",
-		"extra/yt-dlp",
-		"extra/yt-dlp-ejs",
 		"extra/deno",
 		"extra/atomicparsley",
+		"extra/yt-dlp",
+		"extra/yt-dlp-esj",
 	]
 	fedora = [
 		"ImageMagick",
 		"AtomicParsley"
 	]
 	uv = [
-		{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}
-		"yt-dlp",
-		"yt-dlp-ejs",
-		{{- end }}
+		{{ if eq .chezmoi.os "darwin" }}"yt-dlp",{{ end }}
+	]
+	pip = [
+		{{ if eq .chezmoi.os "darwin" }}"yt-dlp-esj",{{ end }}
 	]
 	npm = [
 		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"deno",{{ end }}
@@ -1447,13 +1444,11 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 [data.tags.security]
 	enabled = {{ $security }}
-	arch =- [
+	arch = [
 		"extra/usbguard",
-		"aur/usbguard-notifier",
 	]
 	fedora = [
 		"usbguard",
-		"usbguard-notifier",
 	]
 	post.arch = [
 		"sudo systemctl daemon-reload",
@@ -1471,8 +1466,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/upower",
 		"extra/easyeffects",
 		"extra/lsp-plugins",
-		"aur/powerstat",
 		"extra/sof-firmware",
+		"aur/powerstat",
 	]
 	fedora = [
 		"usbutils",
@@ -1547,15 +1542,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/rog-control-center",
 		"extra/power-profiles-daemon",
 		"aur/asus-fan-control-ec-git",
-	]
-	pre.arch = [
-		"cd /tmp && wget 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8b15a6b0e9a3fa35' -O g14.sec",
-		"sudo pacman-key -a /tmp/g14.sec",
-		"sudo pacman-key --recv-keys 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
-		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
-		"sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
-		"sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35",
-		"grep -qF '[g14]' /etc/pacman.conf || echo -e '\n[g14]\nServer = https://arch.asus-linux.org' | sudo tee -a /etc/pacman.conf >/dev/null",
 	]
 	post.arch = [
 		"sudo systemctl enable --now power-profiles-daemon",
