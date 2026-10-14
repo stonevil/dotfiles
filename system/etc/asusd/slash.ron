@@ -1,0 +1,12 @@
+(
+    enabled: false,
+    brightness: 50,
+    display_interval: 0,
+    display_mode: Interfacing,
+    show_on_boot: true,
+    show_on_shutdown: true,
+    show_on_sleep: true,
+    show_on_battery: true,
+    show_battery_warning: true,
+    show_on_lid_closed: true,
+)
