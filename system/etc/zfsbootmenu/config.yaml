@@ -1,0 +1,22 @@
+Global:
+  ManageImages: true
+  BootMountPoint: /efi
+  DracutConfDir: /etc/zfsbootmenu/dracut.conf.d
+  PreHooksDir: /etc/zfsbootmenu/generate-zbm.pre.d
+  PostHooksDir: /etc/zfsbootmenu/generate-zbm.post.d
+  InitCPIOConfig: /etc/zfsbootmenu/mkinitcpio.conf
+  InitCPIO: true
+  InitCPIOHookDirs:
+    - /etc/zfsbootmenu/initcpio
+    - /usr/lib/initcpio
+Components:
+  ImageDir: /efi/EFI/zbm
+  Versions: false
+  Enabled: false
+EFI:
+  ImageDir: /efi/EFI/zbm
+  Versions: false
+  Enabled: true
+Kernel:
+  Prefix: zfsbootmenu
+  CommandLine: loglevel=3 quiet pci=noaer acpi_backlight=native i915.enable_dpcd_backlight=1 rhgb rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableBacklighthandler=0 nvidia.NVreg_RegistryDwords=EnableBrightnessControl=0 noresume init_on_alloc=0 rw spl.spl_hostid=$(hostid) zroot/ROOT
