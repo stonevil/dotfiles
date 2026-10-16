@@ -1,0 +1,16 @@
+{{- /*
+vim:ft=bash.gotexttmpl
+*/ -}}
+#!/usr/bin/env bash
+
+trap "exit" INT
+
+# {{ .chezmoi.os }} hash: {{ include ".chezmoi.toml.tmpl" | sha256sum }}
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmoidata/*.toml")) }}
+# .chezmoidate/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+# {{ range (glob (print .chezmoi.sourceDir "/.chezmotemplates/*.tmpl")) }}
+# .chezmoitemplates/{{ . }}.toml {{ include . | sha256sum }} {{ end }}
+
+{{ template "keyd-default.conf.tmpl" . }}

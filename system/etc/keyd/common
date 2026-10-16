@@ -5,11 +5,14 @@
 
 
 [cmd:M]
-# forward and back
+# macOS like delete
+backspace = delete
+
+# macos like forward and back
 ] = A-right
 [ = A-left
 
-# switch directly to an open tab
+# macOS like switch directly to an open tab
 1 = A-1
 2 = A-2
 3 = A-3
