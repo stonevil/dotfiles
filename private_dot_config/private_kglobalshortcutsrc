@@ -1,5 +1,6 @@
 [ActivityManager]
 _k_friendly_name=Activity Manager
+switch-to-activity-16f72a05-ce3a-4fb3-b26b-a4a60cadb60d=none,none,Switch to activity "Default"
 switch-to-activity-29fdc040-b746-4520-87fb-81ac2ce19428=none,none,Switch to activity "Default"
 switch-to-activity-85fde78c-721c-4c64-9090-11773120c351=none,none,Switch to activity "Default"
 switch-to-activity-b0d6a87e-9343-46e6-b6bb-8e2ed133262d=none,none,Switch to activity "Default"
@@ -58,9 +59,9 @@ Cycle Overview=none,none,Cycle through Overview and Grid View
 Cycle Overview Opposite=none,none,Cycle through Grid View and Overview
 Decrease Opacity=none,none,Decrease Opacity of Active Window by 5%
 Edit Tiles=Meta+T,Meta+T,Toggle Tiles Editor
-Expose=Ctrl+F9,Ctrl+F9\tMeta+F9,Toggle Present Windows (Current desktop)
-ExposeAll=Launch (C)\tCtrl+F10,Launch (C)\tCtrl+F10\tMeta+F10,Toggle Present Windows (All desktops)
-ExposeClass=Ctrl+F7,Ctrl+F7\tMeta+F7,Toggle Present Windows (Window class)
+Expose=Ctrl+F9\tMeta+F9,Ctrl+F9\tMeta+F9,Toggle Present Windows (Current desktop)
+ExposeAll=Launch (C)\tCtrl+F10\tMeta+F10,Launch (C)\tCtrl+F10\tMeta+F10,Toggle Present Windows (All desktops)
+ExposeClass=Ctrl+F7\tMeta+F7,Ctrl+F7\tMeta+F7,Toggle Present Windows (Window class)
 ExposeClassCurrentDesktop=none,none,Toggle Present Windows (Window class on current desktop)
 Grid View=Meta+G,Meta+G,Toggle Grid View
 Increase Opacity=none,none,Increase Opacity of Active Window by 5%

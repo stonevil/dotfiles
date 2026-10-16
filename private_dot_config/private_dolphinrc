@@ -10,6 +10,7 @@ DirHistory[$e]=$HOME/Downloads/
 
 [General]
 OpenExternallyCalledFolderInNewTab=true
+ShowFullPathInTitlebar=true
 Version=202
 ViewPropsTimestamp=2025,10,5,5,0,16.587
 
@@ -21,7 +22,10 @@ Places Icons Static Size=22
 MenuBar=Disabled
 
 [PreviewSettings]
-Plugins=appimagethumbnail,audiothumbnail,glycin-heif,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,glycin-image-rs,jpegthumbnail,glycin-jxl,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,glycin-svg,svgthumbnail,webarchivethumbnail
+Plugins=glycin-image-rs,appimagethumbnail,audiothumbnail,glycin-heif,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,glycin-jxl,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,glycin-svg,svgthumbnail
 
 [UiSettings]
 ColorScheme=BreezeBlack
+
+[VersionControl]
+enabledPlugins=Git
