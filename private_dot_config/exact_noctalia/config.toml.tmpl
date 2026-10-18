@@ -1,3 +1,7 @@
+{{- /*
+	vim:ft=toml.gotexttmpl
+*/ -}}
+
 config_version = 14
 
 [bar.default]
@@ -132,12 +136,10 @@ position_vertical = "top_right"
 
 [plugins]
 enabled = [
-    "cleboost/asus-fans-controller-ec",
     "aristides/udiskie",
     "yocraft/battery-widget",
     "grassyloki/kwallet-secrets",
     "andrewdems/printers",
-    "noctalia/screen_recorder"
 ]
 
 [shell]
@@ -163,22 +165,19 @@ wallpaper_scheme = "vibrant"
     enable_community_templates = false
 
 [wallpaper.default]
-path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+path = {{ (joinPath .chezmoi.homeDir ".local/share/wallpapers/Alex_Zedra.jpg") | quote }}
 
 [wallpaper.last]
-path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+path = {{ (joinPath .chezmoi.homeDir ".local/share/wallpapers/Alex_Zedra.jpg") | quote }}
 
 [wallpaper.monitors.DP-1]
-path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+path = {{ (joinPath .chezmoi.homeDir ".local/share/wallpapers/Alex_Zedra.jpg") | quote }}
 
 [wallpaper.monitors.eDP-1]
-path = "/home/huginn/.local/share/wallpapers/Alex_Zedra.jpg"
+path = {{ (joinPath .chezmoi.homeDir ".local/share/wallpapers/Alex_Zedra.jpg") | quote }}
 
 [widget.clock]
-format = "{:%a  %b %d  %H:%M}"
-
-[widget.fan-control]
-type = "cleboost/asus-fans-controller-ec:fan-control"
+format = "{:%a   %b %d   %H:%M}"
 
 [widget.printer]
 type = "andrewdems/printers:printer"
