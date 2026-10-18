@@ -1,0 +1,11 @@
+[ElisaFileIndexer]
+RootPath[$e]=$HOME/Music
+
+[PlayerSettings]
+ShowSystemTrayIcon=true
+
+[UiSettings]
+ColorScheme=BreezeBlack
+
+[Views]
+ViewStylePreferences=Artist==ListStyle,Album==ListStyle
