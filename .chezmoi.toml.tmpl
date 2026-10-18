@@ -1497,12 +1497,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 [data.tags.boostoff]
 	enabled = {{ $boostoff }}
 	post.arch = [
-		"sudo systemctl daemon-reload",
-		"sudo systemctl enable --now intel-boostoff.service",
 	]
 	post.fedora = [
-		"sudo systemctl daemon-reload",
-		"sudo systemctl enable --now intel-boostoff.service",
 	]
 	remove.arch = [
 		"sudo systemctl daemon-reload",
