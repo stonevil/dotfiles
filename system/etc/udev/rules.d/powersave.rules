@@ -1,0 +1,2 @@
+SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="systemctl start intel-boostoff.service"
+SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="systemctl stop intel-boostoff.service"
