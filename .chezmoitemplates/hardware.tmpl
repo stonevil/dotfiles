@@ -245,7 +245,7 @@ EOF
 sudo systemctl daemon-reload
 
 sudo mkdir -p /etc/udev/rules.d/
-sudo sh -c 'cat > /etc/udev/rules.d/powersave.rules'<< EOF
+sudo sh -c 'cat > /etc/udev/rules.d/90-powersave.rules' << EOF
 SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="systemctl start intel-boostoff.service"
 SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="systemctl stop intel-boostoff.service"
 EOF
