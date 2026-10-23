@@ -702,9 +702,15 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 [data.tags.limaCli]
 	enabled = {{ if ($limaCli) }} true {{ else }} false {{ end }}
+	darwin = [
+		"lima",
+	]
+	arch = [
+		"aur/lima",
+	]
 
 [data.tags.virtCli]
-	enabled = {{ if ($limaCli) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($limaCli) ($virtCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"qemu",
 	]
@@ -712,7 +718,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/qemu-full",
 		"extra/swtpm",
 		"extra/virtiofsd",
-		"extra/smolvm",
 	]
 	fedora = [
 		"qemu",

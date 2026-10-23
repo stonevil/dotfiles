@@ -29,29 +29,3 @@
 	path = "terraform-docs"
 	url =  "https://github.com/terraform-docs/terraform-docs/releases/download/v{{ $terraformDocsVersion }}/terraform-docs-v{{ $terraformDocsVersion }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
 {{ end }}
-
-{{ if .tags.limaCli.enabled }}
-{{ $limaVersion := output "curl" "-fsSL" "-o" "/dev/null" "-w" "%{url_effective}" "https://github.com/lima-vm/lima/releases/latest" | trim | base | trimPrefix "v" }}
-
-{{ $limaGuestAgent := "aarch64" }}
-{{ if eq .chezmoi.arch "amd64" }}
-	{{ $limaGuestAgent = "x86_64" }}
-{{ else if eq .chezmoi.arch "arm64" }}
-	{{ $limaGuestAgent = "aarch64" }}
-{{ end }}
-
-{{ range list "bin/lima" "bin/limactl" (print "share/lima/lima-guestagent." "Linux-" ($limaGuestAgent) ".gz") }}
-[".local/{{ . }}"]
-	type = "archive-file"
-	refreshPeriod = "168h"
-	stripComponents = 1
-	path = "{{ . }}"
-	url = "https://github.com/lima-vm/lima/releases/download/v{{ $limaVersion }}/lima-{{ $limaVersion }}-{{ $.chezmoi.os | title }}-{{ if eq $.chezmoi.arch "amd64" }}x86_64{{ else if eq $.chezmoi.os "darwin" }}arm64{{ else if eq $.chezmoi.os "linux" }}arm64{{ end }}.tar.gz"
-{{ end }}
-
-[".local/share/lima"]
-	type = "archive"
-	refreshPeriod = "168h"
-	stripComponents = 3
-	url = "https://github.com/lima-vm/lima/releases/download/v{{ $limaVersion }}/lima-additional-guestagents-{{ $limaVersion }}-{{ $.chezmoi.os | title }}-{{ if eq $.chezmoi.arch "amd64" }}x86_64{{ else if eq $.chezmoi.os "darwin" }}arm64{{ else if eq $.chezmoi.os "linux" }}arm64{{ end }}.tar.gz"
-{{ end }}
