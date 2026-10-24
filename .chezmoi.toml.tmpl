@@ -69,12 +69,16 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $dbToolsCli := false }}
 {{ $vagrantCli := false }}
 {{ $hashiCli := false }}
+{{ $containersCli := false }}
 {{ $limaCli := false }}
+{{ $virtCli := false }}
+{{ $virtTools := false }}
 {{ $k8sToolsCli := false }}
 {{ $ansibleCli := false }}
 {{ $espToolsCli := false }}
 {{ $utilsCli := false }}
 {{ $networkToolsCli := false }}
+{{ $syncCli := false }}
 {{ $syncTools := false }}
 {{ $mailCli := false }}
 {{ $mediaToolsCli := false }}
@@ -103,8 +107,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $graphics := false }}
 {{ $schematics := false }}
 {{ $networkTools := false }}
-{{ $virt := false }}
-{{ $virtCli := false }}
 {{ $tor := false }}
 {{ $torrent := false }}
 {{ $utils := false }}
@@ -117,12 +119,14 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "dbToolsCli" }}{{ $dbToolsCli = .tags.dbToolsCli.enabled }}{{ end }}
 	{{ if hasKey .tags "vagrantCli" }}{{ $vagrantCli = .tags.vagrantCli.enabled }}{{ end }}
 	{{ if hasKey .tags "hashiCli" }}{{ $hashiCli = .tags.hashiCli.enabled }}{{ end }}
+	{{ if hasKey .tags "containersCli" }}{{ $containersCli = .tags.containersCli.enabled }}{{ end }}
 	{{ if hasKey .tags "limaCli" }}{{ $limaCli = .tags.limaCli.enabled }}{{ end }}
 	{{ if hasKey .tags "k8sToolsCli" }}{{ $k8sToolsCli = .tags.k8sToolsCli.enabled }}{{ end }}
 	{{ if hasKey .tags "ansibleCli" }}{{ $ansibleCli = .tags.ansibleCli.enabled }}{{ end }}
 	{{ if hasKey .tags "espToolsCli" }}{{ $espToolsCli = .tags.espToolsCli.enabled }}{{ end }}
 	{{ if hasKey .tags "utilsCli" }}{{ $utilsCli = .tags.utilsCli.enabled }}{{ end }}
 	{{ if hasKey .tags "networkToolsCli" }}{{ $networkToolsCli = .tags.networkToolsCli.enabled }}{{ end }}
+	{{ if hasKey .tags "syncCli" }}{{ $syncCli = .tags.syncCli.enabled }}{{ end }}
 	{{ if hasKey .tags "syncTools" }}{{ $syncTools = .tags.syncTools.enabled }}{{ end }}
 	{{ if hasKey .tags "mailCli" }}{{ $mailCli = .tags.mailCli.enabled }}{{ end }}
 	{{ if hasKey .tags "mediaToolsCli" }}{{ $mediaToolsCli = .tags.mediaToolsCli.enabled }}{{ end }}
@@ -151,8 +155,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "graphics" }}{{ $graphics = .tags.graphics.enabled }}{{ end }}
 	{{ if hasKey .tags "schematics" }}{{ $schematics = .tags.schematics.enabled }}{{ end }}
 	{{ if hasKey .tags "networkTools" }}{{ $networkTools = .tags.networkTools.enabled }}{{ end }}
-	{{ if hasKey .tags "virt" }}{{ $virt = .tags.virt.enabled }}{{ end }}
 	{{ if hasKey .tags "virtCli" }}{{ $virtCli = .tags.virtCli.enabled }}{{ end }}
+	{{ if hasKey .tags "virtTools" }}{{ $virtTools = .tags.virtTools.enabled }}{{ end }}
 	{{ if hasKey .tags "tor" }}{{ $tor = .tags.tor.enabled }}{{ end }}
 	{{ if hasKey .tags "torrent" }}{{ $torrent = .tags.torrent.enabled }}{{ end }}
 	{{ if hasKey .tags "utils" }}{{ $utils = .tags.utils.enabled }}{{ end }}
@@ -168,17 +172,19 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ end }}
 {{ $hashiCli = promptBool "HashiCorp and Opentofu CLI tools" $hashiCli }}
 {{ $limaCli = promptBool "Lima-VM CLI tools" $limaCli }}
+{{ $virtCli = promptBool "Virtualisation Engine QEMU" $virtCli }}
 {{ $k8sToolsCli = promptBool "K8S CLI tools" $k8sToolsCli }}
 {{ $ansibleCli = promptBool "Ansible deployemnt and configuration CLI tools" $ansibleCli }}
 {{ $espToolsCli = promptBool "ESP DEV tools" $espToolsCli }}
 {{ $utilsCli = promptBool "Utils CLI tools, like smartmontools" $utilsCli }}
 {{ $networkToolsCli := promptBool "Network CLI tools" $networkToolsCli }}
-{{ $syncTools = promptBool "Sync CLI / GUI tools, like Syncthing" $syncTools }}
+{{ $syncCli = promptBool "Sync CLI tools, like Syncthing" $syncCli }}
 {{ $mailCli = promptBool "Mail CLI tools, like NeoMutt" $mailCli }}
 {{ $mediaToolsCli = promptBool "Media CLI tools, like ffmpeg" $mediaToolsCli }}
 {{ $newsCli := promptBool "News CLI tools, like NewsBoat" $newsCli }}
 {{ $dekCli := promptBool "TUI presentation tools, like presenterm" $dekCli }}
 {{ if eq .chezmoi.os "linux" }}
+	{{ $containersCli = promptBool "Podman and podman-compose CLI tools" $containersCli }}
 	{{ $adsToolsCli = promptBool "Ads block CLI tools, like hblock" $adsToolsCli }}
 {{ end }}
 {{ $gamesCli = promptBool "Some CLI games, like typing tutor" $gamesCli }}
@@ -205,7 +211,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ if or (or ($labwc) ($plasma)) (eq .chezmoi.os "darwin") }}
 	{{ $browsers = promptBool "Web browsers, like LibreWolf" $browsers }}
 	{{ $office = promptBool "Office apps, like LibreOffice" $office }}
-	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like Alacritty" $terminalEmulators }}
+	{{ $terminalEmulators = promptBool "GUI Terminal Emulators, like Ghostty" $terminalEmulators }}
 	{{ $devTools = promptBool "DEV apps, like CotEditor" $devTools }}
 	{{ $dbTools = promptBool "DB management tools, like DBeaver" $dbTools }}
 	{{ $messengers = promptBool "Messengers apps, like Discord" $messengers }}
@@ -214,12 +220,12 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ $media = promptBool "Media apps, like mpv, kid3" $media }}
 	{{ $modeling = promptBool "3D modeling apps, like Blender, FreeCAD" $modeling }}
 	{{ $graphics = promptBool "Graphics apps, Gimp, Krita" $graphics }}
+	{{ $syncTools = promptBool "Sync GUI tools, like Syncthing.app or SyncthingTray" $syncTools }}
 {{ if ne .chezmoi.os "darwin" }}
 	{{ $schematics = promptBool "Electronics and PCB design apps, like KiCad" $schematics }}
 {{ end }}
 	{{ $networkTools = promptBool "Network apps, like VNC/RDP clients" $networkTools }}
-	{{ $virt = promptBool "Virtualisation apps, like UTM or virt" $virt }}
-	{{ $virtCli = promptBool "Virtualisation Engine QEMU" $virtCli }}
+	{{ $virtTools = promptBool "Virtualisation GUI Apps, like UTM or Libvirt" $virtTools }}
 	{{ $tor = promptBool "Tor network apps, like Tor Browser" $tor }}
 	{{ $torrent = promptBool "Torrent network apps, like qBittorrent" $torrent }}
 	{{ $utils = promptBool "Utils apps, like OnyX or KDiskMark" $utils }}
@@ -703,6 +709,13 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"nvim_plugins_update",
 	]
 
+[data.tags.containersCli]
+	enabled = {{ if ($containersCli) }} true {{ else }} false {{ end }}
+	arch = [
+		"extra/podman",
+		"extra/podman-compose",
+	]
+
 [data.tags.limaCli]
 	enabled = {{ if ($limaCli) }} true {{ else }} false {{ end }}
 	darwin = [
@@ -713,7 +726,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	]
 
 [data.tags.virtCli]
-	enabled = {{ if or ($limaCli) ($virtCli) }} true {{ else }} false {{ end }}
+	enabled = {{ if or ($limaCli) ($virtCli) ($virtTools) }} true {{ else }} false {{ end }}
 	darwin = [
 		"qemu",
 	]
@@ -841,18 +854,23 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"nmap",
 	]
 
+[data.tags.syncCli]
+	enabled = {{ if or ($syncCli) ($syncTools) }} true {{ else }} false {{ end }}
+	arch = [
+		"extra/syncthing",
+	]
+	post.arch = [
+		"systemctl --user enable syncthing.service",
+	]
+
 [data.tags.syncTools]
 	enabled = {{ if ($syncTools) }} true {{ else }} false {{ end }}
 	darwin = [
 		"syncthing-app",
 	]
 	arch = [
-		"extra/syncthing",
 		"aur/syncthingtray-git",
 		"aur/localsend-bin",
-	]
-	post.arch = [
-		"systemctl --user enable syncthing.service",
 	]
 
 [data.tags.hashiCli]
@@ -1301,8 +1319,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"koko",
 	]
 
-[data.tags.virt]
-	enabled = {{ $virt }}
+[data.tags.virtTools]
+	enabled = {{ $virtTools }}
 	darwin = [
 	]
 	arch = [
