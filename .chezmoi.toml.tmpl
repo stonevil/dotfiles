@@ -858,12 +858,10 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ if or ($syncCli) ($syncTools) }} true {{ else }} false {{ end }}
 	arch = [
 		"extra/syncthing",
+		"aur/localsend-cli-bin",
 	]
 	post.arch = [
 		"systemctl --user enable syncthing.service",
-	]
-	go = [
-		"github.com/bethropolis/localgo/cmd/localgo@latest",
 	]
 
 [data.tags.syncTools]
