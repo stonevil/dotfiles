@@ -51,3 +51,8 @@ noctalia msg mic-mute >/dev/null 2>&1 &
 # keyd mapper for apps
 keyd-application-mapper >/dev/null 2>&1 &
 {{ end -}}
+
+# App Firewall OpenSnitch
+{{ if .tags.appFirewall.enabled -}}
+opensnitch-ui >/dev/null 2>&1 &
+{{ end -}}

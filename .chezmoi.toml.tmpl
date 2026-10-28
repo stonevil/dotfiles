@@ -111,6 +111,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 {{ $torrent := false }}
 {{ $utils := false }}
 {{ $security := false }}
+{{ $appFirewall := false }}
 
 {{ if hasKey . "tags" }}
 	{{ if hasKey .tags "neovimCli" }}{{ $neovimCli = .tags.neovimCli.enabled }}{{ end }}
@@ -161,6 +162,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	{{ if hasKey .tags "torrent" }}{{ $torrent = .tags.torrent.enabled }}{{ end }}
 	{{ if hasKey .tags "utils" }}{{ $utils = .tags.utils.enabled }}{{ end }}
 	{{ if hasKey .tags "security" }}{{ $security = .tags.security.enabled }}{{ end }}
+	{{ if hasKey .tags "appFirewall" }}{{ $appFirewall = .tags.appFirewall.enabled }}{{ end }}
 {{ end }}
 
 {{ $neovimCli = promptBool "NeoVIM IDE" $neovimCli }}
@@ -233,6 +235,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 
 {{ if eq .chezmoi.os "linux" }}
 	{{ $security = promptBool "Enable extra security like USBGuard" $security }}
+	{{ $appFirewall = promptBool "Enable extra security like Application Firewall OpenSnitch" $appFirewall }}
 {{ end }}
 
 {{ $tabs := 2 }}
@@ -1486,6 +1489,16 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"sudo systemctl daemon-reload",
 		"sudo systemctl enable --now usbguard.service",
 		"sudo systemctl enable --now usbguard-dbus.service",
+	]
+
+[data.tags.appFirewall]
+	enabled = {{ $appFirewall }}
+	arch = [
+		"extra/opensnitch",
+		"extra/python-qt-material",
+	]
+	post.arch = [
+		"sudo systemctl enable --now opensnitchd.service",
 	]
 
 [data.tags.laptop]
