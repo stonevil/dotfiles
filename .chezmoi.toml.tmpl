@@ -594,7 +594,6 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 		"extra/marksman",
 		"extra/revive",
 		"extra/d2",
-		"aur/leaf-markdown-viewer-bin",
 	]
 	fedora = [
 	]
@@ -608,7 +607,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	cargo = [
 		"spacer",
 		"dz6",
-		{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") }}"leaf-markdown-viewer",{{ end }}
+		{{ if (eq .chezmoi.os "linux") }}"leaf-markdown-viewer",{{ end }}
 	]
 
 [data.tags.dbToolsCli]
