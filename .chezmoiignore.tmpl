@@ -36,13 +36,14 @@ Library
 .config/fedora*
 .config/filetypesrc
 .config/foot*
+.config/ghostty*
 .config/katerc
 .config/kcminputrc
 .config/KDE*
 .config/kde*
 .config/kconf*
 .config/qt*
-.config/gtk-*
+.config/gtk*
 .config/kanshi*
 .config/katerc
 .config/kscreenlockerrc
@@ -65,10 +66,8 @@ Library
 .config/Plasma*
 .config/pacman*
 .config/pulse*
-.config/gtk*
 .config/konsole
 .config/ocular*
-.config/Thunar
 .config/imsettings
 .config/Mousepad
 .config/powermanagementprofilesrc
@@ -76,6 +75,7 @@ Library
 .config/xarchiver
 .config/xfce*
 .config/tuios*
+.config/Thunar
 .config/trashrc
 .config/Trolltech.conf
 .config/user-dirs*
@@ -105,7 +105,7 @@ Library
 {{ end }}
 
 {{ if not .tags.adsToolsCli.enabled }}
-.config/hblock
+.config/hblock*
 {{ end }}
 
 {{ if or (and (not .tags.devToolsCli.enabled) (not .tags.neovimCli.enabled)) (ne .chezmoi.os "linux") }}
