@@ -1,0 +1,18 @@
+{
+  "created": "2026-10-28T08:41:29-07:00",
+  "updated": "2026-10-28T08:41:29-07:00",
+  "name": "allow-always-simple-usr-lib-systemd-systemd-resolved",
+  "description": "",
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "operand": "process.path",
+    "data": "/usr/lib/systemd/systemd-resolved",
+    "type": "simple",
+    "list": [],
+    "sensitive": false
+  },
+  "enabled": true,
+  "precedence": false,
+  "nolog": false
+}

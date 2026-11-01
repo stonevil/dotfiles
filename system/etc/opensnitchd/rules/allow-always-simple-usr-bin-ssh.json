@@ -1,0 +1,18 @@
+{
+  "created": "2026-10-28T08:56:56-07:00",
+  "updated": "2026-10-28T08:56:56-07:00",
+  "name": "allow-always-simple-usr-bin-ssh",
+  "description": "",
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "operand": "process.path",
+    "data": "/usr/bin/ssh",
+    "type": "simple",
+    "list": [],
+    "sensitive": false
+  },
+  "enabled": true,
+  "precedence": false,
+  "nolog": false
+}

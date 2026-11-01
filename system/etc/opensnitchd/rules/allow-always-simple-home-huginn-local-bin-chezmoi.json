@@ -1,0 +1,18 @@
+{
+  "created": "2026-10-31T05:42:26-07:00",
+  "updated": "2026-10-31T05:42:26-07:00",
+  "name": "allow-always-simple-home-huginn-local-bin-chezmoi",
+  "description": "",
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "operand": "process.path",
+    "data": "/home/huginn/.local/bin/chezmoi",
+    "type": "simple",
+    "list": [],
+    "sensitive": false
+  },
+  "enabled": true,
+  "precedence": false,
+  "nolog": false
+}
