@@ -8,4 +8,5 @@ ShowSystemTrayIcon=true
 ColorScheme=BreezeBlack
 
 [Views]
+InitialView=RecentlyPlayed
 ViewStylePreferences=Artist==ListStyle,Album==ListStyle
