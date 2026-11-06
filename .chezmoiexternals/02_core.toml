@@ -33,7 +33,7 @@
 	type = "file"
 	refreshPeriod = "168h"
 	executable = true
-	url = "https://github.com/vladkens/macmon/releases/download/v{{ $macmonVersion }}/macmon-v{{ $macmonVersion }}.tar.gz"
+	url = "https://github.com/vladkens/macmon/releases/download/v{{ $macmonVersion }}/macmon-v{{ $macmonVersion }}-aarch64-apple-darwin.tar.gz"
 [".local/bin/macmon".filter]
 		command = "tar"
 		args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "macmon"]
