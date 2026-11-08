@@ -12,11 +12,9 @@ end = [
     "caffeine",
     "volume",
     "notifications",
-    "clipboard",
     "bluetooth",
     "network",
     "printer",
-    "fan-control",
     "battery",
     "session"
 ]
@@ -24,6 +22,8 @@ position = "bottom"
 radius = 0
 shadow = false
 start = [ "launcher", "workspaces" ]
+font_family = {{ .env.font | quote }}
+background_opacity = {{ .env.opacity }}
 
 [battery.device."/org/freedesktop/UPower/devices/battery_hidpp_battery_0"]
 warning_threshold = 10
@@ -84,7 +84,7 @@ widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@eDP-1" ]
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
         background_color = "surface_variant"
-        background_opacity = 0.88
+        background_opacity = {{ .env.opacity }}
         background_radius = 12.0
         center_password_text = false
         input_opacity = 1.0
@@ -111,7 +111,7 @@ widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@eDP-1" ]
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
         background_color = "surface_variant"
-        background_opacity = 0.88
+        background_opacity = {{ .env.opacity }}
         background_radius = 12.0
         center_password_text = false
         input_opacity = 1.0
@@ -126,10 +126,10 @@ widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@eDP-1" ]
         show_weather = true
 
 [notification]
-background_opacity = 0.89999997988343239
+background_opacity = {{ .env.opacity }}
 
 [osd]
-background_opacity = 0.89999997988343239
+background_opacity = {{ .env.opacity }}
 orientation = "vertical"
 position = "top_right"
 position_vertical = "top_right"
