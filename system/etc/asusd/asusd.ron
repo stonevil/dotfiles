@@ -14,21 +14,21 @@
     profile_custom_epp: Performance,
     profile_performance_epp: Performance,
     ac_profile_tunings: {
+        Quiet: (
+            enabled: false,
+            group: {},
+        ),
         Balanced: (
             enabled: true,
             group: {
                 PptPl2Sppt: 80,
                 NvDynamicBoost: 20,
                 PptPl1Spl: 45,
-                DgpuTgp: 90,
                 NvTempTarget: 87,
+                DgpuTgp: 90,
             },
         ),
         Performance: (
-            enabled: false,
-            group: {},
-        ),
-        Quiet: (
             enabled: false,
             group: {},
         ),
@@ -37,11 +37,11 @@
         Quiet: (
             enabled: true,
             group: {
-                DgpuTgp: 90,
-                PptPl2Sppt: 65,
-                PptPl1Spl: 25,
-                NvDynamicBoost: 0,
                 NvTempTarget: 87,
+                NvDynamicBoost: 0,
+                PptPl1Spl: 25,
+                PptPl2Sppt: 65,
+                DgpuTgp: 90,
             },
         ),
         Performance: (
