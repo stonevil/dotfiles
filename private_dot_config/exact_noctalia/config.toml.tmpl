@@ -59,7 +59,11 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
 address = "Dublin, California"
 
 [lockscreen]
+enabled = true
 fingerprint = false
+grace_period_seconds = 5
+lock_before_suspend = true
+dnd = true
 
 [lockscreen_widgets]
 enabled = true
@@ -144,6 +148,10 @@ enabled = [
 
 [shell]
 corner_radius_scale = 0.0
+font_family = {{ .env.font | quote }}
+telemetry_enabled = false
+settings_show_advanced = true
+settings_window_translucent = true
 
     [shell.animation]
     enabled = false
@@ -151,6 +159,10 @@ corner_radius_scale = 0.0
     [shell.panel]
     borders = false
     shadow = false
+    transparency_mode = "solid"
+
+    [shell.launcher]
+    search_position = "bottom"
 
 [theme]
 builtin = "Nord"
