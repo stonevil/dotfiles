@@ -1527,6 +1527,8 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ if or ($zephyrus) ($thinkpad) }}true{{ else }}false{{ end }}
 	arch = [
 		"linux-firmware-intel",
+		"extra/vulkan-intel",
+		"extra/vulkan-icd-loader",
 		"extra/intel-ucode",
 		"extra/intel-media-driver",
 		"extra/intel-gpu-tools",
