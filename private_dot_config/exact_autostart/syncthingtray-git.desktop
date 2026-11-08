@@ -1,0 +1,34 @@
+[Desktop Entry]
+Actions=ShowTrayMenu;ShowSyncthing;RescanAll;PauseAllDevs;ResumeAllDevs;Restart
+Categories=Network;FileTransfer
+Comment=Tray application for Syncthing
+Exec=syncthingtray-git
+GenericName=Syncthing Tray (git)
+Icon=syncthingtray-git
+Name=Syncthing Tray (git)
+Terminal=false
+Type=Application
+
+[Desktop Action PauseAllDevs]
+Exec=syncthingctl-git pause --all-devs
+Name=Pause all devices (of local Syncthing instance)
+
+[Desktop Action RescanAll]
+Exec=syncthingctl-git rescan-all
+Name=Rescan all folders (of local Syncthing instance)
+
+[Desktop Action Restart]
+Exec=syncthingctl-git restart
+Name=Restart Syncthing (local instance)
+
+[Desktop Action ResumeAllDevs]
+Exec=syncthingctl-git resume --all-devs
+Name=Resume all devices (of local Syncthing instance)
+
+[Desktop Action ShowSyncthing]
+Exec=syncthingtray-git qt-widgets-gui --webui
+Name=Show Syncthing (currently selected instance)
+
+[Desktop Action ShowTrayMenu]
+Exec=syncthingtray-git qt-widgets-gui --trigger
+Name=Show tray menu
