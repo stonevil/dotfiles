@@ -1,0 +1,18 @@
+{
+  "created": "2026-11-07T18:15:22-08:00",
+  "updated": "2026-11-07T18:15:22-08:00",
+  "name": "allow-always-simple-opt-helium-browser-bin-helium",
+  "description": "",
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "operand": "process.path",
+    "data": "/opt/helium-browser-bin/helium",
+    "type": "simple",
+    "list": [],
+    "sensitive": false
+  },
+  "enabled": true,
+  "precedence": false,
+  "nolog": false
+}

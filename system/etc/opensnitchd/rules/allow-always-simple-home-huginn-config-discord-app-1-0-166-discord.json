@@ -1,0 +1,18 @@
+{
+  "created": "2026-10-31T22:52:01-07:00",
+  "updated": "2026-10-31T22:52:01-07:00",
+  "name": "allow-always-simple-home-huginn-config-discord-app-1-0-166-discord",
+  "description": "",
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "operand": "process.path",
+    "data": "/home/huginn/.config/discord/app-1.0.166/Discord",
+    "type": "simple",
+    "list": [],
+    "sensitive": false
+  },
+  "enabled": true,
+  "precedence": false,
+  "nolog": false
+}
