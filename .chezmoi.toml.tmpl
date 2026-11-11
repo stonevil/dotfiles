@@ -725,6 +725,7 @@ scriptTempDir = {{ (joinPath .chezmoi.homeDir ".tmp") | quote }}
 	enabled = {{ if ($limaCli) }} true {{ else }} false {{ end }}
 	darwin = [
 		"lima",
+		"lima-additional-guestagents",
 	]
 	arch = [
 		"aur/lima",
