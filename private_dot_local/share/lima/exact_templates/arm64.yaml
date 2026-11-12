@@ -8,9 +8,9 @@ mounts:
   writable: false
 
 images:
-- location: "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/aarch64/images/Fedora-Cloud-Base-Generic-44-1.7.aarch64.qcow2"
+- location: "https://download.fedoraproject.org/pub/fedora/linux/releases/45/Cloud/aarch64/images/Fedora-Cloud-Base-Generic-45-1.4.aarch64.qcow2"
   arch: aarch64
-  digest: "sha256:55c60a3b80d3616a08705afd0459e75fe9f03c54aba7a46e4002a41a72fa0d5b"
+  digest: "sha256:1632acc8bc14d45b6c9596a0acc71b070d3748d1abdcf1a519be5c983bb0286c"
 
 containerd:
   system: false
